@@ -324,8 +324,8 @@ word_t eval(int p, int q, bool *success)
         //printf("ptoken=%d, qtoken=%d\n",tokens[p].type, tokens[q].type);
         word_t op = find_main_op(p, q, success);
         //printf("op=%d token=%d\n",op, tokens[op].type);
-        int val1 = 0;
-        int val2 = 0;
+        word_t val1 = 0;
+        word_t val2 = 0;
         if (op >= p + 1)
         {
             val1 = eval(p, op - 1, success);
