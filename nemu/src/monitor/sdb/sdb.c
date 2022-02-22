@@ -115,7 +115,7 @@ static int cmd_x(char *args)
 
     int N = atoi(arg1);
     bool success;
-    int EXPR = expr(arg2, &success);
+    word_t EXPR = expr(arg2, &success);
     if (success == false)
     {
         return 0;
@@ -125,7 +125,7 @@ static int cmd_x(char *args)
     {
         if (i % 4 == 0)
         {
-            printf("0x%x: ", EXPR + i);
+            printf("0x%x: ", (uint32_t)EXPR + i);
         }
         printf("0x%08x    ", (uint32_t)vaddr_read(EXPR + 4 * i, 4));
         if (i % 4 == 3)
@@ -143,13 +143,13 @@ static int cmd_x(char *args)
 static int cmd_p(char *args)
 {
     bool success;
-    int EXPR = expr(args, &success);
+    word_t EXPR = expr(args, &success);
     if (success == false)
     {
         return 0;
     }
 
-    printf("0x%x\n", EXPR);
+    printf("0x%lx\n", EXPR);
     return 0;
 }
 
