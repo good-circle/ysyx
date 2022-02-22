@@ -199,7 +199,7 @@ source "src/memory/Kconfig"
 source "src/device/Kconfig"
 endif
 
-config CONFIG_WATCHPOINT
+config WATCHPOINT
   bool "Enable watchpoint"
   default y
 
