@@ -127,7 +127,7 @@ static int cmd_x(char *args)
         {
             printf("0x%x: ", EXPR + i);
         }
-        printf("0x%08lx    ", vaddr_read(EXPR + 4 * i, 4));
+        printf("0x%08x    ", (uint32_t)vaddr_read(EXPR + 4 * i, 4));
         if (i % 4 == 3)
         {
             printf("\n");
