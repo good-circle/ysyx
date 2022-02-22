@@ -117,12 +117,12 @@ config CC_LTO
 
 config CC_DEBUG
   bool "Enable debug information"
-  default y
+  default n
 
 config CC_ASAN
   depends on MODE_SYSTEM
   bool "Enable address sanitizer"
-  default y
+  default n
 endmenu
 
 menu "Testing and Debugging"
@@ -161,10 +161,6 @@ config DIFFTEST
     Enable differential testing with a reference design.
     Note that this will significantly reduce the performance of NEMU.
 
-config WATCHPOINT
-  bool "Enable watchpoint"
-  default n
-
 choice
   prompt "Reference design"
   default DIFFTEST_REF_SPIKE if ISA_riscv64 || ISA_riscv32
@@ -202,6 +198,7 @@ if MODE_SYSTEM
 source "src/memory/Kconfig"
 source "src/device/Kconfig"
 endif
+
 
 menu "Miscellaneous"
 choice
