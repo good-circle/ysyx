@@ -149,7 +149,7 @@ static int cmd_p(char *args)
         return 0;
     }
 
-    printf("0x%lx\n", EXPR);
+    printf("0x%x\n", (uint32_t)EXPR);
     return 0;
 }
 

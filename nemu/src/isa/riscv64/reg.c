@@ -8,9 +8,31 @@ const char *regs[] = {
   "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
 };
 
-void isa_reg_display() {
+void isa_reg_display()
+{
+    printf("%s\t\t0x%lx\t\t%ld\t\t\n", "pc", cpu.pc, cpu.pc);
+    for (int i = 0; i < 32; i++)
+    {
+        printf("%s\t\t0x%lx\t\t%ld\t\t\n", regs[i], cpu.gpr[i], cpu.gpr[i]);
+    }
 }
 
-word_t isa_reg_str2val(const char *s, bool *success) {
-  return 0;
+word_t isa_reg_str2val(const char *s, bool *success)
+{
+    *success = true;
+    if (strcmp(s, "pc") == 0)
+    {
+        return cpu.pc;
+    }
+    for (int i = 0; i < 32; i++)
+    {
+        if (strcmp(s, regs[i]) == 0)
+        {
+            return cpu.gpr[i];
+        }
+    }
+
+    /* In fact will not happen */
+    *success = false;
+    return 0;
 }
