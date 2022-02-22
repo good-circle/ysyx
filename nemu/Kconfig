@@ -199,6 +199,9 @@ source "src/memory/Kconfig"
 source "src/device/Kconfig"
 endif
 
+config CONFIG_WATCHPOINT
+  bool "Enable watchpoint"
+  default y
 
 menu "Miscellaneous"
 choice
@@ -213,11 +216,6 @@ endchoice
 
 config RT_CHECK
   bool "Enable runtime checking"
-  default y
-
-
-config CONFIG_WATCHPOINT
-  bool "Enable watchpoint"
   default y
 
 endmenu
