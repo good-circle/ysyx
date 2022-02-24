@@ -39,18 +39,12 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 		$(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) \
 		--Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
 
+run: $(BIN)
+	@$^
+	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
+
 clean:
 	rm -rf $(BUILD_DIR)
 
 .PHONY: clean run
 
-
-all:
-	@echo "Write this Makefile by your self."
-
-sim:
-	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	$(BIN)
-	@$^
-
-include ../Makefile
