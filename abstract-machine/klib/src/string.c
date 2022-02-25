@@ -74,22 +74,66 @@ int strncmp(const char *s1, const char *s2, size_t n)
 
 void *memset(void *s, int c, size_t n)
 {
-    panic("Not implemented");
+    char *dst = s;
+    while (n > 0)
+    {
+        *dst++ = c;
+        n--;
+    }
+    return s;
 }
 
+// src ----------------
+// dst          ----------------
+// so copy from end to start
 void *memmove(void *dst, const void *src, size_t n)
 {
-    panic("Not implemented");
+    char *out = dst;
+    const char *in = src;
+    if (in < out && in + n > out)
+    {
+        in += n - 1;
+        out += n - 1;
+        while (n > 0)
+        {
+            *out-- = *in--;
+            n--;
+        }
+    }
+    else
+    {
+        while (n > 0)
+        {
+            *out++ = *in++;
+            n--;
+        }
+    }
+    return dst;
 }
 
 void *memcpy(void *out, const void *in, size_t n)
 {
-    panic("Not implemented");
+    char *dst = out;
+    const char *src = in;
+    while (n > 0)
+    {
+        *dst++ = *src++;
+        n--;
+    }
+    return out;
 }
 
 int memcmp(const void *s1, const void *s2, size_t n)
 {
-    panic("Not implemented");
+    const char *ss1 = s1;
+    const char *ss2 = s2;
+    while (n > 1 && *ss1 == *ss2)
+    {
+        ss1++;
+        ss2++;
+        n--;
+    }
+    return (int)(*ss1 - *ss2);
 }
 
 #endif
