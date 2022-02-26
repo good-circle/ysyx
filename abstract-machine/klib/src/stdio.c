@@ -15,6 +15,7 @@ int vsprintf(char *out, const char *fmt, va_list ap)
     int pos = 0;
     for (; *fmt != '\0'; fmt++)
     {
+        // add to out[] directly until see %
         while (*fmt != '%' && *fmt != '\0')
         {
             out[pos++] = *fmt++;
@@ -27,6 +28,21 @@ int vsprintf(char *out, const char *fmt, va_list ap)
         else if (*fmt == '\0')
         {
             break;
+        }
+
+        // padding: if 0 then padding '0'; else ' '
+        char padding = ' ';
+        if (*fmt == 0)
+        {
+            padding = '0';
+            fmt++;
+        }
+
+        // width
+        int width = 0;
+        while (*fmt >= '0' && *fmt <= '9')
+        {
+            width = width * 10 + *fmt++ - '0';
         }
 
         switch (*fmt)
@@ -58,6 +74,14 @@ int vsprintf(char *out, const char *fmt, va_list ap)
                 d = d / 10;
                 num[length++] = rem + '0';
             }
+
+            // padding
+            while (length < width)
+            {
+                out[pos++] = padding;
+                width--;
+            }
+
             if (length == 0)
             {
                 out[pos++] = '0';
