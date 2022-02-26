@@ -32,7 +32,7 @@ int vsprintf(char *out, const char *fmt, va_list ap)
 
         // padding: if 0 then padding '0'; else ' '
         char padding = ' ';
-        if (*fmt == 0)
+        if (*fmt == '0')
         {
             padding = '0';
             fmt++;
@@ -98,6 +98,14 @@ int vsprintf(char *out, const char *fmt, va_list ap)
         }
         }
     }
+
+    /* debug
+    for(int i = 0; i < pos; i++)
+    {
+        putch(out[i]);
+    }
+    */
+   
     out[pos] = '\0';
     return pos;
 }
