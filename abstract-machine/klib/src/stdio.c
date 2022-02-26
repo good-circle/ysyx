@@ -7,7 +7,16 @@
 
 int printf(const char *fmt, ...)
 {
-    panic("Not implemented");
+    va_list ap;
+    va_start(ap, fmt);
+    char out[4096];
+    int length = vsprintf(out, fmt, ap);
+    for (int i = 0; i < length; i++)
+    {
+        putch(out[i]);
+    }
+    va_end(ap);
+    return length;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap)
@@ -105,7 +114,7 @@ int vsprintf(char *out, const char *fmt, va_list ap)
         putch(out[i]);
     }
     */
-   
+
     out[pos] = '\0';
     return pos;
 }
@@ -130,4 +139,3 @@ int vsnprintf(char *out, size_t n, const char *fmt, va_list ap)
 }
 
 #endif
-
