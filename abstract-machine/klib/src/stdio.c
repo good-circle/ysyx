@@ -13,7 +13,6 @@ int printf(const char *fmt, ...)
 int vsprintf(char *out, const char *fmt, va_list ap)
 {
     int pos = 0;
-    int length = 0;
     for (; *fmt != '\0'; fmt++)
     {
         while (*fmt != '%' && *fmt != '\0')
@@ -51,12 +50,12 @@ int vsprintf(char *out, const char *fmt, va_list ap)
                 out[pos++] = '-';
             }
             char num[20] = {0};
-            int div = d;
             int rem = 0;
-            while (div > 0)
+            int length = 0;
+            while (d > 0)
             {
-                div = d / 10;
                 rem = d % 10;
+                d = d / 10;
                 num[length++] = rem + '0';
             }
             if (length == 0)
@@ -65,7 +64,8 @@ int vsprintf(char *out, const char *fmt, va_list ap)
             }
             else
             {
-                for (; length > 0; length--)
+                length--;
+                for (; length >= 0; length--)
                 {
                     out[pos++] = num[length];
                 }
