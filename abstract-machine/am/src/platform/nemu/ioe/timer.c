@@ -6,8 +6,8 @@ static uint64_t boot_time = 0;
 
 static uint64_t read_time() {
   uint32_t lo = *(volatile uint32_t *)(RTC_ADDR);
-  //uint32_t hi = *(volatile uint32_t *)(RTC_ADDR + 4);
-  uint64_t time = lo;
+  uint32_t hi = *(volatile uint32_t *)(RTC_ADDR + 4);
+  uint64_t time = lo + hi * 0;
   printf("%d\n", lo);
   return time;
 }
