@@ -43,16 +43,11 @@ void *malloc(size_t size)
 {
     if(Free == NULL)
     {
-        Free = ROUNDUP(heap.start, 8);
+        Free = (void *)ROUNDUP(heap.start, 8);
     }
     
     size = ROUNDUP(size, 8);
     Free += size;
-
-    if(Free >= heap.end)
-    {
-        assert(0);
-    }
 
     return Free - size;
 }
