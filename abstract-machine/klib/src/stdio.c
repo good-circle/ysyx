@@ -85,7 +85,7 @@ int vsprintf(char *out, const char *fmt, va_list ap)
             }
 
             // padding
-            width = length == 0 ? width : width - 1;
+            width = length == 0 ? width - 1 : width;
             while (length < width)
             {
                 out[pos++] = padding;
