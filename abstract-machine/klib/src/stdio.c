@@ -77,33 +77,27 @@ int vsprintf(char *out, const char *fmt, va_list ap)
             char num[20] = {0};
             int rem = 0;
             int length = 0;
-            while (d > 0)
+
+            do
             {
                 rem = d % 10;
                 d = d / 10;
                 num[length++] = rem + '0';
-            }
+            } while (d > 0);
 
             // padding
-            width = length == 0 ? width - 1 : width;
             while (length < width)
             {
                 out[pos++] = padding;
                 width--;
             }
 
-            if (length == 0)
+            length--;
+            for (; length >= 0; length--)
             {
-                out[pos++] = '0';
+                out[pos++] = num[length];
             }
-            else
-            {
-                length--;
-                for (; length >= 0; length--)
-                {
-                    out[pos++] = num[length];
-                }
-            }
+
             break;
         }
         }
