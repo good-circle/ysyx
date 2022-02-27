@@ -1,7 +1,7 @@
 #include <am.h>
 #include <nemu.h>
 
-int begin_time;
+uint64_t begin_time;
 void __am_timer_init()
 {
     begin_time = inl(RTC_ADDR);
