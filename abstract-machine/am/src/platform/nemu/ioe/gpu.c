@@ -9,18 +9,9 @@ static int Height = 0;
 
 void __am_gpu_init()
 {
-    int i = 0;
     int width_height = inl(VGACTL_ADDR);
     Width = width_height >> 16;
     Height = width_height & 0xffff;
-    int w = Width;
-    int h = Height;
-    uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-    for (i = 0; i < w * h; i++)
-    {
-        fb[i] = i;
-    }
-    outl(SYNC_ADDR, 1);
 }
 
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg)
