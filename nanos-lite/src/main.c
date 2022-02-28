@@ -9,9 +9,7 @@ void init_proc(void);
 
 int main() {
   extern const char logo[];
-  //assert(0);
   printf("%s", logo);
-  assert(0);
   Log("'Hello World!' from Nanos-lite");
   Log("Build time: %s, %s", __TIME__, __DATE__);
 
@@ -22,10 +20,9 @@ int main() {
   init_ramdisk();
 
 #ifdef HAS_CTE
-assert(0);
   init_irq();
 #endif
-assert(0);
+
   init_fs();
 
   init_proc();
