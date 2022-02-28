@@ -20,6 +20,7 @@ int main() {
   init_ramdisk();
 
 #ifdef HAS_CTE
+assert(0);
   init_irq();
 #endif
 
