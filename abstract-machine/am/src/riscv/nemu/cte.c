@@ -26,6 +26,7 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 
   // register event handler
   user_handler = handler;
+  assert(0);
 
   return true;
 }
