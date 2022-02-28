@@ -9,7 +9,7 @@ int printf(const char *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);
-    char out[128];
+    char out[4096];
     int length = vsprintf(out, fmt, ap);
     for (int i = 0; i < length; i++)
     {
