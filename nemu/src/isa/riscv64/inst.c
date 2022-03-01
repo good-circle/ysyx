@@ -2,6 +2,7 @@
 #include <cpu/cpu.h>
 #include <cpu/ifetch.h>
 #include <cpu/decode.h>
+#include <cpu/difftest.h>
 
 #define R(i) gpr(i)
 #define Mr vaddr_read
@@ -145,7 +146,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I, CSR(dest, src1, src2, CSRRW));
   INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , I, CSR(dest, src1, src2, CSRRS));
 
-  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc = cpu.csr[MEPC] + 4);
+  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc = cpu.csr[MEPC] + 4; difftest_skip_dut(1, 2));
   
   // RV64I
   INSTPAT("??????? ????? ????? 110 ????? 00000 11", lwu    , I, R(dest) = (uint32_t)Mr(src1 + src2, 4));
