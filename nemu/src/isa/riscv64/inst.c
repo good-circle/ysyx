@@ -50,6 +50,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
 static void CSR(word_t dest, word_t src1, word_t src2, int op)
 {
     int csr = 0;
+    printf("%ld\n", src2);
     switch(src2)
     {
     case 0x341:
