@@ -13,7 +13,7 @@ enum {
 };
 
 enum{
-    CSRRW,
+    CSRRW, CSRRS
 };
 
 #define src1R(n) do { *src1 = R(n); } while (0)
@@ -50,7 +50,6 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
 static void CSR(word_t dest, word_t src1, word_t src2, int op)
 {
     int csr = 0;
-    printf("%lx\n", src2);
     switch(src2)
     {
     case 0x341:
@@ -70,7 +69,18 @@ static void CSR(word_t dest, word_t src1, word_t src2, int op)
     }
 
     word_t t = cpu.csr[csr];
-    cpu.csr[csr] = src1;
+    switch(op)
+    {
+    case CSRRW:
+        cpu.csr[csr] = src1;
+        break;
+    case CSRRS:
+        cpu.csr[csr] = t | src1;
+        break;
+    default:
+        assert(0);        
+    }
+    
     R(dest) = t;   
 }
 
@@ -133,6 +143,7 @@ static int decode_exec(Decode *s) {
 
   INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , I, s->dnpc = isa_raise_intr(11, s->pc));
   INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I, CSR(dest, src1, src2, CSRRW));
+  INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , I, CSR(dest, src1, src2, CSRRS));
   
   // RV64I
   INSTPAT("??????? ????? ????? 110 ????? 00000 11", lwu    , I, R(dest) = (uint32_t)Mr(src1 + src2, 4));
