@@ -62,7 +62,7 @@ static void CSR(word_t dest, word_t src1, word_t src2, int op)
     case 0x342:
         csr = MCAUSE;
         break;
-    case 0x301:
+    case 0x305:
         csr = MTVEC;
         break;
     default:
