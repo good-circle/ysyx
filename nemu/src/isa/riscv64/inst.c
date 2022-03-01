@@ -12,6 +12,10 @@ enum {
   TYPE_N, // none
 };
 
+enum{
+    CSRRS,
+};
+
 #define src1R(n) do { *src1 = R(n); } while (0)
 #define src2R(n) do { *src2 = R(n); } while (0)
 #define destR(n) do { *dest = n; } while (0)
@@ -41,6 +45,32 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     case TYPE_R: src1R(rs1); src2R(rs2); break;
     case TYPE_B: src1R(rs1); src2R(rs2); destB(immB(i)); break;
   }
+}
+
+static void CSR(word_t dest, word_t src1, word_t src2, int op)
+{
+    int csr = 0;
+    switch(src2)
+    {
+    case 0x341:
+        csr = MEPC;
+        break;
+    case 0x300:
+        csr = MSTATUS;
+        break;
+    case 0x342:
+        csr = MCAUSE;
+        break;
+    case 0x301:
+        csr = MTVEC;
+        break;
+    default:
+        assert(0);
+    }
+
+    word_t t = cpu.csr[csr];
+    cpu.csr[csr] = t | src1;
+    R(dest) = t;   
 }
 
 static int decode_exec(Decode *s) {
@@ -99,6 +129,8 @@ static int decode_exec(Decode *s) {
   INSTPAT("0100000 ????? ????? 101 ????? 01100 11", sra    , R, R(dest) = (sword_t)src1 >> ((src2 << 58) >> 58));
   INSTPAT("0000000 ????? ????? 110 ????? 01100 11", or     , R, R(dest) = src1 | src2);
   INSTPAT("0000000 ????? ????? 111 ????? 01100 11", and    , R, R(dest) = src1 & src2);
+
+  INSTPAT("??????? ????? ????? 111 ????? 11100 11", csrrs  , I, CSR(dest, src1, src2, CSRRS));
   
   // RV64I
   INSTPAT("??????? ????? ????? 110 ????? 00000 11", lwu    , I, R(dest) = (uint32_t)Mr(src1 + src2, 4));
