@@ -87,6 +87,7 @@ static void CSR(word_t dest, word_t src1, word_t src2, int op)
 
 static int decode_exec(Decode *s) {
   word_t dest = 0, src1 = 0, src2 = 0;
+  printf("%ld %ld\n", s->pc, s->snpc);
   s->dnpc = s->snpc;
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
