@@ -55,6 +55,8 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     memcpy(iringbuf[iring_num], _this->logbuf, sizeof(_this->logbuf));
     iring_num++;
     iring_num = (iring_num > 15) ? 0 : iring_num;
+    printf("%d: ", iring_num);
+    print_iring();
 #endif
 #ifdef CONFIG_WATCHPOINT
     if (check_watchpoint())
