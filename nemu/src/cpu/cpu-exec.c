@@ -25,7 +25,7 @@ static void inst_ring(Decode *_this)
     memcpy(iringbuf[i], _this->logbuf, sizeof(_this->logbuf));
     i++;
     i = (i > 15) ? 0 : i;
-    if (nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0)
+    if (nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0 || nemu_state.state == NEMU_END)
     {
         int max = (g_nr_guest_inst >= 16) ? 15 : i;
         for (int j = 0; j < max; j++)
