@@ -25,7 +25,7 @@ static void print_iring()
     int max = (g_nr_guest_inst >= 16) ? 15 : iring_num;
     for (int j = 0; j <= max; j++)
     {
-        if (j == iring_num - 1)
+        if (j == iring_num)
         {
             printf("--> ");
         }
