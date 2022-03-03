@@ -17,7 +17,7 @@ static bool g_print_step = false;
 
 void device_update();
 int check_watchpoint();
-
+#define CONFIG_IRINGBUF 1
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
 {
 #ifdef CONFIG_ITRACE_COND
@@ -31,7 +31,13 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
         IFDEF(CONFIG_ITRACE, puts(_this->logbuf));
     }
     IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
-    
+#ifdef CONFIG_IRINGBUF
+    static char iringbuf[16][128];
+    static int i = 0;
+    memcpy(iringbuf[i++], _this->logbuf, sizeof(_this->logbuf));
+    i = (i > 15) ? 0 : i;
+    printf("%s\n", iringbuf[i-1]);
+#endif    
 #ifdef CONFIG_WATCHPOINT
     if (check_watchpoint())
     {
