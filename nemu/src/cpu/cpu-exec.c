@@ -165,7 +165,7 @@ void cpu_exec(uint64_t n)
             nemu_state.halt_pc);
         if (nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0 || nemu_state.state==NEMU_END)
         {
-            print_iring();
+            //print_iring();
         }
         // fall through
     case NEMU_QUIT:
