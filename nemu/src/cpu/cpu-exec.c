@@ -20,27 +20,21 @@ int check_watchpoint();
 IFDEF(CONFIG_IRINGBUF, static char iringbuf[16][128]);
 IFDEF(CONFIG_IRINGBUF, static int iring_num);
 
-static void print_iring(Decode *_this)
+static void print_iring()
 {
-    memcpy(iringbuf[iring_num], _this->logbuf, sizeof(_this->logbuf));
-    iring_num++;
-    iring_num = (iring_num > 15) ? 0 : iring_num;
-    if (nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0 || nemu_state.state == NEMU_END)
+    int max = (g_nr_guest_inst >= 16) ? 15 : iring_num;
+    for (int j = 0; j <= max; j++)
     {
-        int max = (g_nr_guest_inst >= 16) ? 15 : iring_num;
-        for (int j = 0; j <= max; j++)
+        if (j == iring_num)
         {
-            if (j == iring_num)
-            {
-                printf("--> ");
-            }
-            else
-            {
-                printf("    ");
-            }
-
-            printf("%s\n", iringbuf[j]);
+            printf("--> ");
         }
+        else
+        {
+            printf("    ");
+        }
+
+        printf("%s\n", iringbuf[j]);
     }
 }
 
@@ -58,7 +52,9 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     }
     IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 #ifdef CONFIG_IRINGBUF
-
+    memcpy(iringbuf[iring_num], _this->logbuf, sizeof(_this->logbuf));
+    iring_num++;
+    iring_num = (iring_num > 15) ? 0 : iring_num;
     print_iring(_this);
 #endif
 #ifdef CONFIG_WATCHPOINT
@@ -131,7 +127,7 @@ static void statistic()
 void assert_fail_msg()
 {
     isa_reg_display();
-
+    print_iring();
     statistic();
 }
 
