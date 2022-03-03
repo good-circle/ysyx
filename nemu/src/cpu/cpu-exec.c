@@ -23,9 +23,10 @@ IFDEF(CONFIG_IRINGBUF, static int iring_num);
 static void print_iring()
 {
     int max = (g_nr_guest_inst >= 16) ? 15 : iring_num;
+    int pos = (iring_num >= 1) ? iring_num - 1 : 15;
     for (int j = 0; j <= max; j++)
     {
-        if (j == iring_num)
+        if (j == pos)
         {
             printf("--> ");
         }
@@ -55,8 +56,6 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     memcpy(iringbuf[iring_num], _this->logbuf, sizeof(_this->logbuf));
     iring_num++;
     iring_num = (iring_num > 15) ? 0 : iring_num;
-    printf("%d: ", iring_num);
-    print_iring();
 #endif
 #ifdef CONFIG_WATCHPOINT
     if (check_watchpoint())
