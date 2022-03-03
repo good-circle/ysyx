@@ -37,7 +37,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     memcpy(iringbuf[i], _this->logbuf, sizeof(_this->logbuf));
     printf("%d %s\n", i, iringbuf[i]);
     i++;
-    i = (i > 15) ? 0 : i;
+    i = (i > 16) ? 0 : i;
 #endif    
 #ifdef CONFIG_WATCHPOINT
     if (check_watchpoint())
