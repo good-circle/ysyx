@@ -53,7 +53,7 @@ void init_mem()
 word_t paddr_read(paddr_t addr, int len)
 {
 #ifdef CONFIG_MTRACE
-    printf("memory read at 0x%x of length 0x%x\n", addr, len);
+    printf("memory read  at 0x%x of length 0x%x\n", addr, len);
 #endif
     if (likely(in_pmem(addr)))
         return pmem_read(addr, len);
