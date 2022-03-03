@@ -17,8 +17,8 @@ static bool g_print_step = false;
 
 void device_update();
 int check_watchpoint();
-#define CONFIG_IRINGBUF 1
 IFDEF(CONFIG_IRINGBUF, static char iringbuf[16][128]);
+
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
 {
 #ifdef CONFIG_ITRACE_COND
