@@ -154,8 +154,13 @@ config ITRACE_COND
 
 config IRINGBUF
   depends on ITRACE
-  bool "Enable iringbuf"
+  bool "Enable instructions ring buffer"
   default y
+
+config MTRACE
+  depends on TRACE 
+  bool "Enable memory tracer"
+  default n
 
 config DIFFTEST
   depends on TARGET_NATIVE_ELF
