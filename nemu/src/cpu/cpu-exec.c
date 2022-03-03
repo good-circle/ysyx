@@ -28,6 +28,7 @@ static void print_iring()
         if (j == iring_num)
         {
             printf("--> ");
+            printf("%d\n", iring_num);
         }
         else
         {
