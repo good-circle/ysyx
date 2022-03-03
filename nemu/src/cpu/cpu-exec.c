@@ -35,10 +35,26 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
 #ifdef CONFIG_IRINGBUF
     static int i = 0;
     memcpy(iringbuf[i], _this->logbuf, sizeof(_this->logbuf));
-    printf("%d %s\n", i, iringbuf[i]);
     i++;
-    i = (i > 16) ? 0 : i;
-#endif    
+    i = (i > 15) ? 0 : i;
+    if (nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0)
+    {
+        int max = (g_nr_guest_inst >= 16) ? 15 : i;
+        for (int j = 0; j < max; j++)
+        {
+            if (j == i)
+            {
+                printf("--> ");
+            }
+            else
+            {
+                printf("    ");
+            }
+
+            printf("%s\n", iringbuf[i]);
+        }
+    }
+#endif
 #ifdef CONFIG_WATCHPOINT
     if (check_watchpoint())
     {
