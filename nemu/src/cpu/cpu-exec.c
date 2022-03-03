@@ -40,7 +40,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     if (nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0 || nemu_state.state == NEMU_END)
     {
         int max = (g_nr_guest_inst >= 16) ? 15 : i;
-        for (int j = 0; j < max; j++)
+        for (int j = 0; j <= max; j++)
         {
             if (j == i)
             {
