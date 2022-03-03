@@ -22,6 +22,7 @@ IFDEF(CONFIG_IRINGBUF, static int iring_num);
 
 static void print_iring()
 {
+#ifdef CONFIG_IRINGBUF
     int max = (g_nr_guest_inst >= 16) ? 15 : iring_num;
     int pos = (iring_num >= 1) ? iring_num - 1 : 15;
     for (int j = 0; j <= max; j++)
@@ -37,6 +38,7 @@ static void print_iring()
 
         printf("%s\n", iringbuf[j]);
     }
+#endif
 }
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
