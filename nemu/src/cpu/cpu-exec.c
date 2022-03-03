@@ -35,7 +35,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
 #ifdef CONFIG_IRINGBUF
     static int i = 0;
     memcpy(iringbuf[i++], _this->logbuf, sizeof(_this->logbuf));
-    i = (i > 15) ? 0 : i;
+    i = (i > 16) ? 1 : i;
     printf("%d %s\n", i, iringbuf[i-1]);
 #endif    
 #ifdef CONFIG_WATCHPOINT
