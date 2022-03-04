@@ -1,7 +1,7 @@
 #include <common.h>
 #include <elf.h>
 
-char *elf = NULL;
+Elf64_Ehdr *elf = NULL;
 void init_ftrace(const char *elf_file)
 {
     if (elf_file != NULL)
@@ -19,7 +19,7 @@ void init_ftrace(const char *elf_file)
 
         fclose(fp);
 
-        printf("%s", (char *)elf);
+        printf("%d\n", elf->e_ehsize);
     }
     else
     {
