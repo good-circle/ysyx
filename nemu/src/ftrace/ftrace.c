@@ -1,7 +1,7 @@
 #include <common.h>
 #include <elf.h>
 
-Elf64_Ehdr *elf = NULL;
+char *elf = NULL;
 void init_ftrace(const char *elf_file)
 {
     if (elf_file != NULL)
