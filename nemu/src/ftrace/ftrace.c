@@ -31,7 +31,7 @@ void init_ftrace(const char *elf_file)
     /* read section headers */
     Elf64_Shdr *shdr = (Elf64_Shdr *)(ehdr + ehdr->e_shoff);
 
-    printf("%s\n", (char *)shdr);
+    printf("%p\n", shdr);
 
     //printf("%d\n", ehdr->e_shnum);
     //for(int i = 0 ; i < ehdr->e_shnum; i++)
