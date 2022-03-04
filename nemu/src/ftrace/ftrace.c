@@ -1,14 +1,25 @@
 #include <common.h>
+#include <elf.h>
 
-FILE *elf_fp = NULL;
+Elf64_Ehdr *elf = NULL;
 void init_ftrace(const char *elf_file)
 {
-    elf_fp = stdout;
     if (elf_file != NULL)
     {
-        FILE *fp = fopen(elf_file, "w");
+        FILE *fp = fopen(elf_file, "r");
         Assert(fp, "Can not open '%s'", elf_file);
-        elf_fp = fp;
+
+        fseek(fp, 0, SEEK_END);
+        long size = ftell(fp);
+
+        fseek(fp, 0, SEEK_SET);
+        int ret = fread(elf, size, 1, fp);
+        assert(ret == 1);
+
+        fclose(fp);
     }
-    Log("Usage: -f $(elf) to init ftrace");
+    else
+    {
+        Log("Usage: -f $(elf) to init ftrace");
+    }
 }
