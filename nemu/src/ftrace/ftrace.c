@@ -19,7 +19,7 @@ void init_ftrace(const char *elf_file)
 
         fclose(fp);
 
-        printf("%d\n", elf->e_ehsize);
+        printf("%s", elf->e_ident);
     }
     else
     {
