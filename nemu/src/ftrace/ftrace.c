@@ -18,6 +18,8 @@ void init_ftrace(const char *elf_file)
         assert(ret == 1);
 
         fclose(fp);
+
+        printf("%s", (char *)elf);
     }
     else
     {
