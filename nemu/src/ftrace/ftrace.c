@@ -10,5 +10,5 @@ void init_ftrace(const char *elf_file)
         Assert(fp, "Can not open '%s'", elf_file);
         elf_fp = fp;
     }
-    Log("Log is written to %s", elf_file ? elf_file : "stdout");
+    Log("Usage: -f $(elf) to init ftrace");
 }
