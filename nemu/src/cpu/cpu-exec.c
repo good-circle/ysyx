@@ -56,7 +56,6 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 #ifdef CONFIG_IRINGBUF
     memcpy(iringbuf[iring_num], _this->logbuf, sizeof(_this->logbuf));
-    printf("%s\n", iringbuf[iring_num]);
     iring_num++;
     iring_num = (iring_num > 15) ? 0 : iring_num;
 #endif
