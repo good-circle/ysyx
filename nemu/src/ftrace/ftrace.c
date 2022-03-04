@@ -20,6 +20,7 @@ void init_ftrace(const char *elf_file)
 
     /* read elf_file to ehdr */
     Elf64_Ehdr *ehdr = malloc(size);
+    printf("ehdr: %s\n", (char *)ehdr);
     fseek(fp, 0, SEEK_SET);
     int ret = fread(ehdr, size, 1, fp);
     assert(ret == 1);
