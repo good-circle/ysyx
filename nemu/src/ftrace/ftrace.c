@@ -29,11 +29,11 @@ void init_ftrace(const char *elf_file)
     fclose(fp);
 
     /* read section headers */
-    Elf64_Shdr *shdr = (Elf64_Shdr *)((word_t)ehdr + ehdr->e_shoff);
+    //Elf64_Shdr *shdr = (Elf64_Shdr *)((word_t)ehdr + ehdr->e_shoff);
+    printf("%d\n", ehdr->e_shstrndx);
 
-    printf("%d\n", ehdr->e_shnum);
     for(int i = 0 ; i < ehdr->e_shnum; i++)
     {
-        printf("%d\n", shdr[i].sh_name);
+        ;
     }
 }
