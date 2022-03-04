@@ -11,6 +11,7 @@ void init_ftrace(const char *elf_file)
 
         fseek(fp, 0, SEEK_END);
         long size = ftell(fp);
+        elf = malloc(size);
 
         fseek(fp, 0, SEEK_SET);
         int ret = fread(elf, size, 1, fp);
