@@ -1,3 +1,6 @@
+#ifndef __FTRACE_H__
+#define __FTRACE_H__
+
 #include <common.h>
 #include <elf.h>
 
@@ -8,6 +11,8 @@ typedef struct
     Elf64_Xword st_size;
 } Elf64_Func;
 
-int func_num = 0;
-char *strtab = NULL;
-Elf64_Func *func = NULL;
+int func_num;
+char *strtab;
+Elf64_Func *func;
+
+#endif
