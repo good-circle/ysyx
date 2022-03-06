@@ -23,7 +23,7 @@ IFDEF(CONFIG_IRINGBUF, static char iringbuf[16][128]);
 IFDEF(CONFIG_IRINGBUF, static int iring_num);
 IFDEF(CONFIG_FTRACE, static bool has_ftrace);
 IFDEF(CONFIG_FTRACE, static int call_depth);
-IFDEF(CONFIG_FTRACE, static char ftracebuf[1048576]);
+IFDEF(CONFIG_FTRACE, static char ftracebuf[65536]);
 IFDEF(CONFIG_FTRACE, static char *ftrace_pos = ftracebuf);
 
 static void print_iring()
@@ -114,7 +114,7 @@ static void exec_once(Decode *s, vaddr_t pc)
         {
             if (s->pc >= func[i].st_value && s->pc < func[i].st_value + func[i].st_size)
             {
-                ftrace_pos += sprintf(ftrace_pos, "ret  [%s@0x%8lx]\n", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
+                ftrace_pos += sprintf(ftrace_pos, "ret  [%s]\n", (char *)((word_t)strtab + func[i].st_name));
                 break;
             }
         }
