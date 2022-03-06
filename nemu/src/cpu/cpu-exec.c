@@ -87,6 +87,7 @@ static void exec_once(Decode *s, vaddr_t pc)
 
 #ifdef CONFIG_FTRACE
     has_ftrace = false;
+    printf("%d\n\n", s->ftrace);
     if ((s->ftrace == JAL || s->ftrace == JALR) && BITS(s->isa.inst.val, 11, 7) == 1)
     {
         has_ftrace = true;
