@@ -224,9 +224,12 @@ void cpu_exec(uint64_t n)
         {
             print_iring();
         }
-        log_write("%s\n", ftracebuf);
         // fall through
     case NEMU_QUIT:
         statistic();
+        
+#ifdef CONFIG_FTRACE
+        log_write("%s\n", ftracebuf);
+#endif
     }
 }
