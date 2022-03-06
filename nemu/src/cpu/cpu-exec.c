@@ -202,6 +202,20 @@ void cpu_exec(uint64_t n)
         break;
 
     case NEMU_END:
+#ifdef CONFIG_FTRACE
+        call_depth--;
+        ftrace_pos += sprintf(ftrace_pos, "0x%8lx: ", nemu_state.halt_pc);
+        memset(ftrace_pos, ' ', 2 * call_depth);
+        ftrace_pos += 2 * call_depth;
+        for (int i = 0; i < func_num; i++)
+        {
+            if (nemu_state.halt_pc >= func[i].st_value && nemu_state.halt_pc < func[i].st_value + func[i].st_size)
+            {
+                ftrace_pos += sprintf(ftrace_pos, "ret  [%s]\n", (char *)((word_t)strtab + func[i].st_name));
+                break;
+            }
+        }
+#endif
     case NEMU_ABORT:
         Log("nemu: %s at pc = " FMT_WORD,
             (nemu_state.state == NEMU_ABORT ? ASNI_FMT("ABORT", ASNI_FG_RED) : (nemu_state.halt_ret == 0 ? ASNI_FMT("HIT GOOD TRAP", ASNI_FG_GREEN) : ASNI_FMT("HIT BAD TRAP", ASNI_FG_RED))),
