@@ -2,6 +2,7 @@
 #include <cpu/decode.h>
 #include <cpu/difftest.h>
 #include <locale.h>
+#include <ftrace/ftrace.h>
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -20,11 +21,13 @@ int check_watchpoint();
 
 IFDEF(CONFIG_IRINGBUF, static char iringbuf[16][128]);
 IFDEF(CONFIG_IRINGBUF, static int iring_num);
-//IFDEF(CONFIG_FTRACE, static bool has_ftrace);
-//IFDEF(CONFIG_FTRACE, static int call_depth);
-//IFDEF(CONFIG_FTRACE, static int ftracebuf[4096]);
+IFDEF(CONFIG_FTRACE, static bool has_ftrace);
+IFDEF(CONFIG_FTRACE, static int call_depth);
+IFDEF(CONFIG_FTRACE, static char ftracebuf[4096]);
+IFDEF(CONFIG_FTRACE, static char *ftrace_pos = ftracebuf);
 IFDEF(CONFIG_FTRACE, extern int func_num);
 IFDEF(CONFIG_FTRACE, extern char *strtab);
+IFDEF(CONFIG_FTRACE, extern Elf64_Func *func);
 
 static void print_iring()
 {
@@ -66,7 +69,10 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     iring_num = (iring_num > 15) ? 0 : iring_num;
 #endif
 #ifdef CONFIG_FTRACE
-    printf("%d\n", func_num);
+    if(has_ftrace)
+    {
+        printf("%s\n", ftracebuf);
+    }
 #endif
 #ifdef CONFIG_WATCHPOINT
     if (check_watchpoint())
@@ -85,6 +91,41 @@ static void exec_once(Decode *s, vaddr_t pc)
     s->snpc = pc;
     isa_exec_once(s);
     cpu.pc = s->dnpc;
+
+#ifdef CONFIG_FTRACE
+    has_ftrace = false;
+    if ((s->ftrace == JAL || s->ftrace == JALR) && BITS(s->isa.inst.val, 11, 7) == 1)
+    {
+        has_ftrace = true;
+        memset(ftrace_pos, ' ', call_depth);
+        ftrace_pos += call_depth;
+        call_depth++;
+        for (int i = 0; i < func_num; i++)
+        {
+            if (s->dnpc >= func[i].st_value && s->dnpc < func[i].st_value + func[i].st_size)
+            {
+                ftrace_pos += sprintf(ftrace_pos, "call [%s@0x%16lx]", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
+                break;
+            }
+        }
+    }
+    else if (s->ftrace == JALR && BITS(s->isa.inst.val, 19, 15) == 1)
+    {
+        has_ftrace = true;
+        memset(ftrace_pos, ' ', call_depth);
+        ftrace_pos += call_depth;
+        call_depth--;
+        for (int i = 0; i < func_num; i++)
+        {
+            if (s->dnpc >= func[i].st_value && s->dnpc < func[i].st_value + func[i].st_size)
+            {
+                ftrace_pos += sprintf(ftrace_pos, "ret  [%s@0x%16lx]", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
+                break;
+            }
+        }
+    }
+#endif
+
 #ifdef CONFIG_ITRACE
     char *p = s->logbuf;
     p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
