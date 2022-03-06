@@ -106,10 +106,10 @@ static void exec_once(Decode *s, vaddr_t pc)
     else if (s->ftrace == JALR && BITS(s->isa.inst.val, 19, 15) == 1)
     {
         has_ftrace = true;
+        call_depth--;
         ftrace_pos += sprintf(ftrace_pos, "0x%8lx: ", s->pc);
         memset(ftrace_pos, ' ', 2 * call_depth);
         ftrace_pos += 2 * call_depth;
-        call_depth--;
         for (int i = 0; i < func_num; i++)
         {
             if (s->dnpc >= func[i].st_value && s->dnpc < func[i].st_value + func[i].st_size)
