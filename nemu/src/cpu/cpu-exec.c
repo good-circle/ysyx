@@ -24,6 +24,8 @@ IFDEF(CONFIG_IRINGBUF, static int iring_num);
 IFDEF(CONFIG_FTRACE, static int call_depth);
 IFDEF(CONFIG_FTRACE, static char ftracebuf[64 * 64 * 64 * 64 * 64]);
 IFDEF(CONFIG_FTRACE, static char *ftrace_pos = ftracebuf);
+IFDEF(CONFIG_DTRACE, char dtracebuf[64 * 64 * 64 * 64]);
+IFDEF(CONFIG_DTRACE, char *dtrace_pos = dtracebuf);
 
 static void print_iring()
 {
@@ -230,6 +232,9 @@ void cpu_exec(uint64_t n)
         
 #ifdef CONFIG_FTRACE
         log_write("%s\n", ftracebuf);
+#endif
+#ifdef CONFIG_DTRACE
+        log_write("%s\n", dtracebuf);
 #endif
     }
 }

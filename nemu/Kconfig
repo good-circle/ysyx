@@ -167,6 +167,11 @@ config FTRACE
   bool "Enable fuction tracer"
   default y
 
+config DTRACE
+  depends on TRACE && DEVICE
+  bool "Enable device tracer"
+  default y
+
 config DIFFTEST
   depends on TARGET_NATIVE_ELF
   bool "Enable differential testing"
