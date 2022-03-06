@@ -93,6 +93,7 @@ static void exec_once(Decode *s, vaddr_t pc)
         memset(ftrace_pos, ' ', call_depth);
         ftrace_pos += call_depth;
         call_depth++;
+        assert(0);
         for (int i = 0; i < func_num; i++)
         {
             assert(0);
