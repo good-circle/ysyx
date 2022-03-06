@@ -95,6 +95,7 @@ static void exec_once(Decode *s, vaddr_t pc)
         call_depth++;
         for (int i = 0; i < func_num; i++)
         {
+            assert(0);
             printf("%d\n", func_num);
             if (s->dnpc >= func[i].st_value && s->dnpc < func[i].st_value + func[i].st_size)
             {
