@@ -64,23 +64,18 @@ void init_ftrace(const char *elf_file)
     {
         if (ELF64_ST_TYPE(sym[i].st_info) == STT_FUNC)
         {
-            func = malloc(func_size);
-            printf("%p\n", func);
-            func->st_name = sym[i].st_name;
-            func->st_value = sym[i].st_value;
-            func->st_size = sym[i].st_size;
+            Elf64_Func *tmp_func = malloc(func_size);
+            func = tmp_func;
+            tmp_func->st_name = sym[i].st_name;
+            tmp_func->st_value = sym[i].st_value;
+            tmp_func->st_size = sym[i].st_size;
             func_num++;
-            //func += func_size;
-            printf("%p\n", func);
+            tmp_func += func_size;
         }
     }
-    printf("%p\n", func);
-    printf("%d\n", func_num);
-    func -= func_num * func_size;
-    printf("%p\n", func);
 
     for (int i = 0; i < func_num; i++)
     {
-        printf("0x%lx\n", func[i].st_value);
+        printf("%ld\n", func[i].st_value);
     }
 }
