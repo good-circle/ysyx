@@ -1,13 +1,8 @@
-#include <common.h>
-#include <elf.h>
+#include <ftrace/ftrace.h>
 
-typedef struct
-{
-    Elf64_Word st_name;
-    Elf64_Addr st_value;
-    Elf64_Xword st_size;
-} Elf64_Func;
 int func_num;
+char *strtab = NULL;
+Elf64_Func *func = NULL;
 
 void init_ftrace(const char *elf_file)
 {
@@ -38,7 +33,6 @@ void init_ftrace(const char *elf_file)
     /* read section headers */
     Elf64_Shdr *shdr = (Elf64_Shdr *)((word_t)ehdr + ehdr->e_shoff);
     Elf64_Sym *sym = NULL;
-    //char *strtab = NULL;
     int sym_num = 0;
 
     for (int i = 0; i < ehdr->e_shnum; i++)
@@ -52,7 +46,7 @@ void init_ftrace(const char *elf_file)
         else if (shdr[i].sh_type == SHT_STRTAB && i != ehdr->e_shstrndx)
         {
             /* read strtab table */
-            //strtab = (char *)((word_t)ehdr + shdr[i].sh_offset);
+            strtab = (char *)((word_t)ehdr + shdr[i].sh_offset);
         }
     }
 
@@ -66,7 +60,7 @@ void init_ftrace(const char *elf_file)
     }
 
     int func_size = sizeof(Elf64_Func) * func_num;
-    Elf64_Func *func = malloc(func_size);
+    func = malloc(func_size);
 
     int func_info = 0;
     for (int i = 0; i < sym_num; i++)
@@ -78,10 +72,5 @@ void init_ftrace(const char *elf_file)
             func[func_info].st_size = sym[i].st_size;
             func_info++;
         }
-    }
-
-    for (int i = 0; i < func_num; i++)
-    {
-        printf("0x%lx %d %ld\n", func[i].st_value, func[i].st_name, func[i].st_size);
     }
 }
