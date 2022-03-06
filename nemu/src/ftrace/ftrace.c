@@ -31,7 +31,6 @@ void init_ftrace(const char *elf_file)
     fseek(fp, 0, SEEK_SET);
     int ret = fread(ehdr, elf_size, 1, fp);
     assert(ret == 1);
-    printf("ehdr: %p\n", ehdr);
 
     /* close elf_file */
     fclose(fp);
@@ -73,7 +72,8 @@ void init_ftrace(const char *elf_file)
             func += func_size;
         }
     }
-
+    func -= func_num * func_size;
+    
     for (int i = 0; i < func_num; i++)
     {
         printf("%ld\n", func[i].st_value);
