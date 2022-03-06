@@ -88,6 +88,7 @@ static void CSR(word_t dest, word_t src1, word_t src2, int op)
 static int decode_exec(Decode *s) {
   word_t dest = 0, src1 = 0, src2 = 0;
   s->dnpc = s->snpc;
+  s->ftrace = 0;
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* body */ ) { \
