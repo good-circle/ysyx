@@ -12,7 +12,8 @@ typedef struct Decode {
   IFDEF(CONFIG_FTRACE, int ftrace);
 } Decode;
 
-enum {JAL, JALR};
+enum {JAL = 1, 
+      JALR};
 
 // --- pattern matching mechanism ---
 __attribute__((always_inline))

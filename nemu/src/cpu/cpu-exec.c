@@ -87,7 +87,7 @@ static void exec_once(Decode *s, vaddr_t pc)
 
 #ifdef CONFIG_FTRACE
     has_ftrace = false;
-    if ((s->ftrace == JAL || s->ftrace == JALR) )
+    if ((s->ftrace == JAL || s->ftrace == JALR) && BITS(s->isa.inst.val, 11, 7) == 1)
     {
         has_ftrace = true;
         ftrace_pos += sprintf(ftrace_pos, "0x%8lx: ", s->pc);
@@ -108,7 +108,7 @@ static void exec_once(Decode *s, vaddr_t pc)
             }
         }
     }
-    else if (s->ftrace == JALR )
+    else if (s->ftrace == JALR && BITS(s->isa.inst.val, 19, 15) == 1)
     {
         has_ftrace = true;
         ftrace_pos += sprintf(ftrace_pos, "0x%8lx: ", s->pc);
