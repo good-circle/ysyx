@@ -33,11 +33,16 @@ void init_ftrace(const char *elf_file)
 
     for (int i = 0; i < ehdr->e_shnum; i++)
     {
-        if (shdr->sh_type == SHT_SYMTAB)
+        if (shdr[i].sh_type == SHT_SYMTAB)
         {
-            //Elf64_Sym *sym = (Elf64_Sym *)(((word_t)ehdr + shdr->sh_offset);
+            //Elf64_Sym *sym = (Elf64_Sym *)((word_t)ehdr + shdr[i].sh_offset);
+            int sym_num = shdr[i].sh_size / sizeof(Elf64_Sym);
+            printf("%d\n", sym_num);
         }
-        //else if(shdr->sh_type == SHT_STRTAB && )
-        printf("%d\n", shdr->sh_name);
+        else if (shdr[i].sh_type == SHT_STRTAB && i != ehdr->e_shstrndx)
+        {
+            char *strtab =(char *)((word_t)ehdr + shdr[i].sh_offset);
+            printf("%s\n", strtab);
+        }
     }
 }
