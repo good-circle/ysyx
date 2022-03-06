@@ -224,7 +224,7 @@ void cpu_exec(uint64_t n)
         {
             print_iring();
         }
-        printf("%s", ftracebuf);
+        log_write("%s\n", ftracebuf);
         // fall through
     case NEMU_QUIT:
         statistic();
