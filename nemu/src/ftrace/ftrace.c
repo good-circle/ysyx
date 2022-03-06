@@ -82,6 +82,6 @@ void init_ftrace(const char *elf_file)
 
     for (int i = 0; i < func_num; i++)
     {
-        printf("0x%lx\n", func[i].st_value);
+        printf("0x%lx %d %ld\n", func[i].st_value, func[i].st_name, func[i].st_size);
     }
 }
