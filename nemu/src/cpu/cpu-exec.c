@@ -25,9 +25,6 @@ IFDEF(CONFIG_FTRACE, static bool has_ftrace);
 IFDEF(CONFIG_FTRACE, static int call_depth);
 IFDEF(CONFIG_FTRACE, static char ftracebuf[4096]);
 IFDEF(CONFIG_FTRACE, static char *ftrace_pos = ftracebuf);
-IFDEF(CONFIG_FTRACE, extern int func_num);
-IFDEF(CONFIG_FTRACE, extern char *strtab);
-IFDEF(CONFIG_FTRACE, extern Elf64_Func *func);
 
 static void print_iring()
 {
