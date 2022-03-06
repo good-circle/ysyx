@@ -74,6 +74,7 @@ void init_ftrace(const char *elf_file)
         }
     }
     func -= func_num * func_size;
+    printf("%p\n", func);
 
     for (int i = 0; i < func_num; i++)
     {
