@@ -97,6 +97,10 @@ static void exec_once(Decode *s, vaddr_t pc)
         {
             if (s->dnpc >= func[i].st_value && s->dnpc < func[i].st_value + func[i].st_size)
             {
+                                for(int i = 0;i<call_depth;i++)
+                {
+                    printf(" ");
+                }
                 printf("call [%s@0x%8lx]\n", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
                 ftrace_pos += sprintf(ftrace_pos, "call [%s@0x%16lx]\n", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
                 break;
