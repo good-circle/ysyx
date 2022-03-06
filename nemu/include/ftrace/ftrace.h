@@ -8,6 +8,6 @@ typedef struct
     Elf64_Xword st_size;
 } Elf64_Func;
 
-int func_num = 0;
-char *strtab = NULL;
-Elf64_Func *func = NULL;
+static int func_num = 0;
+static char *strtab = NULL;
+static Elf64_Func *func = NULL;
