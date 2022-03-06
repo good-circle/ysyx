@@ -22,7 +22,7 @@ int check_watchpoint();
 IFDEF(CONFIG_IRINGBUF, static char iringbuf[16][128]);
 IFDEF(CONFIG_IRINGBUF, static int iring_num);
 IFDEF(CONFIG_FTRACE, static int call_depth);
-IFDEF(CONFIG_FTRACE, static char ftracebuf[65536]);
+IFDEF(CONFIG_FTRACE, static char ftracebuf[1048576]);
 IFDEF(CONFIG_FTRACE, static char *ftrace_pos = ftracebuf);
 
 static void print_iring()
