@@ -1,9 +1,5 @@
 #include <ftrace/ftrace.h>
 
-int func_num;
-char *strtab = NULL;
-Elf64_Func *func = NULL;
-
 void init_ftrace(const char *elf_file)
 {
     /* return if there is no elf_file */
