@@ -1,14 +1,13 @@
 #include <common.h>
 #include <elf.h>
 
-typedef struct {
-  Elf64_Word	st_name;
-  unsigned char	st_info;
-  unsigned char st_other;
-  Elf64_Section	st_shndx;
-  Elf64_Addr	st_value;
-  Elf64_Xword	st_size;
+typedef struct
+{
+    Elf64_Word st_name;
+    Elf64_Addr st_value;
+    Elf64_Xword st_size;
 } Elf64_Func;
+int func_num;
 
 void init_ftrace(const char *elf_file)
 {
@@ -25,12 +24,12 @@ void init_ftrace(const char *elf_file)
 
     /* read elf_file size */
     fseek(fp, 0, SEEK_END);
-    long size = ftell(fp);
+    long elf_size = ftell(fp);
 
     /* read elf_file to ehdr */
-    Elf64_Ehdr *ehdr = malloc(size);
+    Elf64_Ehdr *ehdr = malloc(elf_size);
     fseek(fp, 0, SEEK_SET);
-    int ret = fread(ehdr, size, 1, fp);
+    int ret = fread(ehdr, elf_size, 1, fp);
     assert(ret == 1);
     printf("ehdr: %p\n", ehdr);
 
@@ -39,22 +38,44 @@ void init_ftrace(const char *elf_file)
 
     /* read section headers */
     Elf64_Shdr *shdr = (Elf64_Shdr *)((word_t)ehdr + ehdr->e_shoff);
+    Elf64_Sym *sym = NULL;
+    //char *strtab = NULL;
+    int sym_num = 0;
 
     for (int i = 0; i < ehdr->e_shnum; i++)
     {
         if (shdr[i].sh_type == SHT_SYMTAB)
         {
-            Elf64_Sym *sym = (Elf64_Sym *)((word_t)ehdr + shdr[i].sh_offset);
-            int sym_num = shdr[i].sh_size / sizeof(Elf64_Sym);
-            for(int j =0 ;j < sym_num;j++)
-            {
-                printf("%d\n", sym[j].st_name);
-            }
+            /* read symbol table */
+            sym = (Elf64_Sym *)((word_t)ehdr + shdr[i].sh_offset);
+            sym_num = shdr[i].sh_size / sizeof(Elf64_Sym);
         }
         else if (shdr[i].sh_type == SHT_STRTAB && i != ehdr->e_shstrndx)
         {
-            //char *strtab =(char *)((word_t)ehdr + shdr[i].sh_offset);
+            /* read strtab table */
+            //strtab = (char *)((word_t)ehdr + shdr[i].sh_offset);
         }
-        
+    }
+
+    /* get function table */
+    Elf64_Func *func = NULL;
+    int func_size = sizeof(Elf64_Func);
+
+    for (int i = 0; i < sym_num; i++)
+    {
+        if (ELF64_ST_TYPE(sym[i].st_info) == STT_FUNC)
+        {
+            func = malloc(func_size);
+            func->st_name = sym[i].st_name;
+            func->st_value = sym[i].st_value;
+            func->st_size = sym[i].st_size;
+            func_num++;
+            func += func_size;
+        }
+    }
+
+    for (int i = 0; i < func_num; i++)
+    {
+        printf("%ld\n", func[i].st_value);
     }
 }
