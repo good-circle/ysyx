@@ -89,9 +89,9 @@ static void exec_once(Decode *s, vaddr_t pc)
     has_ftrace = false;
     if ((s->ftrace == JAL || s->ftrace == JALR) && BITS(s->isa.inst.val, 11, 7) == 1)
     {
-        assert(0);
         has_ftrace = true;
         memset(ftrace_pos, ' ', call_depth);
+        assert(0);
         ftrace_pos += call_depth;
         call_depth++;
         for (int i = 0; i < func_num; i++)
