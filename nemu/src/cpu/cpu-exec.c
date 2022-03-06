@@ -17,8 +17,14 @@ static bool g_print_step = false;
 
 void device_update();
 int check_watchpoint();
+
 IFDEF(CONFIG_IRINGBUF, static char iringbuf[16][128]);
 IFDEF(CONFIG_IRINGBUF, static int iring_num);
+//IFDEF(CONFIG_FTRACE, static bool has_ftrace);
+//IFDEF(CONFIG_FTRACE, static int call_depth);
+//IFDEF(CONFIG_FTRACE, static int ftracebuf[4096]);
+IFDEF(CONFIG_FTRACE, extern int func_num);
+IFDEF(CONFIG_FTRACE, extern char *strtab);
 
 static void print_iring()
 {
@@ -58,6 +64,9 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     memcpy(iringbuf[iring_num], _this->logbuf, sizeof(_this->logbuf));
     iring_num++;
     iring_num = (iring_num > 15) ? 0 : iring_num;
+#endif
+#ifdef CONFIG_FTRACE
+
 #endif
 #ifdef CONFIG_WATCHPOINT
     if (check_watchpoint())
