@@ -57,20 +57,26 @@ void init_ftrace(const char *elf_file)
     }
 
     /* get function table */
-    Elf64_Func *func = NULL;
-    int func_size = sizeof(Elf64_Func);
-
     for (int i = 0; i < sym_num; i++)
     {
         if (ELF64_ST_TYPE(sym[i].st_info) == STT_FUNC)
         {
-            Elf64_Func *tmp_func = malloc(func_size);
-            func = tmp_func;
-            tmp_func->st_name = sym[i].st_name;
-            tmp_func->st_value = sym[i].st_value;
-            tmp_func->st_size = sym[i].st_size;
             func_num++;
-            tmp_func += func_size;
+        }
+    }
+
+    int func_size = sizeof(Elf64_Func) * func_num;
+    Elf64_Func *func = malloc(func_size);
+
+    int func_info = 0;
+    for (int i = 0; i < sym_num; i++)
+    {
+        if (ELF64_ST_TYPE(sym[i].st_info) == STT_FUNC)
+        {
+            func[func_info].st_name = sym[i].st_name;
+            func[func_info].st_value = sym[i].st_value;
+            func[func_info].st_size = sym[i].st_size;
+            func_info++;
         }
     }
 
