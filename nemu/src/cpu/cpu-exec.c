@@ -93,13 +93,13 @@ static void exec_once(Decode *s, vaddr_t pc)
         memset(ftrace_pos, ' ', call_depth);
         ftrace_pos += call_depth;
         call_depth++;
-        assert(0);
         for (int i = 0; i < func_num; i++)
         {
+            printf("%d\n", func_num);
             if (s->dnpc >= func[i].st_value && s->dnpc < func[i].st_value + func[i].st_size)
             {
-                printf("call [%s@0x%16lx]", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
-                ftrace_pos += sprintf(ftrace_pos, "call [%s@0x%16lx]", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
+                printf("call [%s@0x%16lx]\n", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
+                ftrace_pos += sprintf(ftrace_pos, "call [%s@0x%16lx]\n", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
                 break;
             }
         }
@@ -114,7 +114,7 @@ static void exec_once(Decode *s, vaddr_t pc)
         {
             if (s->dnpc >= func[i].st_value && s->dnpc < func[i].st_value + func[i].st_size)
             {
-                ftrace_pos += sprintf(ftrace_pos, "ret  [%s@0x%16lx]", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
+                ftrace_pos += sprintf(ftrace_pos, "ret  [%s@0x%16lx]\n", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
                 break;
             }
         }
