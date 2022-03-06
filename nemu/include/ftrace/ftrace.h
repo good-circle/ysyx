@@ -11,8 +11,8 @@ typedef struct
     Elf64_Xword st_size;
 } Elf64_Func;
 
-int func_num;
-char *strtab;
-Elf64_Func *func;
+extern int func_num;
+extern char *strtab;
+extern Elf64_Func *func;
 
 #endif
