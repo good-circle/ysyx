@@ -71,6 +71,7 @@ void init_ftrace(const char *elf_file)
             func->st_size = sym[i].st_size;
             func_num++;
             func += func_size;
+            printf("%p\n", func);
         }
     }
     printf("%p\n", func);
