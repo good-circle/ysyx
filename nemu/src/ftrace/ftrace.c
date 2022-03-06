@@ -29,11 +29,15 @@ void init_ftrace(const char *elf_file)
     fclose(fp);
 
     /* read section headers */
-    //Elf64_Shdr *shdr = (Elf64_Shdr *)((word_t)ehdr + ehdr->e_shoff);
-    printf("%d\n", ehdr->e_shstrndx);
+    Elf64_Shdr *shdr = (Elf64_Shdr *)((word_t)ehdr + ehdr->e_shoff);
 
-    for(int i = 0 ; i < ehdr->e_shnum; i++)
+    for (int i = 0; i < ehdr->e_shnum; i++)
     {
-        ;
+        if (shdr->sh_type == SHT_SYMTAB)
+        {
+            //Elf64_Sym *sym = (Elf64_Sym *)(((word_t)ehdr + shdr->sh_offset);
+        }
+        //else if(shdr->sh_type == SHT_STRTAB && )
+        printf("%d\n", shdr->sh_name);
     }
 }
