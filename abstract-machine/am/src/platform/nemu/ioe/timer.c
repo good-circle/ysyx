@@ -4,7 +4,7 @@
 
 static uint64_t boot_time = 0;
 
-static uint64_t read_time()
+static uint64_t get_time()
 {
     uint32_t lo = inl(RTC_ADDR);
     uint32_t hi = inl(RTC_ADDR + 4);
@@ -14,12 +14,12 @@ static uint64_t read_time()
 
 void __am_timer_init()
 {
-    boot_time = read_time();
+    boot_time = get_time();
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime)
 {
-    uptime->us = read_time() - boot_time;
+    uptime->us = get_time() - boot_time;
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc)
