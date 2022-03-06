@@ -73,6 +73,7 @@ void init_ftrace(const char *elf_file)
             func += func_size;
         }
     }
+    printf("%p\n", func);
     printf("%d\n", func_num);
     func -= func_num * func_size;
     printf("%p\n", func);
