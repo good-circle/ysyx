@@ -22,7 +22,7 @@ int check_watchpoint();
 IFDEF(CONFIG_IRINGBUF, static char iringbuf[16][128]);
 IFDEF(CONFIG_IRINGBUF, static int iring_num);
 IFDEF(CONFIG_FTRACE, static int call_depth);
-IFDEF(CONFIG_FTRACE, static char ftracebuf[1048576]);
+IFDEF(CONFIG_FTRACE, static char ftracebuf[65536]);
 IFDEF(CONFIG_FTRACE, static char *ftrace_pos = ftracebuf);
 
 static void print_iring()
@@ -95,32 +95,22 @@ static void exec_once(Decode *s, vaddr_t pc)
         {
             if (s->dnpc >= func[i].st_value && s->dnpc < func[i].st_value + func[i].st_size)
             {
-                for (int i = 0; i < call_depth; i++)
-                {
-                    printf("  ");
-                }
-                printf("call [%s@0x%8lx]\n", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
-                ftrace_pos += sprintf(ftrace_pos, "call [%s@0x%16lx]\n", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
+                ftrace_pos += sprintf(ftrace_pos, "call [%s@0x%8lx]\n", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
                 break;
             }
         }
     }
     else if (s->ftrace == JALR && BITS(s->isa.inst.val, 19, 15) == 1)
     {
+        call_depth--;
         ftrace_pos += sprintf(ftrace_pos, "0x%8lx: ", s->pc);
         memset(ftrace_pos, ' ', 2 * call_depth);
         ftrace_pos += 2 * call_depth;
-        call_depth--;
         for (int i = 0; i < func_num; i++)
         {
-            if (s->dnpc >= func[i].st_value && s->dnpc < func[i].st_value + func[i].st_size)
+            if (s->pc >= func[i].st_value && s->pc < func[i].st_value + func[i].st_size)
             {
-                for (int i = 0; i < call_depth; i++)
-                {
-                    printf("  ");
-                }
-                printf("ret  [%s@0x%8lx]\n", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
-                ftrace_pos += sprintf(ftrace_pos, "ret  [%s@0x%16lx]\n", (char *)((word_t)strtab + func[i].st_name), s->dnpc);
+                ftrace_pos += sprintf(ftrace_pos, "ret  [%s]\n", (char *)((word_t)strtab + func[i].st_name));
                 break;
             }
         }
@@ -220,6 +210,7 @@ void cpu_exec(uint64_t n)
         {
             print_iring();
         }
+        printf("%s", ftracebuf);
         // fall through
     case NEMU_QUIT:
         statistic();
