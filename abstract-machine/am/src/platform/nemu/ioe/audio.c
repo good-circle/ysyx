@@ -65,6 +65,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
     pos = second;
   }
 
+  count = inl(AUDIO_COUNT_ADDR);
   count += len;
   outl(AUDIO_COUNT_ADDR, count);
   printf("am2: %d %d %d\n", inl(AUDIO_COUNT_ADDR), len, count);
