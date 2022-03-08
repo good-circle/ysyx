@@ -62,7 +62,7 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write)
     audio_base[reg_count] = 0;
     audio_base[reg_sbuf_size] = CONFIG_SB_SIZE;
 
-    //printf("nemu2: %d %d %d\n", s.freq, s.channels, s.samples);
+    printf("nemu2: %d %d %d\n", s.freq, s.channels, s.samples);
 
     SDL_InitSubSystem(SDL_INIT_AUDIO);
     SDL_OpenAudio(&s, NULL);
