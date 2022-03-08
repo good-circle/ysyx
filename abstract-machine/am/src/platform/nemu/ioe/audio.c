@@ -45,6 +45,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
 
   while (free < len)
   {
+    printf("waiting\n");
     ;
   }
 
