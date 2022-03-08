@@ -27,7 +27,8 @@ void __am_audio_ctrl(AM_AUDIO_CTRL_T *ctrl)
   outl(AUDIO_CHANNELS_ADDR, ctrl->channels);
   outl(AUDIO_SAMPLES_ADDR, ctrl->samples);
   outl(AUDIO_INIT_ADDR, true);
-  printf("%d %d %d\n", ctrl->freq, ctrl->channels, ctrl->samples);
+  printf("%d\n", inl(AUDIO_SBUF_SIZE_ADDR));
+  //printf("%d %d %d\n", ctrl->freq, ctrl->channels, ctrl->samples);
 }
 
 void __am_audio_status(AM_AUDIO_STATUS_T *stat)
@@ -41,7 +42,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
   int len = ctl->buf.end - ctl->buf.start;
   while(sbuf_size - inl(AUDIO_COUNT_ADDR)< len)
   {
-    printf("%d %d %d\n", sbuf_size,inl(AUDIO_COUNT_ADDR), len);
+    //printf("%d %d %d\n", sbuf_size,inl(AUDIO_COUNT_ADDR), len);
   }
 
   //memcpy(AUDIO_SBUF_ADDR + pos, ctl->buf.start, len);
