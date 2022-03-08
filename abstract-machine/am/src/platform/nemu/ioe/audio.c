@@ -10,15 +10,17 @@
 #define AUDIO_COUNT_ADDR (AUDIO_ADDR + 0x14)
 
 //static int pos = 0;
+static int sbuf_size = 0;
 
 void __am_audio_init()
 {
+  sbuf_size = inl(AUDIO_SBUF_SIZE_ADDR);
 }
 
 void __am_audio_config(AM_AUDIO_CONFIG_T *cfg)
 {
   cfg->present = true;
-  cfg->bufsize = inl(AUDIO_SBUF_SIZE_ADDR);
+  //cfg->bufsize = sbuf_size;
 }
 
 void __am_audio_ctrl(AM_AUDIO_CTRL_T *ctrl)
@@ -36,7 +38,6 @@ void __am_audio_status(AM_AUDIO_STATUS_T *stat)
 
 void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
 {
-  int sbuf_size = inl(AUDIO_SBUF_SIZE_ADDR);
   int len = ctl->buf.end - ctl->buf.start;
   printf("%d %d %d\n", sbuf_size,inl(AUDIO_COUNT_ADDR), len);
   while(sbuf_size - inl(AUDIO_COUNT_ADDR)< len)
