@@ -19,7 +19,12 @@ static int pos = 0;
 
 void audio_callback(void *userdata, uint8_t *stream, int len)
 {
-  while(audio_base[reg_count] < len) ;
+  int real_len = len;
+  if(audio_base[reg_count] < len)
+  {
+    len = audio_base[reg_count];
+  }
+
   if(len + pos <= CONFIG_SB_SIZE)
   {
     memcpy(stream, sbuf + pos, len);
@@ -37,6 +42,7 @@ void audio_callback(void *userdata, uint8_t *stream, int len)
   printf("nemu: %d %d\n", audio_base[reg_count], len);
 
   audio_base[reg_count] -= len;
+  memset(stream + len, 0, real_len - len);
 }
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write)
