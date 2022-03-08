@@ -32,6 +32,8 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write)
     s.samples = audio_base[reg_samples];
     s.callback = audio_callback;
     s.userdata = NULL;
+
+    audio_base[reg_sbuf_size] = CONFIG_SB_SIZE;
     audio_base[reg_count] = 0;
 
     SDL_InitSubSystem(SDL_INIT_AUDIO);
