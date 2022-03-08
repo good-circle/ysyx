@@ -53,7 +53,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
   if (pos + len <= sbuf_size)
   {
     //printf("\npos: %d %d %d\n", pos, len, sbuf_size);
-    printf("\n\n%p\n\n", sbuf+pos);
+    printf("\n\n%p\n\n", (int *)AUDIO_SBUF_ADDR+pos);
     memcpy(sbuf + pos, ctl->buf.start, len);
     pos += len;
   }
