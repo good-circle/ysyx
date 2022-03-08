@@ -26,12 +26,13 @@ void audio_callback(void *userdata, uint8_t *stream, int len)
     len = audio_base[reg_count];
   }
 
-  if(len + pos < CONFIG_SB_SIZE)
+  if(len + pos <= CONFIG_SB_SIZE)
   {
     memcpy(stream, sbuf + pos, len);
   }
   else
   {
+    assert(0);
     int first = CONFIG_SB_SIZE - pos;
     memcpy(stream, sbuf + pos, first);
 
