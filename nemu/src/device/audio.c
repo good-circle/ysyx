@@ -28,7 +28,7 @@ void audio_callback(void *userdata, uint8_t *stream, int len)
 
   if(len + pos <= CONFIG_SB_SIZE)
   {
-    memcpy(stream, sbuf + pos, len);
+    //memcpy(stream, sbuf + pos, len);
   }
   else
   {
