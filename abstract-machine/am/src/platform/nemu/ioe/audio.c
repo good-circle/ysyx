@@ -38,6 +38,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
 {
   int sbuf_size = inl(AUDIO_SBUF_SIZE_ADDR);
   int len = ctl->buf.end - ctl->buf.start;
+  printf("%d %d %d\n", sbuf_size,inl(AUDIO_COUNT_ADDR), len);
   while(sbuf_size - inl(AUDIO_COUNT_ADDR)< len)
   {
     printf("%d %d %d\n", sbuf_size,inl(AUDIO_COUNT_ADDR), len);
