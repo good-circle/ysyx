@@ -49,7 +49,7 @@ void audio_callback(void *userdata, uint8_t *stream, int len)
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write)
 {
-  if (init == false && is_write)
+  if (audio_base[reg_init] == true && init == false && is_write)
   {
     init = true;
     SDL_AudioSpec s = {};
