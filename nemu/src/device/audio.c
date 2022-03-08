@@ -49,6 +49,7 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write)
 {
   if (audio_base[reg_init] && is_write)
   {
+    audio_base[reg_init] = false;
     SDL_AudioSpec s = {};
     s.freq = audio_base[reg_freq];
     s.format = AUDIO_S16SYS;
