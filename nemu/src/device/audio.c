@@ -15,10 +15,25 @@ enum
 
 static uint8_t *sbuf = NULL;
 static uint32_t *audio_base = NULL;
+static int pos = 0;
 
 void audio_callback(void *userdata, uint8_t *stream, int len)
 {
-  ;
+  if(len + pos <= CONFIG_SB_SIZE)
+  {
+    memcpy(stream, sbuf + pos, len);
+  }
+  else
+  {
+    int first = CONFIG_SB_SIZE - pos;
+    memcpy(stream, sbuf + pos, first);
+
+    int second = len - first;
+    memcpy(stream, sbuf, second);
+    pos = second;
+  }
+
+  audio_base[reg_count] -= len;
 }
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write)
@@ -32,8 +47,6 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write)
     s.samples = audio_base[reg_samples];
     s.callback = audio_callback;
     s.userdata = NULL;
-
-    audio_base[reg_sbuf_size] = CONFIG_SB_SIZE;
     audio_base[reg_count] = 0;
 
     SDL_InitSubSystem(SDL_INIT_AUDIO);
