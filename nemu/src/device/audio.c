@@ -28,8 +28,8 @@ void audio_callback(void *userdata, uint8_t *stream, int len)
 
   if(len + pos <= CONFIG_SB_SIZE)
   {
-    printf("%p", stream);
     memcpy(stream, sbuf + pos, len);
+    pos += len;
   }
   else
   {
