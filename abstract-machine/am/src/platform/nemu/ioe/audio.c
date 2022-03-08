@@ -8,6 +8,8 @@
 #define AUDIO_INIT_ADDR (AUDIO_ADDR + 0x10)
 #define AUDIO_COUNT_ADDR (AUDIO_ADDR + 0x14)
 
+//static int pos = 0;
+
 void __am_audio_init()
 {
 }
@@ -40,5 +42,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
     ;
   }
 
-  
+  //memcpy(AUDIO_SBUF_ADDR + pos, ctl->buf.start, len);
+
+
 }
