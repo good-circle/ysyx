@@ -24,6 +24,17 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg)
         .vmemsz = 0};
 }
 
+/*
+               x            x+w
+    ********************************
+    ********************************
+y   ***********&&&&&&&&&&&&&&&******
+    ***********&&&&&&&&&&&&&&&******
+    ***********&&&&&&&&&&&&&&&******
+y+h ***********&&&&&&&&&&&&&&&******
+    ********************************
+    ********************************
+*/
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl)
 {
     int x = ctl->x;
@@ -33,9 +44,11 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl)
     int h = ctl->h;
 
     uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
+
+    // copy on line
     for (int i = 0; i < h; i++)
     {
-        memcpy(&fb[(y + i) * Width + x], pixels, 4 * w);
+        memcpy(&fb[(y + i) * Width + x], pixels, sizeof(uint32_t) * w);
         pixels += w;
     }
 
