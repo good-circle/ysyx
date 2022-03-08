@@ -20,12 +20,16 @@ static bool init = false;
 
 void audio_callback(void *userdata, uint8_t *stream, int len)
 {
+  /* use real_len to record data length of callback function */
   int real_len = len;
+
+  /* now len is length from am */
   if(audio_base[reg_count] < len)
   {
     len = audio_base[reg_count];
   }
 
+  /* if pos reaches sbuf_size then turns to start */
   if(len + pos <= CONFIG_SB_SIZE)
   {
     memcpy(stream, sbuf + pos, len);
@@ -41,10 +45,10 @@ void audio_callback(void *userdata, uint8_t *stream, int len)
     pos = second;
   }
 
+  /* reduce len from count */
   audio_base[reg_count] -= len;
 
-  //printf("nemu2: %d %d %d\n", audio_base[reg_count], len, real_len);
-
+  /* if count < len then padding 0 */
   memset(stream + len, 0, real_len - len);
 }
 
@@ -52,7 +56,10 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write)
 {
   if (audio_base[reg_init] == true && init == false && is_write)
   {
+    /* use init to make sure not to init again, maybe a better way? */
     init = true;
+
+    /* read information from am */
     SDL_AudioSpec s = {};
     s.freq = audio_base[reg_freq];
     s.format = AUDIO_S16SYS;
@@ -60,10 +67,12 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write)
     s.samples = audio_base[reg_samples];
     s.callback = audio_callback;
     s.userdata = NULL;
-    audio_base[reg_count] = 0;
-    audio_base[reg_sbuf_size] = CONFIG_SB_SIZE;
 
-    //printf("nemu2: %d %d %d\n", s.freq, s.channels, s.samples);
+    /* clear count */
+    audio_base[reg_count] = 0;
+
+    /* init sbuf size */
+    audio_base[reg_sbuf_size] = CONFIG_SB_SIZE;
 
     SDL_InitSubSystem(SDL_INIT_AUDIO);
     SDL_OpenAudio(&s, NULL);
