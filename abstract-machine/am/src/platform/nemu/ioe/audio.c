@@ -44,9 +44,9 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
   int free = sbuf_size - count;
   printf("am1: %d %d %d\n",sbuf_size ,count, len);
 
-  if (free < len)
+  while (free < len)
   {
-    len =free;
+    ;
   }
 
   int *sbuf = (int *)AUDIO_SBUF_ADDR;
