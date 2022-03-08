@@ -26,7 +26,7 @@ void audio_callback(void *userdata, uint8_t *stream, int len)
     len = audio_base[reg_count];
   }
 
-  if(len + pos <= CONFIG_SB_SIZE)
+  if(len + pos < CONFIG_SB_SIZE)
   {
     memcpy(stream, sbuf + pos, len);
   }
@@ -83,5 +83,5 @@ void init_audio()
 #endif
 
   sbuf = (uint8_t *)new_space(CONFIG_SB_SIZE);
-  add_mmio_map("audio-sbuf", CONFIG_SB_ADDR, sbuf, CONFIG_SB_SIZE * 10, NULL);
+  add_mmio_map("audio-sbuf", CONFIG_SB_ADDR, sbuf, CONFIG_SB_SIZE, NULL);
 }
