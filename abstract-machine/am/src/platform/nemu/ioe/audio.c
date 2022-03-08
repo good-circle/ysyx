@@ -47,7 +47,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
     ;
   }
 
-  uint8_t* sbuf = (uint8_t*)AUDIO_SBUF_ADDR;
+  int *sbuf = (int *)AUDIO_SBUF_ADDR;
   if (pos + len <= sbuf_size)
   {
     printf("\npos:%d %d %d\n", pos, len, sbuf_size);
