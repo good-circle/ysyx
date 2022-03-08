@@ -47,7 +47,7 @@ void audio_callback(void *userdata, uint8_t *stream, int len)
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write)
 {
-  if (audio_base[reg_init] && is_write)
+  if (is_write)
   {
     SDL_AudioSpec s = {};
     s.freq = audio_base[reg_freq];
