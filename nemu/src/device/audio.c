@@ -16,6 +16,7 @@ enum
 static uint8_t *sbuf = NULL;
 static uint32_t *audio_base = NULL;
 static int pos = 0;
+static bool init = false;
 
 void audio_callback(void *userdata, uint8_t *stream, int len)
 {
@@ -47,9 +48,9 @@ void audio_callback(void *userdata, uint8_t *stream, int len)
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write)
 {
-  if (offset == reg_init * sizeof(uint32_t) && is_write)
+  if (init == false && is_write)
   {
-    //audio_base[reg_init] = false;
+    init = true;
     SDL_AudioSpec s = {};
     s.freq = audio_base[reg_freq];
     s.format = AUDIO_S16SYS;
