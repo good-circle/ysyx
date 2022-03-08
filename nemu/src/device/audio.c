@@ -47,7 +47,7 @@ void audio_callback(void *userdata, uint8_t *stream, int len)
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write)
 {
-  if (is_write)
+  if (audio_base[reg_init] && is_write)
   {
     SDL_AudioSpec s = {};
     s.freq = audio_base[reg_freq];
@@ -58,6 +58,8 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write)
     s.userdata = NULL;
     audio_base[reg_count] = 0;
     audio_base[reg_sbuf_size] = CONFIG_SB_SIZE;
+
+    printf("nemu2: %d %d %d\n", s.freq, s.channels, s.samples);
 
     SDL_InitSubSystem(SDL_INIT_AUDIO);
     SDL_OpenAudio(&s, NULL);
