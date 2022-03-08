@@ -50,7 +50,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
   }
 
   int *sbuf = (int *)AUDIO_SBUF_ADDR;
-  if (pos + len <= sbuf_size)
+  if (pos + len <= 4096)
   {
     memcpy(sbuf + pos, ctl->buf.start, len);
     pos += len;
