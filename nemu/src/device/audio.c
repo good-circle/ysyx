@@ -44,7 +44,7 @@ void audio_callback(void *userdata, uint8_t *stream, int len)
 
   printf("nemu2: %d %d %d\n", audio_base[reg_count], len, real_len);
 
-  //memset(stream + len, 0, real_len - len);
+  memset(stream + len, 0, real_len - len);
 }
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write)
