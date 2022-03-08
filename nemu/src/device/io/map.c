@@ -48,6 +48,7 @@ word_t map_read(paddr_t addr, int len, IOMap *map) {
   word_t ret = host_read(map->space + offset, len);
 
   IFDEF(CONFIG_DTRACE, dtrace_pos += sprintf(dtrace_pos, "read from %s\n", map->name));
+  printf("read from %s\n", map->name);
 
   return ret;
 }
@@ -60,4 +61,5 @@ void map_write(paddr_t addr, int len, word_t data, IOMap *map) {
   invoke_callback(map->callback, offset, len, true);
 
   IFDEF(CONFIG_DTRACE, dtrace_pos += sprintf(dtrace_pos, "write to  %s\n", map->name));
+  printf("write to  %s\n", map->name);
 }
