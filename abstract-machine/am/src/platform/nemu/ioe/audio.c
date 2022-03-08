@@ -42,10 +42,10 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
   int count = inl(AUDIO_COUNT_ADDR);
   int len = ctl->buf.end - ctl->buf.start;
   int free = sbuf_size - count;
+  printf("%d %d\n",sbuf_size ,count);
 
   while (free < len)
   {
-    printf("%d %d\n",free ,len);
     ;
   }
 
