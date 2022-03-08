@@ -39,7 +39,7 @@ void audio_callback(void *userdata, uint8_t *stream, int len)
     pos = second;
   }
 
-  printf("nemu: %d %d %d\n", audio_base[reg_count], len, real_len);
+  printf("nemu1: %d %d %d\n", audio_base[reg_count], len, real_len);
 
   audio_base[reg_count] -= len;
   memset(stream + len, 0, real_len - len);
@@ -47,9 +47,9 @@ void audio_callback(void *userdata, uint8_t *stream, int len)
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write)
 {
-  if (audio_base[reg_init] && is_write)
+  if (offset == reg_init * sizeof(uint32_t) && is_write)
   {
-    audio_base[reg_init] = false;
+    //audio_base[reg_init] = false;
     SDL_AudioSpec s = {};
     s.freq = audio_base[reg_freq];
     s.format = AUDIO_S16SYS;
