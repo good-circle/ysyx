@@ -54,6 +54,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
   {
     memcpy(sbuf + pos, ctl->buf.start, len);
     pos += len;
+    printf("\npos: %d\n", pos);
   }
   else
   {
