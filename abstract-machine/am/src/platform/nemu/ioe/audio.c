@@ -15,6 +15,7 @@ static int sbuf_size = 0;
 void __am_audio_init()
 {
   sbuf_size = inl(AUDIO_SBUF_SIZE_ADDR);
+  printf("%d\n", sbuf_size);
 }
 
 void __am_audio_config(AM_AUDIO_CONFIG_T *cfg)
