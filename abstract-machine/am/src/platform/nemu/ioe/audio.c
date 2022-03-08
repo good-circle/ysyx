@@ -42,7 +42,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
   int count = inl(AUDIO_COUNT_ADDR);
   int len = ctl->buf.end - ctl->buf.start;
   int free = sbuf_size - count;
-  printf("am1: %d %d %d %d\n",free ,count, len, pos);
+  //printf("am1: %d %d %d %d\n",free ,count, len, pos);
 
   while (free < len)
   {
@@ -54,7 +54,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
   {
     memcpy(sbuf + pos, ctl->buf.start, len);
     pos += len;
-    printf("\npos: %d %d %d\n", pos, len, sbuf_size);
+    //printf("\npos: %d %d %d\n", pos, len, sbuf_size);
   }
   else
   {
@@ -69,5 +69,5 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
   count = inl(AUDIO_COUNT_ADDR);
   count += len;
   outl(AUDIO_COUNT_ADDR, count);
-  printf("am2: %d %d %d\n", inl(AUDIO_COUNT_ADDR), len, count);
+  //printf("am2: %d %d %d\n", inl(AUDIO_COUNT_ADDR), len, count);
 }
