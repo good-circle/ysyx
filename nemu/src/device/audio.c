@@ -33,6 +33,8 @@ void audio_callback(void *userdata, uint8_t *stream, int len)
     pos = second;
   }
 
+  printf("nemu: %d %d\n", audio_base[reg_count], len);
+
   audio_base[reg_count] -= len;
 }
 
