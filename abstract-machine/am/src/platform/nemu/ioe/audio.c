@@ -28,7 +28,6 @@ void __am_audio_ctrl(AM_AUDIO_CTRL_T *ctrl)
   outl(AUDIO_CHANNELS_ADDR, ctrl->channels);
   outl(AUDIO_SAMPLES_ADDR, ctrl->samples);
   outl(AUDIO_INIT_ADDR, true);
-  //printf("am_init: %d %d %d\n", ctrl->freq, ctrl->channels, ctrl->samples);
   pos = 0;
 }
 
@@ -41,17 +40,19 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
 {
   int sbuf_size = inl(AUDIO_SBUF_SIZE_ADDR);
   int len = ctl->buf.end - ctl->buf.start;
-  //printf("am1: %d %d\n",len, pos);
 
+  /* wait if free_size < length */
   while (sbuf_size - inl(AUDIO_COUNT_ADDR) < len)
   {
     ;
   }
 
+  /* pay attention! this is uint8_t! */
   uint8_t *sbuf = (uint8_t *)AUDIO_SBUF_ADDR;
+
+  /* if pos reaches sbuf_size then turns to start */
   if (pos + len <= sbuf_size)
   {
-    //printf("\npos:%d %d %d\n", pos, len, sbuf_size);
     memcpy(sbuf + pos, ctl->buf.start, len);
     pos += len;
   }
@@ -65,8 +66,8 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
     pos = second;
   }
 
+  /* add len to count */
   int count = inl(AUDIO_COUNT_ADDR);
   count += len;
   outl(AUDIO_COUNT_ADDR, count);
-  //printf("am2: %d %d %d\n", inl(AUDIO_COUNT_ADDR), len, count);
 }
