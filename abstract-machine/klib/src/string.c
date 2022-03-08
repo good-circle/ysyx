@@ -115,6 +115,7 @@ void *memcpy(void *out, const void *in, size_t n)
 {
     char *dst = out;
     const char *src = in;
+    n = n * 8;
     while (n > 0)
     {
         *dst++ = *src++;
