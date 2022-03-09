@@ -31,8 +31,6 @@ static char *img_file = NULL;
 static char *elf_file = NULL;
 static int difftest_port = 1234;
 
-extern const uint32_t img [];
-
 static long load_img() {
   if (img_file == NULL) {
     Log("No image is given. Use the default build-in image.");
@@ -50,9 +48,6 @@ static long load_img() {
   fseek(fp, 0, SEEK_SET);
   int ret = fread(guest_to_host(RESET_VECTOR), size, 1, fp);
   assert(ret == 1);
-
-    for(int i = 0; i < 100; i++)
-  printf("0x%08x\n",img[i]);
 
   fclose(fp);
   return size;
