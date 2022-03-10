@@ -41,7 +41,6 @@ int main(int argc, char **argv, char **env)
     int i = 0;
     svSetScope(svGetScopeFromName("TOP.top"));
     svBit* is_finish = 0;
-    int i = 0;
     while(i<200)
     {
         i++;
