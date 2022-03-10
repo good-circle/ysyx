@@ -25,7 +25,7 @@ int pmem_read(unsigned int pc)
     return *(u_int32_t *) (pmem + pc - 0x80000000);
 }
 
-extern void finish(int end);
+extern void finish(wire end);
 
 int main(int argc, char **argv, char **env)
 {
