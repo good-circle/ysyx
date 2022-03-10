@@ -43,7 +43,7 @@ int main(int argc, char **argv, char **env)
     top->pc = 0x80000000;
     top->a = 0;
     int i = 0;
-    svSetScope(svGetScopeFromName("top.dut"));
+    svSetScope(svGetScopeFromName("TOPtop.dut"));
     svBit* is_finish;
     while(!is_finish)
     {
