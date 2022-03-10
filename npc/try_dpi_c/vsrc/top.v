@@ -21,7 +21,7 @@ end
 
 export "DPI-C" task finish;
 task finish;
-    output is_finish;
+    output bit is_finish;
     is_finish = (inst == 32'h0);
 endtask
 
