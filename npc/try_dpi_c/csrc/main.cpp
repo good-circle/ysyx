@@ -43,7 +43,7 @@ int main(int argc, char **argv, char **env)
     int i = 0;
     svSetScope(svGetScopeFromName("TOP.top"));
     svBit* is_finish;
-    finish(is_finish);
+    top->finish(is_finish);
     while(!is_finish)
     {
         printf("%x ", top->pc);
