@@ -27,6 +27,8 @@ int pmem_read(unsigned int pc)
 
 extern void finish(svBit* is_finish);
 
+
+
 int main(int argc, char **argv, char **env)
 {
     VerilatedContext *contextp = new VerilatedContext;
@@ -41,6 +43,7 @@ int main(int argc, char **argv, char **env)
     top->pc = 0x80000000;
     top->a = 0;
     int i = 0;
+    svSetScope(svGetScopeFromName("top.dut"));
     svBit* is_finish;
     while(!is_finish)
     {
