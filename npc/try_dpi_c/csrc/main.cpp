@@ -40,8 +40,8 @@ int main(int argc, char **argv, char **env)
     top->a = 0;
     int i = 0;
     svSetScope(svGetScopeFromName("TOP.top"));
-    svBit* is_finish = 0;
-    while(i<200)
+    svBit is_finish = 0;
+    while(!is_finish)
     {
         i++;
         printf("%x ", top->pc);
@@ -53,7 +53,7 @@ int main(int argc, char **argv, char **env)
         m_trace->dump(2 * i + 1);
         top->clk = !top->clk;
         top->eval();
-        finish();
+        finish(&is_finish);
     }
     m_trace->close();
     delete top;
