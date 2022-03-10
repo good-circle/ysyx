@@ -46,14 +46,14 @@ int main(int argc, char **argv, char **env)
     while(!is_finish)
     {
         printf("%x ", top->pc);
-        top->inst = pmem_read(top->pc);
-        printf("%x\n", top->inst);
-        m_trace->dump(2 * i);
-        top->clk = !top->clk;
-        top->eval();
-        m_trace->dump(2 * i + 1);
-        top->clk = !top->clk;
-        top->eval();
+        //top->inst = pmem_read(top->pc);
+        //printf("%x\n", top->inst);
+        //m_trace->dump(2 * i);
+        //top->clk = !top->clk;
+        //top->eval();
+        //m_trace->dump(2 * i + 1);
+        //top->clk = !top->clk;
+        //top->eval();
         finish(is_finish);
     }
     m_trace->close();
