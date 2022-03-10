@@ -25,7 +25,7 @@ int pmem_read(unsigned int pc)
     return *(u_int32_t *) (pmem + pc - 0x80000000);
 }
 
-extern void finish(svBit* is_finish);
+extern void finish();
 
 int main(int argc, char **argv, char **env)
 {
@@ -54,7 +54,7 @@ int main(int argc, char **argv, char **env)
         m_trace->dump(2 * i + 1);
         top->clk = !top->clk;
         top->eval();
-        //finish(is_finish);
+        finish();
     }
     m_trace->close();
     delete top;
