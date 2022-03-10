@@ -28,7 +28,6 @@ int pmem_read(unsigned int pc)
 extern void finish(svBit* is_finish);
 
 
-
 int main(int argc, char **argv, char **env)
 {
     VerilatedContext *contextp = new VerilatedContext;
@@ -57,7 +56,6 @@ int main(int argc, char **argv, char **env)
         top->clk = !top->clk;
         top->eval();
         finish(is_finish);
-        printf("%x\n", top->inst);
     }
     m_trace->close();
     delete top;
