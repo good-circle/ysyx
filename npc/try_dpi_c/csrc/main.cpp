@@ -41,8 +41,10 @@ int main(int argc, char **argv, char **env)
     int i = 0;
     svSetScope(svGetScopeFromName("TOP.top"));
     svBit* is_finish = 0;
-    while(!is_finish)
+    int i = 0;
+    while(i<200)
     {
+        i++;
         printf("%x ", top->pc);
         top->inst = pmem_read(top->pc);
         printf("%x\n", top->inst);
