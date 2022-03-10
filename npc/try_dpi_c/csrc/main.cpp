@@ -42,7 +42,7 @@ int main(int argc, char **argv, char **env)
     top->a = 0;
     int i = 0;
     svLogic* is_finish;
-    while(!is_finish)
+    while(!&is_finish)
     {
         //printf("%x ", top->pc);
         top->inst = pmem_read(top->pc);
@@ -53,8 +53,8 @@ int main(int argc, char **argv, char **env)
         m_trace->dump(2 * i + 1);
         top->clk = !top->clk;
         top->eval();
-        finish(is_finish);
-        printf("%d\n", is_finish);
+        finish(&is_finish);
+        printf("%d\n", &is_finish);
     }
     m_trace->close();
     delete top;
