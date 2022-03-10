@@ -27,7 +27,6 @@ int pmem_read(unsigned int pc)
 
 extern void finish(svBit* is_finish);
 
-
 int main(int argc, char **argv, char **env)
 {
     VerilatedContext *contextp = new VerilatedContext;
