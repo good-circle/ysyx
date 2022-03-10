@@ -21,8 +21,8 @@ end
 
 export "DPI-C" task finish;
 task finish;
-    output finish;
-    finish = (inst == 32'h0);
+    output is_finish;
+    is_finish = (inst == 32'h0);
 endtask
 
 endmodule

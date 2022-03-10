@@ -25,7 +25,7 @@ int pmem_read(unsigned int pc)
     return *(u_int32_t *) (pmem + pc - 0x80000000);
 }
 
-extern void finish(svLogic* end);
+extern void finish(svLogic* is_finish);
 
 int main(int argc, char **argv, char **env)
 {
@@ -41,8 +41,8 @@ int main(int argc, char **argv, char **env)
     top->pc = 0x80000000;
     top->a = 0;
     int i = 0;
-    svLogic* end;
-    while(!end)
+    svLogic* is_finish;
+    while(!is_finish)
     {
         //printf("%x ", top->pc);
         top->inst = pmem_read(top->pc);
@@ -53,8 +53,8 @@ int main(int argc, char **argv, char **env)
         m_trace->dump(2 * i + 1);
         top->clk = !top->clk;
         top->eval();
-        finish(end);
-        printf("%d\n", end);
+        finish(is_finish);
+        printf("%d\n", is_finish);
     }
     m_trace->close();
     delete top;
