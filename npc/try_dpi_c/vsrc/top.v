@@ -19,9 +19,10 @@ always @(posedge clk) begin
     end
 end
 
-import "DPI-C" function int add (input int a, input int b);
-initial begin
-$display("%x + %x = %x", 1, 2, add(1,2));
-end
+export "DPI-C" task finish;
+task finish;
+    output finish;
+    finish = (inst == 32'h0);
+endtask
 
 endmodule
