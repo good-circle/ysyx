@@ -57,6 +57,7 @@ int main(int argc, char **argv, char **env)
         top->clk = !top->clk;
         top->eval();
         finish(is_finish);
+        printf("%x\n", top->inst);
     }
     m_trace->close();
     delete top;
