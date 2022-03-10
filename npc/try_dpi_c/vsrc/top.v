@@ -21,8 +21,9 @@ end
 
 export "DPI-C" task finish;
 task finish;
-    output bit is_finish;
-    is_finish = (inst == 32'h0);
+    //output bit is_finish;
+    //is_finish = (inst == 32'h0);
+    $display("  [SV-Prog]  Hello World...!");
 endtask
 
 endmodule
