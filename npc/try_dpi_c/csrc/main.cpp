@@ -25,7 +25,7 @@ int pmem_read(unsigned int pc)
     return *(u_int32_t *) (pmem + pc - 0x80000000);
 }
 
-extern void finish(svLogic* is_finish);
+extern void finish(svBit is_finish);
 
 int main(int argc, char **argv, char **env)
 {
@@ -41,7 +41,7 @@ int main(int argc, char **argv, char **env)
     top->pc = 0x80000000;
     top->a = 0;
     int i = 0;
-    svLogic* is_finish;
+    svBit is_finish;
     while(!is_finish)
     {
         printf("%x ", top->pc);
