@@ -25,8 +25,7 @@ int pmem_read(unsigned int pc)
     return *(u_int32_t *) (pmem + pc - 0x80000000);
 }
 
-
-int add(int a, int b) { return a+b; }
+extern void finish(bool end);
 
 int main(int argc, char **argv, char **env)
 {
@@ -42,7 +41,8 @@ int main(int argc, char **argv, char **env)
     top->pc = 0x80000000;
     top->a = 0;
     int i = 0;
-    for (i = 0; i < 200; i++)
+    bool end;
+    while(!end)
     {
         //printf("%x ", top->pc);
         top->inst = pmem_read(top->pc);
@@ -53,6 +53,7 @@ int main(int argc, char **argv, char **env)
         m_trace->dump(2 * i + 1);
         top->clk = !top->clk;
         top->eval();
+        finish(end);
     }
     m_trace->close();
     delete top;
