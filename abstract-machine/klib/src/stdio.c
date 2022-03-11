@@ -100,7 +100,7 @@ int vsprintf(char *out, const char *fmt, va_list ap)
 
             break;
         }
-
+        case 'p':
         case 'x':
         {
             uint64_t d = va_arg(ap, uint64_t);
