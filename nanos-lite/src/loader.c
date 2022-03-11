@@ -41,5 +41,5 @@ void naive_uload(PCB *pcb, const char *filename)
 {
   uintptr_t entry = loader(pcb, filename);
   Log("Jump to entry = %p", entry);
-  ((void (*)())0x83000430)();
+  ((void (*)())0x83000000)();
 }
