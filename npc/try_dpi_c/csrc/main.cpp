@@ -12,13 +12,23 @@ static char *img_file = NULL;
 
 void init_pmem()
 {
-    for (int i = 0; i < 200; i++)
-    {
-        pmem[4 * i] = 0x11;
-        pmem[4 * i + 1] = 0x22;
-        pmem[4 * i + 2] = 0x33;
-        pmem[4 * i + 3] = 0x44;
-    }
+  if (img_file == NULL) {
+    printf("No image is given. Use the default build-in image.");
+    assert(0); 
+  }
+
+  FILE *fp = fopen(img_file, "rb");
+  fseek(fp, 0, SEEK_END);
+  long size = ftell(fp);
+
+  printf("The image is %s, size = %ld", img_file, size);
+
+  fseek(fp, 0, SEEK_SET);
+  int ret = fread(pmem, size, 1, fp);
+  assert(ret == 1);
+
+  fclose(fp);
+  return size;
 }
 
 int pmem_read(unsigned int pc)
@@ -35,7 +45,7 @@ int main(int argc, char **argv, char **env)
     VerilatedVcdC *m_trace = new VerilatedVcdC;
     top->trace(m_trace, 99);
     m_trace->open("waveform.vcd");
-    img_file = 
+    img_file = "/home/jn/Desktop/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv64-npc.bin"
     init_pmem();
     top->clk = 1;
     top->pc = 0x80000000;
