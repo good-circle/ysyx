@@ -100,6 +100,36 @@ int vsprintf(char *out, const char *fmt, va_list ap)
 
             break;
         }
+
+        case 'x':
+        {
+            uint64_t d = va_arg(ap, uint64_t);
+            char num[20] = {0};
+            int rem = 0;
+            int length = 0;
+
+            do
+            {
+                rem = d % 16;
+                d = d / 16;
+                num[length++] = rem + '0';
+            } while (d > 0);
+
+            // padding
+            while (length < width)
+            {
+                out[pos++] = padding;
+                width--;
+            }
+
+            length--;
+            for (; length >= 0; length--)
+            {
+                out[pos++] = num[length];
+            }
+
+            break;
+        }
         }
     }
 
