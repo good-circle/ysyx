@@ -112,7 +112,15 @@ int vsprintf(char *out, const char *fmt, va_list ap)
             {
                 rem = d % 16;
                 d = d / 16;
-                num[length++] = rem + '0';
+                if (rem <= 9)
+                {
+                    num[length++] = rem + '0';
+                }
+                else
+                {
+                    num[length++] = rem - 10 + 'a';
+                }
+
             } while (d > 0);
 
             // padding
@@ -121,6 +129,9 @@ int vsprintf(char *out, const char *fmt, va_list ap)
                 out[pos++] = padding;
                 width--;
             }
+
+            out[pos++] = '0';
+            out[pos++] = 'x';
 
             length--;
             for (; length >= 0; length--)
