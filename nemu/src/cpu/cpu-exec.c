@@ -62,7 +62,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     }
     IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 #ifdef CONFIG_IRINGBUF
-    printf("%s\n", _this->logbuf);
+    //printf("%s\n", _this->logbuf);
     memcpy(iringbuf[iring_num], _this->logbuf, sizeof(_this->logbuf));
     iring_num++;
     iring_num = (iring_num > 15) ? 0 : iring_num;
@@ -193,7 +193,7 @@ void cpu_exec(uint64_t n)
 
     uint64_t timer_start = get_time();
 
-    execute(170000);
+    execute(n);
 
     uint64_t timer_end = get_time();
     g_timer += timer_end - timer_start;
