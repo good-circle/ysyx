@@ -20,8 +20,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
   ramdisk_read(&ehdr, 0, sizeof(Elf_Ehdr));
 
   /* assert if not elf file */
-  printf("%ld\n", (size_t)ehdr.e_ident);
-  //assert((size_t)ehdr.e_ident == 0x464c457f);
+  assert(*(size_t *)ehdr.e_ident == 0x464c457f);
 
   /* read program header */
   for (int i = 0; i < ehdr.e_phnum; i++)
@@ -31,7 +30,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
     {
       ramdisk_read((void *)phdr.p_vaddr, phdr.p_offset, phdr.p_filesz);
       /* padding filesz ~ memsz zero */
-      //memset((void *)(phdr.p_vaddr + phdr.p_filesz), 0, phdr.p_memsz - phdr.p_filesz);
+      memset((void *)(phdr.p_vaddr + phdr.p_filesz), 0, phdr.p_memsz - phdr.p_filesz);
     }
   }
 
