@@ -7,7 +7,8 @@
 #include "svdpi.h"
 #include "Vtop__Dpi.h"
 
-static u_int8_t pmem[0x8000];
+static u_int8_t pmem[0x8000000];
+static char *img_file = NULL;
 
 void init_pmem()
 {
@@ -34,6 +35,7 @@ int main(int argc, char **argv, char **env)
     VerilatedVcdC *m_trace = new VerilatedVcdC;
     top->trace(m_trace, 99);
     m_trace->open("waveform.vcd");
+    img_file = 
     init_pmem();
     top->clk = 1;
     top->pc = 0x80000000;
