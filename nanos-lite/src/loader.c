@@ -20,7 +20,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
   ramdisk_read(&ehdr, 0, sizeof(Elf_Ehdr));
 
   /* assert if not elf file */
-  printf("%d\n", (size_t)ehdr.e_ident);
+  printf("%x\n", (size_t)ehdr.e_ident);
   assert((size_t)ehdr.e_ident == 0x464c457f);
 
   /* read program header */
