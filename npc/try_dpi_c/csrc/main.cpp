@@ -28,7 +28,6 @@ void init_pmem()
   assert(ret == 1);
 
   fclose(fp);
-  return size;
 }
 
 int pmem_read(unsigned int pc)
