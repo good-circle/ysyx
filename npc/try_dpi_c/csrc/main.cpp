@@ -55,9 +55,9 @@ int main(int argc, char **argv, char **env)
     while(!is_finish)
     {
         i++;
-        printf("%x ", top->pc);
+        printf("%08x ", top->pc);
         top->inst = pmem_read(top->pc);
-        printf("%x\n", top->inst);
+        printf("%08x\n", top->inst);
         m_trace->dump(2 * i);
         top->clk = !top->clk;
         top->eval();
