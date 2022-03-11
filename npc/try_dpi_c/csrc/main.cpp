@@ -8,7 +8,7 @@
 #include "Vtop__Dpi.h"
 
 static u_int8_t pmem[0x8000000];
-static char *img_file = NULL;
+static const char *img_file = NULL;
 
 void init_pmem()
 {
