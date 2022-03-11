@@ -13,29 +13,28 @@ size_t ramdisk_read(void *buf, size_t offset, size_t len);
 
 static uintptr_t loader(PCB *pcb, const char *filename)
 {
-  Elf_Ehdr ehdr;
-  Elf_Phdr phdr;
+  Elf_Ehdr *ehdr = malloc(sizeof(Elf_Ehdr));
+  Elf_Phdr *phdr = malloc(sizeof(Elf_Phdr));
 
   /* read elf from ramdisk */
-  ramdisk_read(&ehdr, 0, sizeof(Elf_Ehdr));
+  ramdisk_read(ehdr, 0, sizeof(Elf_Ehdr));
 
   /* assert if not elf file */
-  printf("%x\n", (*(uint32_t *)ehdr.e_ident));
-  assert(*(uint32_t *)ehdr.e_ident == 0x464c457f);
+  assert(*(uint32_t *)ehdr->e_ident == 0x464c457f);
 
   /* read program header */
-  for (int i = 0; i < ehdr.e_phnum; i++)
+  for (int i = 0; i < ehdr->e_phnum; i++)
   {
-    ramdisk_read(&phdr, ehdr.e_phoff + i * ehdr.e_phentsize, ehdr.e_phentsize);
-    if(phdr.p_type == PT_LOAD)
+    ramdisk_read(phdr, ehdr->e_phoff + i * ehdr->e_phentsize, ehdr->e_phentsize);
+    if(phdr->p_type == PT_LOAD)
     {
-      ramdisk_read((void *)phdr.p_vaddr, phdr.p_offset, phdr.p_filesz);
+      ramdisk_read((void *)phdr->p_vaddr, phdr->p_offset, phdr->p_filesz);
       /* padding filesz ~ memsz zero */
-      memset((void *)(phdr.p_vaddr + phdr.p_filesz), 0, phdr.p_memsz - phdr.p_filesz);
+      memset((void *)(phdr->p_vaddr + phdr->p_filesz), 0, phdr->p_memsz - phdr->p_filesz);
     }
   }
-  printf("%x\n", (*(uint32_t *)ehdr.e_entry));
-  return ehdr.e_entry;
+  printf("%ld\n", ehdr->e_entry);
+  return ehdr->e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename)
