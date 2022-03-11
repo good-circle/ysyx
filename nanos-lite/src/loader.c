@@ -21,7 +21,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
 
   /* assert if not elf file */
   printf("%s\n", ehdr->e_ident);
-  assert(*(size_t *)ehdr->e_ident == 0x464c457f);
+  assert(strcpy((char *)ehdr->e_ident, "ELF"));
 
   /* read program header */
   for (int i = 0; i < ehdr->e_phnum; i++)
