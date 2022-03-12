@@ -20,7 +20,6 @@ Context *__am_irq_handle(Context *c)
             {
                 ev.event = EVENT_SYSCALL;
             }
-            
             break;
         default:
             ev.event = EVENT_ERROR;
