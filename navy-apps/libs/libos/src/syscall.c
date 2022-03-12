@@ -71,9 +71,20 @@ int _write(int fd, void *buf, size_t count)
     return _syscall_(SYS_write, fd, (intptr_t)buf, count);
 }
 
+extern char _end;
+static void * program_break = NULL;
 void *_sbrk(intptr_t increment)
 {
-    return (void *)-1;
+    /* will always success in pa3 */
+    if(program_break == NULL)
+    {
+        program_break = &_end;
+    }
+    
+    _syscall_(SYS_brk, increment, 0, 0);
+    program_break += increment;
+
+    return program_break - increment;
 }
 
 int _read(int fd, void *buf, size_t count)
