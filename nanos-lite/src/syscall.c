@@ -1,6 +1,8 @@
 #include <common.h>
 #include "syscall.h"
 
+#define STRACE 1
+
 void do_syscall(Context *c)
 {
     uintptr_t a[4];
