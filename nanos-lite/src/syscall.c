@@ -9,6 +9,10 @@ void do_syscall(Context *c)
     a[2] = c->GPR3; // a1
     a[3] = c->GPR4; // a2
 
+#ifdef STRACE
+  printf("Syscall: a7=%d, a0=%d, a1=%d, a2=%d\n", a[0], a[1], a[2], a[3]);
+#endif
+
     switch (a[0])
     {
     case SYS_yield:
@@ -16,7 +20,7 @@ void do_syscall(Context *c)
         c->GPRx = 0;
         break;
     case SYS_exit:
-        halt(a[0]);
+        halt(a[1]);
         c->GPRx = 0;
         break;
     default:
