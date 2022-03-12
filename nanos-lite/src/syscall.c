@@ -22,7 +22,7 @@ void do_syscall(Context *c)
         c->GPRx = 0;
         break;
     case SYS_exit:
-        halt(a[1]);
+        halt(10);
         c->GPRx = 0;
         break;
     default:
