@@ -16,7 +16,7 @@ void do_syscall(Context *c)
         c->GPRx = 0;
         break;
     case SYS_exit:
-        halt(a[2]);
+        halt(a[0]);
         c->GPRx = 0;
         break;
     default:
