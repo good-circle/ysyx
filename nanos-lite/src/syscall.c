@@ -12,7 +12,7 @@ void do_syscall(Context *c)
     a[3] = c->GPR4; // a2
 
 #ifdef STRACE
-    printf("Syscall: a7=0x%x, a0=0x%x, a1=0x%x, a2=0x%x\n", a[0], a[1], a[2], a[3]);
+    printf("Syscall: a7=%x, a0=%x, a1=%x, a2=%x\n", a[0], a[1], a[2], a[3]);
 #endif
 
     switch (a[0])
