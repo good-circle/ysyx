@@ -1,8 +1,6 @@
 #include <common.h>
 #include "syscall.h"
 
-#define STRACE 1
-
 void do_syscall(Context *c)
 {
     uintptr_t a[4];
@@ -12,7 +10,7 @@ void do_syscall(Context *c)
     a[3] = c->GPR4; // a2
 
 #ifdef STRACE
-  printf("Syscall: a7 = %d, a0 = %d, a1 = %d, a2 = %d\n", a[0], a[1], a[2], a[3]);
+    printf("Syscall: a7=%d, a0=%d, a1=%d, a2=%d\n", a[0], a[1], a[2], a[3]);
 #endif
 
     switch (a[0])
@@ -24,6 +22,20 @@ void do_syscall(Context *c)
     case SYS_exit:
         halt(a[1]);
         c->GPRx = 0;
+        break;
+    case SYS_write:
+        if (a[1] == 1 || a[1] == 2)
+        {
+            for (int i = 0; i < a[3]; i++)
+            {
+                putch(*((char *)a[2] + i));
+            }
+        }
+        else
+        {
+            assert(0);
+        }
+        c->GPRx = a[3];
         break;
     default:
         panic("Unhandled syscall ID = %d", a[0]);
