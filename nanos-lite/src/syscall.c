@@ -1,7 +1,7 @@
 #include <common.h>
 #include "syscall.h"
 
-#define STRACE 1
+#define STRACE 0
 
 void do_syscall(Context *c)
 {
