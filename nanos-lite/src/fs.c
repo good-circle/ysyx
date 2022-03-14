@@ -105,7 +105,8 @@ size_t fs_lseek(int fd, size_t offset, int whence)
         break;
     }
 
-    return 0;
+    /* pay attention: ftell will call lseek */
+    return file_table[fd].open_offset;
 }
 
 int fs_close(int fd)
