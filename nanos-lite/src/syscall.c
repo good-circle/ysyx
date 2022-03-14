@@ -3,7 +3,7 @@
 #include <fs.h>
 #include <sys/time.h>
 
-#define STRACE 0
+#define STRACE
 
 static int my_gettimeofday(struct timeval *tv, struct timezone *tz);
 
