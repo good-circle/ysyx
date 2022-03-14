@@ -8,7 +8,7 @@ size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 
 size_t serial_write(const void *buf, size_t offset, size_t len);
 
-#define STRACE 0
+//#define STRACE
 
 typedef struct
 {
