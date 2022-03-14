@@ -18,12 +18,11 @@ int main()
     {
         gettimeofday(&new_tv, &new_tz);
         time_t pass = (new_tv.tv_sec - tv.tv_sec) * 1000000 + new_tv.tv_usec - tv.tv_usec;
-        printf("\n");
+        printf(" ");
         if (pass >= i * 500000)
         {
             i++;
-            _syscall_(4, 0, "1", 1);
-            //printf("%d milliseconds", i * 500);
+            printf("%d milliseconds", i * 500);
         }
     }
 }
