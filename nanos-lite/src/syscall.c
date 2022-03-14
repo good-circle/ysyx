@@ -1,8 +1,11 @@
 #include <common.h>
 #include "syscall.h"
 #include <fs.h>
+#include <sys/time.h>
 
 #define STRACE 1
+
+static int my_gettimeofday(struct timeval *tv, struct timezone *tz);
 
 void do_syscall(Context *c)
 {
@@ -57,7 +60,18 @@ void do_syscall(Context *c)
         c->GPRx = 0;
         break;
 
+    case SYS_gettimeofday:
+        c->GPRx = my_gettimeofday((struct timeval *)a[1], (struct timezone *)a[2]);
+        break;
     default:
         panic("Unhandled syscall ID = %d", a[0]);
     }
+}
+
+static int my_gettimeofday(struct timeval *tv, struct timezone *tz)
+{
+    size_t usec = io_read(AM_TIMER_UPTIME).us;
+    tv->tv_sec = usec / 1000000;
+    tv->tv_usec = usec % 1000000;
+    return 0;
 }
