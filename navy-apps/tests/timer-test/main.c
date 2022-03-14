@@ -1,27 +1,22 @@
 #include <stdio.h>
 #include <assert.h>
-#include <sys/time.h>
+#include <NDL.h>
 
 int main()
 {
-    struct timeval tv;
-    struct timezone tz;
-
-    assert(gettimeofday(&tv, &tz) == 0);
-
-    struct timeval new_tv;
-    struct timezone new_tz;
+    NDL_Init(0);
+    
+    uint32_t boot_time = NDL_GetTicks();
 
     int i = 1;
 
     while (1)
     {
-        gettimeofday(&new_tv, &new_tz);
-        time_t pass = (new_tv.tv_sec - tv.tv_sec) * 1000000 + new_tv.tv_usec - tv.tv_usec;
-        if (pass >= i * 500000)
+        uint32_t current_time = NDL_GetTicks();
+        if (current_time - boot_time >= i * 500)
         {
-            printf("%d milliseconds\n", i * 500);
-            i++;    
+            printf("%d milliseconds", i * 500);
+            i++;
         }
     }
 }
