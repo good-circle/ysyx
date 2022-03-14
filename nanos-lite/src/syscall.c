@@ -47,12 +47,12 @@ void do_syscall(Context *c)
             {
                 putch(*((char *)a[2] + i));
             }
+            c->GPRx = a[3];
         }
         else
         {
-            assert(0);
+            c->GPRx = fs_write(a[1], (void *)a[2], a[3]);;
         }
-        c->GPRx = a[3];
         break;
 
     case SYS_close: // 7
