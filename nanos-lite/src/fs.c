@@ -122,9 +122,9 @@ size_t fs_lseek(int fd, size_t offset, int whence)
         break;
 
     case SEEK_END:
-        /* offset is unsigned, so how to do sub? */
-        assert(offset >= 0 && offset <= file_table[fd].size);
-        file_table[fd].open_offset = file_table[fd].size - offset;
+        /* offset is unsigned, so we cannot do sub operation */
+        assert(offset == 0);
+        file_table[fd].open_offset = file_table[fd].size;
         break;
     }
 
