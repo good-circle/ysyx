@@ -41,9 +41,7 @@ void do_syscall(Context *c)
         break;
 
     case SYS_write: // 4
-
-            c->GPRx = fs_write(a[1], (void *)a[2], a[3]);
-
+        c->GPRx = fs_write(a[1], (void *)a[2], a[3]);
         break;
 
     case SYS_close: // 7
@@ -53,7 +51,7 @@ void do_syscall(Context *c)
     case SYS_lseek: // 8
         c->GPRx = fs_lseek(a[1], a[2], a[3]);
         break;
-        
+
     case SYS_brk: // 9
         /* will always success in pa3 */
         c->GPRx = 0;
