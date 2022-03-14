@@ -22,8 +22,8 @@ int main()
         if (pass >= i * 500000)
         {
             i++;
-            printf("%d milliseconds", i * 500);
-            assert(0);
+            _syscall_(4, 0, "1", 1);
+            //printf("%d milliseconds", i * 500);
         }
     }
 }
