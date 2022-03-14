@@ -1,5 +1,6 @@
 #include <common.h>
 #include "syscall.h"
+#include <fs.h>
 
 #define STRACE 1
 
@@ -17,19 +18,29 @@ void do_syscall(Context *c)
 
     switch (a[0])
     {
-    case SYS_yield:
-        yield();
-        c->GPRx = 0;
-        break;
-    case SYS_exit:
-        if(a[1] != 0)
+    case SYS_exit: // 0
+        if (a[1] != 0)
         {
             printf("a0 is not 0 when sys_exit, maybe you forget to add case in syscall.c?\n");
         }
         halt(a[1]);
         c->GPRx = 0;
         break;
-    case SYS_write:
+
+    case SYS_yield: // 1
+        yield();
+        c->GPRx = 0;
+        break;
+
+    case SYS_open: // 2
+        c->GPRx = fs_open((char *)a[1], a[2], a[3]);
+        break;
+
+    case SYS_read: // 3
+        c->GPRx = fs_read(a[1], (void *)a[2], a[3]);
+        break;
+
+    case SYS_write: // 4
         if (a[1] == 1 || a[1] == 2)
         {
             for (int i = 0; i < a[3]; i++)
@@ -43,10 +54,20 @@ void do_syscall(Context *c)
         }
         c->GPRx = a[3];
         break;
-    case SYS_brk:
+
+    case SYS_close: // 7
+        c->GPRx = fs_close(a[1]);
+        break;
+
+    case SYS_lseek: // 8
+        c->GPRx = fs_lseek(a[1], a[2], a[3]);
+        break;
+        
+    case SYS_brk: // 9
         /* will always success in pa3 */
         c->GPRx = 0;
         break;
+
     default:
         panic("Unhandled syscall ID = %d", a[0]);
     }
