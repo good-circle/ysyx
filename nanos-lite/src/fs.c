@@ -86,7 +86,6 @@ size_t fs_write(int fd, const void *buf, size_t len)
 
 size_t fs_lseek(int fd, size_t offset, int whence)
 {
-    printf("offset = %d, whence = %d\n", offset, whence);
     switch (whence)
     {
     case SEEK_SET:
@@ -100,8 +99,8 @@ size_t fs_lseek(int fd, size_t offset, int whence)
         break;
 
     case SEEK_END:
-        printf("%d\n", -file_table[fd].size);
-        assert(offset <= 0 && offset >= -file_table[fd].size);
+        /* offset is unsigned, so how to do sub? */
+        assert(offset >= 0 && offset <= file_table[fd].size);
         file_table[fd].open_offset = file_table[fd].size - offset;
         break;
     }
