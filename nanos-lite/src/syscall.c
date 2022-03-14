@@ -42,6 +42,7 @@ void do_syscall(Context *c)
 
     case SYS_write: // 4
 
+            c->GPRx = fs_write(a[1], (void *)a[2], a[3]);
 
         break;
 
