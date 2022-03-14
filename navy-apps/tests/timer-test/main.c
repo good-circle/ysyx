@@ -14,6 +14,8 @@ int main()
 
     int i = 1;
 
+    printf("Test start!\n");
+
     while (1)
     {
         gettimeofday(&new_tv, &new_tz);
