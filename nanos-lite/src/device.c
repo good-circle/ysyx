@@ -27,9 +27,9 @@ size_t events_read(void *buf, size_t offset, size_t len)
 {
     AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
 
-    /* kd/ku (2) + ' ' (1) + strlen(keyname[ev.keycode]) + '\n' (2) + '\0' */
-    assert(len >= 6 + strlen(keyname[ev.keycode]));
-    len = 6 + strlen(keyname[ev.keycode]);
+    /* kd/ku (2) + ' ' (1) + strlen(keyname[ev.keycode]) + '\n' (1) + '\0' */
+    assert(len >= 5 + strlen(keyname[ev.keycode]));
+    len = 5 + strlen(keyname[ev.keycode]);
     memset(buf, 0, len);
 
     if (ev.keycode == AM_KEY_NONE)
@@ -42,7 +42,7 @@ size_t events_read(void *buf, size_t offset, size_t len)
         strcat(buf + 3, keyname[ev.keycode]);
         strcat(buf + 3 + strlen(keyname[ev.keycode]), "\n");
 
-        return 6 + strlen(keyname[ev.keycode]);
+        return 5 + strlen(keyname[ev.keycode]);
     }
 }
 
