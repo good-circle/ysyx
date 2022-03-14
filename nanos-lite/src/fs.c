@@ -57,6 +57,7 @@ int fs_open(const char *pathname, int flags, int mode)
     {
         if (strcmp(pathname, file_table[i].name) == 0)
         {
+            printf("!!%d!!\n", i);
             return i;
         }
     }
