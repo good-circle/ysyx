@@ -100,6 +100,7 @@ size_t fs_lseek(int fd, size_t offset, int whence)
         break;
 
     case SEEK_END:
+        printf("%d\n", -file_table[fd].size);
         assert(offset <= 0 && offset >= -file_table[fd].size);
         file_table[fd].open_offset = file_table[fd].size - offset;
         break;
