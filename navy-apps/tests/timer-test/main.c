@@ -15,7 +15,7 @@ int main()
         uint32_t current_time = NDL_GetTicks();
         if (current_time - boot_time >= i * 500)
         {
-            printf("%d milliseconds", i * 500);
+            printf("%d milliseconds\n", i * 500);
             i++;
         }
     }
