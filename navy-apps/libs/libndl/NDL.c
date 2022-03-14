@@ -23,7 +23,7 @@ uint32_t NDL_GetTicks()
 int NDL_PollEvent(char *buf, int len)
 {
     int fd = open("/dev/events", O_RDONLY);
-    if(read(fd, buf, len))
+    if(read(fd, buf, len) > 6)
     {
         close(fd);
         return 1;
