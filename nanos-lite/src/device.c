@@ -34,11 +34,11 @@ size_t events_read(void *buf, size_t offset, size_t len)
 
     if (ev.keycode == AM_KEY_NONE)
     {
-        assert(0);
         return 0;
     }
     else
     {
+        assert(0);
         strcat(buf, ev.keydown ? "kd " : "ku ");
         strcat(buf + 3, keyname[ev.keycode]);
         strcat(buf + 3 + strlen(keyname[ev.keycode]), "\n");
