@@ -57,6 +57,9 @@ int fs_open(const char *pathname, int flags, int mode)
     {
         if (strcmp(pathname, file_table[i].name) == 0)
         {
+#ifdef STRACE
+            printf("FS: open file %s\n", file_table[i].name);
+#endif
             return i;
         }
     }
@@ -69,6 +72,10 @@ size_t fs_read(int fd, void *buf, size_t len)
     /* pay attention: man 2 read: attempts to read "up to" count bytes */
     len = file_table[fd].open_offset + len > file_table[fd].size ? file_table[fd].size - file_table[fd].open_offset : len;
 
+#ifdef STRACE
+    printf("FS: read file %s at %d for length %d\n", file_table[i].name, file_table[fd].open_offset, len);
+#endif
+
     ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
     file_table[fd].open_offset += len;
 
@@ -79,6 +86,10 @@ size_t fs_write(int fd, const void *buf, size_t len)
 {
     /* pay attention: man 2 write: writes "up to" count bytes */
     len = file_table[fd].open_offset + len > file_table[fd].size ? file_table[fd].size - file_table[fd].open_offset : len;
+
+#ifdef STRACE
+    printf("FS: write file %s at %d for length %d\n", file_table[i].name, file_table[fd].open_offset, len);
+#endif
 
     ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
     file_table[fd].open_offset += len;
@@ -106,6 +117,10 @@ size_t fs_lseek(int fd, size_t offset, int whence)
         file_table[fd].open_offset = file_table[fd].size - offset;
         break;
     }
+
+#ifdef STRACE
+    printf("FS: lseek file %s to %d\n", file_table[i].name, file_table[fd].open_offset);
+#endif
 
     /* pay attention: ftell will call lseek */
     return file_table[fd].open_offset;
