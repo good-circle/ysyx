@@ -22,6 +22,10 @@ void do_syscall(Context *c)
         c->GPRx = 0;
         break;
     case SYS_exit:
+        if(a[1] != 0)
+        {
+            printf("a0 is not 0 when sys_exit, maybe you forget to add case in syscall.c?\n");
+        }
         halt(a[1]);
         c->GPRx = 0;
         break;
