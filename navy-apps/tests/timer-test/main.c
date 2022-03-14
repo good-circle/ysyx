@@ -14,13 +14,11 @@ int main()
 
     int i = 1;
 
-    printf("Test start!\n");
-
     while (1)
     {
         gettimeofday(&new_tv, &new_tz);
-        volatile time_t pass = (new_tv.tv_sec - tv.tv_sec) * 1000000 + new_tv.tv_usec - tv.tv_usec;
-        printf("%d\n", i);
+        time_t pass = (new_tv.tv_sec - tv.tv_sec) * 1000000 + new_tv.tv_usec - tv.tv_usec;
+        //printf("%d\n", i);
         if (pass >= i * 500000)
         {
             i++;
