@@ -7,6 +7,7 @@ size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 
 size_t serial_write(const void *buf, size_t offset, size_t len);
+size_t events_read(void *buf, size_t offset, size_t len);
 
 //#define STRACE
 
@@ -27,6 +28,7 @@ enum
     FD_STDIN,
     FD_STDOUT,
     FD_STDERR,
+    FD_EVENT,
     FD_FB
 };
 
@@ -47,6 +49,7 @@ static Finfo file_table[] __attribute__((used)) = {
     [FD_STDIN] = {"stdin", 0, 0, 0, invalid_read, invalid_write},
     [FD_STDOUT] = {"stdout", 0, 0, 0, invalid_read, serial_write},
     [FD_STDERR] = {"stderr", 0, 0, 0, invalid_read, serial_write},
+    [FD_EVENT] = {"/dev/events", 0, 0, 0, events_read, invalid_write},
 #include "files.h"
 };
 
@@ -73,6 +76,12 @@ int fs_open(const char *pathname, int flags, int mode)
 
 size_t fs_read(int fd, void *buf, size_t len)
 {
+    if (file_table[fd].read != NULL)
+    {
+        file_table[fd].read(buf, 0, len);
+        return len;
+    }
+
     /* pay attention: man 2 read: attempts to read "up to" count bytes */
     len = file_table[fd].open_offset + len > file_table[fd].size ? file_table[fd].size - file_table[fd].open_offset : len;
 
@@ -88,12 +97,12 @@ size_t fs_read(int fd, void *buf, size_t len)
 
 size_t fs_write(int fd, const void *buf, size_t len)
 {
-    if(fd == 1 || fd == 2)
+    if (file_table[fd].write != NULL)
     {
         file_table[fd].write(buf, 0, len);
         return len;
     }
-    
+
     /* pay attention: man 2 write: writes "up to" count bytes */
     len = file_table[fd].open_offset + len > file_table[fd].size ? file_table[fd].size - file_table[fd].open_offset : len;
 
