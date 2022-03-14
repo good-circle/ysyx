@@ -24,7 +24,7 @@ int NDL_PollEvent(char *buf, int len)
 {
     int fd = open("/dev/events", O_RDONLY);
     int event_length = read(fd, buf, len);
-    if (event_length > 5 && buf[event_length - 2] == '\n')
+    if (event_length > 5 && buf[event_length] == '\n')
     {
         close(fd);
         return 1;
