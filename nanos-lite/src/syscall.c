@@ -21,7 +21,7 @@ void do_syscall(Context *c)
     case SYS_exit: // 0
         if (a[1] != 0)
         {
-            printf("a0 is not 0 when sys_exit, maybe you forget to add case in syscall.c?\n");
+            printf("a0 is not 0 when sys_exit, maybe you forget to add case in navy-apps/libs/libos/src/syscall.c?\n");
         }
         halt(a[1]);
         c->GPRx = 0;
