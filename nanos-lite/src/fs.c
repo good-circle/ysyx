@@ -9,6 +9,7 @@ size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 size_t serial_write(const void *buf, size_t offset, size_t len);
 size_t events_read(void *buf, size_t offset, size_t len);
 size_t dispinfo_read(void *buf, size_t offset, size_t len);
+size_t fb_write(const void *buf, size_t offset, size_t len);
 
 //#define STRACE
 
@@ -53,12 +54,16 @@ static Finfo file_table[] __attribute__((used)) = {
     [FD_STDERR] = {"stderr", 0, 0, 0, invalid_read, serial_write},
     [FD_EVENT] = {"/dev/events", 0, 0, 0, events_read, invalid_write},
     [FD_DISPINFO] = {"/proc/dispinfo", 0, 0, 0, dispinfo_read, invalid_write},
+    [FD_FB] = {"/dev/fb", 0, 0, 0, invalid_read, fb_write},
 #include "files.h"
 };
 
 void init_fs()
 {
     // TODO: initialize the size of /dev/fb
+    int width = io_read(AM_GPU_CONFIG).width;
+    int height = io_read(AM_GPU_CONFIG).height;
+    file_table[FD_FB].size = width * height * sizeof(int);
 }
 
 int fs_open(const char *pathname, int flags, int mode)
