@@ -32,6 +32,7 @@ int NDL_PollEvent(char *buf, int len)
     }
     else
     {
+        close(fd);
         return 0;
     }
 }
@@ -80,6 +81,8 @@ void NDL_OpenCanvas(int *w, int *h)
 
         canvas_w = *w;
         canvas_h = *h;
+
+        close(fd);
     }
 }
 
