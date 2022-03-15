@@ -12,6 +12,7 @@
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
+static int canvas_w = 0, canvas_h = 0;
 
 uint32_t NDL_GetTicks()
 {
@@ -76,12 +77,18 @@ void NDL_OpenCanvas(int *w, int *h)
             *w = screen_w;
             *h = screen_h;
         }
+
+        canvas_w = *w;
+        canvas_h = *h;
     }
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h)
 {
     int fd = open("/dev/fb", O_RDWR);
+
+    x += (screen_w - canvas_w) / 2;
+    y += (screen_h - canvas_h) / 2;
 
     for (int i = 0; i < h; i++)
     {
