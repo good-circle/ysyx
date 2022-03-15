@@ -29,25 +29,20 @@ size_t events_read(void *buf, size_t offset, size_t len)
 
     /* kd/ku (2) + ' ' (1) + strlen(keyname[ev.keycode]) + '\n' (1) + '\0' */
     assert(len >= 5 + strlen(keyname[ev.keycode]));
-    len = 5 + strlen(keyname[ev.keycode]);
     memset(buf, 0, len);
 
     if (ev.keycode == AM_KEY_NONE)
     {
         return 0;
-    }
-    else
-    {
-        strcat(buf, ev.keydown ? "kd " : "ku ");
-        strcat(buf + 3, keyname[ev.keycode]);
-        strcat(buf + 3 + strlen(keyname[ev.keycode]), "\n");
+    }    
 
-        return 5 + strlen(keyname[ev.keycode]);
-    }
+    return snprintf(buf, len, "%s %s\n", ev.keydown ? "kd" : "ku", keyname[ev.keycode]);
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len)
 {
+    //int width = io_read(AM_GPU_CONFIG).width;
+    //int height = io_read(AM_GPU_CONFIG).height;
     return 0;
 }
 
