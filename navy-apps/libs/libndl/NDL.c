@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <assert.h>
 
 static int evtdev = -1;
 static int fbdev = -1;
@@ -57,6 +58,24 @@ void NDL_OpenCanvas(int *w, int *h)
                 break;
         }
         close(fbctl);
+    }
+    else
+    {
+        int fd = open("/proc/dispinfo", O_RDONLY);
+
+        char buf[64];
+        if (read(fd, buf, sizeof(buf) - 1))
+        {
+            sscanf(buf, "WIDTH: %d\nHEIGHT: %d\n", &screen_w, &screen_h);
+        }
+
+        assert(screen_w >= *w && screen_h >= *h);
+
+        if (*w == 0 && *h == 0)
+        {
+            *w = screen_w;
+            *h = screen_h;
+        }
     }
 }
 
