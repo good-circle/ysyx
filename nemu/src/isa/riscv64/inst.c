@@ -47,7 +47,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     case TYPE_B: src1R(rs1); src2R(rs2); destB(immB(i)); break;
   }
 }
-/*
+
 static void CSR(word_t dest, word_t src1, word_t src2, int op)
 {
     int csr = 0;
@@ -84,7 +84,7 @@ static void CSR(word_t dest, word_t src1, word_t src2, int op)
     
     R(dest) = t;   
 }
-*/
+
 static int decode_exec(Decode *s) {
   word_t dest = 0, src1 = 0, src2 = 0;
   s->dnpc = s->snpc;
@@ -145,13 +145,13 @@ static int decode_exec(Decode *s) {
   INSTPAT("0100000 ????? ????? 101 ????? 01100 11", sra    , R, R(dest) = (sword_t)src1 >> ((src2 << 58) >> 58));
   INSTPAT("0000000 ????? ????? 110 ????? 01100 11", or     , R, R(dest) = src1 | src2);
   INSTPAT("0000000 ????? ????? 111 ????? 01100 11", and    , R, R(dest) = src1 & src2);
-/*
+
   INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , I, s->dnpc = isa_raise_intr(11, s->pc));
   INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I, CSR(dest, src1, src2, CSRRW));
   INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , I, CSR(dest, src1, src2, CSRRS));
 
   INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc = cpu.csr[MEPC] + 4; difftest_skip_ref());
-*/  
+  
   // RV64I
   INSTPAT("??????? ????? ????? 110 ????? 00000 11", lwu    , I, R(dest) = (uint32_t)Mr(src1 + src2, 4));
   INSTPAT("??????? ????? ????? 011 ????? 00000 11", ld     , I, R(dest) = Mr(src1 + src2, 8));
