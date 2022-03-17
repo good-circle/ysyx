@@ -51,9 +51,6 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
   uint8_t *sbuf = (uint8_t *)AUDIO_SBUF_ADDR;
 
   /* if pos reaches sbuf_size then turns to start */
-      memcpy(sbuf + pos, ctl->buf.start, len);
-    pos += len;
-    /*
   if (pos + len <= sbuf_size)
   {
     memcpy(sbuf + pos, ctl->buf.start, len);
@@ -68,7 +65,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
     memcpy(sbuf, ctl->buf.start + first, second);
     pos = second;
   }
-*/
+
   /* add len to count */
   int count = inl(AUDIO_COUNT_ADDR);
   count += len;
