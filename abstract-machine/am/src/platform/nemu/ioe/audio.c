@@ -42,6 +42,10 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
   int len = ctl->buf.end - ctl->buf.start;
 
   /* wait if free_size < length */
+  while (sbuf_size - inl(AUDIO_COUNT_ADDR) < len)
+  {
+    ;
+  }
 
   /* pay attention! this is uint8_t! */
   uint8_t *sbuf = (uint8_t *)AUDIO_SBUF_ADDR;
