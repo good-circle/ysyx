@@ -195,7 +195,7 @@ void cpu_exec(uint64_t n)
 
     uint64_t timer_start = get_time();
 
-    execute(225000000);
+    execute(222000000);
 
     uint64_t timer_end = get_time();
     g_timer += timer_end - timer_start;
