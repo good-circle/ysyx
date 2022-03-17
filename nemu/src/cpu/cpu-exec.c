@@ -152,7 +152,7 @@ static void execute(uint64_t n)
     {
         exec_once(&s, cpu.pc);
         //printf("%d\n", i++);
-        printf("%lx\n", cpu.pc);
+        //printf("%lx\n", cpu.pc);
         g_nr_guest_inst++;
         trace_and_difftest(&s, cpu.pc);
         if (nemu_state.state != NEMU_RUNNING)
@@ -196,7 +196,7 @@ void cpu_exec(uint64_t n)
 
     uint64_t timer_start = get_time();
 
-    execute(221005399);
+    execute(n);
 
     uint64_t timer_end = get_time();
     g_timer += timer_end - timer_start;
