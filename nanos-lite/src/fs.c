@@ -11,7 +11,7 @@ size_t events_read(void *buf, size_t offset, size_t len);
 size_t dispinfo_read(void *buf, size_t offset, size_t len);
 size_t fb_write(const void *buf, size_t offset, size_t len);
 
-#define STRACE
+//#define STRACE
 
 typedef struct
 {
@@ -155,6 +155,6 @@ size_t fs_lseek(int fd, size_t offset, int whence)
 
 int fs_close(int fd)
 {
-    //file_table[fd].open_offset = 0;
+    file_table[fd].open_offset = 0;
     return 0;
 }
