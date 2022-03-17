@@ -150,6 +150,7 @@ static void execute(uint64_t n)
     for (; n > 0; n--)
     {
         exec_once(&s, cpu.pc);
+        printf("%ld\n", cpu.pc);
         g_nr_guest_inst++;
         trace_and_difftest(&s, cpu.pc);
         if (nemu_state.state != NEMU_RUNNING)
