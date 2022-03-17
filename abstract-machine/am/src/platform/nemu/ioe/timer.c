@@ -12,7 +12,7 @@ static uint64_t get_time()
     //time += inl(RTC_ADDR);
     //uint32_t lo = inl(RTC_ADDR);
     //uint32_t hi = inl(RTC_ADDR + 4);
-    uint64_t time = ((uint64_t)inl(RTC_ADDR + 4) << 32) | inl(RTC_ADDR);
+    uint64_t time = inl(RTC_ADDR);
     //((uint64_t)inl(RTC_ADDR + 4) << 32) | (uint64_t)inl(RTC_ADDR);
     return time;
 }
