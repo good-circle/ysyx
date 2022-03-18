@@ -120,7 +120,7 @@ y+h ***********&&&&&&&&&&&&&&&******
             }
             else if (dst->format->BitsPerPixel == 8)
             {
-                ((uint8_t *)dst->pixels)[(y + i) * w + x + j] = (uint8_t)color;
+                ((uint8_t *)dst->format->palette->colors)[(y + i) * w + x + j] = color;
             }
             else
             {
