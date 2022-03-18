@@ -191,7 +191,8 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
                     uint32_t b = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].b << maskToShift(DEFAULT_BMASK);
                     uint32_t a = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].a << maskToShift(DEFAULT_AMASK);
                     pixels[i * w + j] = r | g | b | a;
-
+                    
+                    if(r != 0 && g != 0 && b != 0)
                     printf("%d %d %d %d %d\n", r, g, b, a, pixels[i * w + j]);
                 }
             }
