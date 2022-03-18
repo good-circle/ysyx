@@ -2,10 +2,12 @@
 #include "syscall.h"
 #include <fs.h>
 #include <sys/time.h>
+#include <proc.h>
 
 //#define STRACE
 
 static int my_gettimeofday(struct timeval *tv, struct timezone *tz);
+void naive_uload(PCB *pcb, const char *filename);
 
 void do_syscall(Context *c)
 {
@@ -60,7 +62,12 @@ void do_syscall(Context *c)
         c->GPRx = 0;
         break;
 
-    case SYS_gettimeofday:
+    case SYS_execve: // 13
+        naive_uload(NULL, (char *)a[1]);
+        c->GPRx = 0;
+        break;
+
+    case SYS_gettimeofday: // 19
         c->GPRx = my_gettimeofday((struct timeval *)a[1], (struct timezone *)a[2]);
         break;
     default:
