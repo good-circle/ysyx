@@ -17,6 +17,7 @@ SDL_Surface *IMG_Load(const char *filename)
     FILE *fp = fopen(filename, "r");
     if (!fp)
     {
+        assert(0);
         return NULL;
     }
 
