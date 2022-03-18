@@ -169,6 +169,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
     }
     else if (s->format->BitsPerPixel == 8)
     {
+        assert(0);
         /*
                            x            x+w
                 ********************************
