@@ -166,8 +166,8 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
     {
         if (w == 0 && h == 0 && x == 0 && y == 0)
         {
-            w = s->w;
-            h = s->h;
+            //w = s->w;
+            //h = s->h;
         }
         else
         {
