@@ -13,7 +13,7 @@ void SDL_Quit()
 
 char *SDL_GetError()
 {
-    assert(0);
+    //assert(0);
     return "Navy does not support SDL_GetError()";
 }
 
