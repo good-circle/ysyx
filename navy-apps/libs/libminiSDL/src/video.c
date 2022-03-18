@@ -182,9 +182,9 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
                 ********************************
                 ********************************
             */
-            for (int i = 0; i < h; ++i)
+            for (int i = 0; i < h; i++)
             {
-                for (int j = 0; j < w; ++j)
+                for (int j = 0; j < w; j++)
                 {
                     uint32_t r = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].r << maskToShift(DEFAULT_RMASK);
                     uint32_t g = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].g << maskToShift(DEFAULT_GMASK);
