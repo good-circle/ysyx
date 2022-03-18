@@ -16,6 +16,36 @@ int SDL_PushEvent(SDL_Event *ev)
 
 int SDL_PollEvent(SDL_Event *ev)
 {
+    int len = 64;
+    char buf[len];
+    while (NDL_PollEvent(buf, len) == 0)
+    {
+        return 0;
+    }
+
+    char ndl_keydown[4];
+    char ndl_keyname[16];
+
+    sscanf(buf, "%s %s\n", ndl_keydown, ndl_keyname);
+
+    if (strcmp(ndl_keydown, "kd") == 0)
+    {
+        ev->type = SDL_KEYDOWN;
+    }
+    else
+    {
+        ev->type = SDL_KEYUP;
+    }
+
+    for (int i = 0; i < sizeof(keyname) / sizeof(char *); i++)
+    {
+        if (strcmp(ndl_keyname, keyname[i]) == 0)
+        {
+            ev->key.keysym.sym = i;
+            return 1;
+        }
+    }
+
     return 0;
 }
 
