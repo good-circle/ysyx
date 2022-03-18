@@ -161,7 +161,6 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
                 memcpy(&pixels[i * w], &s->pixels[(y + i) * s->w + x], sizeof(uint32_t) * w);
             }
         }
-        NDL_DrawRect(pixels, x, y, w, h);
     }
     else if (s->format->BitsPerPixel == 8)
     {
@@ -195,14 +194,13 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
                 }
             }
         }
-        NDL_DrawRect(pixels, x, y, w, h);
     }
     else
     {
         assert(0);
     }
     
-    //NDL_DrawRect(pixels, x, y, w, h);
+    NDL_DrawRect(pixels, x, y, w, h);
 }
 
 // APIs below are already implemented.
