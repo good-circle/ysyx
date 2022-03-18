@@ -133,6 +133,11 @@ y+h ***********&&&&&&&&&&&&&&&******
 static inline int maskToShift(uint32_t mask);
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
 {
+    if (w == 0 && h == 0 && x == 0 && y == 0)
+    {
+        w = s->w;
+        h = s->h;
+    }
     uint32_t *pixels = malloc(w * h * sizeof(uint32_t));
 
     if (s->format->BitsPerPixel == 32)
@@ -164,14 +169,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
     }
     else if (s->format->BitsPerPixel == 8)
     {
-        if (w == 0 && h == 0 && x == 0 && y == 0)
-        {
-            w = s->w;
-            h = s->h;
-        }
-        else
-        {
-            /*
+        /*
                            x            x+w
                 ********************************
                 ********************************
@@ -182,16 +180,15 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
                 ********************************
                 ********************************
             */
-            for (int i = 0; i < h; i++)
+        for (int i = 0; i < h; i++)
+        {
+            for (int j = 0; j < w; j++)
             {
-                for (int j = 0; j < w; j++)
-                {
-                    uint32_t r = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].r << maskToShift(DEFAULT_RMASK);
-                    uint32_t g = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].g << maskToShift(DEFAULT_GMASK);
-                    uint32_t b = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].b << maskToShift(DEFAULT_BMASK);
-                    uint32_t a = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].a << maskToShift(DEFAULT_AMASK);
-                    pixels[i * w + j] = r | g | b | a;
-                }
+                uint32_t r = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].r << maskToShift(DEFAULT_RMASK);
+                uint32_t g = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].g << maskToShift(DEFAULT_GMASK);
+                uint32_t b = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].b << maskToShift(DEFAULT_BMASK);
+                uint32_t a = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].a << maskToShift(DEFAULT_AMASK);
+                pixels[i * w + j] = r | g | b | a;
             }
         }
     }
@@ -199,7 +196,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
     {
         assert(0);
     }
-    
+
     NDL_DrawRect(pixels, x, y, w, h);
     free(pixels);
 }
