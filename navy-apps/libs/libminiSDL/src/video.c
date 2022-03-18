@@ -149,6 +149,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
         }
         else
         {
+            assert(0);
             /*
                 copy on line
                            x            x+w
