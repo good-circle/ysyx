@@ -28,7 +28,7 @@ void do_syscall(Context *c)
         {
             printf("a0 is not 0 when sys_exit, maybe you forget to add case in navy-apps/libs/libos/src/syscall.c?\n");
         }
-        halt(a[1]);
+        naive_uload(NULL, "/bin/menu");
         c->GPRx = 0;
         break;
 
