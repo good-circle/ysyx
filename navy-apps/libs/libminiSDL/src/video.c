@@ -130,36 +130,76 @@ y+h ***********&&&&&&&&&&&&&&&******
     }
 }
 
+static inline int maskToShift(uint32_t mask);
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
 {
-    printf("%d %d %d %d\n", s->format->Rshift, s->format->Gshift, s->format->Bshift, s->format->Ashift);
-    assert(s->format->BitsPerPixel == 32);
+    uint32_t *pixels = malloc(w * h * sizeof(uint32_t));
 
-    if (w == 0 && h == 0 && x == 0 && y == 0)
+    if (s->format->BitsPerPixel == 32)
     {
-        NDL_DrawRect((uint32_t *)s->pixels, 0, 0, s->w, s->h);
-        return;
+        if (w == 0 && h == 0 && x == 0 && y == 0)
+        {
+            NDL_DrawRect((uint32_t *)s->pixels, 0, 0, s->w, s->h);
+            return;
+        }
+        else
+        {
+            /*
+                copy on line
+                           x            x+w
+                ********************************
+                ********************************
+            y   ***********&&&&&&&&&&&&&&&******
+                ***********&&&&&&&&&&&&&&&******
+                ***********&&&&&&&&&&&&&&&******
+            y+h ***********&&&&&&&&&&&&&&&******
+                ********************************
+                ********************************
+            */
+            for (int i = 0; i < h; i++)
+            {
+                memcpy(&pixels[i * w], &s->pixels[(y + i) * s->w + x], sizeof(uint32_t) * w);
+            }
+        }
     }
-
-    uint32_t *pixels = malloc(w * h);
-
-    /*
-    copy on line
-               x            x+w
-    ********************************
-    ********************************
-y   ***********&&&&&&&&&&&&&&&******
-    ***********&&&&&&&&&&&&&&&******
-    ***********&&&&&&&&&&&&&&&******
-y+h ***********&&&&&&&&&&&&&&&******
-    ********************************
-    ********************************
-*/
-    for (int i = 0; i < h; i++)
+    else if (s->format->BitsPerPixel == 8)
     {
-        memcpy(&pixels[i * w], &s->pixels[(y + i) * s->w + x], sizeof(uint32_t) * w);
+        if (w == 0 && h == 0 && x == 0 && y == 0)
+        {
+            w = s->w;
+            h = s->h;
+        }
+        else
+        {
+            /*
+                           x            x+w
+                ********************************
+                ********************************
+            y   ***********&&&&&&&&&&&&&&&******
+                ***********&&&&&&&&&&&&&&&******
+                ***********&&&&&&&&&&&&&&&******
+            y+h ***********&&&&&&&&&&&&&&&******
+                ********************************
+                ********************************
+            */
+            for (int i = 0; i < h; ++i)
+            {
+                for (int j = 0; j < w; ++j)
+                {
+                    uint32_t r = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].r << maskToShift(DEFAULT_RMASK);
+                    uint32_t g = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].g << maskToShift(DEFAULT_GMASK);
+                    uint32_t b = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].b << maskToShift(DEFAULT_BMASK);
+                    uint32_t a = s->format->palette->colors[((uint8_t *)s->pixels)[(y + i) * s->w + x + j]].a << maskToShift(DEFAULT_AMASK);
+                    pixels[i * w + j] = r | g | b | a;
+                }
+            }
+        }
     }
-
+    else
+    {
+        assert(0);
+    }
+    
     NDL_DrawRect(pixels, x, y, w, h);
 }
 
