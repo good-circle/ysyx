@@ -106,7 +106,7 @@ y+h ***********&&&&&&&&&&&&&&&******
     {
         for (int j = 0; j < w; j++)
         {
-            dst->pixels[(y + i) * w + x + j] = color;
+            ((uint32_t *)dst->pixels)[(y + i) * w + x + j] = color;
         }
     }
 }
