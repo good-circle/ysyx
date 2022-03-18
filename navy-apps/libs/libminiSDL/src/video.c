@@ -9,7 +9,6 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 {
     assert(dst && src);
     assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
-    //assert(src->format->BitsPerPixel == 32);
 
     int s_x, s_y, d_x, d_y, w, h;
     if (srcrect == NULL)
@@ -66,15 +65,24 @@ d_y + h ******&&&&&&&&&&&&&&&**************
     {
         for (int j = 0; j < w; j++)
         {
-            ((uint32_t *)dst->pixels)[(d_y + i) * dst->w + d_x + j] = ((uint32_t *)src->pixels)[(s_y + i) * src->w + s_x + j];
+            if (src->format->BitsPerPixel == 32)
+            {
+                ((uint32_t *)dst->pixels)[(d_y + i) * dst->w + d_x + j] = ((uint32_t *)src->pixels)[(s_y + i) * src->w + s_x + j];
+            }
+            else if (src->format->BitsPerPixel == 8)
+            {
+                ((uint8_t *)dst->pixels)[(d_y + i) * dst->w + d_x + j] = ((uint8_t *)src->pixels)[(s_y + i) * src->w + s_x + j];
+            }
+            else
+            {
+                assert(0);
+            }
         }
     }
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color)
 {
-    //assert(dst->format->BitsPerPixel == 32);
-
     int x, y, w, h;
     if (dstrect == NULL)
     {
@@ -106,14 +114,26 @@ y+h ***********&&&&&&&&&&&&&&&******
     {
         for (int j = 0; j < w; j++)
         {
-            ((uint32_t *)dst->pixels)[(y + i) * w + x + j] = color;
+            if (dst->format->BitsPerPixel == 32)
+            {
+                ((uint32_t *)dst->pixels)[(y + i) * w + x + j] = color;
+            }
+            else if (dst->format->BitsPerPixel == 8)
+            {
+                ((uint8_t *)dst->pixels)[(y + i) * w + x + j] = (uint8_t)color;
+            }
+            else
+            {
+                assert(0);
+            }
         }
     }
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
 {
-    //assert(s->format->BitsPerPixel == 32);
+    printf("%d %d %d %d\n", s->format->Rshift, s->format->Gshift, s->format->Bshift, s->format->Ashift);
+    assert(s->format->BitsPerPixel == 32);
 
     if (w == 0 && h == 0 && x == 0 && y == 0)
     {
