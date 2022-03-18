@@ -17,7 +17,6 @@ SDL_Surface *IMG_Load(const char *filename)
     FILE *fp = fopen(filename, "r");
     if (!fp)
     {
-        assert(0);
         return NULL;
     }
 
@@ -28,6 +27,7 @@ SDL_Surface *IMG_Load(const char *filename)
     fread(buf, size, 1, fp);
 
     SDL_Surface *surface = STBIMG_LoadFromMemory(buf, size);
+    assert(surface != NULL);
 
     fclose(fp);
     free(buf);
