@@ -193,7 +193,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
                     pixels[i * w + j] = r | g | b | a;
                     
                     if(r != 0 && g != 0 && b != 0)
-                    printf("%d %d %d %d %d\n", r, g, b, a, pixels[i * w + j]);
+                    printf("%d %d %d %d %d\n", r>>16, g>>8, b, a, pixels[i * w + j]);
                 }
             }
         }
