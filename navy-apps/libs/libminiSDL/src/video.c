@@ -65,6 +65,7 @@ d_y + h ******&&&&&&&&&&&&&&&**************
     {
         for (int j = 0; j < w; j++)
         {
+            printf("%d %d %d %d\n", i, h, j ,w);
             dst->pixels[(d_y + i) * dst->w + d_x + j] = src->pixels[(s_y + i) * src->w + s_x + j];
         }
     }
