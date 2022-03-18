@@ -19,7 +19,7 @@ char *SDL_GetError()
 
 int SDL_SetError(const char *fmt, ...)
 {
-    assert(0);
+    //assert(0);
     return -1;
 }
 
