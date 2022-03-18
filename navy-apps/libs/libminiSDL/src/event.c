@@ -10,7 +10,7 @@ static const char *keyname[] = {
     "NONE",
     _KEYS(keyname)};
 
-static char keystate[sizeof(keyname) / sizeof(char *)];
+static uint8_t keystate[sizeof(keyname) / sizeof(char *)];
 
 int SDL_PushEvent(SDL_Event *ev)
 {
@@ -102,5 +102,5 @@ uint8_t *SDL_GetKeyState(int *numkeys)
     {
         *numkeys = sizeof(keyname) / sizeof(char *);
     }
-    return NULL;
+    return keystate;
 }
