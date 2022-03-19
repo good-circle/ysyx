@@ -8,5 +8,7 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd)
 {
     uint32_t key = inl(KBD_ADDR);
     kbd->keydown = (key & KEYDOWN_MASK) ? 1 : 0;
-    kbd->keycode = kbd->keydown ? key & ~KEYDOWN_MASK : AM_KEY_NONE;
+
+    /* fixed in pa3.3, as AM_KEY_NONE is not defined by kbd->keydown */
+    kbd->keycode = key & ~KEYDOWN_MASK;
 }

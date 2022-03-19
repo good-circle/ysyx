@@ -62,6 +62,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     }
     IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 #ifdef CONFIG_IRINGBUF
+    //printf("%s\n", _this->logbuf);
     memcpy(iringbuf[iring_num], _this->logbuf, sizeof(_this->logbuf));
     iring_num++;
     iring_num = (iring_num > 15) ? 0 : iring_num;
@@ -146,9 +147,12 @@ static void exec_once(Decode *s, vaddr_t pc)
 static void execute(uint64_t n)
 {
     Decode s;
+    //int i = 0;
     for (; n > 0; n--)
     {
         exec_once(&s, cpu.pc);
+        //printf("%d\n", i++);
+        //printf("%lx\n", cpu.pc);
         g_nr_guest_inst++;
         trace_and_difftest(&s, cpu.pc);
         if (nemu_state.state != NEMU_RUNNING)
