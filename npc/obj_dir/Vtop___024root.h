@@ -20,12 +20,29 @@ VL_MODULE(Vtop___024root) {
 
     // PORTS
     VL_IN8(clk,0,0);
-    VL_OUT8(a,0,0);
+    VL_IN8(rst,0,0);
+    VL_OUT8(memwrite,0,0);
     VL_IN(inst,31,0);
-    VL_OUT(pc,31,0);
+    VL_OUT64(pc,63,0);
+    VL_OUT64(address,63,0);
+    VL_OUT64(data,63,0);
+    VL_OUT64(halt,63,0);
+
+    // LOCAL SIGNALS
+    CData/*0:0*/ top__DOT__addi;
+    CData/*0:0*/ top__DOT__jalr;
+    CData/*0:0*/ top__DOT__sd;
+    CData/*4:0*/ top__DOT__rf_raddr1;
+    QData/*63:0*/ top__DOT__U_extension;
+    QData/*63:0*/ top__DOT__J_extension;
+    QData/*63:0*/ top__DOT__br_target;
+    QData/*63:0*/ top__DOT__adder_result;
+    QData/*63:0*/ top__DOT__rf_rdata1;
+    VlUnpacked<QData/*63:0*/, 32> top__DOT__u_regfile__DOT__rf;
 
     // LOCAL VARIABLES
     CData/*0:0*/ __Vclklast__TOP__clk;
+    VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
 
     // INTERNAL VARIABLES
     Vtop__Syms* vlSymsp;  // Symbol table
