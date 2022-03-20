@@ -62,7 +62,7 @@ assign jalr = funct3 == 3'b000 && opcode == 7'b1100111;
 assign sd = funct3 == 3'b011 && opcode == 7'b0100011;
 
 assign br_taken = jal | jalr;
-assign br_target = jal ? pc + J_extension : {adder_result[31:1], 1'b0};
+assign br_target = jal ? pc + J_extension : {adder_result[63:1], 1'b0};
 
 assign I_Type = addi | jalr;
 assign R_Type = 0;
