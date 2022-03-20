@@ -110,7 +110,7 @@ int main(int argc, char **argv, char **env)
         finish(&is_finish);
     }
     printf("number of instructions is %d\n", inst_num);
-    if(top>halt == 0)
+    if(top->halt == 0)
     {
         printf("HIT GOOD TRAP\n");
     }
