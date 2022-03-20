@@ -108,7 +108,7 @@ regfile u_regfile(
     .raddr1 (rf_raddr1),
     .rdata1 (rf_rdata1),
     .raddr2 (rf_raddr2),
-    .rdata2 (),
+    .rdata2 (0),
     .we     (rf_we    ),
     .waddr  (rf_waddr ),
     .wdata  (rf_wdata )
