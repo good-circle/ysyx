@@ -92,6 +92,7 @@ int main(int argc, char **argv, char **env)
         //m_trace->dump(2 * i + 1);
         top->clk = !top->clk;
         top->eval();
+        break;
         }
         else
         {
