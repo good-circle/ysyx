@@ -84,7 +84,7 @@ int main(int argc, char **argv, char **env)
         {
             printf("%d ", i);
             printf("%d ", top->rst);
-            printf("%08lx\n", top->pc);
+            printf("%16lx\n", top->pc);
             continue;
         }
         top->rst = 0;
