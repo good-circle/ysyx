@@ -5,7 +5,8 @@ module top(
     output reg [63:0] pc,
     output [63:0] address,
     output [63:0] data,
-    output memwrite
+    output memwrite,
+    output [63:0] halt
 );
 
 //wire [6:0] funct7;
@@ -28,6 +29,7 @@ wire lui;
 wire jal;
 wire jalr;
 wire sd;
+wire ebreak;
 
 wire br_taken;
 wire [63:0] br_target;
@@ -64,6 +66,7 @@ assign lui = opcode == 7'b0110111;
 assign jal = opcode == 7'b1101111;
 assign jalr = funct3 == 3'b000 && opcode == 7'b1100111;
 assign sd = funct3 == 3'b011 && opcode == 7'b0100011;
+assign ebreak = inst == 32'h00100073;
 
 assign br_taken = jal | jalr;
 assign br_target = jal ? pc + J_extension : {adder_result[63:1], 1'b0};
@@ -105,7 +108,7 @@ adder u_adder(
 );
 
 assign rf_waddr  =  rd;
-assign rf_raddr1 =  rs1;
+assign rf_raddr1 =  ebreak ? 5'd10 : rs1;
 assign rf_raddr2 =  rs2;
 assign rf_we = !sd;
 assign rf_wdata  = {64{jal | jalr}} & (pc + 4)
@@ -123,10 +126,12 @@ regfile u_regfile(
     .wdata  (rf_wdata )
 );
 
+assign halt = rf_rdata2;
+
 export "DPI-C" task finish;
 task finish;
     output bit is_finish;
-    is_finish = (inst == 32'h00100073);
+    is_finish = ebreak;
 endtask
 
 endmodule

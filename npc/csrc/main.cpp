@@ -110,6 +110,14 @@ int main(int argc, char **argv, char **env)
         finish(&is_finish);
     }
     printf("number of instructions is %d\n", inst_num);
+    if(cpu->halt == 0)
+    {
+        printf("HIT GOOD TRAP\n");
+    }
+    else
+    {
+        printf("HIT BAD TRAP\n");
+    }
     m_trace->close();
     delete top;
     delete contextp;
