@@ -1,5 +1,6 @@
 module top(
     input clk,
+    input rst,
     input [31:0] inst,
     output reg [63:0] pc,
     output [63:0] address,
@@ -87,7 +88,8 @@ assign imm_extension = {64{I_Type}} & I_extension
 
 
 always @(posedge clk) begin
-    pc <= br_taken ? br_target : pc + 4;
+    if(rst) pc <= 0x0000000080000000;
+    else pc <= br_taken ? br_target : pc + 4;
 end
 
 assign memwrite = sd;

@@ -73,22 +73,29 @@ int main(int argc, char **argv, char **env)
     m_trace->open("waveform.vcd");
     init_pmem();
     top->clk = 1;
-    top->pc = 0x0000000080000000;
+    top->rst = 1;
     int i = 0;
     svSetScope(svGetScopeFromName("TOP.top"));
     svBit is_finish = 0;
     while (!is_finish)
     {
         i++;
+        if(i <= 10)
+        {
+            continue;
+        }
         printf("%08lx ", top->pc);
         top->inst = pmem_read(top->pc);
         printf("%08x\n", top->inst);
+
         m_trace->dump(2 * i);
         top->clk = !top->clk;
-        //top->eval();
+        top->eval();
+
         m_trace->dump(2 * i + 1);
         top->clk = !top->clk;
         top->eval();
+
         finish(&is_finish);
     }
     m_trace->close();
