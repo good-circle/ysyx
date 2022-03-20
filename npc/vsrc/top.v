@@ -126,7 +126,7 @@ regfile u_regfile(
 export "DPI-C" task finish;
 task finish;
     output bit is_finish;
-    is_finish = (inst == 32'h00100073 || pc == 64'h0000000000000000);
+    is_finish = (inst == 32'h00100073);
 endtask
 
 endmodule
