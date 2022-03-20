@@ -20,15 +20,15 @@ always @(posedge clk) begin
 end
 
 
-wire [ 4:0] rf_raddr1,
-wire [31:0] rf_rdata1,
+wire [ 4:0] rf_raddr1;
+wire [31:0] rf_rdata1;
 
-wire [ 4:0] rf_raddr2,
-wire [31:0] rf_rdata2,
+wire [ 4:0] rf_raddr2;
+wire [31:0] rf_rdata2;
 
-wire        rf_we    ,      
-wire [ 4:0] rf_waddr ,
-wire [31:0] rf_wdata
+wire        rf_we    ;      
+wire [ 4:0] rf_waddr ;
+wire [31:0] rf_wdata ;
 
 regfile u_regfile(
     .clk    (clk      ),
