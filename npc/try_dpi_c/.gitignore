@@ -1,6 +1,0 @@
-!.gitignore
-!Makefile
-!csrc/
-!vsrc/
-*.vcd
-obj_dir/
