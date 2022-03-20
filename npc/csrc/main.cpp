@@ -88,7 +88,7 @@ int main(int argc, char **argv, char **env)
             continue;
         }
         top->rst = 0;
-        printf("%08lx \n", top->pc);
+        printf("%08lx ", top->pc);
         top->inst = pmem_read(top->pc);
         printf("%08x\n", top->inst);
 
