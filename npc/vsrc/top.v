@@ -4,7 +4,7 @@ module top(
     output reg [63:0] pc
 );
 
-wire [6:0] funct7;
+//wire [6:0] funct7;
 wire [4:0] rs2;
 wire [4:0] rs1;
 wire [2:0] funct3;
@@ -41,13 +41,13 @@ wire [ 4:0] rf_waddr ;
 wire [63:0] rf_wdata ;
 
 wire I_Type;
-wire R_Type;
+//wire R_Type;
 wire S_Type;
 wire B_Type;
 wire U_Type;
 wire J_Type;
 
-assign funct7  = inst[31:25];
+//assign funct7  = inst[31:25];
 assign rs2     = inst[24:20];
 assign rs1     = inst[19:15];
 assign funct3  = inst[14:12];
@@ -65,7 +65,7 @@ assign br_taken = jal | jalr;
 assign br_target = jal ? pc + J_extension : {adder_result[63:1], 1'b0};
 
 assign I_Type = addi | jalr;
-assign R_Type = 0;
+//assign R_Type = 0;
 assign S_Type = sd;
 assign B_Type = 0;
 assign U_Type = auipc | lui;
@@ -108,7 +108,7 @@ regfile u_regfile(
     .raddr1 (rf_raddr1),
     .rdata1 (rf_rdata1),
     .raddr2 (rf_raddr2),
-    .rdata2 (rf_rdata2),
+    .rdata2 (),
     .we     (rf_we    ),
     .waddr  (rf_waddr ),
     .wdata  (rf_wdata )

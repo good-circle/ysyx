@@ -267,31 +267,27 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                       ? 0ULL : vlSelf->top__DOT__u_regfile__DOT__rf
                                      [(0x1fU & (vlSelf->inst 
                                                 >> 0x14U))])),64);
-        tracep->fullQData(oldp+106,((((((QData)((IData)(
-                                                        (- (IData)(
-                                                                   ((0x6fU 
-                                                                     == 
-                                                                     (0x7fU 
-                                                                      & vlSelf->inst)) 
-                                                                    | (IData)(vlSelf->top__DOT__jalr)))))) 
+        tracep->fullQData(oldp+106,((((((- (QData)((IData)(
+                                                           ((0x6fU 
+                                                             == 
+                                                             (0x7fU 
+                                                              & vlSelf->inst)) 
+                                                            | (IData)(vlSelf->top__DOT__jalr))))) 
                                         & (4ULL + vlSelf->pc)) 
-                                       | ((QData)((IData)(
-                                                          (- (IData)(
-                                                                     (0x37U 
-                                                                      == 
-                                                                      (0x7fU 
-                                                                       & vlSelf->inst)))))) 
+                                       | ((- (QData)((IData)(
+                                                             (0x37U 
+                                                              == 
+                                                              (0x7fU 
+                                                               & vlSelf->inst))))) 
                                           & vlSelf->top__DOT__U_extension)) 
-                                      | ((QData)((IData)(
-                                                         (- (IData)(
-                                                                    (0x17U 
-                                                                     == 
-                                                                     (0x7fU 
-                                                                      & vlSelf->inst)))))) 
+                                      | ((- (QData)((IData)(
+                                                            (0x17U 
+                                                             == 
+                                                             (0x7fU 
+                                                              & vlSelf->inst))))) 
                                          & (vlSelf->pc 
                                             + vlSelf->top__DOT__U_extension))) 
-                                     | ((QData)((IData)(
-                                                        (- (IData)((IData)(vlSelf->top__DOT__addi))))) 
+                                     | ((- (QData)((IData)(vlSelf->top__DOT__addi))) 
                                         & vlSelf->top__DOT__adder_result))),64);
         tracep->fullBit(oldp+108,(((0x17U == (0x7fU 
                                               & vlSelf->inst)) 
