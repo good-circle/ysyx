@@ -72,7 +72,7 @@ int main(int argc, char **argv, char **env)
     top->trace(m_trace, 99);
     m_trace->open("waveform.vcd");
     init_pmem();
-    //top->clk = 1;
+    top->clk = 1;
     top->rst = 1;
     int i = 0;
     svSetScope(svGetScopeFromName("TOP.top"));
@@ -86,7 +86,7 @@ int main(int argc, char **argv, char **env)
             printf("%d ", top->rst);
             printf("%016lx\n", top->pc);
         }
-        top->rst = 0;
+
         printf("%08lx ", top->pc);
         //top->inst = pmem_read(top->pc);
         printf("%08x\n", top->inst);
