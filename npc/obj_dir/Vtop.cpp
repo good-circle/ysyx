@@ -14,6 +14,9 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , clk{vlSymsp->TOP.clk}
     , inst{vlSymsp->TOP.inst}
     , pc{vlSymsp->TOP.pc}
+    , address{vlSymsp->TOP.address}
+    , data{vlSymsp->TOP.data}
+    , memwrite{vlSymsp->TOP.memwrite}
     , rootp{&(vlSymsp->TOP)}
 {
 }
