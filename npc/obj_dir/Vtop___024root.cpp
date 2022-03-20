@@ -13,8 +13,7 @@ void Vtop___024root____Vdpiexp_top__DOT__finish_TOP(Vtop__Syms* __restrict vlSym
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiexp_top__DOT__finish_TOP\n"); );
     // Variables
     // Body
-    is_finish = ((0x100073U == vlSymsp->TOP.inst) | 
-                 (0ULL == vlSymsp->TOP.pc));
+    is_finish = (0x100073U == vlSymsp->TOP.inst);
 }
 
 VL_INLINE_OPT void Vtop___024root___combo__TOP__1(Vtop___024root* vlSelf) {
