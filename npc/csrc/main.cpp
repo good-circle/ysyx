@@ -91,9 +91,9 @@ int main(int argc, char **argv, char **env)
         {
             top->rst = 0;
         }
-        top->rst = 0;
+        
         printf("%08lx ", top->pc);
-        top->inst = pmem_read(top->pc);
+        //top->inst = pmem_read(top->pc);
         printf("%08x\n", top->inst);
 
         m_trace->dump(2 * i);
