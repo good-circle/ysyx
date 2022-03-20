@@ -83,7 +83,7 @@ int main(int argc, char **argv, char **env)
         if(i <= 10)
         {
             printf("%d\n", i);
-            printf("%08lx ", top->pc)
+            printf("%08lx ", top->pc);
             continue;
         }
         printf("%08lx ", top->pc);
