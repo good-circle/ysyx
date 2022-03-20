@@ -11,18 +11,10 @@
 
 Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     : vlSymsp{new Vtop__Syms(_vcontextp__, _vcname__, this)}
-    , top__02Eclk{vlSymsp->TOP.top__02Eclk}
+    , clk{vlSymsp->TOP.clk}
     , inst{vlSymsp->TOP.inst}
     , pc{vlSymsp->TOP.pc}
     , a{vlSymsp->TOP.a}
-    , regfile__02Eclk{vlSymsp->TOP.regfile__02Eclk}
-    , raddr1{vlSymsp->TOP.raddr1}
-    , rdata1{vlSymsp->TOP.rdata1}
-    , raddr2{vlSymsp->TOP.raddr2}
-    , rdata2{vlSymsp->TOP.rdata2}
-    , we{vlSymsp->TOP.we}
-    , waddr{vlSymsp->TOP.waddr}
-    , wdata{vlSymsp->TOP.wdata}
     , rootp{&(vlSymsp->TOP)}
 {
 }

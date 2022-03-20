@@ -23,64 +23,22 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
     if (false && oldp) {}  // Prevent unused
     // Body
     {
-        if (VL_UNLIKELY(vlSelf->__Vm_traceActivity[1U])) {
-            tracep->chgIData(oldp+0,(vlSelf->regfile__DOT__rf[0]),32);
-            tracep->chgIData(oldp+1,(vlSelf->regfile__DOT__rf[1]),32);
-            tracep->chgIData(oldp+2,(vlSelf->regfile__DOT__rf[2]),32);
-            tracep->chgIData(oldp+3,(vlSelf->regfile__DOT__rf[3]),32);
-            tracep->chgIData(oldp+4,(vlSelf->regfile__DOT__rf[4]),32);
-            tracep->chgIData(oldp+5,(vlSelf->regfile__DOT__rf[5]),32);
-            tracep->chgIData(oldp+6,(vlSelf->regfile__DOT__rf[6]),32);
-            tracep->chgIData(oldp+7,(vlSelf->regfile__DOT__rf[7]),32);
-            tracep->chgIData(oldp+8,(vlSelf->regfile__DOT__rf[8]),32);
-            tracep->chgIData(oldp+9,(vlSelf->regfile__DOT__rf[9]),32);
-            tracep->chgIData(oldp+10,(vlSelf->regfile__DOT__rf[10]),32);
-            tracep->chgIData(oldp+11,(vlSelf->regfile__DOT__rf[11]),32);
-            tracep->chgIData(oldp+12,(vlSelf->regfile__DOT__rf[12]),32);
-            tracep->chgIData(oldp+13,(vlSelf->regfile__DOT__rf[13]),32);
-            tracep->chgIData(oldp+14,(vlSelf->regfile__DOT__rf[14]),32);
-            tracep->chgIData(oldp+15,(vlSelf->regfile__DOT__rf[15]),32);
-            tracep->chgIData(oldp+16,(vlSelf->regfile__DOT__rf[16]),32);
-            tracep->chgIData(oldp+17,(vlSelf->regfile__DOT__rf[17]),32);
-            tracep->chgIData(oldp+18,(vlSelf->regfile__DOT__rf[18]),32);
-            tracep->chgIData(oldp+19,(vlSelf->regfile__DOT__rf[19]),32);
-            tracep->chgIData(oldp+20,(vlSelf->regfile__DOT__rf[20]),32);
-            tracep->chgIData(oldp+21,(vlSelf->regfile__DOT__rf[21]),32);
-            tracep->chgIData(oldp+22,(vlSelf->regfile__DOT__rf[22]),32);
-            tracep->chgIData(oldp+23,(vlSelf->regfile__DOT__rf[23]),32);
-            tracep->chgIData(oldp+24,(vlSelf->regfile__DOT__rf[24]),32);
-            tracep->chgIData(oldp+25,(vlSelf->regfile__DOT__rf[25]),32);
-            tracep->chgIData(oldp+26,(vlSelf->regfile__DOT__rf[26]),32);
-            tracep->chgIData(oldp+27,(vlSelf->regfile__DOT__rf[27]),32);
-            tracep->chgIData(oldp+28,(vlSelf->regfile__DOT__rf[28]),32);
-            tracep->chgIData(oldp+29,(vlSelf->regfile__DOT__rf[29]),32);
-            tracep->chgIData(oldp+30,(vlSelf->regfile__DOT__rf[30]),32);
-            tracep->chgIData(oldp+31,(vlSelf->regfile__DOT__rf[31]),32);
-        }
-        tracep->chgBit(oldp+32,(vlSelf->top__02Eclk));
-        tracep->chgIData(oldp+33,(vlSelf->inst),32);
-        tracep->chgIData(oldp+34,(vlSelf->pc),32);
-        tracep->chgBit(oldp+35,(vlSelf->a));
-        tracep->chgBit(oldp+36,(vlSelf->regfile__02Eclk));
-        tracep->chgCData(oldp+37,(vlSelf->raddr1),5);
-        tracep->chgIData(oldp+38,(vlSelf->rdata1),32);
-        tracep->chgCData(oldp+39,(vlSelf->raddr2),5);
-        tracep->chgIData(oldp+40,(vlSelf->rdata2),32);
-        tracep->chgBit(oldp+41,(vlSelf->we));
-        tracep->chgCData(oldp+42,(vlSelf->waddr),5);
-        tracep->chgIData(oldp+43,(vlSelf->wdata),32);
-        tracep->chgBit(oldp+44,((IData)((0x13U == (0x707fU 
-                                                   & vlSelf->inst)))));
+        tracep->chgBit(oldp+0,(vlSelf->clk));
+        tracep->chgIData(oldp+1,(vlSelf->inst),32);
+        tracep->chgIData(oldp+2,(vlSelf->pc),32);
+        tracep->chgBit(oldp+3,(vlSelf->a));
+        tracep->chgBit(oldp+4,((IData)((0x13U == (0x707fU 
+                                                  & vlSelf->inst)))));
     }
 }
 
 void Vtop___024root__traceCleanup(void* voidSelf, VerilatedVcd* /*unused*/) {
+    VlUnpacked<CData/*0:0*/, 1> __Vm_traceActivity;
     Vtop___024root* const __restrict vlSelf = static_cast<Vtop___024root*>(voidSelf);
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     // Body
     {
         vlSymsp->__Vm_activity = false;
-        vlSymsp->TOP.__Vm_traceActivity[0U] = 0U;
-        vlSymsp->TOP.__Vm_traceActivity[1U] = 0U;
+        __Vm_traceActivity[0U] = 0U;
     }
 }

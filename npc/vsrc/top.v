@@ -19,6 +19,28 @@ always @(posedge clk) begin
     end
 end
 
+
+wire [ 4:0] rf_raddr1,
+wire [31:0] rf_rdata1,
+
+wire [ 4:0] rf_raddr2,
+wire [31:0] rf_rdata2,
+
+wire        rf_we    ,      
+wire [ 4:0] rf_waddr ,
+wire [31:0] rf_wdata
+
+regfile u_regfile(
+    .clk    (clk      ),
+    .raddr1 (rf_raddr1),
+    .rdata1 (rf_rdata1),
+    .raddr2 (rf_raddr2),
+    .rdata2 (rf_rdata2),
+    .we     (rf_we    ),
+    .waddr  (rf_waddr ),
+    .wdata  (rf_wdata )
+    );
+
 export "DPI-C" task finish;
 task finish;
     output bit is_finish;
