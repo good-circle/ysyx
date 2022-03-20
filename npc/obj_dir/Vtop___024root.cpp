@@ -156,11 +156,8 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__4(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__br_target = ((0x6fU == (0x7fU 
                                               & vlSelf->inst))
                                     ? (vlSelf->pc + vlSelf->top__DOT__J_extension)
-                                    : (QData)((IData)(
-                                                      ((IData)(
-                                                               (vlSelf->top__DOT__adder_result 
-                                                                >> 1U)) 
-                                                       << 1U))));
+                                    : (0xfffffffffffffffeULL 
+                                       & vlSelf->top__DOT__adder_result));
 }
 
 void Vtop___024root___eval(Vtop___024root* vlSelf) {

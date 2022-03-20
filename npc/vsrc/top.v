@@ -33,12 +33,12 @@ wire [63:0] adder_src2;
 wire [63:0] adder_result;
 
 wire [ 4:0] rf_raddr1;
-wire [31:0] rf_rdata1;
+wire [63:0] rf_rdata1;
 wire [ 4:0] rf_raddr2;
-wire [31:0] rf_rdata2;
+wire [63:0] rf_rdata2;
 wire        rf_we    ;      
 wire [ 4:0] rf_waddr ;
-wire [31:0] rf_wdata ;
+wire [63:0] rf_wdata ;
 
 wire I_Type;
 wire R_Type;

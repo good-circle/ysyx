@@ -244,11 +244,8 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                & vlSelf->inst))
                                      ? (vlSelf->pc 
                                         + vlSelf->top__DOT__J_extension)
-                                     : (QData)((IData)(
-                                                       ((IData)(
-                                                                (vlSelf->top__DOT__adder_result 
-                                                                 >> 1U)) 
-                                                        << 1U))))),64);
+                                     : (0xfffffffffffffffeULL 
+                                        & vlSelf->top__DOT__adder_result))),64);
         tracep->fullQData(oldp+100,(((0x6fU == (0x7fU 
                                                 & vlSelf->inst))
                                       ? vlSelf->pc : (QData)((IData)(
