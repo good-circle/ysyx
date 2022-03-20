@@ -9,30 +9,54 @@
 
 static u_int8_t pmem[0x8000000];
 static const char *img_file = NULL;
+static char *log_file = NULL;
+
+static int parse_args(int argc, char *argv[])
+{
+    const struct option table[] = {
+        {"log", required_argument, NULL, 'l'},
+        {0, 0, NULL, 0},
+    };
+    int o;
+    while ((o = getopt_long(argc, argv, "-l:", table, NULL)) != -1)
+    {
+        switch (o)
+        {
+        case 'l':
+            log_file = optarg;
+            break;
+        case 1:
+            img_file = optarg;
+            return optind - 1;
+        }
+    }
+    return 0;
+}
 
 void init_pmem()
 {
-  if (img_file == NULL) {
-    printf("No image is given. Use the default build-in image.");
-    assert(0); 
-  }
+    if (img_file == NULL)
+    {
+        printf("No image is given. Use the default build-in image.");
+        assert(0);
+    }
 
-  FILE *fp = fopen(img_file, "rb");
-  fseek(fp, 0, SEEK_END);
-  long size = ftell(fp);
+    FILE *fp = fopen(img_file, "rb");
+    fseek(fp, 0, SEEK_END);
+    long size = ftell(fp);
 
-  printf("The image is %s, size = %ld\n", img_file, size);
+    printf("The image is %s, size = %ld\n", img_file, size);
 
-  fseek(fp, 0, SEEK_SET);
-  int ret = fread(pmem, size, 1, fp);
-  assert(ret == 1);
+    fseek(fp, 0, SEEK_SET);
+    int ret = fread(pmem, size, 1, fp);
+    assert(ret == 1);
 
-  fclose(fp);
+    fclose(fp);
 }
 
 int pmem_read(unsigned int pc)
 {
-    return *(u_int32_t *) (pmem + pc - 0x80000000);
+    return *(u_int32_t *)(pmem + pc - 0x80000000);
 }
 
 int main(int argc, char **argv, char **env)
@@ -44,7 +68,6 @@ int main(int argc, char **argv, char **env)
     VerilatedVcdC *m_trace = new VerilatedVcdC;
     top->trace(m_trace, 99);
     m_trace->open("waveform.vcd");
-    img_file = "/home/jn/Desktop/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv64-npc.bin";
     init_pmem();
     top->clk = 1;
     top->pc = 0x80000000;
@@ -52,7 +75,7 @@ int main(int argc, char **argv, char **env)
     int i = 0;
     svSetScope(svGetScopeFromName("TOP.top"));
     svBit is_finish = 0;
-    while(!is_finish)
+    while (!is_finish)
     {
         i++;
         printf("%08x ", top->pc);

@@ -1,8 +1,10 @@
+IMG ?=
+
 all: sim wave
 
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	verilator -Wall --cc --exe --build --trace ./csrc/main.cpp ./vsrc/top.v 
+	verilator -Wall --cc --exe --build --trace ./csrc/main.cpp $(IMG) ./vsrc/top.v 
 	./obj_dir/Vtop
 
 wave:
