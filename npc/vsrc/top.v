@@ -71,11 +71,11 @@ assign B_Type = 0;
 assign U_Type = auipc | lui;
 assign J_Type = jal;
 
-assign I_extension = {{20{Instruction_Fact[31]}} , Instruction_Fact[31:20]};
-assign S_extension = {{20{Instruction_Fact[31]}} , Instruction_Fact[31:25], Instruction_Fact[11:7]};
-assign B_extension = {{20{Instruction_Fact[31]}} , Instruction_Fact[7],     Instruction_Fact[30:25], Instruction_Fact[11:8] , 1'b0};
-assign J_extension = {{12{Instruction_Fact[31]}} , Instruction_Fact[19:12], Instruction_Fact[20],    Instruction_Fact[30:21], 1'b0};
-assign U_extension = {    Instruction_Fact[31:12], 12'b0};
+assign I_extension = {{20{inst[31]}} , inst[31:20]};
+assign S_extension = {{20{inst[31]}} , inst[31:25], inst[11:7]};
+assign B_extension = {{20{inst[31]}} , inst[7],     inst[30:25], inst[11:8] , 1'b0};
+assign J_extension = {{12{inst[31]}} , inst[19:12], inst[20],    inst[30:21], 1'b0};
+assign U_extension = {    inst[31:12], 12'b0};
 assign imm_extension = {32{I_Type}} & I_extension
 					 | {32{S_Type}} & S_extension
 					 | {32{B_Type}} & B_extension
