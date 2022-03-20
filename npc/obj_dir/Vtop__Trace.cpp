@@ -172,7 +172,13 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                      ? 0ULL : vlSelf->top__DOT__u_regfile__DOT__rf
                                     [(0x1fU & (vlSelf->inst 
                                                >> 0xfU))])),64);
-        tracep->chgQData(oldp+102,((((((- (QData)((IData)(
+        tracep->chgQData(oldp+102,(((0U == (0x1fU & 
+                                            (vlSelf->inst 
+                                             >> 0x14U)))
+                                     ? 0ULL : vlSelf->top__DOT__u_regfile__DOT__rf
+                                    [(0x1fU & (vlSelf->inst 
+                                               >> 0x14U))])),64);
+        tracep->chgQData(oldp+104,((((((- (QData)((IData)(
                                                           ((0x6fU 
                                                             == 
                                                             (0x7fU 
@@ -194,16 +200,10 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                            + vlSelf->top__DOT__U_extension))) 
                                     | ((- (QData)((IData)(vlSelf->top__DOT__addi))) 
                                        & vlSelf->top__DOT__adder_result))),64);
-        tracep->chgBit(oldp+104,(((0x17U == (0x7fU 
+        tracep->chgBit(oldp+106,(((0x17U == (0x7fU 
                                              & vlSelf->inst)) 
                                   | (0x37U == (0x7fU 
                                                & vlSelf->inst)))));
-        tracep->chgQData(oldp+105,(((0U == (0x1fU & 
-                                            (vlSelf->inst 
-                                             >> 0x14U)))
-                                     ? 0ULL : vlSelf->top__DOT__u_regfile__DOT__rf
-                                    [(0x1fU & (vlSelf->inst 
-                                               >> 0x14U))])),64);
     }
 }
 

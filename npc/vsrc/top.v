@@ -1,7 +1,10 @@
 module top(
     input clk,
     input [31:0] inst,
-    output reg [63:0] pc
+    output reg [63:0] pc,
+    output [63:0] address,
+    output [63:0] data,
+    output memwrite
 );
 
 //wire [6:0] funct7;
@@ -86,6 +89,10 @@ assign imm_extension = {64{I_Type}} & I_extension
 always @(posedge clk) begin
     pc <= br_taken ? br_target : pc + 4;
 end
+
+assign memwrite = sd;
+assign address = adder_result;
+assign data = rf_rdata2;
 
 assign adder_src1 = jal ? pc : rf_rdata1;
 assign adder_src2 = imm_extension;
