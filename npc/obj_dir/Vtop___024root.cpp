@@ -47,14 +47,11 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
     // Body
     __Vdly__pc = vlSelf->pc;
     __Vdlyvset__top__DOT__u_regfile__DOT__rf__v0 = 0U;
-    if (VL_LIKELY(vlSelf->rst)) {
-        __Vdly__pc = (((0x6fU == (0x7fU & vlSelf->inst)) 
+    __Vdly__pc = ((IData)(vlSelf->rst) ? 0x80000000ULL
+                   : (((0x6fU == (0x7fU & vlSelf->inst)) 
                        | (IData)(vlSelf->top__DOT__jalr))
                        ? vlSelf->top__DOT__br_target
-                       : (4ULL + vlSelf->pc));
-    } else {
-        VL_FINISH_MT("vsrc/top.v", 91, "");
-    }
+                       : (4ULL + vlSelf->pc)));
     if ((1U & (~ (IData)(vlSelf->top__DOT__sd)))) {
         __Vdlyvval__top__DOT__u_regfile__DOT__rf__v0 
             = (((((- (QData)((IData)(((0x6fU == (0x7fU 
