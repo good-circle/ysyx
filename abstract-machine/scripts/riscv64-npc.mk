@@ -23,3 +23,6 @@ image: $(IMAGE).elf
 
 run: image
 	$(MAKE) -C $(NPC_HOME) sim IMG=$(IMAGE).bin
+
+wave: image
+	$(MAKE) -C $(NPC_HOME) wave
