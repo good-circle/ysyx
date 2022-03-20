@@ -82,6 +82,7 @@ int main(int argc, char **argv, char **env)
         i++;
         if(i <= 10)
         {
+            printf("%d\n", i);
             continue;
         }
         printf("%08lx ", top->pc);
