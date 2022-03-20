@@ -99,10 +99,10 @@ assign rf_waddr  =  rd;
 assign rf_raddr1 =  rs1;
 assign rf_raddr2 =  rs2;
 assign rf_we = !sd;
-assign rf_wdata  = {32{jal | jalr}} & (pc + 4)
-				 | {32{lui}}        & U_extension
-				 | {32{auipc}}      & (pc + U_extension)
-				 | {32{addi}}       & adder_result;
+assign rf_wdata  = {64{jal | jalr}} & (pc + 4)
+				 | {64{lui}}        & U_extension
+				 | {64{auipc}}      & (pc + U_extension)
+				 | {64{addi}}       & adder_result;
 regfile u_regfile(
     .clk    (clk      ),
     .raddr1 (rf_raddr1),

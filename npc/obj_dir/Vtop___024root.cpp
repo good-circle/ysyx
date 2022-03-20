@@ -53,23 +53,23 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
                   (4ULL + vlSelf->pc));
     if ((1U & (~ (IData)(vlSelf->top__DOT__sd)))) {
         __Vdlyvval__top__DOT__u_regfile__DOT__rf__v0 
-            = (QData)((IData)((((((- (IData)(((0x6fU 
+            = (((((QData)((IData)((- (IData)(((0x6fU 
                                                == (0x7fU 
                                                    & vlSelf->inst)) 
-                                              | (IData)(vlSelf->top__DOT__jalr)))) 
-                                  & ((IData)(4U) + (IData)(vlSelf->pc))) 
-                                 | ((- (IData)((0x37U 
-                                                == 
-                                                (0x7fU 
-                                                 & vlSelf->inst)))) 
-                                    & (IData)(vlSelf->top__DOT__U_extension))) 
-                                | ((- (IData)((0x17U 
+                                              | (IData)(vlSelf->top__DOT__jalr)))))) 
+                  & (4ULL + vlSelf->pc)) | ((QData)((IData)(
+                                                            (- (IData)(
+                                                                       (0x37U 
+                                                                        == 
+                                                                        (0x7fU 
+                                                                         & vlSelf->inst)))))) 
+                                            & vlSelf->top__DOT__U_extension)) 
+                | ((QData)((IData)((- (IData)((0x17U 
                                                == (0x7fU 
-                                                   & vlSelf->inst)))) 
-                                   & ((IData)(vlSelf->pc) 
-                                      + (IData)(vlSelf->top__DOT__U_extension)))) 
-                               | ((- (IData)((IData)(vlSelf->top__DOT__addi))) 
-                                  & (IData)(vlSelf->top__DOT__adder_result)))));
+                                                   & vlSelf->inst)))))) 
+                   & (vlSelf->pc + vlSelf->top__DOT__U_extension))) 
+               | ((QData)((IData)((- (IData)((IData)(vlSelf->top__DOT__addi))))) 
+                  & vlSelf->top__DOT__adder_result));
         __Vdlyvset__top__DOT__u_regfile__DOT__rf__v0 = 1U;
         __Vdlyvdim0__top__DOT__u_regfile__DOT__rf__v0 
             = (0x1fU & (vlSelf->inst >> 7U));
@@ -102,19 +102,14 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__4(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__adder_result = (((0x6fU == (0x7fU 
                                                   & vlSelf->inst))
                                         ? vlSelf->pc
-                                        : (QData)((IData)(
-                                                          ((0U 
-                                                            == 
-                                                            (0x1fU 
-                                                             & (vlSelf->inst 
-                                                                >> 0xfU)))
-                                                            ? 0ULL
-                                                            : 
-                                                           vlSelf->top__DOT__u_regfile__DOT__rf
-                                                           [
-                                                           (0x1fU 
-                                                            & (vlSelf->inst 
-                                                               >> 0xfU))])))) 
+                                        : ((0U == (0x1fU 
+                                                   & (vlSelf->inst 
+                                                      >> 0xfU)))
+                                            ? 0ULL : 
+                                           vlSelf->top__DOT__u_regfile__DOT__rf
+                                           [(0x1fU 
+                                             & (vlSelf->inst 
+                                                >> 0xfU))])) 
                                       + (((((- (QData)((IData)(
                                                                ((IData)(vlSelf->top__DOT__addi) 
                                                                 | (IData)(vlSelf->top__DOT__jalr))))) 

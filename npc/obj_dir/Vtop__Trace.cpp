@@ -160,100 +160,55 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                        & vlSelf->top__DOT__adder_result))),64);
         tracep->chgQData(oldp+99,(((0x6fU == (0x7fU 
                                               & vlSelf->inst))
-                                    ? vlSelf->pc : (QData)((IData)(
-                                                                   ((0U 
-                                                                     == 
-                                                                     (0x1fU 
-                                                                      & (vlSelf->inst 
-                                                                         >> 0xfU)))
-                                                                     ? 0ULL
-                                                                     : 
-                                                                    vlSelf->top__DOT__u_regfile__DOT__rf
-                                                                    [
-                                                                    (0x1fU 
-                                                                     & (vlSelf->inst 
-                                                                        >> 0xfU))]))))),64);
-        tracep->chgIData(oldp+101,((IData)(((0U == 
-                                             (0x1fU 
-                                              & (vlSelf->inst 
-                                                 >> 0xfU)))
-                                             ? 0ULL
-                                             : vlSelf->top__DOT__u_regfile__DOT__rf
-                                            [(0x1fU 
-                                              & (vlSelf->inst 
-                                                 >> 0xfU))]))),32);
-        tracep->chgIData(oldp+102,((IData)(((0U == 
-                                             (0x1fU 
-                                              & (vlSelf->inst 
-                                                 >> 0x14U)))
-                                             ? 0ULL
-                                             : vlSelf->top__DOT__u_regfile__DOT__rf
-                                            [(0x1fU 
-                                              & (vlSelf->inst 
-                                                 >> 0x14U))]))),32);
-        tracep->chgIData(oldp+103,((((((- (IData)((
-                                                   (0x6fU 
-                                                    == 
-                                                    (0x7fU 
-                                                     & vlSelf->inst)) 
-                                                   | (IData)(vlSelf->top__DOT__jalr)))) 
-                                       & ((IData)(4U) 
-                                          + (IData)(vlSelf->pc))) 
-                                      | ((- (IData)(
-                                                    (0x37U 
-                                                     == 
-                                                     (0x7fU 
-                                                      & vlSelf->inst)))) 
-                                         & (IData)(vlSelf->top__DOT__U_extension))) 
-                                     | ((- (IData)(
-                                                   (0x17U 
-                                                    == 
-                                                    (0x7fU 
-                                                     & vlSelf->inst)))) 
-                                        & ((IData)(vlSelf->pc) 
-                                           + (IData)(vlSelf->top__DOT__U_extension)))) 
-                                    | ((- (IData)((IData)(vlSelf->top__DOT__addi))) 
-                                       & (IData)(vlSelf->top__DOT__adder_result)))),32);
-        tracep->chgBit(oldp+104,(((0x17U == (0x7fU 
-                                             & vlSelf->inst)) 
-                                  | (0x37U == (0x7fU 
-                                               & vlSelf->inst)))));
-        tracep->chgQData(oldp+105,(((0U == (0x1fU & 
+                                    ? vlSelf->pc : 
+                                   ((0U == (0x1fU & 
+                                            (vlSelf->inst 
+                                             >> 0xfU)))
+                                     ? 0ULL : vlSelf->top__DOT__u_regfile__DOT__rf
+                                    [(0x1fU & (vlSelf->inst 
+                                               >> 0xfU))]))),64);
+        tracep->chgQData(oldp+101,(((0U == (0x1fU & 
                                             (vlSelf->inst 
                                              >> 0xfU)))
                                      ? 0ULL : vlSelf->top__DOT__u_regfile__DOT__rf
                                     [(0x1fU & (vlSelf->inst 
                                                >> 0xfU))])),64);
-        tracep->chgQData(oldp+107,(((0U == (0x1fU & 
+        tracep->chgQData(oldp+103,(((0U == (0x1fU & 
                                             (vlSelf->inst 
                                              >> 0x14U)))
                                      ? 0ULL : vlSelf->top__DOT__u_regfile__DOT__rf
                                     [(0x1fU & (vlSelf->inst 
                                                >> 0x14U))])),64);
-        tracep->chgQData(oldp+109,((QData)((IData)(
-                                                   (((((- (IData)(
+        tracep->chgQData(oldp+105,((((((QData)((IData)(
+                                                       (- (IData)(
                                                                   ((0x6fU 
                                                                     == 
                                                                     (0x7fU 
                                                                      & vlSelf->inst)) 
-                                                                   | (IData)(vlSelf->top__DOT__jalr)))) 
-                                                       & ((IData)(4U) 
-                                                          + (IData)(vlSelf->pc))) 
-                                                      | ((- (IData)(
+                                                                   | (IData)(vlSelf->top__DOT__jalr)))))) 
+                                       & (4ULL + vlSelf->pc)) 
+                                      | ((QData)((IData)(
+                                                         (- (IData)(
                                                                     (0x37U 
                                                                      == 
                                                                      (0x7fU 
-                                                                      & vlSelf->inst)))) 
-                                                         & (IData)(vlSelf->top__DOT__U_extension))) 
-                                                     | ((- (IData)(
+                                                                      & vlSelf->inst)))))) 
+                                         & vlSelf->top__DOT__U_extension)) 
+                                     | ((QData)((IData)(
+                                                        (- (IData)(
                                                                    (0x17U 
                                                                     == 
                                                                     (0x7fU 
-                                                                     & vlSelf->inst)))) 
-                                                        & ((IData)(vlSelf->pc) 
-                                                           + (IData)(vlSelf->top__DOT__U_extension)))) 
-                                                    | ((- (IData)((IData)(vlSelf->top__DOT__addi))) 
-                                                       & (IData)(vlSelf->top__DOT__adder_result)))))),64);
+                                                                     & vlSelf->inst)))))) 
+                                        & (vlSelf->pc 
+                                           + vlSelf->top__DOT__U_extension))) 
+                                    | ((QData)((IData)(
+                                                       (- (IData)((IData)(vlSelf->top__DOT__addi))))) 
+                                       & vlSelf->top__DOT__adder_result))),64);
+        tracep->chgBit(oldp+107,(((0x17U == (0x7fU 
+                                             & vlSelf->inst)) 
+                                  | (0x37U == (0x7fU 
+                                               & vlSelf->inst)))));
     }
 }
 

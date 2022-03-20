@@ -60,19 +60,14 @@ void Vtop___024root___settle__TOP__2(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__adder_result = (((0x6fU == (0x7fU 
                                                   & vlSelf->inst))
                                         ? vlSelf->pc
-                                        : (QData)((IData)(
-                                                          ((0U 
-                                                            == 
-                                                            (0x1fU 
-                                                             & (vlSelf->inst 
-                                                                >> 0xfU)))
-                                                            ? 0ULL
-                                                            : 
-                                                           vlSelf->top__DOT__u_regfile__DOT__rf
-                                                           [
-                                                           (0x1fU 
-                                                            & (vlSelf->inst 
-                                                               >> 0xfU))])))) 
+                                        : ((0U == (0x1fU 
+                                                   & (vlSelf->inst 
+                                                      >> 0xfU)))
+                                            ? 0ULL : 
+                                           vlSelf->top__DOT__u_regfile__DOT__rf
+                                           [(0x1fU 
+                                             & (vlSelf->inst 
+                                                >> 0xfU))])) 
                                       + (((((- (QData)((IData)(
                                                                ((IData)(vlSelf->top__DOT__addi) 
                                                                 | (IData)(vlSelf->top__DOT__jalr))))) 
