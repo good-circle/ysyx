@@ -81,7 +81,7 @@ int main(int argc, char **argv, char **env)
     while (!is_finish)
     {
         i++;
-        printf("%08x ", top->pc);
+        printf("%08lx ", top->pc);
         top->inst = pmem_read(top->pc);
         printf("%08x\n", top->inst);
         m_trace->dump(2 * i);
