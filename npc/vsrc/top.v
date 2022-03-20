@@ -35,7 +35,7 @@ wire [63:0] adder_result;
 wire [ 4:0] rf_raddr1;
 wire [63:0] rf_rdata1;
 wire [ 4:0] rf_raddr2;
-//wire [63:0] rf_rdata2;
+wire [63:0] rf_rdata2;
 wire        rf_we    ;      
 wire [ 4:0] rf_waddr ;
 wire [63:0] rf_wdata ;
@@ -108,7 +108,7 @@ regfile u_regfile(
     .raddr1 (rf_raddr1),
     .rdata1 (rf_rdata1),
     .raddr2 (rf_raddr2),
-    .rdata2 (),
+    .rdata2 (rf_rdata2),
     .we     (rf_we    ),
     .waddr  (rf_waddr ),
     .wdata  (rf_wdata )
