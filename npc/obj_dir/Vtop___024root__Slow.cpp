@@ -56,4 +56,15 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->inst = VL_RAND_RESET_I(32);
     vlSelf->pc = VL_RAND_RESET_I(32);
     vlSelf->a = VL_RAND_RESET_I(1);
+    vlSelf->top__DOT__rf_raddr1 = VL_RAND_RESET_I(5);
+    vlSelf->top__DOT__rf_raddr2 = VL_RAND_RESET_I(5);
+    vlSelf->top__DOT__rf_we = VL_RAND_RESET_I(1);
+    vlSelf->top__DOT__rf_waddr = VL_RAND_RESET_I(5);
+    vlSelf->top__DOT__rf_wdata = VL_RAND_RESET_I(32);
+    for (int __Vi0=0; __Vi0<32; ++__Vi0) {
+        vlSelf->top__DOT__u_regfile__DOT__rf[__Vi0] = VL_RAND_RESET_I(32);
+    }
+    for (int __Vi0=0; __Vi0<2; ++__Vi0) {
+        vlSelf->__Vm_traceActivity[__Vi0] = VL_RAND_RESET_I(1);
+    }
 }

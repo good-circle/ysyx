@@ -74,8 +74,7 @@ int main(int argc, char **argv, char **env)
     //img_file = "/home/jn/Desktop/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv64-npc.bin";
     init_pmem();
     top->clk = 1;
-    top->pc = 0x80000000;
-    top->a = 0;
+    top->pc = 0x0000000080000000;
     int i = 0;
     svSetScope(svGetScopeFromName("TOP.top"));
     svBit is_finish = 0;
