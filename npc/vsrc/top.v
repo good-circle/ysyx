@@ -126,7 +126,7 @@ regfile u_regfile(
     .wdata  (rf_wdata )
 );
 
-assign halt = rf_rdata2;
+assign halt = rf_rdata1;
 
 export "DPI-C" task finish;
 task finish;
