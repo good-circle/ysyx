@@ -92,8 +92,6 @@ always @(posedge clk) begin
     else pc <= br_taken ? br_target : pc + 4;
 end
 
-assign inst_ready = !rst;
-
 assign memwrite = sd;
 assign address = adder_result;
 assign data = rf_rdata2;

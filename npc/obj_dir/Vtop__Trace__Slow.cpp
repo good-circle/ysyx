@@ -67,9 +67,10 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+111,"top rf_wdata", false,-1, 63,0);
         tracep->declBit(c+11,"top I_Type", false,-1);
         tracep->declBit(c+7,"top S_Type", false,-1);
-        tracep->declBit(c+114,"top B_Type", false,-1);
+        tracep->declBit(c+115,"top B_Type", false,-1);
         tracep->declBit(c+113,"top U_Type", false,-1);
         tracep->declBit(c+101,"top J_Type", false,-1);
+        tracep->declBit(c+114,"top inst_ready", false,-1);
         tracep->declQuad(c+105,"top u_adder src1", false,-1, 63,0);
         tracep->declQuad(c+97,"top u_adder src2", false,-1, 63,0);
         tracep->declQuad(c+8,"top u_adder result", false,-1, 63,0);
@@ -304,6 +305,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                               & vlSelf->inst)) 
                                    | (0x37U == (0x7fU 
                                                 & vlSelf->inst)))));
-        tracep->fullBit(oldp+114,(0U));
+        tracep->fullBit(oldp+114,((1U & (~ (IData)(vlSelf->rst)))));
+        tracep->fullBit(oldp+115,(0U));
     }
 }
