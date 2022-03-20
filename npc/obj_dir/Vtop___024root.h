@@ -26,15 +26,18 @@ VL_MODULE(Vtop___024root) {
     VL_OUT64(pc,63,0);
     VL_OUT64(address,63,0);
     VL_OUT64(data,63,0);
+    VL_OUT64(halt,63,0);
 
     // LOCAL SIGNALS
     CData/*0:0*/ top__DOT__addi;
     CData/*0:0*/ top__DOT__jalr;
     CData/*0:0*/ top__DOT__sd;
+    CData/*4:0*/ top__DOT__rf_raddr1;
     QData/*63:0*/ top__DOT__U_extension;
     QData/*63:0*/ top__DOT__J_extension;
     QData/*63:0*/ top__DOT__br_target;
     QData/*63:0*/ top__DOT__adder_result;
+    QData/*63:0*/ top__DOT__rf_rdata2;
     VlUnpacked<QData/*63:0*/, 32> top__DOT__u_regfile__DOT__rf;
 
     // LOCAL VARIABLES

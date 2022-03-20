@@ -32,6 +32,10 @@ void Vtop___024root___settle__TOP__2(Vtop___024root* vlSelf) {
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___settle__TOP__2\n"); );
     // Body
+    vlSelf->top__DOT__rf_raddr1 = ((0x100073U == vlSelf->inst)
+                                    ? 0xaU : (0x1fU 
+                                              & (vlSelf->inst 
+                                                 >> 0xfU)));
     vlSelf->top__DOT__J_extension = (((- (QData)((IData)(
                                                          (vlSelf->inst 
                                                           >> 0x1fU)))) 
@@ -57,21 +61,20 @@ void Vtop___024root___settle__TOP__2(Vtop___024root* vlSelf) {
                                                                    & vlSelf->inst))));
     vlSelf->top__DOT__sd = (IData)((0x3023U == (0x707fU 
                                                 & vlSelf->inst)));
-    vlSelf->data = ((0U == (0x1fU & (vlSelf->inst >> 0x14U)))
-                     ? 0ULL : vlSelf->top__DOT__u_regfile__DOT__rf
-                    [(0x1fU & (vlSelf->inst >> 0x14U))]);
+    vlSelf->top__DOT__rf_rdata2 = ((0U == (0x1fU & 
+                                           (vlSelf->inst 
+                                            >> 0x14U)))
+                                    ? 0ULL : vlSelf->top__DOT__u_regfile__DOT__rf
+                                   [(0x1fU & (vlSelf->inst 
+                                              >> 0x14U))]);
     vlSelf->memwrite = vlSelf->top__DOT__sd;
     vlSelf->top__DOT__adder_result = (((0x6fU == (0x7fU 
                                                   & vlSelf->inst))
                                         ? vlSelf->pc
-                                        : ((0U == (0x1fU 
-                                                   & (vlSelf->inst 
-                                                      >> 0xfU)))
+                                        : ((0U == (IData)(vlSelf->top__DOT__rf_raddr1))
                                             ? 0ULL : 
                                            vlSelf->top__DOT__u_regfile__DOT__rf
-                                           [(0x1fU 
-                                             & (vlSelf->inst 
-                                                >> 0xfU))])) 
+                                           [vlSelf->top__DOT__rf_raddr1])) 
                                       + (((((- (QData)((IData)(
                                                                ((IData)(vlSelf->top__DOT__addi) 
                                                                 | (IData)(vlSelf->top__DOT__jalr))))) 
@@ -110,6 +113,8 @@ void Vtop___024root___settle__TOP__2(Vtop___024root* vlSelf) {
                                                                    (0x7fU 
                                                                     & vlSelf->inst)))))) 
                                             & vlSelf->top__DOT__U_extension)));
+    vlSelf->data = vlSelf->top__DOT__rf_rdata2;
+    vlSelf->halt = vlSelf->top__DOT__rf_rdata2;
     vlSelf->address = vlSelf->top__DOT__adder_result;
     vlSelf->top__DOT__br_target = ((0x6fU == (0x7fU 
                                               & vlSelf->inst))
@@ -155,6 +160,7 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->address = VL_RAND_RESET_Q(64);
     vlSelf->data = VL_RAND_RESET_Q(64);
     vlSelf->memwrite = VL_RAND_RESET_I(1);
+    vlSelf->halt = VL_RAND_RESET_Q(64);
     vlSelf->top__DOT__U_extension = VL_RAND_RESET_Q(64);
     vlSelf->top__DOT__J_extension = VL_RAND_RESET_Q(64);
     vlSelf->top__DOT__addi = VL_RAND_RESET_I(1);
@@ -162,6 +168,8 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__sd = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__br_target = VL_RAND_RESET_Q(64);
     vlSelf->top__DOT__adder_result = VL_RAND_RESET_Q(64);
+    vlSelf->top__DOT__rf_raddr1 = VL_RAND_RESET_I(5);
+    vlSelf->top__DOT__rf_rdata2 = VL_RAND_RESET_Q(64);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->top__DOT__u_regfile__DOT__rf[__Vi0] = VL_RAND_RESET_Q(64);
     }

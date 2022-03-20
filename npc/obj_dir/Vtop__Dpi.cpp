@@ -17,7 +17,7 @@
 #ifndef VL_DPIDECL_finish_
 #define VL_DPIDECL_finish_
 void finish(svBit* is_finish) {
-    // DPI export at vsrc/top.v:127:6
+    // DPI export at vsrc/top.v:132:6
     return Vtop::finish(is_finish);
 }
 #endif

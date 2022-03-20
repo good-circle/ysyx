@@ -18,6 +18,7 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , address{vlSymsp->TOP.address}
     , data{vlSymsp->TOP.data}
     , memwrite{vlSymsp->TOP.memwrite}
+    , halt{vlSymsp->TOP.halt}
     , rootp{&(vlSymsp->TOP)}
 {
 }
