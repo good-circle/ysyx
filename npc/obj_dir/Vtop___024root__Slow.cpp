@@ -111,6 +111,11 @@ void Vtop___024root___settle__TOP__2(Vtop___024root* vlSelf) {
                                                                     & vlSelf->inst)))))) 
                                             & vlSelf->top__DOT__U_extension)));
     vlSelf->address = vlSelf->top__DOT__adder_result;
+    vlSelf->top__DOT__br_target = ((0x6fU == (0x7fU 
+                                              & vlSelf->inst))
+                                    ? (vlSelf->pc + vlSelf->top__DOT__J_extension)
+                                    : (0xfffffffffffffffeULL 
+                                       & vlSelf->top__DOT__adder_result));
 }
 
 void Vtop___024root___eval_initial(Vtop___024root* vlSelf) {
@@ -155,6 +160,7 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__addi = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__jalr = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__sd = VL_RAND_RESET_I(1);
+    vlSelf->top__DOT__br_target = VL_RAND_RESET_Q(64);
     vlSelf->top__DOT__adder_result = VL_RAND_RESET_Q(64);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->top__DOT__u_regfile__DOT__rf[__Vi0] = VL_RAND_RESET_Q(64);

@@ -33,6 +33,7 @@ VL_MODULE(Vtop___024root) {
     CData/*0:0*/ top__DOT__sd;
     QData/*63:0*/ top__DOT__U_extension;
     QData/*63:0*/ top__DOT__J_extension;
+    QData/*63:0*/ top__DOT__br_target;
     QData/*63:0*/ top__DOT__adder_result;
     VlUnpacked<QData/*63:0*/, 32> top__DOT__u_regfile__DOT__rf;
 

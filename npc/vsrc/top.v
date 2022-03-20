@@ -88,8 +88,8 @@ assign imm_extension = {64{I_Type}} & I_extension
 
 
 always @(posedge clk) begin
-    if(rst) pc <= br_taken ? br_target : pc + 4;
-    else $finish;
+    if(rst) pc <= 64'h0000000080000000;
+    else pc <= br_taken ? br_target : pc + 4;
 end
 
 assign memwrite = sd;
@@ -126,7 +126,7 @@ regfile u_regfile(
 export "DPI-C" task finish;
 task finish;
     output bit is_finish;
-    is_finish = (inst == 32'h00100073);
+    is_finish = (inst == 32'h00100073 || pc = 64'h0000000000000000);
 endtask
 
 endmodule
