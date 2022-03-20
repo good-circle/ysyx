@@ -77,7 +77,7 @@ int main(int argc, char **argv, char **env)
     int i = 0;
     svSetScope(svGetScopeFromName("TOP.top"));
     svBit is_finish = 0;
-    while (i <= 9)
+    while (!is_finish)
     {
         i++;
         if(i <= 10)
@@ -89,7 +89,7 @@ int main(int argc, char **argv, char **env)
         }
         top->rst = 0;
         printf("%08lx ", top->pc);
-        //top->inst = pmem_read(top->pc);
+        top->inst = pmem_read(top->pc);
         printf("%08x\n", top->inst);
 
         m_trace->dump(2 * i);
