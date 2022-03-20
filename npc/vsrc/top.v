@@ -11,12 +11,12 @@ wire [2:0] funct3;
 wire [4:0] rd;
 wire [6:0] opcode;
 
-wire [31:0] I_extension;
-wire [31:0] S_extension;
-wire [31:0] B_extension;
-wire [31:0] U_extension;
-wire [31:0] J_extension;
-wire [31:0] imm_extension;
+wire [63:0] I_extension;
+wire [63:0] S_extension;
+wire [63:0] B_extension;
+wire [63:0] U_extension;
+wire [63:0] J_extension;
+wire [63:0] imm_extension;
 
 wire addi;  
 wire auipc;
@@ -71,16 +71,16 @@ assign B_Type = 0;
 assign U_Type = auipc | lui;
 assign J_Type = jal;
 
-assign I_extension = {{20{inst[31]}} , inst[31:20]};
-assign S_extension = {{20{inst[31]}} , inst[31:25], inst[11:7]};
-assign B_extension = {{20{inst[31]}} , inst[7],     inst[30:25], inst[11:8] , 1'b0};
-assign J_extension = {{12{inst[31]}} , inst[19:12], inst[20],    inst[30:21], 1'b0};
-assign U_extension = {    inst[31:12], 12'b0};
-assign imm_extension = {32{I_Type}} & I_extension
-					 | {32{S_Type}} & S_extension
-					 | {32{B_Type}} & B_extension
-					 | {32{J_Type}} & J_extension
-					 | {32{U_Type}} & U_extension;
+assign I_extension = {{52{inst[31]}} , inst[31:20]};
+assign S_extension = {{52{inst[31]}} , inst[31:25], inst[11:7]};
+assign B_extension = {{52{inst[31]}} , inst[7],     inst[30:25], inst[11:8] , 1'b0};
+assign J_extension = {{44{inst[31]}} , inst[19:12], inst[20],    inst[30:21], 1'b0};
+assign U_extension = {{32{inst[31]}} , inst[31:12], 12'b0};
+assign imm_extension = {64{I_Type}} & I_extension
+					 | {64{S_Type}} & S_extension
+					 | {64{B_Type}} & B_extension
+					 | {64{J_Type}} & J_extension
+					 | {64{U_Type}} & U_extension;
 
 
 always @(posedge clk) begin

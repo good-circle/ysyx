@@ -13,7 +13,7 @@ extern "C" {
 
 
     // DPI EXPORTS
-    // DPI export at vsrc/top.v:45:6
+    // DPI export at vsrc/top.v:118:6
     extern void finish(svBit* is_finish);
 
 #ifdef __cplusplus
