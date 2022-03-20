@@ -88,7 +88,7 @@ assign imm_extension = {64{I_Type}} & I_extension
 
 
 always @(posedge clk) begin
-    if(rst) pc <= 64'h0000000080000000;
+    if(rst) pc <= br_taken ? br_target : pc + 4;
     else $finish;
 end
 
