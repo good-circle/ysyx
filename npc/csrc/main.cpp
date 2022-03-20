@@ -85,8 +85,13 @@ int main(int argc, char **argv, char **env)
             printf("%d ", i);
             printf("%d ", top->rst);
             printf("%016lx\n", top->pc);
-            top->eval();
-            continue;
+                    m_trace->dump(2 * i);
+        top->clk = !top->clk;
+        top->eval();
+
+        m_trace->dump(2 * i + 1);
+        top->clk = !top->clk;
+        top->eval();
         }
         else
         {
