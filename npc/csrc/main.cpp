@@ -89,7 +89,7 @@ int main(int argc, char **argv, char **env)
         top->clk = !top->clk;
         top->eval();
 
-        m_trace->dump(2 * i + 1);
+        //m_trace->dump(2 * i + 1);
         top->clk = !top->clk;
         top->eval();
         }
