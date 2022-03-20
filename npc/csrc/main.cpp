@@ -71,7 +71,6 @@ int main(int argc, char **argv, char **env)
     VerilatedVcdC *m_trace = new VerilatedVcdC;
     top->trace(m_trace, 99);
     m_trace->open("waveform.vcd");
-    //img_file = "/home/jn/Desktop/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv64-npc.bin";
     init_pmem();
     top->clk = 1;
     top->pc = 0x0000000080000000;
@@ -86,7 +85,7 @@ int main(int argc, char **argv, char **env)
         printf("%08x\n", top->inst);
         m_trace->dump(2 * i);
         top->clk = !top->clk;
-        top->eval();
+        //top->eval();
         m_trace->dump(2 * i + 1);
         top->clk = !top->clk;
         top->eval();
