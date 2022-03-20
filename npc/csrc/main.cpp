@@ -80,25 +80,22 @@ int main(int argc, char **argv, char **env)
     while (!is_finish)
     {
         i++;
-        if(i <= 10)
+        if (i <= 10)
         {
             printf("%d ", i);
             printf("%d ", top->rst);
             printf("%016lx\n", top->pc);
-                    //m_trace->dump(2 * i);
-        top->clk = !top->clk;
-        //top->eval();
+            m_trace->dump(2 * i);
+            top->clk = !top->clk;
+            top->eval();
 
-        //m_trace->dump(2 * i + 1);
-        top->clk = !top->clk;
-        //top->eval();
-        continue;
+            m_trace->dump(2 * i + 1);
+            top->clk = !top->clk;
+            top->eval();
+            continue;
         }
-        else
-        {
-            top->rst = 0;
-        }
-        
+
+        top->rst = 0;
         printf("%08lx ", top->pc);
         top->inst = pmem_read(top->pc);
         printf("%08x\n", top->inst);
