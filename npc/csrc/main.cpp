@@ -12,6 +12,7 @@
 static u_int8_t pmem[0x8000000];
 static const char *img_file = NULL;
 static char *log_file = NULL;
+static int inst_num = 0;
 
 static int parse_args(int argc, char *argv[])
 {
@@ -58,6 +59,7 @@ void init_pmem()
 
 int pmem_read(unsigned long long pc)
 {
+    inst_num++;
     return *(u_int32_t *)(pmem + pc - 0x80000000);
 }
 
@@ -107,6 +109,7 @@ int main(int argc, char **argv, char **env)
 
         finish(&is_finish);
     }
+    printf("number of instructions is %d\n", inst_num);
     m_trace->close();
     delete top;
     delete contextp;
