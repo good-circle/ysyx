@@ -210,7 +210,6 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                              & vlSelf->inst)) 
                                   | (0x37U == (0x7fU 
                                                & vlSelf->inst)))));
-        tracep->chgBit(oldp+113,((1U & (~ (IData)(vlSelf->rst)))));
     }
 }
 
