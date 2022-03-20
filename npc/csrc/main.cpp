@@ -63,7 +63,7 @@ int pmem_read(unsigned int pc)
 
 int main(int argc, char **argv, char **env)
 {
-    parse_args(int argc, char *argv[]);
+    parse_args(argc, argv);
     VerilatedContext *contextp = new VerilatedContext;
     Vtop *top = new Vtop{contextp};
     contextp->commandArgs(argc, argv);
