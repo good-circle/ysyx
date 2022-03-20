@@ -22,61 +22,61 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
     if (false && tracep && c) {}  // Prevent unused
     // Body
     {
-        tracep->declBit(c+73,"clk", false,-1);
-        tracep->declBus(c+74,"inst", false,-1, 31,0);
-        tracep->declQuad(c+75,"pc", false,-1, 63,0);
-        tracep->declBit(c+73,"top clk", false,-1);
-        tracep->declBus(c+74,"top inst", false,-1, 31,0);
-        tracep->declQuad(c+75,"top pc", false,-1, 63,0);
-        tracep->declBus(c+77,"top funct7", false,-1, 6,0);
-        tracep->declBus(c+78,"top rs2", false,-1, 4,0);
-        tracep->declBus(c+79,"top rs1", false,-1, 4,0);
-        tracep->declBus(c+80,"top funct3", false,-1, 2,0);
-        tracep->declBus(c+81,"top rd", false,-1, 4,0);
-        tracep->declBus(c+82,"top opcode", false,-1, 6,0);
-        tracep->declBus(c+83,"top I_extension", false,-1, 31,0);
-        tracep->declBus(c+84,"top S_extension", false,-1, 31,0);
-        tracep->declBus(c+85,"top B_extension", false,-1, 31,0);
-        tracep->declBus(c+86,"top U_extension", false,-1, 31,0);
-        tracep->declBus(c+1,"top J_extension", false,-1, 31,0);
-        tracep->declBus(c+87,"top imm_extension", false,-1, 31,0);
-        tracep->declBit(c+2,"top addi", false,-1);
-        tracep->declBit(c+88,"top auipc", false,-1);
-        tracep->declBit(c+89,"top lui", false,-1);
-        tracep->declBit(c+90,"top jal", false,-1);
-        tracep->declBit(c+3,"top jalr", false,-1);
-        tracep->declBit(c+4,"top sd", false,-1);
-        tracep->declBit(c+91,"top br_taken", false,-1);
-        tracep->declQuad(c+92,"top br_target", false,-1, 63,0);
-        tracep->declQuad(c+94,"top adder_src1", false,-1, 63,0);
-        tracep->declQuad(c+96,"top adder_src2", false,-1, 63,0);
-        tracep->declQuad(c+5,"top adder_result", false,-1, 63,0);
-        tracep->declBus(c+79,"top rf_raddr1", false,-1, 4,0);
-        tracep->declBus(c+98,"top rf_rdata1", false,-1, 31,0);
-        tracep->declBus(c+78,"top rf_raddr2", false,-1, 4,0);
-        tracep->declBus(c+99,"top rf_rdata2", false,-1, 31,0);
-        tracep->declBit(c+7,"top rf_we", false,-1);
-        tracep->declBus(c+81,"top rf_waddr", false,-1, 4,0);
-        tracep->declBus(c+100,"top rf_wdata", false,-1, 31,0);
-        tracep->declBit(c+8,"top I_Type", false,-1);
-        tracep->declBit(c+108,"top R_Type", false,-1);
-        tracep->declBit(c+4,"top S_Type", false,-1);
-        tracep->declBit(c+108,"top B_Type", false,-1);
-        tracep->declBit(c+101,"top U_Type", false,-1);
-        tracep->declBit(c+90,"top J_Type", false,-1);
-        tracep->declQuad(c+94,"top u_adder src1", false,-1, 63,0);
-        tracep->declQuad(c+96,"top u_adder src2", false,-1, 63,0);
-        tracep->declQuad(c+5,"top u_adder result", false,-1, 63,0);
-        tracep->declBit(c+73,"top u_regfile clk", false,-1);
-        tracep->declBus(c+79,"top u_regfile raddr1", false,-1, 4,0);
-        tracep->declQuad(c+102,"top u_regfile rdata1", false,-1, 63,0);
-        tracep->declBus(c+78,"top u_regfile raddr2", false,-1, 4,0);
-        tracep->declQuad(c+104,"top u_regfile rdata2", false,-1, 63,0);
-        tracep->declBit(c+7,"top u_regfile we", false,-1);
-        tracep->declBus(c+81,"top u_regfile waddr", false,-1, 4,0);
-        tracep->declQuad(c+106,"top u_regfile wdata", false,-1, 63,0);
+        tracep->declBit(c+76,"clk", false,-1);
+        tracep->declBus(c+77,"inst", false,-1, 31,0);
+        tracep->declQuad(c+78,"pc", false,-1, 63,0);
+        tracep->declBit(c+76,"top clk", false,-1);
+        tracep->declBus(c+77,"top inst", false,-1, 31,0);
+        tracep->declQuad(c+78,"top pc", false,-1, 63,0);
+        tracep->declBus(c+80,"top funct7", false,-1, 6,0);
+        tracep->declBus(c+81,"top rs2", false,-1, 4,0);
+        tracep->declBus(c+82,"top rs1", false,-1, 4,0);
+        tracep->declBus(c+83,"top funct3", false,-1, 2,0);
+        tracep->declBus(c+84,"top rd", false,-1, 4,0);
+        tracep->declBus(c+85,"top opcode", false,-1, 6,0);
+        tracep->declQuad(c+86,"top I_extension", false,-1, 63,0);
+        tracep->declQuad(c+88,"top S_extension", false,-1, 63,0);
+        tracep->declQuad(c+90,"top B_extension", false,-1, 63,0);
+        tracep->declQuad(c+1,"top U_extension", false,-1, 63,0);
+        tracep->declQuad(c+3,"top J_extension", false,-1, 63,0);
+        tracep->declQuad(c+92,"top imm_extension", false,-1, 63,0);
+        tracep->declBit(c+5,"top addi", false,-1);
+        tracep->declBit(c+94,"top auipc", false,-1);
+        tracep->declBit(c+95,"top lui", false,-1);
+        tracep->declBit(c+96,"top jal", false,-1);
+        tracep->declBit(c+6,"top jalr", false,-1);
+        tracep->declBit(c+7,"top sd", false,-1);
+        tracep->declBit(c+97,"top br_taken", false,-1);
+        tracep->declQuad(c+98,"top br_target", false,-1, 63,0);
+        tracep->declQuad(c+100,"top adder_src1", false,-1, 63,0);
+        tracep->declQuad(c+92,"top adder_src2", false,-1, 63,0);
+        tracep->declQuad(c+8,"top adder_result", false,-1, 63,0);
+        tracep->declBus(c+82,"top rf_raddr1", false,-1, 4,0);
+        tracep->declBus(c+102,"top rf_rdata1", false,-1, 31,0);
+        tracep->declBus(c+81,"top rf_raddr2", false,-1, 4,0);
+        tracep->declBus(c+103,"top rf_rdata2", false,-1, 31,0);
+        tracep->declBit(c+10,"top rf_we", false,-1);
+        tracep->declBus(c+84,"top rf_waddr", false,-1, 4,0);
+        tracep->declBus(c+104,"top rf_wdata", false,-1, 31,0);
+        tracep->declBit(c+11,"top I_Type", false,-1);
+        tracep->declBit(c+112,"top R_Type", false,-1);
+        tracep->declBit(c+7,"top S_Type", false,-1);
+        tracep->declBit(c+112,"top B_Type", false,-1);
+        tracep->declBit(c+105,"top U_Type", false,-1);
+        tracep->declBit(c+96,"top J_Type", false,-1);
+        tracep->declQuad(c+100,"top u_adder src1", false,-1, 63,0);
+        tracep->declQuad(c+92,"top u_adder src2", false,-1, 63,0);
+        tracep->declQuad(c+8,"top u_adder result", false,-1, 63,0);
+        tracep->declBit(c+76,"top u_regfile clk", false,-1);
+        tracep->declBus(c+82,"top u_regfile raddr1", false,-1, 4,0);
+        tracep->declQuad(c+106,"top u_regfile rdata1", false,-1, 63,0);
+        tracep->declBus(c+81,"top u_regfile raddr2", false,-1, 4,0);
+        tracep->declQuad(c+108,"top u_regfile rdata2", false,-1, 63,0);
+        tracep->declBit(c+10,"top u_regfile we", false,-1);
+        tracep->declBus(c+84,"top u_regfile waddr", false,-1, 4,0);
+        tracep->declQuad(c+110,"top u_regfile wdata", false,-1, 63,0);
         {int i; for (i=0; i<32; i++) {
-                tracep->declQuad(c+9+i*2,"top u_regfile rf", true,(i+0), 63,0);}}
+                tracep->declQuad(c+12+i*2,"top u_regfile rf", true,(i+0), 63,0);}}
     }
 }
 
@@ -113,206 +113,176 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
     if (false && oldp) {}  // Prevent unused
     // Body
     {
-        tracep->fullIData(oldp+1,(vlSelf->top__DOT__J_extension),32);
-        tracep->fullBit(oldp+2,(vlSelf->top__DOT__addi));
-        tracep->fullBit(oldp+3,(vlSelf->top__DOT__jalr));
-        tracep->fullBit(oldp+4,(vlSelf->top__DOT__sd));
-        tracep->fullQData(oldp+5,(vlSelf->top__DOT__adder_result),64);
-        tracep->fullBit(oldp+7,((1U & (~ (IData)(vlSelf->top__DOT__sd)))));
-        tracep->fullBit(oldp+8,(((IData)(vlSelf->top__DOT__addi) 
-                                 | (IData)(vlSelf->top__DOT__jalr))));
-        tracep->fullQData(oldp+9,(vlSelf->top__DOT__u_regfile__DOT__rf[0]),64);
-        tracep->fullQData(oldp+11,(vlSelf->top__DOT__u_regfile__DOT__rf[1]),64);
-        tracep->fullQData(oldp+13,(vlSelf->top__DOT__u_regfile__DOT__rf[2]),64);
-        tracep->fullQData(oldp+15,(vlSelf->top__DOT__u_regfile__DOT__rf[3]),64);
-        tracep->fullQData(oldp+17,(vlSelf->top__DOT__u_regfile__DOT__rf[4]),64);
-        tracep->fullQData(oldp+19,(vlSelf->top__DOT__u_regfile__DOT__rf[5]),64);
-        tracep->fullQData(oldp+21,(vlSelf->top__DOT__u_regfile__DOT__rf[6]),64);
-        tracep->fullQData(oldp+23,(vlSelf->top__DOT__u_regfile__DOT__rf[7]),64);
-        tracep->fullQData(oldp+25,(vlSelf->top__DOT__u_regfile__DOT__rf[8]),64);
-        tracep->fullQData(oldp+27,(vlSelf->top__DOT__u_regfile__DOT__rf[9]),64);
-        tracep->fullQData(oldp+29,(vlSelf->top__DOT__u_regfile__DOT__rf[10]),64);
-        tracep->fullQData(oldp+31,(vlSelf->top__DOT__u_regfile__DOT__rf[11]),64);
-        tracep->fullQData(oldp+33,(vlSelf->top__DOT__u_regfile__DOT__rf[12]),64);
-        tracep->fullQData(oldp+35,(vlSelf->top__DOT__u_regfile__DOT__rf[13]),64);
-        tracep->fullQData(oldp+37,(vlSelf->top__DOT__u_regfile__DOT__rf[14]),64);
-        tracep->fullQData(oldp+39,(vlSelf->top__DOT__u_regfile__DOT__rf[15]),64);
-        tracep->fullQData(oldp+41,(vlSelf->top__DOT__u_regfile__DOT__rf[16]),64);
-        tracep->fullQData(oldp+43,(vlSelf->top__DOT__u_regfile__DOT__rf[17]),64);
-        tracep->fullQData(oldp+45,(vlSelf->top__DOT__u_regfile__DOT__rf[18]),64);
-        tracep->fullQData(oldp+47,(vlSelf->top__DOT__u_regfile__DOT__rf[19]),64);
-        tracep->fullQData(oldp+49,(vlSelf->top__DOT__u_regfile__DOT__rf[20]),64);
-        tracep->fullQData(oldp+51,(vlSelf->top__DOT__u_regfile__DOT__rf[21]),64);
-        tracep->fullQData(oldp+53,(vlSelf->top__DOT__u_regfile__DOT__rf[22]),64);
-        tracep->fullQData(oldp+55,(vlSelf->top__DOT__u_regfile__DOT__rf[23]),64);
-        tracep->fullQData(oldp+57,(vlSelf->top__DOT__u_regfile__DOT__rf[24]),64);
-        tracep->fullQData(oldp+59,(vlSelf->top__DOT__u_regfile__DOT__rf[25]),64);
-        tracep->fullQData(oldp+61,(vlSelf->top__DOT__u_regfile__DOT__rf[26]),64);
-        tracep->fullQData(oldp+63,(vlSelf->top__DOT__u_regfile__DOT__rf[27]),64);
-        tracep->fullQData(oldp+65,(vlSelf->top__DOT__u_regfile__DOT__rf[28]),64);
-        tracep->fullQData(oldp+67,(vlSelf->top__DOT__u_regfile__DOT__rf[29]),64);
-        tracep->fullQData(oldp+69,(vlSelf->top__DOT__u_regfile__DOT__rf[30]),64);
-        tracep->fullQData(oldp+71,(vlSelf->top__DOT__u_regfile__DOT__rf[31]),64);
-        tracep->fullBit(oldp+73,(vlSelf->clk));
-        tracep->fullIData(oldp+74,(vlSelf->inst),32);
-        tracep->fullQData(oldp+75,(vlSelf->pc),64);
-        tracep->fullCData(oldp+77,((vlSelf->inst >> 0x19U)),7);
-        tracep->fullCData(oldp+78,((0x1fU & (vlSelf->inst 
-                                             >> 0x14U))),5);
-        tracep->fullCData(oldp+79,((0x1fU & (vlSelf->inst 
-                                             >> 0xfU))),5);
-        tracep->fullCData(oldp+80,((7U & (vlSelf->inst 
-                                          >> 0xcU))),3);
+        tracep->fullQData(oldp+1,(vlSelf->top__DOT__U_extension),64);
+        tracep->fullQData(oldp+3,(vlSelf->top__DOT__J_extension),64);
+        tracep->fullBit(oldp+5,(vlSelf->top__DOT__addi));
+        tracep->fullBit(oldp+6,(vlSelf->top__DOT__jalr));
+        tracep->fullBit(oldp+7,(vlSelf->top__DOT__sd));
+        tracep->fullQData(oldp+8,(vlSelf->top__DOT__adder_result),64);
+        tracep->fullBit(oldp+10,((1U & (~ (IData)(vlSelf->top__DOT__sd)))));
+        tracep->fullBit(oldp+11,(((IData)(vlSelf->top__DOT__addi) 
+                                  | (IData)(vlSelf->top__DOT__jalr))));
+        tracep->fullQData(oldp+12,(vlSelf->top__DOT__u_regfile__DOT__rf[0]),64);
+        tracep->fullQData(oldp+14,(vlSelf->top__DOT__u_regfile__DOT__rf[1]),64);
+        tracep->fullQData(oldp+16,(vlSelf->top__DOT__u_regfile__DOT__rf[2]),64);
+        tracep->fullQData(oldp+18,(vlSelf->top__DOT__u_regfile__DOT__rf[3]),64);
+        tracep->fullQData(oldp+20,(vlSelf->top__DOT__u_regfile__DOT__rf[4]),64);
+        tracep->fullQData(oldp+22,(vlSelf->top__DOT__u_regfile__DOT__rf[5]),64);
+        tracep->fullQData(oldp+24,(vlSelf->top__DOT__u_regfile__DOT__rf[6]),64);
+        tracep->fullQData(oldp+26,(vlSelf->top__DOT__u_regfile__DOT__rf[7]),64);
+        tracep->fullQData(oldp+28,(vlSelf->top__DOT__u_regfile__DOT__rf[8]),64);
+        tracep->fullQData(oldp+30,(vlSelf->top__DOT__u_regfile__DOT__rf[9]),64);
+        tracep->fullQData(oldp+32,(vlSelf->top__DOT__u_regfile__DOT__rf[10]),64);
+        tracep->fullQData(oldp+34,(vlSelf->top__DOT__u_regfile__DOT__rf[11]),64);
+        tracep->fullQData(oldp+36,(vlSelf->top__DOT__u_regfile__DOT__rf[12]),64);
+        tracep->fullQData(oldp+38,(vlSelf->top__DOT__u_regfile__DOT__rf[13]),64);
+        tracep->fullQData(oldp+40,(vlSelf->top__DOT__u_regfile__DOT__rf[14]),64);
+        tracep->fullQData(oldp+42,(vlSelf->top__DOT__u_regfile__DOT__rf[15]),64);
+        tracep->fullQData(oldp+44,(vlSelf->top__DOT__u_regfile__DOT__rf[16]),64);
+        tracep->fullQData(oldp+46,(vlSelf->top__DOT__u_regfile__DOT__rf[17]),64);
+        tracep->fullQData(oldp+48,(vlSelf->top__DOT__u_regfile__DOT__rf[18]),64);
+        tracep->fullQData(oldp+50,(vlSelf->top__DOT__u_regfile__DOT__rf[19]),64);
+        tracep->fullQData(oldp+52,(vlSelf->top__DOT__u_regfile__DOT__rf[20]),64);
+        tracep->fullQData(oldp+54,(vlSelf->top__DOT__u_regfile__DOT__rf[21]),64);
+        tracep->fullQData(oldp+56,(vlSelf->top__DOT__u_regfile__DOT__rf[22]),64);
+        tracep->fullQData(oldp+58,(vlSelf->top__DOT__u_regfile__DOT__rf[23]),64);
+        tracep->fullQData(oldp+60,(vlSelf->top__DOT__u_regfile__DOT__rf[24]),64);
+        tracep->fullQData(oldp+62,(vlSelf->top__DOT__u_regfile__DOT__rf[25]),64);
+        tracep->fullQData(oldp+64,(vlSelf->top__DOT__u_regfile__DOT__rf[26]),64);
+        tracep->fullQData(oldp+66,(vlSelf->top__DOT__u_regfile__DOT__rf[27]),64);
+        tracep->fullQData(oldp+68,(vlSelf->top__DOT__u_regfile__DOT__rf[28]),64);
+        tracep->fullQData(oldp+70,(vlSelf->top__DOT__u_regfile__DOT__rf[29]),64);
+        tracep->fullQData(oldp+72,(vlSelf->top__DOT__u_regfile__DOT__rf[30]),64);
+        tracep->fullQData(oldp+74,(vlSelf->top__DOT__u_regfile__DOT__rf[31]),64);
+        tracep->fullBit(oldp+76,(vlSelf->clk));
+        tracep->fullIData(oldp+77,(vlSelf->inst),32);
+        tracep->fullQData(oldp+78,(vlSelf->pc),64);
+        tracep->fullCData(oldp+80,((vlSelf->inst >> 0x19U)),7);
         tracep->fullCData(oldp+81,((0x1fU & (vlSelf->inst 
+                                             >> 0x14U))),5);
+        tracep->fullCData(oldp+82,((0x1fU & (vlSelf->inst 
+                                             >> 0xfU))),5);
+        tracep->fullCData(oldp+83,((7U & (vlSelf->inst 
+                                          >> 0xcU))),3);
+        tracep->fullCData(oldp+84,((0x1fU & (vlSelf->inst 
                                              >> 7U))),5);
-        tracep->fullCData(oldp+82,((0x7fU & vlSelf->inst)),7);
-        tracep->fullIData(oldp+83,((((- (IData)((vlSelf->inst 
-                                                 >> 0x1fU))) 
-                                     << 0xcU) | (vlSelf->inst 
-                                                 >> 0x14U))),32);
-        tracep->fullIData(oldp+84,((((- (IData)((vlSelf->inst 
-                                                 >> 0x1fU))) 
-                                     << 0xcU) | ((0xfe0U 
-                                                  & (vlSelf->inst 
-                                                     >> 0x14U)) 
-                                                 | (0x1fU 
-                                                    & (vlSelf->inst 
-                                                       >> 7U))))),32);
-        tracep->fullIData(oldp+85,((((- (IData)((vlSelf->inst 
-                                                 >> 0x1fU))) 
-                                     << 0xcU) | ((0x800U 
-                                                  & (vlSelf->inst 
-                                                     << 4U)) 
-                                                 | ((0x7e0U 
-                                                     & (vlSelf->inst 
-                                                        >> 0x14U)) 
-                                                    | (0x1eU 
-                                                       & (vlSelf->inst 
-                                                          >> 7U)))))),32);
-        tracep->fullIData(oldp+86,((0xfffff000U & vlSelf->inst)),32);
-        tracep->fullIData(oldp+87,((((((- (IData)(((IData)(vlSelf->top__DOT__addi) 
-                                                   | (IData)(vlSelf->top__DOT__jalr)))) 
-                                       & (((- (IData)(
-                                                      (vlSelf->inst 
-                                                       >> 0x1fU))) 
-                                           << 0xcU) 
-                                          | (vlSelf->inst 
-                                             >> 0x14U))) 
-                                      | ((- (IData)((IData)(vlSelf->top__DOT__sd))) 
-                                         & (((- (IData)(
+        tracep->fullCData(oldp+85,((0x7fU & vlSelf->inst)),7);
+        tracep->fullQData(oldp+86,((((- (QData)((IData)(
                                                         (vlSelf->inst 
-                                                         >> 0x1fU))) 
+                                                         >> 0x1fU)))) 
+                                     << 0xcU) | (QData)((IData)(
+                                                                (vlSelf->inst 
+                                                                 >> 0x14U))))),64);
+        tracep->fullQData(oldp+88,((((- (QData)((IData)(
+                                                        (vlSelf->inst 
+                                                         >> 0x1fU)))) 
+                                     << 0xcU) | (QData)((IData)(
+                                                                ((0xfe0U 
+                                                                  & (vlSelf->inst 
+                                                                     >> 0x14U)) 
+                                                                 | (0x1fU 
+                                                                    & (vlSelf->inst 
+                                                                       >> 7U))))))),64);
+        tracep->fullQData(oldp+90,((((- (QData)((IData)(
+                                                        (vlSelf->inst 
+                                                         >> 0x1fU)))) 
+                                     << 0xcU) | (QData)((IData)(
+                                                                ((0x800U 
+                                                                  & (vlSelf->inst 
+                                                                     << 4U)) 
+                                                                 | ((0x7e0U 
+                                                                     & (vlSelf->inst 
+                                                                        >> 0x14U)) 
+                                                                    | (0x1eU 
+                                                                       & (vlSelf->inst 
+                                                                          >> 7U)))))))),64);
+        tracep->fullQData(oldp+92,((((((- (QData)((IData)(
+                                                          ((IData)(vlSelf->top__DOT__addi) 
+                                                           | (IData)(vlSelf->top__DOT__jalr))))) 
+                                       & (((- (QData)((IData)(
+                                                              (vlSelf->inst 
+                                                               >> 0x1fU)))) 
+                                           << 0xcU) 
+                                          | (QData)((IData)(
+                                                            (vlSelf->inst 
+                                                             >> 0x14U))))) 
+                                      | ((- (QData)((IData)(vlSelf->top__DOT__sd))) 
+                                         & (((- (QData)((IData)(
+                                                                (vlSelf->inst 
+                                                                 >> 0x1fU)))) 
                                              << 0xcU) 
-                                            | ((0xfe0U 
-                                                & (vlSelf->inst 
-                                                   >> 0x14U)) 
-                                               | (0x1fU 
-                                                  & (vlSelf->inst 
-                                                     >> 7U)))))) 
-                                     | ((- (IData)(
-                                                   (0x6fU 
-                                                    == 
-                                                    (0x7fU 
-                                                     & vlSelf->inst)))) 
+                                            | (QData)((IData)(
+                                                              ((0xfe0U 
+                                                                & (vlSelf->inst 
+                                                                   >> 0x14U)) 
+                                                               | (0x1fU 
+                                                                  & (vlSelf->inst 
+                                                                     >> 7U)))))))) 
+                                     | ((- (QData)((IData)(
+                                                           (0x6fU 
+                                                            == 
+                                                            (0x7fU 
+                                                             & vlSelf->inst))))) 
                                         & vlSelf->top__DOT__J_extension)) 
-                                    | (0xfffff000U 
-                                       & ((- (IData)(
-                                                     ((0x17U 
-                                                       == 
-                                                       (0x7fU 
-                                                        & vlSelf->inst)) 
-                                                      | (0x37U 
-                                                         == 
-                                                         (0x7fU 
-                                                          & vlSelf->inst))))) 
-                                          & vlSelf->inst)))),32);
-        tracep->fullBit(oldp+88,((0x17U == (0x7fU & vlSelf->inst))));
-        tracep->fullBit(oldp+89,((0x37U == (0x7fU & vlSelf->inst))));
-        tracep->fullBit(oldp+90,((0x6fU == (0x7fU & vlSelf->inst))));
-        tracep->fullBit(oldp+91,(((0x6fU == (0x7fU 
+                                    | ((- (QData)((IData)(
+                                                          ((0x17U 
+                                                            == 
+                                                            (0x7fU 
+                                                             & vlSelf->inst)) 
+                                                           | (0x37U 
+                                                              == 
+                                                              (0x7fU 
+                                                               & vlSelf->inst)))))) 
+                                       & vlSelf->top__DOT__U_extension))),64);
+        tracep->fullBit(oldp+94,((0x17U == (0x7fU & vlSelf->inst))));
+        tracep->fullBit(oldp+95,((0x37U == (0x7fU & vlSelf->inst))));
+        tracep->fullBit(oldp+96,((0x6fU == (0x7fU & vlSelf->inst))));
+        tracep->fullBit(oldp+97,(((0x6fU == (0x7fU 
                                              & vlSelf->inst)) 
                                   | (IData)(vlSelf->top__DOT__jalr))));
-        tracep->fullQData(oldp+92,(((0x6fU == (0x7fU 
+        tracep->fullQData(oldp+98,(((0x6fU == (0x7fU 
                                                & vlSelf->inst))
                                      ? (vlSelf->pc 
-                                        + (QData)((IData)(vlSelf->top__DOT__J_extension)))
+                                        + vlSelf->top__DOT__J_extension)
                                      : (QData)((IData)(
                                                        ((IData)(
                                                                 (vlSelf->top__DOT__adder_result 
                                                                  >> 1U)) 
                                                         << 1U))))),64);
-        tracep->fullQData(oldp+94,(((0x6fU == (0x7fU 
-                                               & vlSelf->inst))
-                                     ? vlSelf->pc : (QData)((IData)(
-                                                                    ((0U 
-                                                                      == 
+        tracep->fullQData(oldp+100,(((0x6fU == (0x7fU 
+                                                & vlSelf->inst))
+                                      ? vlSelf->pc : (QData)((IData)(
+                                                                     ((0U 
+                                                                       == 
+                                                                       (0x1fU 
+                                                                        & (vlSelf->inst 
+                                                                           >> 0xfU)))
+                                                                       ? 0ULL
+                                                                       : 
+                                                                      vlSelf->top__DOT__u_regfile__DOT__rf
+                                                                      [
                                                                       (0x1fU 
                                                                        & (vlSelf->inst 
-                                                                          >> 0xfU)))
-                                                                      ? 0ULL
-                                                                      : 
-                                                                     vlSelf->top__DOT__u_regfile__DOT__rf
-                                                                     [
-                                                                     (0x1fU 
-                                                                      & (vlSelf->inst 
-                                                                         >> 0xfU))]))))),64);
-        tracep->fullQData(oldp+96,((QData)((IData)(
-                                                   (((((- (IData)(
-                                                                  ((IData)(vlSelf->top__DOT__addi) 
-                                                                   | (IData)(vlSelf->top__DOT__jalr)))) 
-                                                       & (((- (IData)(
-                                                                      (vlSelf->inst 
-                                                                       >> 0x1fU))) 
-                                                           << 0xcU) 
-                                                          | (vlSelf->inst 
-                                                             >> 0x14U))) 
-                                                      | ((- (IData)((IData)(vlSelf->top__DOT__sd))) 
-                                                         & (((- (IData)(
-                                                                        (vlSelf->inst 
-                                                                         >> 0x1fU))) 
-                                                             << 0xcU) 
-                                                            | ((0xfe0U 
-                                                                & (vlSelf->inst 
-                                                                   >> 0x14U)) 
-                                                               | (0x1fU 
-                                                                  & (vlSelf->inst 
-                                                                     >> 7U)))))) 
-                                                     | ((- (IData)(
-                                                                   (0x6fU 
-                                                                    == 
-                                                                    (0x7fU 
-                                                                     & vlSelf->inst)))) 
-                                                        & vlSelf->top__DOT__J_extension)) 
-                                                    | (0xfffff000U 
-                                                       & ((- (IData)(
-                                                                     ((0x17U 
-                                                                       == 
-                                                                       (0x7fU 
-                                                                        & vlSelf->inst)) 
-                                                                      | (0x37U 
-                                                                         == 
-                                                                         (0x7fU 
-                                                                          & vlSelf->inst))))) 
-                                                          & vlSelf->inst)))))),64);
-        tracep->fullIData(oldp+98,((IData)(((0U == 
-                                             (0x1fU 
-                                              & (vlSelf->inst 
-                                                 >> 0xfU)))
-                                             ? 0ULL
-                                             : vlSelf->top__DOT__u_regfile__DOT__rf
-                                            [(0x1fU 
-                                              & (vlSelf->inst 
-                                                 >> 0xfU))]))),32);
-        tracep->fullIData(oldp+99,((IData)(((0U == 
-                                             (0x1fU 
-                                              & (vlSelf->inst 
-                                                 >> 0x14U)))
-                                             ? 0ULL
-                                             : vlSelf->top__DOT__u_regfile__DOT__rf
-                                            [(0x1fU 
-                                              & (vlSelf->inst 
-                                                 >> 0x14U))]))),32);
-        tracep->fullIData(oldp+100,((((((- (IData)(
+                                                                          >> 0xfU))]))))),64);
+        tracep->fullIData(oldp+102,((IData)(((0U == 
+                                              (0x1fU 
+                                               & (vlSelf->inst 
+                                                  >> 0xfU)))
+                                              ? 0ULL
+                                              : vlSelf->top__DOT__u_regfile__DOT__rf
+                                             [(0x1fU 
+                                               & (vlSelf->inst 
+                                                  >> 0xfU))]))),32);
+        tracep->fullIData(oldp+103,((IData)(((0U == 
+                                              (0x1fU 
+                                               & (vlSelf->inst 
+                                                  >> 0x14U)))
+                                              ? 0ULL
+                                              : vlSelf->top__DOT__u_regfile__DOT__rf
+                                             [(0x1fU 
+                                               & (vlSelf->inst 
+                                                  >> 0x14U))]))),32);
+        tracep->fullIData(oldp+104,((((((- (IData)(
                                                    ((0x6fU 
                                                      == 
                                                      (0x7fU 
@@ -320,40 +290,38 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                     | (IData)(vlSelf->top__DOT__jalr)))) 
                                         & ((IData)(4U) 
                                            + (IData)(vlSelf->pc))) 
-                                       | (0xfffff000U 
-                                          & ((- (IData)(
-                                                        (0x37U 
-                                                         == 
-                                                         (0x7fU 
-                                                          & vlSelf->inst)))) 
-                                             & vlSelf->inst))) 
+                                       | ((- (IData)(
+                                                     (0x37U 
+                                                      == 
+                                                      (0x7fU 
+                                                       & vlSelf->inst)))) 
+                                          & (IData)(vlSelf->top__DOT__U_extension))) 
                                       | ((- (IData)(
                                                     (0x17U 
                                                      == 
                                                      (0x7fU 
                                                       & vlSelf->inst)))) 
                                          & ((IData)(vlSelf->pc) 
-                                            + (0xfffff000U 
-                                               & vlSelf->inst)))) 
+                                            + (IData)(vlSelf->top__DOT__U_extension)))) 
                                      | ((- (IData)((IData)(vlSelf->top__DOT__addi))) 
                                         & (IData)(vlSelf->top__DOT__adder_result)))),32);
-        tracep->fullBit(oldp+101,(((0x17U == (0x7fU 
+        tracep->fullBit(oldp+105,(((0x17U == (0x7fU 
                                               & vlSelf->inst)) 
                                    | (0x37U == (0x7fU 
                                                 & vlSelf->inst)))));
-        tracep->fullQData(oldp+102,(((0U == (0x1fU 
+        tracep->fullQData(oldp+106,(((0U == (0x1fU 
                                              & (vlSelf->inst 
                                                 >> 0xfU)))
                                       ? 0ULL : vlSelf->top__DOT__u_regfile__DOT__rf
                                      [(0x1fU & (vlSelf->inst 
                                                 >> 0xfU))])),64);
-        tracep->fullQData(oldp+104,(((0U == (0x1fU 
+        tracep->fullQData(oldp+108,(((0U == (0x1fU 
                                              & (vlSelf->inst 
                                                 >> 0x14U)))
                                       ? 0ULL : vlSelf->top__DOT__u_regfile__DOT__rf
                                      [(0x1fU & (vlSelf->inst 
                                                 >> 0x14U))])),64);
-        tracep->fullQData(oldp+106,((QData)((IData)(
+        tracep->fullQData(oldp+110,((QData)((IData)(
                                                     (((((- (IData)(
                                                                    ((0x6fU 
                                                                      == 
@@ -362,24 +330,21 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                                     | (IData)(vlSelf->top__DOT__jalr)))) 
                                                         & ((IData)(4U) 
                                                            + (IData)(vlSelf->pc))) 
-                                                       | (0xfffff000U 
-                                                          & ((- (IData)(
-                                                                        (0x37U 
-                                                                         == 
-                                                                         (0x7fU 
-                                                                          & vlSelf->inst)))) 
-                                                             & vlSelf->inst))) 
+                                                       | ((- (IData)(
+                                                                     (0x37U 
+                                                                      == 
+                                                                      (0x7fU 
+                                                                       & vlSelf->inst)))) 
+                                                          & (IData)(vlSelf->top__DOT__U_extension))) 
                                                       | ((- (IData)(
                                                                     (0x17U 
                                                                      == 
                                                                      (0x7fU 
                                                                       & vlSelf->inst)))) 
                                                          & ((IData)(vlSelf->pc) 
-                                                            + 
-                                                            (0xfffff000U 
-                                                             & vlSelf->inst)))) 
+                                                            + (IData)(vlSelf->top__DOT__U_extension)))) 
                                                      | ((- (IData)((IData)(vlSelf->top__DOT__addi))) 
                                                         & (IData)(vlSelf->top__DOT__adder_result)))))),64);
-        tracep->fullBit(oldp+108,(0U));
+        tracep->fullBit(oldp+112,(0U));
     }
 }

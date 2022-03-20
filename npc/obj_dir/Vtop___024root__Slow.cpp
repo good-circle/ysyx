@@ -32,23 +32,31 @@ void Vtop___024root___settle__TOP__2(Vtop___024root* vlSelf) {
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___settle__TOP__2\n"); );
     // Body
-    vlSelf->top__DOT__J_extension = (((- (IData)((vlSelf->inst 
-                                                  >> 0x1fU))) 
-                                      << 0x14U) | (
-                                                   (0xff000U 
-                                                    & vlSelf->inst) 
-                                                   | ((0x800U 
-                                                       & (vlSelf->inst 
-                                                          >> 9U)) 
-                                                      | (0x7feU 
-                                                         & (vlSelf->inst 
-                                                            >> 0x14U)))));
+    vlSelf->top__DOT__J_extension = (((- (QData)((IData)(
+                                                         (vlSelf->inst 
+                                                          >> 0x1fU)))) 
+                                      << 0x14U) | (QData)((IData)(
+                                                                  ((0xff000U 
+                                                                    & vlSelf->inst) 
+                                                                   | ((0x800U 
+                                                                       & (vlSelf->inst 
+                                                                          >> 9U)) 
+                                                                      | (0x7feU 
+                                                                         & (vlSelf->inst 
+                                                                            >> 0x14U)))))));
     vlSelf->top__DOT__addi = (IData)((0x13U == (0x707fU 
                                                 & vlSelf->inst)));
     vlSelf->top__DOT__jalr = (IData)((0x67U == (0x707fU 
                                                 & vlSelf->inst)));
     vlSelf->top__DOT__sd = (IData)((0x3023U == (0x707fU 
                                                 & vlSelf->inst)));
+    vlSelf->top__DOT__U_extension = (((QData)((IData)(
+                                                      (- (IData)(
+                                                                 (vlSelf->inst 
+                                                                  >> 0x1fU))))) 
+                                      << 0x20U) | (QData)((IData)(
+                                                                  (0xfffff000U 
+                                                                   & vlSelf->inst))));
     vlSelf->top__DOT__adder_result = (((0x6fU == (0x7fU 
                                                   & vlSelf->inst))
                                         ? vlSelf->pc
@@ -65,47 +73,47 @@ void Vtop___024root___settle__TOP__2(Vtop___024root* vlSelf) {
                                                            (0x1fU 
                                                             & (vlSelf->inst 
                                                                >> 0xfU))])))) 
-                                      + (QData)((IData)(
-                                                        (((((- (IData)(
-                                                                       ((IData)(vlSelf->top__DOT__addi) 
-                                                                        | (IData)(vlSelf->top__DOT__jalr)))) 
-                                                            & (((- (IData)(
-                                                                           (vlSelf->inst 
-                                                                            >> 0x1fU))) 
-                                                                << 0xcU) 
-                                                               | (vlSelf->inst 
-                                                                  >> 0x14U))) 
-                                                           | ((- (IData)((IData)(vlSelf->top__DOT__sd))) 
-                                                              & (((- (IData)(
-                                                                             (vlSelf->inst 
-                                                                              >> 0x1fU))) 
-                                                                  << 0xcU) 
-                                                                 | ((0xfe0U 
+                                      + (((((- (QData)((IData)(
+                                                               ((IData)(vlSelf->top__DOT__addi) 
+                                                                | (IData)(vlSelf->top__DOT__jalr))))) 
+                                            & (((- (QData)((IData)(
+                                                                   (vlSelf->inst 
+                                                                    >> 0x1fU)))) 
+                                                << 0xcU) 
+                                               | (QData)((IData)(
+                                                                 (vlSelf->inst 
+                                                                  >> 0x14U))))) 
+                                           | ((- (QData)((IData)(vlSelf->top__DOT__sd))) 
+                                              & (((- (QData)((IData)(
+                                                                     (vlSelf->inst 
+                                                                      >> 0x1fU)))) 
+                                                  << 0xcU) 
+                                                 | (QData)((IData)(
+                                                                   ((0xfe0U 
                                                                      & (vlSelf->inst 
                                                                         >> 0x14U)) 
                                                                     | (0x1fU 
                                                                        & (vlSelf->inst 
-                                                                          >> 7U)))))) 
-                                                          | ((- (IData)(
-                                                                        (0x6fU 
-                                                                         == 
-                                                                         (0x7fU 
-                                                                          & vlSelf->inst)))) 
-                                                             & vlSelf->top__DOT__J_extension)) 
-                                                         | (0xfffff000U 
-                                                            & ((- (IData)(
-                                                                          ((0x17U 
-                                                                            == 
-                                                                            (0x7fU 
-                                                                             & vlSelf->inst)) 
-                                                                           | (0x37U 
-                                                                              == 
-                                                                              (0x7fU 
-                                                                               & vlSelf->inst))))) 
-                                                               & vlSelf->inst))))));
+                                                                          >> 7U)))))))) 
+                                          | ((- (QData)((IData)(
+                                                                (0x6fU 
+                                                                 == 
+                                                                 (0x7fU 
+                                                                  & vlSelf->inst))))) 
+                                             & vlSelf->top__DOT__J_extension)) 
+                                         | ((- (QData)((IData)(
+                                                               ((0x17U 
+                                                                 == 
+                                                                 (0x7fU 
+                                                                  & vlSelf->inst)) 
+                                                                | (0x37U 
+                                                                   == 
+                                                                   (0x7fU 
+                                                                    & vlSelf->inst)))))) 
+                                            & vlSelf->top__DOT__U_extension)));
     vlSelf->top__DOT__br_target = ((0x6fU == (0x7fU 
                                               & vlSelf->inst))
-                                    ? (vlSelf->pc + (QData)((IData)(vlSelf->top__DOT__J_extension)))
+                                    ? (vlSelf->pc + vlSelf->top__DOT__J_extension)
                                     : (QData)((IData)(
                                                       ((IData)(
                                                                (vlSelf->top__DOT__adder_result 
@@ -146,7 +154,8 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->clk = VL_RAND_RESET_I(1);
     vlSelf->inst = VL_RAND_RESET_I(32);
     vlSelf->pc = VL_RAND_RESET_Q(64);
-    vlSelf->top__DOT__J_extension = VL_RAND_RESET_I(32);
+    vlSelf->top__DOT__U_extension = VL_RAND_RESET_Q(64);
+    vlSelf->top__DOT__J_extension = VL_RAND_RESET_Q(64);
     vlSelf->top__DOT__addi = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__jalr = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__sd = VL_RAND_RESET_I(1);
