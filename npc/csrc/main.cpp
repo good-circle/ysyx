@@ -89,7 +89,7 @@ int main(int argc, char **argv, char **env)
         }
         else
         {
-            top->rst = 0;
+            //top->rst = 0;
         }
         
         printf("%08lx ", top->pc);
