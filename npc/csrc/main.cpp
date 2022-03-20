@@ -82,9 +82,6 @@ int main(int argc, char **argv, char **env)
         i++;
         if (i <= 10)
         {
-            printf("%d ", i);
-            printf("%d ", top->rst);
-            printf("%016lx\n", top->pc);
             m_trace->dump(2 * i);
             top->clk = !top->clk;
             top->eval();
