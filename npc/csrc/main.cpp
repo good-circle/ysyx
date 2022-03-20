@@ -56,7 +56,7 @@ void init_pmem()
     fclose(fp);
 }
 
-int pmem_read(unsigned int pc)
+int pmem_read(unsigned long long pc)
 {
     return *(u_int32_t *)(pmem + pc - 0x80000000);
 }
@@ -89,8 +89,10 @@ int main(int argc, char **argv, char **env)
         else
         {
             top->rst = 0;
-                    printf("%08lx ", top->pc);
-        //top->inst = pmem_read(top->pc);
+        }
+        
+        printf("%08lx ", top->pc);
+        top->inst = pmem_read(top->pc);
         printf("%08x\n", top->inst);
 
         m_trace->dump(2 * i);
@@ -102,9 +104,6 @@ int main(int argc, char **argv, char **env)
         top->eval();
 
         finish(&is_finish);
-        }
-        
-
     }
     m_trace->close();
     delete top;
