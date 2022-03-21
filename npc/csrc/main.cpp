@@ -22,7 +22,6 @@ int pmem_read(unsigned long long pc);
 void npc_exec(unsigned int n);
 void set_batch_mode();
 void init_regex();
-void npc_quit();
 extern void sdb_mainloop();
 
 void set_batch_mode()
@@ -108,12 +107,6 @@ void npc_exec(unsigned int n)
     }
 }
 
-void npc_quit()
-{
-    m_trace->close();
-    delete top;
-    delete contextp;
-}
 
 int main(int argc, char **argv, char **env)
 {
@@ -132,4 +125,8 @@ int main(int argc, char **argv, char **env)
     svSetScope(svGetScopeFromName("TOP.top"));
 
     sdb_mainloop();
+
+    m_trace->close();
+    delete top;
+    delete contextp;
 }

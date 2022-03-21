@@ -10,7 +10,6 @@
 extern bool is_batch_mode;
 extern void npc_exec(unsigned int n);
 uint64_t expr(char *e, bool *success);
-extern void npc_quit();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char *rl_gets()
@@ -41,7 +40,6 @@ static int cmd_c(char *args)
 
 static int cmd_q(char *args)
 {
-    npc_quit();
     return -1;
 }
 
