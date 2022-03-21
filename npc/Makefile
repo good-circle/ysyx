@@ -1,8 +1,6 @@
 IMG ?=
 override ARGS ?=
 
-LDFLAGS += -lreadline
-
 all: sim wave
 
 sim:
