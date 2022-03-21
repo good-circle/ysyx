@@ -6,6 +6,7 @@
 extern bool is_batch_mode;
 extern void npc_exec(unsigned int n);
 #define NR_CMD ARRLEN(cmd_table)
+uint64_t expr(char *e, bool *success);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char *rl_gets()
