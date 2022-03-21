@@ -8,7 +8,7 @@
 #include <verilated_vcd_c.h>
 #include "svdpi.h"
 #include "Vtop__Dpi.h"
-#include "common.h"
+#include "csrc/include/common.h"
 
 VerilatedContext *contextp = new VerilatedContext;
 Vtop *top = new Vtop{contextp};
