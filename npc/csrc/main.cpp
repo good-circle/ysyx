@@ -114,7 +114,7 @@ int main(int argc, char **argv, char **env)
         finish(&is_finish);
     }
     printf("number of instructions is %d\n", inst_num);
-    if(top->halt == 0)
+    if(top->halt != 0)
     {
         printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
     }
