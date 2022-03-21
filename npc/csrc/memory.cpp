@@ -2,8 +2,8 @@
 #include <assert.h>
 
 extern u_int8_t pmem[0x8000000]; 
-extern const char *img_file = NULL;
-extern inst_num = 0;
+extern const char *img_file;
+extern int inst_num;
 
 void init_pmem()
 {
