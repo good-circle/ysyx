@@ -119,7 +119,7 @@ static int cmd_x(char *args)
         {
             printf("0x%lx: ", (uint64_t)EXPR + i);
         }
-        printf("0x%016x    ", (uint64_t)memory_read(EXPR + 4 * i));
+        printf("0x%016lx    ", (uint64_t)memory_read(EXPR + 4 * i));
         if (i % 4 == 3)
         {
             printf("\n");
