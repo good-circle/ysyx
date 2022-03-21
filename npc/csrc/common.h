@@ -5,6 +5,7 @@
 #include <verilated_vcd_c.h>
 #include "svdpi.h"
 #include "Vtop__Dpi.h"
+#include "verilated_dpi.h"
 
 #define COLOR_NONE "\033[0m"
 #define COLOR_GREEN "\033[1;32m"

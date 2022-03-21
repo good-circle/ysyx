@@ -14,8 +14,9 @@ uint64_t expr(char *e, bool *success);
 u_int32_t memory_read(unsigned long long addr);
 
 uint64_t *cpu_gpr = NULL;
-extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
-  cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
+{
+    cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar *)r)->datap());
 }
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
