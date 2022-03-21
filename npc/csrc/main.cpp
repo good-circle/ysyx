@@ -16,6 +16,7 @@
 
 VerilatedContext *contextp = new VerilatedContext;
 Vtop *top = new Vtop{contextp};
+svBit is_finish = 0;
 
 static u_int8_t pmem[0x8000000];
 static const char *img_file = NULL;
@@ -114,7 +115,6 @@ void exec(Vtop *top, VerilatedVcdC *m_trace, svBit is_finish, unsigned int n)
 
 int main(int argc, char **argv, char **env)
 {
-
     contextp->commandArgs(argc, argv);
     Verilated::traceEverOn(true);
     VerilatedVcdC *m_trace = new VerilatedVcdC;
@@ -128,7 +128,6 @@ int main(int argc, char **argv, char **env)
     top->rst = 1;
 
     svSetScope(svGetScopeFromName("TOP.top"));
-    svBit is_finish = 0;
 
     unsigned int n = -1;
 
