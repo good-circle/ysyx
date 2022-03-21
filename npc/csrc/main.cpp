@@ -54,7 +54,6 @@ static int parse_args(int argc, char *argv[])
     return 0;
 }
 
-
 void npc_exec(unsigned int n)
 {
     int i = 0;
@@ -89,6 +88,19 @@ void npc_exec(unsigned int n)
 
         finish(&is_finish);
     }
+    
+    if (is_finish)
+    {
+        printf("number of instructions is %d\n", inst_num);
+        if (top->halt == 0)
+        {
+            printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
+        }
+        else
+        {
+            printf(COLOR_BLUE "NPC: " COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
+        }
+    }
 }
 
 int main(int argc, char **argv, char **env)
@@ -109,19 +121,8 @@ int main(int argc, char **argv, char **env)
 
     sdb_mainloop();
 
-    printf("number of instructions is %d\n", inst_num);
-    if (top->halt == 0)
-    {
-        printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
-    }
-    else
-    {
-        printf(COLOR_BLUE "NPC: " COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
-    }
     m_trace->close();
     delete top;
     delete contextp;
     return 0;
 }
-
-
