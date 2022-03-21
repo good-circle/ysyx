@@ -68,8 +68,7 @@ int pmem_read(unsigned long long pc)
 }
 
 int main(int argc, char **argv, char **env)
-{
-    parse_args(argc, argv);
+{   
     VerilatedContext *contextp = new VerilatedContext;
     Vtop *top = new Vtop{contextp};
     contextp->commandArgs(argc, argv);
@@ -77,6 +76,8 @@ int main(int argc, char **argv, char **env)
     VerilatedVcdC *m_trace = new VerilatedVcdC;
     top->trace(m_trace, 99);
     m_trace->open("waveform.vcd");
+
+    parse_args(argc, argv);
     init_pmem();
     top->clk = 1;
     top->rst = 1;
@@ -114,7 +115,7 @@ int main(int argc, char **argv, char **env)
         finish(&is_finish);
     }
     printf("number of instructions is %d\n", inst_num);
-    if(top->halt != 0)
+    if(top->halt == 0)
     {
         printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
     }
