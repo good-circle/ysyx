@@ -143,7 +143,8 @@ int main(int argc, char **argv, char **env)
 
     svSetScope(svGetScopeFromName("TOP.top"));
 
-    mainloop();
+    unsigned int n = -1;
+    exec(top, m_trace, is_finish, n);
 
     printf("number of instructions is %d\n", inst_num);
     if (top->halt == 0)
