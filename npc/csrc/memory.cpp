@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
-#include <unistd.h>
+#include <stdlib.h>
 
 extern u_int8_t pmem[0x8000000]; 
 extern const char *img_file;
