@@ -3,9 +3,11 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#define ARRLEN(arr) (int)(sizeof(arr) / sizeof(arr[0]))
+#define NR_CMD ARRLEN(cmd_table)
+
 extern bool is_batch_mode;
 extern void npc_exec(unsigned int n);
-#define NR_CMD ARRLEN(cmd_table)
 uint64_t expr(char *e, bool *success);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
