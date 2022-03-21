@@ -67,8 +67,9 @@ int pmem_read(unsigned long long pc)
     return *(u_int32_t *)(pmem + pc - 0x80000000);
 }
 
-exec(Vtop *top, VerilatedVcdC *m_trace, svBit is_finish, unsigned int n)
+void exec(Vtop *top, VerilatedVcdC *m_trace, svBit is_finish, unsigned int n)
 {
+    int i = 0;
     while (!is_finish && n > 0)
     {
         n--;
@@ -117,7 +118,6 @@ int main(int argc, char **argv, char **env)
 
     top->clk = 1;
     top->rst = 1;
-    int i = 0;
 
     svSetScope(svGetScopeFromName("TOP.top"));
     svBit is_finish = 0;
