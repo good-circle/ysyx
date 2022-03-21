@@ -23,7 +23,7 @@ void isa_reg_display()
     }
 }
 
-word_t isa_reg_str2val(const char *s)
+uint64_t isa_reg_str2val(const char *s)
 {
     if (strcmp(s, "pc") == 0)
     {
