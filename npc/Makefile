@@ -1,5 +1,5 @@
 IMG ?=
-ARGS ?=
+override ARGS ?=
 
 all: sim wave
 
