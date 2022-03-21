@@ -2,6 +2,7 @@
 #include <readline/history.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #define ARRLEN(arr) (int)(sizeof(arr) / sizeof(arr[0]))
 #define NR_CMD ARRLEN(cmd_table)
@@ -186,6 +187,7 @@ static int cmd_help(char *args)
 
 void sdb_mainloop()
 {
+    assert(0);
     if (is_batch_mode)
     {
         cmd_c(NULL);
