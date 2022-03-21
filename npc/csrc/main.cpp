@@ -14,7 +14,7 @@ static const char *img_file = NULL;
 static char *log_file = NULL;
 static int inst_num = 0;
 
-#define COLOR_NONE  "\033[0m"
+#define COLOR_NONE "\033[0m"
 #define COLOR_GREEN "\033[1;32m"
 #define COLOR_RED "\033[1;31m"
 #define COLOR_BLUE "\033[0;34m"
@@ -67,25 +67,11 @@ int pmem_read(unsigned long long pc)
     return *(u_int32_t *)(pmem + pc - 0x80000000);
 }
 
-int main(int argc, char **argv, char **env)
-{   
-    VerilatedContext *contextp = new VerilatedContext;
-    Vtop *top = new Vtop{contextp};
-    contextp->commandArgs(argc, argv);
-    Verilated::traceEverOn(true);
-    VerilatedVcdC *m_trace = new VerilatedVcdC;
-    top->trace(m_trace, 99);
-    m_trace->open("waveform.vcd");
-
-    parse_args(argc, argv);
-    init_pmem();
-    top->clk = 1;
-    top->rst = 1;
-    int i = 0;
-    svSetScope(svGetScopeFromName("TOP.top"));
-    svBit is_finish = 0;
-    while (!is_finish)
+exec(Vtop *top, VerilatedVcdC *m_trace, svBit is_finish, unsigned int n)
+{
+    while (!is_finish && n > 0)
     {
+        n--;
         i++;
         if (i <= 10)
         {
@@ -114,8 +100,34 @@ int main(int argc, char **argv, char **env)
 
         finish(&is_finish);
     }
+}
+
+int main(int argc, char **argv, char **env)
+{
+    VerilatedContext *contextp = new VerilatedContext;
+    Vtop *top = new Vtop{contextp};
+    contextp->commandArgs(argc, argv);
+    Verilated::traceEverOn(true);
+    VerilatedVcdC *m_trace = new VerilatedVcdC;
+    top->trace(m_trace, 99);
+    m_trace->open("waveform.vcd");
+
+    parse_args(argc, argv);
+    init_pmem();
+
+    top->clk = 1;
+    top->rst = 1;
+    int i = 0;
+
+    svSetScope(svGetScopeFromName("TOP.top"));
+    svBit is_finish = 0;
+
+    unsigned int n = -1;
+
+    exec(top, m_trace, is_finish, n);
+
     printf("number of instructions is %d\n", inst_num);
-    if(top->halt == 0)
+    if (top->halt == 0)
     {
         printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
     }
