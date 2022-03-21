@@ -3,6 +3,8 @@
 #include <assert.h>
 #include <unistd.h>
 #include <getopt.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 #include "Vtop.h"
 #include "verilated.h"
 #include <verilated_vcd_c.h>
@@ -13,6 +15,7 @@
 #define COLOR_GREEN "\033[1;32m"
 #define COLOR_RED "\033[1;31m"
 #define COLOR_BLUE "\033[0;34m"
+#define NR_CMD ARRLEN(cmd_table)
 
 VerilatedContext *contextp = new VerilatedContext;
 Vtop *top = new Vtop{contextp};
@@ -140,9 +143,7 @@ int main(int argc, char **argv, char **env)
 
     svSetScope(svGetScopeFromName("TOP.top"));
 
-    unsigned int n = -1;
-
-    exec(top, m_trace, is_finish, n);
+    mainloop();
 
     printf("number of instructions is %d\n", inst_num);
     if (top->halt == 0)
@@ -158,3 +159,5 @@ int main(int argc, char **argv, char **env)
     delete contextp;
     return 0;
 }
+
+
