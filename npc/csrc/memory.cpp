@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <assert.h>
+
 static u_int8_t pmem[0x8000000];
 
 void init_pmem()
