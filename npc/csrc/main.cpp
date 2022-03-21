@@ -14,6 +14,9 @@
 #define COLOR_RED "\033[1;31m"
 #define COLOR_BLUE "\033[0;34m"
 
+VerilatedContext *contextp = new VerilatedContext;
+Vtop *top = new Vtop{contextp};
+
 static u_int8_t pmem[0x8000000];
 static const char *img_file = NULL;
 static char *log_file = NULL;
@@ -111,8 +114,7 @@ void exec(Vtop *top, VerilatedVcdC *m_trace, svBit is_finish, unsigned int n)
 
 int main(int argc, char **argv, char **env)
 {
-    VerilatedContext *contextp = new VerilatedContext;
-    Vtop *top = new Vtop{contextp};
+
     contextp->commandArgs(argc, argv);
     Verilated::traceEverOn(true);
     VerilatedVcdC *m_trace = new VerilatedVcdC;
