@@ -2,8 +2,8 @@ IMG ?=
 override ARGS ?=
 
 CXXSRC = src/utils/disasm.cc
-CXXFLAGS += $(shell llvm-config --cxxflags)
-LIBS += $(shell llvm-config --libs)
+CXXFLAGS += $(shell llvm-config --cxxflags) -fPIE
+LIBS += 
 
 all: sim wave
 
