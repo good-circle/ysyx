@@ -33,8 +33,8 @@ u_int32_t inst_fetch(unsigned long long pc)
     return *(u_int32_t *)(pmem + pc - 0x80000000);
 }
 
-u_int64_t memory_read(unsigned long long addr)
+u_int32_t memory_read(unsigned long long addr)
 {
-    return *(u_int64_t *)(pmem + addr - 0x80000000);
+    return *(u_int32_t *)(pmem + addr - 0x80000000);
 }
 
