@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <unistd.h>
 #include <getopt.h>
-#include <common.h>
+#include "common.h"
 
 VerilatedContext *contextp = new VerilatedContext;
 Vtop *top = new Vtop{contextp};
