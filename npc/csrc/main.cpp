@@ -61,7 +61,7 @@ void npc_exec(unsigned int n)
     {
         n--;
         npc_time++;
-        if (npc_time <= 10)
+        if (npc_time <= 0)
         {
             m_trace->dump(2 * npc_time);
             top->clk = !top->clk;
