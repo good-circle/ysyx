@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <assert.h>
+#include "common.h"
 
 #define ARRLEN(arr) (int)(sizeof(arr) / sizeof(arr[0]))
 #define NR_CMD ARRLEN(cmd_table)
@@ -11,6 +12,11 @@ extern bool is_batch_mode;
 extern void npc_exec(unsigned int n);
 uint64_t expr(char *e, bool *success);
 u_int32_t memory_read(unsigned long long addr);
+
+uint64_t *cpu_gpr = NULL;
+extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
+  cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char *rl_gets()
