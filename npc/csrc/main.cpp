@@ -17,7 +17,7 @@ static int inst_num = 0;
 #define COLOR_NONE  "\033[0m"
 #define COLOR_GREEN "\033[1;32m"
 #define COLOR_RED "\033[1;31m"
-
+#define COLOR_BLUE "\033[0;31m"
 static int parse_args(int argc, char *argv[])
 {
     const struct option table[] = {
@@ -116,11 +116,11 @@ int main(int argc, char **argv, char **env)
     printf("number of instructions is %d\n", inst_num);
     if(top->halt == 0)
     {
-        printf(COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc %016lx\n", top->pc);
+        printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc %016lx\n", top->pc);
     }
     else
     {
-        printf(COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc %016lx\n", top->pc);
+        printf(COLOR_BLUE "NPC: " COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc %016lx\n", top->pc);
     }
     m_trace->close();
     delete top;
