@@ -62,7 +62,7 @@ static int cmd_info(char *args)
     {
         if (strcmp(args, "r") == 0)
         {
-            isa_reg_display();
+            //isa_reg_display();
             return 0;
         }
         printf("Unknown command '%s'\n", args);
@@ -112,7 +112,7 @@ static int cmd_x(char *args)
         {
             printf("0x%lx: ", (uint64_t)EXPR + i);
         }
-        printf("0x%016x    ", (uint64_t)vaddr_read(EXPR + 4 * i, 4));
+        //printf("0x%016x    ", (uint64_t)vaddr_read(EXPR + 4 * i, 4));
         if (i % 4 == 3)
         {
             printf("\n");
