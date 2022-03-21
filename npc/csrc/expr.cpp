@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #define ARRLEN(arr) (int)(sizeof(arr) / sizeof(arr[0]))
 
