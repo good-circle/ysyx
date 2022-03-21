@@ -22,23 +22,34 @@ static u_int8_t pmem[0x8000000];
 static const char *img_file = NULL;
 static char *log_file = NULL;
 static int inst_num = 0;
+bool is_batch_mode = false;
 
 static int parse_args(int argc, char *argv[]);
 void init_pmem();
 int pmem_read(unsigned long long pc);
 void exec(Vtop *top, VerilatedVcdC *m_trace, svBit is_finish, unsigned int n);
+void set_batch_mode();
+
+void set_batch_mode()
+{
+    is_batch_mode = true;
+}
 
 static int parse_args(int argc, char *argv[])
 {
     const struct option table[] = {
+        {"batch", no_argument, NULL, 'b'},
         {"log", required_argument, NULL, 'l'},
         {0, 0, NULL, 0},
     };
     int o;
-    while ((o = getopt_long(argc, argv, "-l:", table, NULL)) != -1)
+    while ((o = getopt_long(argc, argv, "-bl:", table, NULL)) != -1)
     {
         switch (o)
         {
+        case 'b':
+            set_batch_mode();
+            break;
         case 'l':
             log_file = optarg;
             break;
@@ -127,7 +138,7 @@ int main(int argc, char **argv, char **env)
     top->clk = 1;
     top->rst = 1;
 
-    //svSetScope(svGetScopeFromName("TOP.top"));
+    svSetScope(svGetScopeFromName("TOP.top"));
 
     unsigned int n = -1;
 
