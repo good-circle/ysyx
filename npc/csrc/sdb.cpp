@@ -1,6 +1,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 extern bool is_batch_mode;
 extern void npc_exec(unsigned int n);
