@@ -32,6 +32,7 @@ void set_batch_mode();
 
 void set_batch_mode()
 {
+    assert(0);
     is_batch_mode = true;
 }
 
