@@ -8,6 +8,9 @@
 
 #define ARRLEN(arr) (int)(sizeof(arr) / sizeof(arr[0]))
 
+extern uint64_t isa_reg_str2val(const char *s, bool *success);
+extern u_int32_t memory_read(unsigned long long addr);
+
 enum
 {
     TK_NOTYPE = 256,
@@ -306,7 +309,7 @@ uint64_t eval(int p, int q, bool *success)
         case TK_DEC:
             return (uint64_t)strtol(tokens[p].str, NULL, 10);
         case TK_REG:
-            //return isa_reg_str2val(tokens[p].str + 1, success);
+            return isa_reg_str2val(tokens[p].str + 1, success);
         default:
             printf("Wrong expression2.\n");
             *success = false;
@@ -367,7 +370,7 @@ uint64_t eval(int p, int q, bool *success)
         case TK_MINUS:
             return -val2;
         case TK_DEREF:
-            //return vaddr_read(val2, 4);
+            return memory_read(val2);
         default:
             //printf("op=%d token=%d\n",op, tokens[op].type);
             printf("Wrong expression3.\n");
