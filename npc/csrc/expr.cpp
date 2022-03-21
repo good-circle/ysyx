@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <assert.h>
+#include "common.h"
 
 #define ARRLEN(arr) (int)(sizeof(arr) / sizeof(arr[0]))
 
@@ -119,7 +120,7 @@ static bool make_token(char *e)
                 char *substr_start = e + position;
                 int substr_len = pmatch.rm_eo;
 
-                printf("match rules[%d] = \"%s\" at position %d with len %d: %.*s\n",
+                printf(COLOR_BLUE "match rules[%d] = \"%s\" at position %d with len %d: %.*s\n" COLOR_NONE,
                     i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
                 position += substr_len;
@@ -151,7 +152,7 @@ static bool make_token(char *e)
 
         if (i == NR_REGEX)
         {
-            printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
+            printf(COLOR_BLUE "no match at position %d\n%s\n%*.s^\n" COLOR_NONE, position, e, position, "");
             return false;
         }
     }
