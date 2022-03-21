@@ -1,30 +1,49 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <unistd.h>
 #include <getopt.h>
-#include "Vtop.h"
-#include "verilated.h"
-#include <verilated_vcd_c.h>
-#include "svdpi.h"
-#include "Vtop__Dpi.h"
 
-static u_int8_t pmem[0x8000000];
-static const char *img_file = NULL;
-static char *log_file = NULL;
-static int inst_num = 0;
+#include "common.h"
+
+VerilatedContext *contextp = new VerilatedContext;
+Vtop *top = new Vtop{contextp};
+VerilatedVcdC *m_trace = new VerilatedVcdC;
+svBit is_finish = 0;
+int npc_time = 0;
+
+u_int8_t pmem[0x8000000];
+const char *img_file = NULL;
+char *log_file = NULL;
+int inst_num = 0;
+bool is_batch_mode = false;
+
+static int parse_args(int argc, char *argv[]);
+void init_pmem();
+int pmem_read(unsigned long long pc);
+void npc_exec(unsigned int n);
+void set_batch_mode();
+void init_regex();
+extern void sdb_mainloop();
+
+void set_batch_mode()
+{
+    is_batch_mode = true;
+}
 
 static int parse_args(int argc, char *argv[])
 {
     const struct option table[] = {
+        {"batch", no_argument, NULL, 'b'},
         {"log", required_argument, NULL, 'l'},
         {0, 0, NULL, 0},
     };
     int o;
-    while ((o = getopt_long(argc, argv, "-l:", table, NULL)) != -1)
+    while ((o = getopt_long(argc, argv, "-bl:", table, NULL)) != -1)
     {
         switch (o)
         {
+        case 'b':
+            set_batch_mode();
+            break;
         case 'l':
             log_file = optarg;
             break;
@@ -36,61 +55,22 @@ static int parse_args(int argc, char *argv[])
     return 0;
 }
 
-void init_pmem()
+void npc_exec(unsigned int n)
 {
-    if (img_file == NULL)
+    while (!is_finish && n > 0)
     {
-        printf("No image is given. Use the default build-in image.");
-        assert(0);
-    }
-
-    FILE *fp = fopen(img_file, "rb");
-    fseek(fp, 0, SEEK_END);
-    long size = ftell(fp);
-
-    printf("The image is %s, size = %ld\n", img_file, size);
-
-    fseek(fp, 0, SEEK_SET);
-    int ret = fread(pmem, size, 1, fp);
-    assert(ret == 1);
-
-    fclose(fp);
-}
-
-int pmem_read(unsigned long long pc)
-{
-    inst_num++;
-    return *(u_int32_t *)(pmem + pc - 0x80000000);
-}
-
-int main(int argc, char **argv, char **env)
-{
-    parse_args(argc, argv);
-    VerilatedContext *contextp = new VerilatedContext;
-    Vtop *top = new Vtop{contextp};
-    contextp->commandArgs(argc, argv);
-    Verilated::traceEverOn(true);
-    VerilatedVcdC *m_trace = new VerilatedVcdC;
-    top->trace(m_trace, 99);
-    m_trace->open("waveform.vcd");
-    init_pmem();
-    top->clk = 1;
-    top->rst = 1;
-    int i = 0;
-    svSetScope(svGetScopeFromName("TOP.top"));
-    svBit is_finish = 0;
-    while (!is_finish)
-    {
-        i++;
-        if (i <= 10)
+        if (npc_time <= 0)
         {
-            m_trace->dump(2 * i);
+            m_trace->dump(2 * npc_time);
             top->clk = !top->clk;
             top->eval();
 
-            m_trace->dump(2 * i + 1);
+            m_trace->dump(2 * npc_time + 1);
             top->clk = !top->clk;
             top->eval();
+
+            n--;
+            npc_time++;
             continue;
         }
 
@@ -99,28 +79,54 @@ int main(int argc, char **argv, char **env)
         top->inst = pmem_read(top->pc);
         printf("%08x\n", top->inst);
 
-        m_trace->dump(2 * i);
+        m_trace->dump(2 * npc_time);
         top->clk = !top->clk;
         top->eval();
 
-        m_trace->dump(2 * i + 1);
+        m_trace->dump(2 * npc_time + 1);
         top->clk = !top->clk;
         top->eval();
 
         finish(&is_finish);
+
+        n--;
+        npc_time++;
     }
-    printf("number of instructions is %d\n", inst_num);
-    printf("%lx\n", top->halt);
-    if(top->halt == 0)
+
+    if (is_finish)
     {
-        printf("HIT GOOD TRAP\n");
+        printf("number of instructions is %d\n", inst_num);
+        if (top->halt == 0)
+        {
+            printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
+        }
+        else
+        {
+            printf(COLOR_BLUE "NPC: " COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
+        }
     }
-    else
-    {
-        printf("HIT BAD TRAP\n");
-    }
+}
+
+
+int main(int argc, char **argv, char **env)
+{
+    contextp->commandArgs(argc, argv);
+    Verilated::traceEverOn(true);
+    top->trace(m_trace, 99);
+    m_trace->open("waveform.vcd");
+
+    parse_args(argc, argv);
+    init_pmem();
+    init_regex();
+
+    top->clk = 1;
+    top->rst = 1;
+
+    svSetScope(svGetScopeFromName("TOP.top"));
+
+    sdb_mainloop();
+
     m_trace->close();
     delete top;
     delete contextp;
-    return 0;
 }

@@ -7,6 +7,9 @@
 !*.v
 !*.cc
 !*.cpp
+!*.h
 !.gitignore
 !README.md
 obj_dir/
+!csrc/
+!vsrc/
