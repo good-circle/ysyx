@@ -116,11 +116,11 @@ int main(int argc, char **argv, char **env)
     printf("number of instructions is %d\n", inst_num);
     if(top->halt == 0)
     {
-        printf(COLOR_GREEN "HIT GOOD TRAP \n" COLOR_NONE);
+        printf(COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc %016lx\n", top->pc);
     }
     else
     {
-        printf(COLOR_RED "HIT BAD TRAP\n" COLOR_NONE);
+        printf(COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc %016lx\n", top->pc);
     }
     m_trace->close();
     delete top;
