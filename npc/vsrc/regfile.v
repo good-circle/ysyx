@@ -21,4 +21,7 @@ end
 assign rdata1 = (raddr1 == 5'b0) ? 64'b0 : rf[raddr1];
 assign rdata2 = (raddr2 == 5'b0) ? 64'b0 : rf[raddr2];
 
+import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
+initial set_gpr_ptr(rf); 
+
 endmodule

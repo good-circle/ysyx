@@ -4,8 +4,12 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <assert.h>
+#include "common.h"
 
 #define ARRLEN(arr) (int)(sizeof(arr) / sizeof(arr[0]))
+
+extern uint64_t isa_reg_str2val(const char *s, bool *success);
+extern u_int32_t memory_read(unsigned long long addr);
 
 enum
 {
@@ -119,7 +123,7 @@ static bool make_token(char *e)
                 char *substr_start = e + position;
                 int substr_len = pmatch.rm_eo;
 
-                printf("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+                printf(COLOR_BLUE "match rules[%d] = \"%s\" at position %d with len %d: %.*s\n" COLOR_NONE,
                     i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
                 position += substr_len;
@@ -151,7 +155,7 @@ static bool make_token(char *e)
 
         if (i == NR_REGEX)
         {
-            printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
+            printf(COLOR_BLUE "no match at position %d\n%s\n%*.s^\n" COLOR_NONE, position, e, position, "");
             return false;
         }
     }
@@ -305,7 +309,7 @@ uint64_t eval(int p, int q, bool *success)
         case TK_DEC:
             return (uint64_t)strtol(tokens[p].str, NULL, 10);
         case TK_REG:
-            //return isa_reg_str2val(tokens[p].str + 1, success);
+            return isa_reg_str2val(tokens[p].str + 1, success);
         default:
             printf("Wrong expression2.\n");
             *success = false;
@@ -366,7 +370,7 @@ uint64_t eval(int p, int q, bool *success)
         case TK_MINUS:
             return -val2;
         case TK_DEREF:
-            //return vaddr_read(val2, 4);
+            return memory_read(val2);
         default:
             //printf("op=%d token=%d\n",op, tokens[op].type);
             printf("Wrong expression3.\n");

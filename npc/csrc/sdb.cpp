@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <assert.h>
+#include "common.h"
 
 #define ARRLEN(arr) (int)(sizeof(arr) / sizeof(arr[0]))
 #define NR_CMD ARRLEN(cmd_table)
@@ -10,6 +11,9 @@
 extern bool is_batch_mode;
 extern void npc_exec(unsigned int n);
 uint64_t expr(char *e, bool *success);
+u_int32_t memory_read(unsigned long long addr);
+
+extern void isa_reg_display();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char *rl_gets()
@@ -68,7 +72,7 @@ static int cmd_info(char *args)
     {
         if (strcmp(args, "r") == 0)
         {
-            //isa_reg_display();
+            isa_reg_display();
             return 0;
         }
         printf("Unknown command '%s'\n", args);
@@ -118,7 +122,7 @@ static int cmd_x(char *args)
         {
             printf("0x%lx: ", (uint64_t)EXPR + i);
         }
-        //printf("0x%016x    ", (uint64_t)vaddr_read(EXPR + 4 * i, 4));
+        printf("0x%08x    ", (uint32_t)memory_read(EXPR + 4 * i));
         if (i % 4 == 3)
         {
             printf("\n");
