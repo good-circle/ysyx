@@ -10,6 +10,7 @@
 extern bool is_batch_mode;
 extern void npc_exec(unsigned int n);
 uint64_t expr(char *e, bool *success);
+extern void npc_quit();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char *rl_gets()
@@ -35,6 +36,12 @@ static char *rl_gets()
 static int cmd_c(char *args)
 {
     npc_exec(-1);
+    return 0;
+}
+
+static int cmd_q(char *args)
+{
+    npc_quit();
     return 0;
 }
 
@@ -147,6 +154,7 @@ static struct
 } cmd_table[] = {
     {"help", "Display informations about all supported commands", cmd_help},
     {"c", "Continue the execution of the program", cmd_c},
+    {"q", "Exit NEMU", cmd_q},
     {"si", "Steps through a single instruction", cmd_si},
     {"info", "Lists information about the argument", cmd_info},
     {"x", "Examines the data located in memory at address", cmd_x},
