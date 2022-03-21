@@ -8,6 +8,7 @@ VerilatedContext *contextp = new VerilatedContext;
 Vtop *top = new Vtop{contextp};
 VerilatedVcdC *m_trace = new VerilatedVcdC;
 svBit is_finish = 0;
+int time = 0;
 
 u_int8_t pmem[0x8000000];
 const char *img_file = NULL;
@@ -56,18 +57,17 @@ static int parse_args(int argc, char *argv[])
 
 void npc_exec(unsigned int n)
 {
-    int i = 0;
     while (!is_finish && n > 0)
     {
         n--;
-        i++;
-        if (i <= 10)
+        time++;
+        if (time <= 10)
         {
-            m_trace->dump(2 * i);
+            m_trace->dump(2 * time);
             top->clk = !top->clk;
             top->eval();
 
-            m_trace->dump(2 * i + 1);
+            m_trace->dump(2 * time + 1);
             top->clk = !top->clk;
             top->eval();
             continue;
@@ -78,17 +78,17 @@ void npc_exec(unsigned int n)
         top->inst = pmem_read(top->pc);
         printf("%08x\n", top->inst);
 
-        m_trace->dump(2 * i);
+        m_trace->dump(2 * time);
         top->clk = !top->clk;
         top->eval();
 
-        m_trace->dump(2 * i + 1);
+        m_trace->dump(2 * time + 1);
         top->clk = !top->clk;
         top->eval();
 
         finish(&is_finish);
     }
-    
+
     if (is_finish)
     {
         printf("number of instructions is %d\n", inst_num);
