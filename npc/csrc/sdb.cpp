@@ -187,9 +187,9 @@ static int cmd_help(char *args)
 
 void sdb_mainloop()
 {
-    assert(0);
     if (is_batch_mode)
     {
+        assert(0);
         cmd_c(NULL);
         return;
     }
