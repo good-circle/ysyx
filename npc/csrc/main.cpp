@@ -3,6 +3,11 @@
 #include <assert.h>
 #include <unistd.h>
 #include <getopt.h>
+#include "Vtop.h"
+#include "verilated.h"
+#include <verilated_vcd_c.h>
+#include "svdpi.h"
+#include "Vtop__Dpi.h"
 #include "common.h"
 
 VerilatedContext *contextp = new VerilatedContext;
