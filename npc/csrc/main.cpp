@@ -18,8 +18,10 @@ bool is_batch_mode = false;
 static int parse_args(int argc, char *argv[]);
 void init_pmem();
 int pmem_read(unsigned long long pc);
-void exec(Vtop *top, VerilatedVcdC *m_trace, svBit is_finish, unsigned int n);
+void npc_exec(unsigned int n);
 void set_batch_mode();
+void init_regex();
+extern void sdb_mainloop();
 
 void set_batch_mode()
 {
@@ -53,7 +55,7 @@ static int parse_args(int argc, char *argv[])
 }
 
 
-void exec(unsigned int n)
+void npc_exec(unsigned int n)
 {
     int i = 0;
     while (!is_finish && n > 0)
@@ -98,14 +100,14 @@ int main(int argc, char **argv, char **env)
 
     parse_args(argc, argv);
     init_pmem();
+    init_regex();
 
     top->clk = 1;
     top->rst = 1;
 
     svSetScope(svGetScopeFromName("TOP.top"));
 
-    unsigned int n = -1;
-    exec(n);
+    sdb_mainloop();
 
     printf("number of instructions is %d\n", inst_num);
     if (top->halt == 0)
