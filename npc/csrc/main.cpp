@@ -59,8 +59,6 @@ void npc_exec(unsigned int n)
 {
     while (!is_finish && n > 0)
     {
-        n--;
-        npc_time++;
         if (npc_time <= 0)
         {
             m_trace->dump(2 * npc_time);
@@ -70,6 +68,9 @@ void npc_exec(unsigned int n)
             m_trace->dump(2 * npc_time + 1);
             top->clk = !top->clk;
             top->eval();
+
+            n--;
+            npc_time++;
             continue;
         }
 
@@ -87,6 +88,9 @@ void npc_exec(unsigned int n)
         top->eval();
 
         finish(&is_finish);
+
+        n--;
+        npc_time++;
     }
 
     if (is_finish)
