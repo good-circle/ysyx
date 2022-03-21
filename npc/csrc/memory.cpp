@@ -27,8 +27,14 @@ void init_pmem()
     fclose(fp);
 }
 
-int pmem_read(unsigned long long pc)
+u_int32_t inst_fetch(unsigned long long pc)
 {
     inst_num++;
     return *(u_int32_t *)(pmem + pc - 0x80000000);
 }
+
+u_int64_t memory_read(unsigned long long addr)
+{
+    return *(u_int64_t *)(pmem + addr - 0x80000000);
+}
+

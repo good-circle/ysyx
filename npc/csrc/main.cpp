@@ -18,7 +18,7 @@ bool is_batch_mode = false;
 
 static int parse_args(int argc, char *argv[]);
 void init_pmem();
-int pmem_read(unsigned long long pc);
+u_int32_t inst_fetch(unsigned long long pc);
 void npc_exec(unsigned int n);
 void set_batch_mode();
 void init_regex();
@@ -76,7 +76,7 @@ void npc_exec(unsigned int n)
 
         top->rst = 0;
         printf("%08lx ", top->pc);
-        top->inst = pmem_read(top->pc);
+        top->inst = inst_fetch(top->pc);
         printf("%08x\n", top->inst);
 
         m_trace->dump(2 * npc_time);
