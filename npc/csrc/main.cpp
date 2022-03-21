@@ -8,10 +8,9 @@ VerilatedContext *contextp = new VerilatedContext;
 Vtop *top = new Vtop{contextp};
 svBit is_finish = 0;
 
-
-static const char *img_file = NULL;
-static char *log_file = NULL;
-static int inst_num = 0;
+const char *img_file = NULL;
+char *log_file = NULL;
+int inst_num = 0;
 bool is_batch_mode = false;
 
 static int parse_args(int argc, char *argv[]);
