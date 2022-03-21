@@ -25,7 +25,6 @@ extern void sdb_mainloop();
 
 void set_batch_mode()
 {
-    assert(0);
     is_batch_mode = true;
 }
 
