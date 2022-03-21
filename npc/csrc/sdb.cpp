@@ -13,20 +13,7 @@ extern void npc_exec(unsigned int n);
 uint64_t expr(char *e, bool *success);
 u_int32_t memory_read(unsigned long long addr);
 
-uint64_t *cpu_gpr = NULL;
-extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
-{
-    cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar *)r)->datap());
-}
-
-void dump_gpr()
-{
-    int i;
-    for (i = 0; i < 32; i++)
-    {
-        printf("gpr[%02d] = 0x%lx\n", i, cpu_gpr[i]);
-    }
-}
+extern void isa_reg_display();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char *rl_gets()
@@ -85,7 +72,7 @@ static int cmd_info(char *args)
     {
         if (strcmp(args, "r") == 0)
         {
-            dump_gpr();
+            isa_reg_display();
             return 0;
         }
         printf("Unknown command '%s'\n", args);
