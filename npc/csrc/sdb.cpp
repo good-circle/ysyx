@@ -19,6 +19,15 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
     cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar *)r)->datap());
 }
 
+void dump_gpr()
+{
+    int i;
+    for (i = 0; i < 32; i++)
+    {
+        printf("gpr[%d] = 0x%016lx\n", i, cpu_gpr[i]);
+    }
+}
+
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char *rl_gets()
 {
@@ -76,7 +85,7 @@ static int cmd_info(char *args)
     {
         if (strcmp(args, "r") == 0)
         {
-            //isa_reg_display();
+            dump_gpr();
             return 0;
         }
         printf("Unknown command '%s'\n", args);
