@@ -6,6 +6,7 @@
 
 VerilatedContext *contextp = new VerilatedContext;
 Vtop *top = new Vtop{contextp};
+VerilatedVcdC *m_trace = new VerilatedVcdC;
 svBit is_finish = 0;
 
 u_int8_t pmem[0x8000000];
@@ -92,7 +93,6 @@ int main(int argc, char **argv, char **env)
 {
     contextp->commandArgs(argc, argv);
     Verilated::traceEverOn(true);
-    VerilatedVcdC *m_trace = new VerilatedVcdC;
     top->trace(m_trace, 99);
     m_trace->open("waveform.vcd");
 
