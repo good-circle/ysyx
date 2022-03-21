@@ -9,19 +9,24 @@
 #include "svdpi.h"
 #include "Vtop__Dpi.h"
 
+#define COLOR_NONE "\033[0m"
+#define COLOR_GREEN "\033[1;32m"
+#define COLOR_RED "\033[1;31m"
+#define COLOR_BLUE "\033[0;34m"
+
 static u_int8_t pmem[0x8000000];
 static const char *img_file = NULL;
 static char *log_file = NULL;
 static int inst_num = 0;
 
-#define COLOR_NONE "\033[0m"
-#define COLOR_GREEN "\033[1;32m"
-#define COLOR_RED "\033[1;31m"
-#define COLOR_BLUE "\033[0;34m"
+static int parse_args(int argc, char *argv[]);
+void init_pmem();
+int pmem_read(unsigned long long pc);
+void exec(Vtop *top, VerilatedVcdC *m_trace, svBit is_finish, unsigned int n);
+
 static int parse_args(int argc, char *argv[])
 {
-    const struct option table[] = {
-        {"log", required_argument, NULL, 'l'},
+    const struct opint pmem_read(unsigned long long pc)uired_argument, NULL, 'l'},
         {0, 0, NULL, 0},
     };
     int o;
