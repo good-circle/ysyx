@@ -139,7 +139,6 @@ static int cmd_p(char *args)
     return 0;
 }
 
-
 static struct
 {
     const char *name;
@@ -153,8 +152,6 @@ static struct
     {"x", "Examines the data located in memory at address", cmd_x},
     {"p", "Prints the value which the indicated expression", cmd_p},
 };
-
-
 
 static int cmd_help(char *args)
 {
@@ -189,7 +186,6 @@ void sdb_mainloop()
 {
     if (is_batch_mode)
     {
-        assert(0);
         cmd_c(NULL);
         return;
     }
