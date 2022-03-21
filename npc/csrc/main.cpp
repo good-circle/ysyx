@@ -14,6 +14,9 @@
 #define COLOR_RED "\033[1;31m"
 #define COLOR_BLUE "\033[0;34m"
 
+VerilatedContext *contextp = new VerilatedContext;
+Vtop *top = new Vtop{contextp};
+
 static u_int8_t pmem[0x8000000];
 static const char *img_file = NULL;
 static char *log_file = NULL;
@@ -24,25 +27,25 @@ void init_pmem();
 int pmem_read(unsigned long long pc);
 void exec(Vtop *top, VerilatedVcdC *m_trace, svBit is_finish, unsigned int n);
 
-static int parse_args(int argc, char *argv[])
+static int parse_args(int argc, char *argv[]){
+    const struct opint pmem_read(unsigned long long pc) uired_argument, NULL, 'l'},
+    {0, 0, NULL, 0},
+}
+;
+int o;
+while ((o = getopt_long(argc, argv, "-l:", table, NULL)) != -1)
 {
-    const struct opint pmem_read(unsigned long long pc)uired_argument, NULL, 'l'},
-        {0, 0, NULL, 0},
-    };
-    int o;
-    while ((o = getopt_long(argc, argv, "-l:", table, NULL)) != -1)
+    switch (o)
     {
-        switch (o)
-        {
-        case 'l':
-            log_file = optarg;
-            break;
-        case 1:
-            img_file = optarg;
-            return optind - 1;
-        }
+    case 'l':
+        log_file = optarg;
+        break;
+    case 1:
+        img_file = optarg;
+        return optind - 1;
     }
-    return 0;
+}
+return 0;
 }
 
 void init_pmem()
@@ -110,8 +113,7 @@ void exec(Vtop *top, VerilatedVcdC *m_trace, svBit is_finish, unsigned int n)
 
 int main(int argc, char **argv, char **env)
 {
-    VerilatedContext *contextp = new VerilatedContext;
-    Vtop *top = new Vtop{contextp};
+
     contextp->commandArgs(argc, argv);
     Verilated::traceEverOn(true);
     VerilatedVcdC *m_trace = new VerilatedVcdC;
@@ -127,9 +129,9 @@ int main(int argc, char **argv, char **env)
     svSetScope(svGetScopeFromName("TOP.top"));
     svBit is_finish = 0;
 
-    unsigned int n = -1;
+    //unsigned int n = -1;
 
-    exec(top, m_trace, is_finish, n);
+    //exec(top, m_trace, is_finish, n);
 
     printf("number of instructions is %d\n", inst_num);
     if (top->halt == 0)
@@ -140,6 +142,7 @@ int main(int argc, char **argv, char **env)
     {
         printf(COLOR_BLUE "NPC: " COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
     }
+
     m_trace->close();
     delete top;
     delete contextp;
