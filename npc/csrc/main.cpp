@@ -14,6 +14,10 @@ static const char *img_file = NULL;
 static char *log_file = NULL;
 static int inst_num = 0;
 
+#define COLOR_NONE  "\033[0m"
+#define COLOR_GREEN "\033[1;34m"
+#define COLOR_RED "\033[1;31m"
+
 static int parse_args(int argc, char *argv[])
 {
     const struct option table[] = {
@@ -110,14 +114,13 @@ int main(int argc, char **argv, char **env)
         finish(&is_finish);
     }
     printf("number of instructions is %d\n", inst_num);
-    printf("%lx\n", top->halt);
     if(top->halt == 0)
     {
-        printf("HIT GOOD TRAP\n");
+        printf(COLOR_GREEN"HIT GOOD TRAP\n"COLOR_NONE);
     }
     else
     {
-        printf("HIT BAD TRAP\n");
+        printf(COLOR_RED"HIT BAD TRAP\n"COLOR_NONE);
     }
     m_trace->close();
     delete top;
