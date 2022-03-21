@@ -8,6 +8,7 @@ VerilatedContext *contextp = new VerilatedContext;
 Vtop *top = new Vtop{contextp};
 svBit is_finish = 0;
 
+u_int8_t pmem[0x8000000];
 const char *img_file = NULL;
 char *log_file = NULL;
 int inst_num = 0;
