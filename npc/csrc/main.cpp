@@ -52,7 +52,7 @@ static int parse_args(int argc, char *argv[])
 }
 
 
-void exec(Vtop *top, VerilatedVcdC *m_trace, svBit is_finish, unsigned int n)
+void exec(unsigned int n)
 {
     int i = 0;
     while (!is_finish && n > 0)
@@ -105,7 +105,7 @@ int main(int argc, char **argv, char **env)
     svSetScope(svGetScopeFromName("TOP.top"));
 
     unsigned int n = -1;
-    exec(top, m_trace, is_finish, n);
+    exec(n);
 
     printf("number of instructions is %d\n", inst_num);
     if (top->halt == 0)
