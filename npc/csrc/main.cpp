@@ -127,7 +127,7 @@ int main(int argc, char **argv, char **env)
     top->clk = 1;
     top->rst = 1;
 
-    svSetScope(svGetScopeFromName("TOP.top"));
+    //svSetScope(svGetScopeFromName("TOP.top"));
 
     unsigned int n = -1;
 
