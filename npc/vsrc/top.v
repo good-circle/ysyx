@@ -141,8 +141,7 @@ regfile u_regfile(
     .wdata  (rf_wdata )
 );
 
-//assign halt = rf_rdata1;
-assign halt = mem_rdata[31:0];
+
 
 wire [63:0] mem_raddr;
 wire mem_read;
@@ -174,5 +173,8 @@ task finish;
     output bit is_finish;
     is_finish = ebreak;
 endtask
+
+//assign halt = rf_rdata1;
+assign halt = mem_rdata;
 
 endmodule
