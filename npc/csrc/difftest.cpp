@@ -65,10 +65,10 @@ void init_difftest(char *ref_so_file, long img_size, uint64_t *difftest_regs)
     ref_difftest_exec = (void(*)(uint64_t))dlsym(handle, "difftest_exec");
     assert(ref_difftest_exec);
 
-    ref_difftest_raise_intr = (void(*)(uint64_t))dlsymdlsym(handle, "difftest_raise_intr");
+    ref_difftest_raise_intr = (void(*)(uint64_t))dlsym(handle, "difftest_raise_intr");
     assert(ref_difftest_raise_intr);
 
-    void(*ref_difftest_init) = (void(*)dlsym(handle, "difftest_init");
+    void(*ref_difftest_init) = (void(*))dlsym(handle, "difftest_init");
     assert(ref_difftest_init);
 
     ref_difftest_init();
