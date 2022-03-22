@@ -141,7 +141,6 @@ int main(int argc, char **argv, char **env)
     
     difftest_read_regs(difftest_regs);
     init_difftest(diff_so_file, img_size, difftest_regs);
-    
     top->clk = 1;
     top->rst = 0;
 
