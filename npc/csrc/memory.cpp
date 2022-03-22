@@ -55,7 +55,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
 {
     if (mem_write)
     {
-        long long real_mask;
+        unsigned long long real_mask;
         //for (int i = 0; i < 8; i++)
         //{
         //    if (mem_wmask | 0b1)
@@ -68,9 +68,9 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
         {
             real_mask |= 0b11111111;
         }
-        printf("real_mask: %lx\n", real_mask);
+        printf("real_mask: %llx\n", real_mask);
         real_mask << 8;
-        printf("real_mask: %lx\n", real_mask);
+        printf("real_mask: %llx\n", real_mask);
         if (mem_wmask | 0b01000000)
         {
             real_mask |= 0b11111111;
