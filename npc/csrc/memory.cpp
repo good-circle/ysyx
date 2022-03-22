@@ -43,6 +43,11 @@ u_int32_t memory_read(unsigned long long addr)
 
 extern "C" void pmem_read(long long mem_raddr, long long *mem_rdata, bool mem_read)
 {
+    if (mem_read)
+    {
+        mem_rdata = (long long *)(pmem + mem_raddr);
+    }
+
     // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
 }
 
