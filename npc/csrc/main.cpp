@@ -100,7 +100,8 @@ void npc_exec(unsigned int n)
         p += snprintf(p, sizeof(start),"0x%08lx:", top->pc);
         int ilen = 4;
         int i;
-        u_int8_t *inst = (u_int8_t *)&top->inst;
+        pc_inst = inst_fetch(pc);
+        u_int8_t *inst = (u_int8_t *)&pc_inst;
         for (i = 0; i < ilen; i++)
         {
             p += snprintf(p, 4, " %02x", inst[i]);
@@ -109,7 +110,7 @@ void npc_exec(unsigned int n)
         memset(p, ' ', space_len);
         p += space_len;
 
-        disassemble(p, start + 128 - p, top->pc, (uint8_t *)&top->inst, ilen);
+        disassemble(p, start + 128 - p, top->pc, (uint8_t *)&pc_inst, ilen);
 
         printf("%s\n", start);
 #endif

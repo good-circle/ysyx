@@ -56,13 +56,6 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
     if (mem_write)
     {
         unsigned long long real_mask;
-        //for (int i = 0; i < 8; i++)
-        //{
-        //    if (mem_wmask | 0b1)
-        //    {
-        //    }
-        //    mem_wmask >> 1;
-        //}
 
         if (mem_wmask | 0b10000000)
         {
