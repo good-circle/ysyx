@@ -9,6 +9,7 @@ typedef uint64_t vaddr_t;
 extern Vtop *top;
 extern void isa_reg_display();
 extern uint8_t pmem[0x8000000]; 
+extern const char *regs[];
 void (*ref_difftest_memcpy)(paddr_t addr, void *buf, size_t n, bool direction) = NULL;
 void (*ref_difftest_regcpy)(void *dut, bool direction) = NULL;
 void (*ref_difftest_exec)(uint64_t n) = NULL;
@@ -89,7 +90,7 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc)
     {
         if (difftest_regs[i] != ref_r[i])
         {
-            printf("reg %2d is different after executing instruction at pc 0x%08lx, right= 0x%lx, wrong = 0x%lx\n", i, pc, ref_r[i], difftest_regs[i]);
+            printf("reg %s is different after executing instruction at pc 0x%08lx, right= 0x%lx, wrong = 0x%lx\n", regs[i], pc, ref_r[i], difftest_regs[i]);
             is_different = true;
         }
     }
