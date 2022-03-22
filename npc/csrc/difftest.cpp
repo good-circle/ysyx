@@ -56,19 +56,19 @@ void init_difftest(char *ref_so_file, long img_size, uint64_t *difftest_regs)
     handle = dlopen(ref_so_file, RTLD_LAZY | RTLD_DEEPBIND);
     assert(handle);
 
-    ref_difftest_memcpy = (void(*)(paddr_t, void *, uint64_t, bool))dlsym(handle, "difftest_memcpy");
+    ref_difftest_memcpy = (void (*)(paddr_t, void *, uint64_t, bool))dlsym(handle, "difftest_memcpy");
     assert(ref_difftest_memcpy);
 
-    ref_difftest_regcpy = (void(*)(void *, bool))dlsym(handle, "difftest_regcpy");
+    ref_difftest_regcpy = (void (*)(void *, bool))dlsym(handle, "difftest_regcpy");
     assert(ref_difftest_regcpy);
 
-    ref_difftest_exec = (void(*)(uint64_t))dlsym(handle, "difftest_exec");
+    ref_difftest_exec = (void (*)(uint64_t))dlsym(handle, "difftest_exec");
     assert(ref_difftest_exec);
 
-    ref_difftest_raise_intr = (void(*)(uint64_t))dlsym(handle, "difftest_raise_intr");
+    ref_difftest_raise_intr = (void (*)(uint64_t))dlsym(handle, "difftest_raise_intr");
     assert(ref_difftest_raise_intr);
 
-    void(*ref_difftest_init) = (void(*)(void))dlsym(handle, "difftest_init");
+    void(*ref_difftest_init)(void) = (void (*)(void))dlsym(handle, "difftest_init");
     assert(ref_difftest_init);
 
     ref_difftest_init();
