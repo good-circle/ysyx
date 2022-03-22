@@ -4,6 +4,6 @@ module adder(
     output [63:0] result
 );
 
-assign result = src1 - src2;
+assign result = src1 + src2;
 
 endmodule
