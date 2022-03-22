@@ -164,7 +164,7 @@ assign mem_wmask = I_Type ? 8'b11111111 : S_Type ? 8'b00000011 : U_Type ? 8'b001
 assign mem_write = 1'b1;
 
 import "DPI-C" function void pmem_read(
-  input longint mem_raddr, output longint mem_rdata, input bit mem_read);
+  input longint mem_raddr, output longint mem_rdata, input longint pc, output longint 2_inst, input bit mem_read);
 import "DPI-C" function void pmem_write(
   input longint mem_waddr, input longint mem_wdata, input byte mem_wmask, input bit mem_write);
 
