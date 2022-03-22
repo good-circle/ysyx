@@ -157,9 +157,9 @@ assign mem_wmask = 8'b0;
 assign mem_write = 1'b0;
 
 import "DPI-C" function void pmem_read(
-  input longint mem_raddr, output longint mem_rdata, input int mem_read);
+  input longint mem_raddr, output longint mem_rdata, input bool mem_read);
 import "DPI-C" function void pmem_write(
-  input longint mem_waddr, input longint mem_wdata, input byte mem_wmask, input int mem_write);
+  input longint mem_waddr, input longint mem_wdata, input byte mem_wmask, input bool mem_write);
 
 wire [63:0] mem_rdata;
 always @(*) begin
