@@ -98,10 +98,10 @@ void npc_exec(unsigned int n)
         top->clk = !top->clk;
         top->eval();
 
-        assert(0);
+
 
         difftest_read_regs(difftest_regs);
-
+        assert(0);
         if(difftest_step(difftest_regs, top->pc) != 0)
         {
             is_finish = 1;
