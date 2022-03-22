@@ -100,6 +100,7 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc)
         isa_reg_display();
         return 1;
     }
+    printf("111\n");
 
     return 0;
 }
