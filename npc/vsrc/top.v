@@ -70,7 +70,7 @@ assign jalr = funct3 == 3'b000 && opcode == 7'b1100111;
 assign sd = funct3 == 3'b011 && opcode == 7'b0100011;
 assign ebreak = inst == 32'h00100073;
 
-assign sltiu = func3 == 3'b011 && opcode == 7'b0010011;
+assign sltiu = funct3 == 3'b011 && opcode == 7'b0010011;
 
 assign br_taken = jal | jalr;
 assign br_target = jal ? pc + J_extension : {alu_result[63:1], 1'b0};
