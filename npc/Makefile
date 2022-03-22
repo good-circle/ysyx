@@ -10,8 +10,8 @@ all: sim wave
 
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	verilator -Wall --cc --exe --build --trace --top-module top -LDFLAGS -lreadline -LDFLAGS -ldl $(wildcard ./csrc/*.cpp) $(wildcard ./vsrc/*.v)
-	./obj_dir/Vtop $(ARGS) $(IMG) $(REF_SO)
+	verilator -Wall --cc --exe --build --trace --top-module top -LDFLAGS -lreadline -LDFLAGS -ldl $(REF_SO) $(wildcard ./csrc/*.cpp) $(wildcard ./vsrc/*.v)
+	./obj_dir/Vtop $(ARGS) $(IMG) 
 
 wave:
 	$(call git_commit, "check waveform")
