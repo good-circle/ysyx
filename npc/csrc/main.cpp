@@ -89,9 +89,9 @@ void npc_exec(unsigned int n)
     while (!is_finish && n > 0)
     {
         u_int64_t last_pc = top->pc;
-        printf("%08lx ", top->pc);
+        //printf("%08lx ", top->pc);
         top->inst = inst_fetch(top->pc);
-        printf("%08x\n", top->inst);
+        //printf("%08x\n", top->inst);
 
 #define ITRACE 1
 #ifdef ITRACE
@@ -109,9 +109,9 @@ void npc_exec(unsigned int n)
         memset(p, ' ', space_len);
         p += space_len;
 
-        printf("%s", start);
-
         disassemble(p, start + 128 - p, top->pc, (uint8_t *)&top->inst, ilen);
+
+        printf("%s", start);
 #endif
 
         m_trace->dump(2 * npc_time);
@@ -164,7 +164,7 @@ int main(int argc, char **argv, char **env)
 
     difftest_read_regs(difftest_regs);
     init_difftest(diff_so_file, img_size, difftest_regs);
-    init_disasm("riscv64--pc-linux-gnu");
+    init_disasm("riscv64-pc-linux-gnu");
     top->clk = 1;
     top->rst = 0;
 
