@@ -100,7 +100,7 @@ void npc_exec(unsigned int n)
         p += snprintf(p, sizeof(start),"0x%08lx:", top->pc);
         int ilen = 4;
         int i;
-        int pc_inst = inst_fetch(pc);
+        int pc_inst = inst_fetch(top->pc);
         u_int8_t *inst = (u_int8_t *)&pc_inst;
         for (i = 0; i < ilen; i++)
         {
