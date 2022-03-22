@@ -46,6 +46,7 @@ extern "C" void pmem_read(long long mem_raddr, long long *mem_rdata, bool mem_re
     if (mem_read)
     {
         mem_rdata = (long long *)(pmem + mem_raddr);
+        printf("%p\n", mem_rdata);
     }
 
     // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
