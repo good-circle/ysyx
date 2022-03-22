@@ -7,12 +7,13 @@ $(REF_SO):
 	$(MAKE) -C $(NEMU_HOME) ISA=riscv64 SHARE=1 ENGINE=interpreter
 
 CXXFLAGS += $(shell llvm-config --cxxflags) -fPIE
+LIBS += $(shell llvm-config --libs)
 
 all: sim wave
 
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	verilator -Wall --cc --exe --build --trace --top-module top -LDFLAGS "-lreadline -ldl" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./vsrc/*.v)
+	verilator -Wall --cc --exe --build --trace --top-module top -LDFLAGS "-lreadline -ldl $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./vsrc/*.v)
 	./obj_dir/Vtop $(ARGS) $(IMG) 
 
 wave:
