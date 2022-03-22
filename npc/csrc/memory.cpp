@@ -8,6 +8,7 @@ extern int inst_num;
 
 long init_pmem()
 {
+    memset(pmem, 0, 0x8000000);
     if (img_file == NULL)
     {
         printf("No image is given. Use the default build-in image.");
