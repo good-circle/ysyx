@@ -86,6 +86,7 @@ void npc_exec(unsigned int n)
 {
     while (!is_finish && n > 0)
     {
+        u_int64_t last_pc = top->pc;
         printf("%08lx ", top->pc);
         top->inst = inst_fetch(top->pc);
         printf("%08x\n", top->inst);
@@ -106,8 +107,7 @@ void npc_exec(unsigned int n)
 
         if (!is_finish)
         {
-            printf("%08lx %08x\n", top->pc, top->inst);
-            if (difftest_step(difftest_regs, top->pc) != 0)
+            if (difftest_step(difftest_regs, last_pc) != 0)
             {
                 is_finish = 1;
                 break;
