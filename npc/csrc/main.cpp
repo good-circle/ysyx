@@ -108,6 +108,8 @@ void npc_exec(unsigned int n)
         memset(p, ' ', space_len);
         p += space_len;
 
+        printf("%s", p);
+
         disassemble(p, start + 128 - p, top->pc, (uint8_t *)&top->inst, ilen);
 #endif
 
