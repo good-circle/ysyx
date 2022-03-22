@@ -23,7 +23,6 @@ static void restart() {
 }
 
 void init_isa() {
-    printf("%ld %ls\n", sizeof(img), img);
   /* Load built-in image. */
   memcpy(guest_to_host(RESET_VECTOR), img, sizeof(img));
 
