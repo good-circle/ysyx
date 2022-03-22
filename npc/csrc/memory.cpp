@@ -95,6 +95,6 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
         }
 
         *(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000) |= (mem_wdata & real_mask);
-        printf("%llx\n", *(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000));
+        printf("%p\n", *(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000));
     }
 }
