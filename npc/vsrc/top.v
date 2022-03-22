@@ -150,7 +150,7 @@ wire [63:0] mem_wdata;
 wire [7:0] mem_wmask;
 wire mem_write;
 assign mem_raddr = 64'b0;
-assign mem_read = 1'b0;
+assign mem_read = 1'b1;
 assign mem_waddr = 64'b0;
 assign mem_wdata = 64'b0;
 assign mem_wmask = 8'b0;
@@ -163,7 +163,7 @@ import "DPI-C" function void pmem_write(
 
 wire [63:0] mem_rdata;
 always @(*) begin
-  pmem_read(mem_raddr, mem_rdata, 1);
+  pmem_read(mem_raddr, mem_rdata, mem_read);
   pmem_write(mem_waddr, mem_wdata, mem_wmask, mem_write);
   $display("%h",mem_rdata);
 end
