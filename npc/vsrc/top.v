@@ -8,8 +8,8 @@ module top(
     output [63:0] halt
 );
 
+reg [63:0] 2_inst;
 wire [31:0] inst;
-
 //wire [6:0] funct7;
 wire [4:0] rs2;
 wire [4:0] rs1;
@@ -106,8 +106,17 @@ always @(posedge clk) begin
 end
 
 always @(posedge clk) begin
-    if(!rst) pmem_read(pc, inst, 1);
+    if(rst)
+    begin
+        inst <= 32'b0;
+    end
+    else
+    begin
+        pmem_read(pc, 2_inst, 1);
+    end 
 end
+
+inst = pc[3] ? 2_inst[31:0] : 2_inst[63:32];
 
 assign memwrite = sd;
 assign address = alu_result;
