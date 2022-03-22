@@ -105,13 +105,10 @@ void npc_exec(unsigned int n)
         n--;
         npc_time++;
 
-        if (!is_finish)
+        if (!isfinish && difftest_step(difftest_regs, last_pc) != 0)
         {
-            if (difftest_step(difftest_regs, last_pc) != 0)
-            {
-                is_finish = 1;
-                break;
-            }
+            is_finish = 1;
+            break;
         }
     }
 
