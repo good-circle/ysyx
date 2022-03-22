@@ -97,7 +97,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
         }
 */
         *(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000) |= (mem_wdata);
-        printf("%x %x %x %x", pmem[0x1000], pmem[0x1001], pmem[0x1002], pmem[0x1003]);
+        printf("%x %x %x %x ", pmem[0x1000], pmem[0x1001], pmem[0x1002], pmem[0x1003]);
         //printf("%lx %llx\n", mem_waddr, *(unsigned long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000));
     }
 }
