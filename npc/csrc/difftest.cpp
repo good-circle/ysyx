@@ -94,13 +94,12 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc)
             is_different = true;
         }
     }
-
+    printf("111\n");
     if (is_different)
     {
         isa_reg_display();
         return 1;
     }
-    printf("111\n");
 
     return 0;
 }
