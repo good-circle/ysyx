@@ -106,17 +106,10 @@ always @(posedge clk) begin
 end
 
 always @(posedge clk) begin
-    if(rst)
-    begin
-        inst <= 32'b0;
-    end
-    else
-    begin
-        pmem_read(pc, 2_inst, 1);
-    end 
+    if(!rst) pmem_read(pc, 2_inst, 1);
 end
 
-inst = pc[3] ? 2_inst[31:0] : 2_inst[63:32];
+assign inst = pc[3] ? 2_inst[31:0] : 2_inst[63:32];
 
 assign memwrite = sd;
 assign address = alu_result;
