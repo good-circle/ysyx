@@ -25,7 +25,7 @@ void npc_exec(unsigned int n);
 void set_batch_mode();
 void init_regex();
 extern void sdb_mainloop();
-extern void init_difftest(char *ref_so_file, long img_size);
+extern void init_difftest(char *ref_so_file, long img_size, u_int64_t difftest_regs);
 void reset_npc(uint n);
 extern void difftest_read_regs(u_int64_t *difftest_regs);
 extern int difftest_step(u_int64_t *difftest_regs, u_int64_t pc);
