@@ -8,7 +8,7 @@ module top(
     output [63:0] halt
 );
 
-wire [63:0] 2_inst;
+wire [63:0] inst_2;
 wire [31:0] inst;
 //wire [6:0] funct7;
 wire [4:0] rs2;
@@ -105,23 +105,11 @@ always @(posedge clk) begin
     else pc <= br_taken ? br_target : pc + 4;
 end
 
-import "DPI-C" function void pmem_read(
-  input longint mem_raddr, output longint mem_rdata, input longint pc, output longint 2_inst, input bit mem_read);
-import "DPI-C" function void pmem_write(
-  input longint mem_waddr, input longint mem_wdata, input byte mem_wmask, input bit mem_write);
-
-wire [63:0] mem_rdata;
 always @(posedge clk) begin
-  pmem_read(mem_raddr, mem_rdata, mem_read);
-  pmem_write(mem_waddr, mem_wdata, mem_wmask, mem_write);
-  $display("%h",mem_rdata);
+    if(!rst) pmem_read(pc, inst_2, 1);
 end
 
-always @(posedge clk) begin
-    if(!rst) pmem_read(pc, 2_inst, 1);
-end
-
-assign inst = pc[3] ? 2_inst[31:0] : 2_inst[63:32];
+assign inst = pc[3] ? inst_2[31:0] : inst_2[63:32];
 
 assign memwrite = sd;
 assign address = alu_result;
@@ -175,7 +163,17 @@ assign mem_wdata = I_Type ? 64'h1234567887654321 : S_Type ? 64'h8765432112345678
 assign mem_wmask = I_Type ? 8'b11111111 : S_Type ? 8'b00000011 : U_Type ? 8'b00111100 : 8'b00000000;
 assign mem_write = 1'b1;
 
+import "DPI-C" function void pmem_read(
+  input longint mem_raddr, output longint mem_rdata, input bit mem_read);
+import "DPI-C" function void pmem_write(
+  input longint mem_waddr, input longint mem_wdata, input byte mem_wmask, input bit mem_write);
 
+wire [63:0] mem_rdata;
+always @(posedge clk) begin
+  pmem_read(mem_raddr, mem_rdata, mem_read);
+  pmem_write(mem_waddr, mem_wdata, mem_wmask, mem_write);
+  $display("%h",mem_rdata);
+end
 
 export "DPI-C" task finish;
 task finish;
