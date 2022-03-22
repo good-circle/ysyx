@@ -94,7 +94,7 @@ void npc_exec(unsigned int n)
 
 #define ITRACE 1
 #ifdef ITRACE
-        char p[128];
+        char *p = malloc(16);
         char *start = p;
         p += snprintf(p, sizeof(p),"0x%016lx:", top->pc);
         int ilen = 8;
