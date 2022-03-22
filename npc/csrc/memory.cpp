@@ -53,6 +53,7 @@ extern "C" void pmem_read(long long mem_raddr, long long *mem_rdata, bool mem_re
 
 extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wmask, bool mem_write)
 {
+    printf("111: %llx\n", mem_wdata);
     if (mem_write)
     {
         long long real_mask;
