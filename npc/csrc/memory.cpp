@@ -45,15 +45,35 @@ extern "C" void pmem_read(long long mem_raddr, long long *mem_rdata, bool mem_re
 {
     if (mem_read)
     {
-        *mem_rdata = *(long long *)(pmem + mem_raddr - 0x80000000);
+        *mem_rdata = *(long long *)(pmem + (mem_raddr & ~0x7ull) - 0x80000000);
     }
-
-    // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
 }
 
 extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wmask, bool mem_write)
 {
-    // 总是往地址为`waddr & ~0x7ull`的8字节按写掩码`wmask`写入`wdata`
-    // `wmask`中每比特表示`wdata`中1个字节的掩码,
-    // 如`wmask = 0x3`代表只写入最低2个字节, 内存中的其它字节保持不变
+    if (mem_write)
+    {
+        long long real_mask;
+        if (mem_wmask | 0b00001000)
+        {
+            real_mask |= 0x1111;
+        }
+        real_mask << 4;
+        if (mem_wmask | 0b00000100)
+        {
+            real_mask |= 0x1111;
+        }
+        real_mask << 4;
+        if (mem_wmask | 0b00000010)
+        {
+            real_mask |= 0x1111;
+        }
+        real_mask << 4;
+        if (mem_wmask | 0b00000001)
+        {
+            real_mask |= 0x1111;
+        }
+
+        *(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000) |= (mem_wdata & real_mask);
+    }
 }
