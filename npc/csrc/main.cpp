@@ -96,7 +96,7 @@ void npc_exec(unsigned int n)
 #ifdef ITRACE
         char p[128];
         char *start = p;
-        p += snprintf(p, sizeof(p),":", top->pc);
+        p += snprintf(p, sizeof(p),"0x%016lx:", top->pc);
         int ilen = 8;
         int i;
         u_int8_t *inst = (u_int8_t *)&top->inst;
