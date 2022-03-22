@@ -102,11 +102,11 @@ void npc_exec(unsigned int n)
 
         difftest_read_regs(difftest_regs);
 
-        if(difftest_step(difftest_regs, top->pc) != 0)
-        {
-            is_finish = 1;
-            break;
-        }
+        //if(difftest_step(difftest_regs, top->pc) != 0)
+        //{
+        //    is_finish = 1;
+        //    break;
+        //}
 
         finish(&is_finish);
 
