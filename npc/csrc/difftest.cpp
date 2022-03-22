@@ -78,10 +78,10 @@ void init_difftest(char *ref_so_file, long img_size, uint64_t *difftest_regs)
 
 int difftest_step(uint64_t *difftest_regs, uint64_t pc)
 {
-    assert(0);
     uint64_t ref_r[33];
 
     ref_difftest_exec(1);
+    assert(0);
     ref_difftest_regcpy(&ref_r, 0);
 
     bool is_different = false;
