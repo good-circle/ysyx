@@ -152,7 +152,7 @@ wire mem_write;
 assign mem_raddr = 64'h0000000080001000;
 assign mem_read = 1'b1;
 assign mem_waddr = 64'h0000000080001000;
-assign mem_wdata = 64'h1234567887654321;
+assign mem_wdata = I_Type ? 64'h1234567887654321 : S_Type ? 64'h8765432112345678 : U_Type ? 64'h0000000000000000 : 64'h1111111111111111;
 assign mem_wmask = I_Type ? 8'b11111111 : S_Type ? 8'b00000011 : U_Type ? 8'b00111100 : 8'b00000000;
 assign mem_write = 1'b1;
 
