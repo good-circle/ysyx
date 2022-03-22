@@ -14,8 +14,8 @@ assign op_sltu = aluop[1];
 wire [63:0] add_result;
 wire [63:0] sltu_result;
 
-assign add_result = (src1 + src2);
-assign sltu_result = (src1 < src2);
+assign add_result = src1 + src2;
+assign sltu_result = {63'b0, src1 < src2};
 
 assign result = {64{op_add}} & add_result
               | {64{op_sltu}} & sltu_result;
