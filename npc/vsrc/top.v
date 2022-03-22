@@ -113,7 +113,7 @@ assign rf_raddr2 =  rs2;
 assign rf_we = !sd;
 assign rf_wdata  = {64{jal | jalr}} & (pc + 4)
 				 | {64{lui}}        & U_extension
-				 | {64{auipc}}      & (pc + U_extension)
+				 | {64{auipc}}      & (pc - U_extension)
 				 | {64{addi}}       & adder_result;
                  
 regfile u_regfile(
