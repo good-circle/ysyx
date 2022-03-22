@@ -15,10 +15,10 @@ const char *regs[] = {
 
 void isa_reg_display()
 {
-    printf("%s\t\t0x%lx\t\t%ld\t\t\n", "pc", top->pc, top->pc);
+    printf("%s\t\t0x%lx\t\t\n", "pc", top->pc);
     for (int i = 0; i < 32; i++)
     {
-        printf("%s\t\t0x%lx\t\t%ld\t\t\n", regs[i], cpu_gpr[i], cpu_gpr[i]);
+        printf("%s\t\t0x%lx\t\t\n", regs[i], cpu_gpr[i]);
     }
 }
 
