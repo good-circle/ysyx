@@ -105,6 +105,18 @@ always @(posedge clk) begin
     else pc <= br_taken ? br_target : pc + 4;
 end
 
+import "DPI-C" function void pmem_read(
+  input longint mem_raddr, output longint mem_rdata, input longint pc, output longint 2_inst, input bit mem_read);
+import "DPI-C" function void pmem_write(
+  input longint mem_waddr, input longint mem_wdata, input byte mem_wmask, input bit mem_write);
+
+wire [63:0] mem_rdata;
+always @(posedge clk) begin
+  pmem_read(mem_raddr, mem_rdata, mem_read);
+  pmem_write(mem_waddr, mem_wdata, mem_wmask, mem_write);
+  $display("%h",mem_rdata);
+end
+
 always @(posedge clk) begin
     if(!rst) pmem_read(pc, 2_inst, 1);
 end
@@ -163,17 +175,7 @@ assign mem_wdata = I_Type ? 64'h1234567887654321 : S_Type ? 64'h8765432112345678
 assign mem_wmask = I_Type ? 8'b11111111 : S_Type ? 8'b00000011 : U_Type ? 8'b00111100 : 8'b00000000;
 assign mem_write = 1'b1;
 
-import "DPI-C" function void pmem_read(
-  input longint mem_raddr, output longint mem_rdata, input longint pc, output longint 2_inst, input bit mem_read);
-import "DPI-C" function void pmem_write(
-  input longint mem_waddr, input longint mem_wdata, input byte mem_wmask, input bit mem_write);
 
-wire [63:0] mem_rdata;
-always @(posedge clk) begin
-  pmem_read(mem_raddr, mem_rdata, mem_read);
-  pmem_write(mem_waddr, mem_wdata, mem_wmask, mem_write);
-  $display("%h",mem_rdata);
-end
 
 export "DPI-C" task finish;
 task finish;
