@@ -85,11 +85,12 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc)
     ref_difftest_regcpy(&ref_r, 0);
 
     bool is_different = false;
-    printf("111\n");
+
     for (int i = 0; i < 33; i++)
     {
         if (difftest_regs[i] != ref_r[i])
         {
+            printf("i\n");
             printf("reg %s(%d) is different after executing instruction at pc 0x%08lx, right= 0x%lx, wrong = 0x%lx\n", regs[i], i, pc, ref_r[i], difftest_regs[i]);
             is_different = true;
         }
