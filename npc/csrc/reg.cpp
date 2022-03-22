@@ -46,6 +46,7 @@ void difftest_read_regs(uint64_t *difftest_regs)
 {
     for (int i = 0; i < 32; i++)
     {
+        printf("%d\n", i);
         difftest_regs[i] = cpu_gpr[i];
     }
     difftest_regs[32] = top->pc;
