@@ -69,7 +69,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
             real_mask |= 0b11111111;
         }
         printf("real_mask: %llx\n", real_mask);
-        real_mask << 8;
+        real_mask >> 8;
         printf("real_mask: %llx\n", real_mask);
         if (mem_wmask | 0b01000000)
         {
