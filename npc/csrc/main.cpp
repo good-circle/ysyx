@@ -91,9 +91,25 @@ void npc_exec(unsigned int n)
         printf("%08lx ", top->pc);
         top->inst = inst_fetch(top->pc);
         printf("%08x\n", top->inst);
-        
-        char p[128] = {0};
-        disassemble(p, 128, top->pc, (uint8_t *)&top->inst, 8);
+
+#define ITRACE 1
+#ifdef ITRACE
+        char p[128];
+        char *start = p;
+        p += snprintf(p, sizeof(p),":", top->pc);
+        int ilen = 8;
+        int i;
+        u_int8_t *inst = (u_int8_t *)&top->inst;
+        for (i = 0; i < ilen; i++)
+        {
+            p += snprintf(p, 4, " %02x", inst[i]);
+        }
+        int space_len = 1;
+        memset(p, ' ', space_len);
+        p += space_len;
+
+        disassemble(p, start + 128 - p, top->pc, (uint8_t *)&top->inst, ilen);
+#endif
 
         m_trace->dump(2 * npc_time);
         top->clk = !top->clk;
