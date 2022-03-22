@@ -71,10 +71,8 @@ void init_difftest(char *ref_so_file, long img_size, uint64_t *difftest_regs)
     void(*ref_difftest_init)(void) = (void (*)(void))dlsym(handle, "difftest_init");
     assert(ref_difftest_init);
 
-    void * npc_img = img_file;
-
     ref_difftest_init();
-    ref_difftest_memcpy(0x80000000, npc_img, img_size, 1);
+    ref_difftest_memcpy(0x80000000, (void *)img_file, img_size, 1);
     ref_difftest_regcpy(difftest_regs, 1);
 }
 
