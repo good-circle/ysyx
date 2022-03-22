@@ -105,11 +105,12 @@ always @(posedge clk) begin
     else pc <= br_taken ? br_target : pc + 4;
 end
 
-always @(posedge clk) begin
-    if(!rst) pmem_read(pc, inst_2, 1);
+wire inst_ready = !rst;
+always @(*) begin
+    pmem_read(pc, inst_2, inst_ready);
 end
 
-assign inst = pc[3] ? inst_2[63:32] : inst_2[31:0];
+assign inst = pc[3] ? inst_2[31:0] : inst_2[63:32];
 
 assign memwrite = sd;
 assign address = alu_result;
