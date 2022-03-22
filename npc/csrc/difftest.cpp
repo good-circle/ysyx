@@ -76,7 +76,7 @@ void init_difftest(char *ref_so_file, long img_size, uint64_t *difftest_regs)
     ref_difftest_regcpy(difftest_regs, 1);
 }
 
-void difftest_step(uint64_t *difftest_regs, uint64_t pc)
+int difftest_step(uint64_t *difftest_regs, uint64_t pc)
 {
     uint64_t ref_r[33];
 
