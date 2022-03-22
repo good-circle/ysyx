@@ -110,7 +110,7 @@ always @(*) begin
     pmem_read(pc, inst_2, inst_ready);
 end
 
-assign inst = pc[3] ? inst_2[31:0] : inst_2[63:32];
+assign inst = pc[2] ? inst_2[63:32] : inst_2[31:0];
 
 assign memwrite = sd;
 assign address = alu_result;
