@@ -53,9 +53,8 @@ extern "C" void pmem_read(long long mem_raddr, long long *mem_rdata, bool mem_re
 
 extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wmask, bool mem_write)
 {
-    printf("111: %llx\n", mem_wdata);
     if (mem_write)
-    {
+    {/*
         long long real_mask;
         if (mem_wmask | 0b10000000)
         {
@@ -96,7 +95,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
         {
             real_mask |= 0b11111111;
         }
-
+*/
         *(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000) |= (mem_wdata & real_mask);
         printf("%x %x %x %x", pmem[0x1000], pmem[0x1001], pmem[0x1002], pmem[0x1003]);
         //printf("%lx %llx\n", mem_waddr, *(unsigned long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000));
