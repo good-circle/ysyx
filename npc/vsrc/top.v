@@ -30,13 +30,15 @@ wire jal;
 wire jalr;
 wire sd;
 wire ebreak;
+wire sltiu;
+
 
 wire br_taken;
 wire [63:0] br_target;
 
-wire [63:0] adder_src1;
-wire [63:0] adder_src2;
-wire [63:0] adder_result;
+wire [63:0] alu_src1;
+wire [63:0] alu_src2;
+wire [63:0] alu_result;
 
 wire [ 4:0] rf_raddr1;
 wire [63:0] rf_rdata1;
@@ -68,10 +70,12 @@ assign jalr = funct3 == 3'b000 && opcode == 7'b1100111;
 assign sd = funct3 == 3'b011 && opcode == 7'b0100011;
 assign ebreak = inst == 32'h00100073;
 
-assign br_taken = jal | jalr;
-assign br_target = jal ? pc + J_extension : {adder_result[63:1], 1'b0};
+assign sltiu = func3 == 3'b011 && opcode == 7'b0010011;
 
-assign I_Type = addi | jalr;
+assign br_taken = jal | jalr;
+assign br_target = jal ? pc + J_extension : {alu_result[63:1], 1'b0};
+
+assign I_Type = addi | jalr | sltiu;
 //assign R_Type = 0;
 assign S_Type = sd;
 assign B_Type = 0;
@@ -96,25 +100,30 @@ always @(posedge clk) begin
 end
 
 assign memwrite = sd;
-assign address = adder_result;
+assign address = alu_result;
 assign data = rf_rdata2;
 
-assign adder_src1 = jal ? pc : rf_rdata1;
-assign adder_src2 = imm_extension;
-adder u_adder(
-    .src1 (adder_src1),
-    .src2 (adder_src2),
-    .result (adder_result)
+assign alu_src1 = jal ? pc : rf_rdata1;
+assign alu_src2 = imm_extension;
+wire [1:0] aluop;
+assign aluop[0] = addi | jalr | S_Type;
+assign aluop[1] = sltiu;
+alu u_alu(
+    .src1 (alu_src1),
+    .src2 (alu_src2),
+    .aluop (aluop),
+    .result (alu_result)
 );
 
 assign rf_waddr  =  rd;
 assign rf_raddr1 =  ebreak ? 5'd10 : rs1;
 assign rf_raddr2 =  rs2;
-assign rf_we = !sd;
+assign rf_we = !S_Type;
 assign rf_wdata  = {64{jal | jalr}} & (pc + 4)
 				 | {64{lui}}        & U_extension
 				 | {64{auipc}}      & (pc + U_extension)
-				 | {64{addi}}       & adder_result;
+				 | {64{addi}}       & alu_result;
+                 | {64{sltiu}}      & alu_result;
                  
 regfile u_regfile(
     .clk    (clk      ),
