@@ -1,6 +1,7 @@
 #include "common.h"
 
 extern Vtop *top;
+uint64_t *difftest_regs = NULL;
 uint64_t *cpu_gpr = NULL;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
 {
@@ -40,4 +41,13 @@ uint64_t isa_reg_str2val(const char *s, bool *success)
     /* In fact will not happen */
     *success = false;
     return 0;
+}
+
+void difftest_read_regs()
+{
+    for (int i = 0; i < 32; i++)
+    {
+        difftest_regs[i] = cpu_gpr[i];
+    }
+    difftest_regs[32] = top->pc;
 }

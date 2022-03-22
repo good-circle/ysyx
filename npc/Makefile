@@ -1,7 +1,10 @@
 IMG ?=
 override ARGS ?=
 
-REF_SO := $(NEMU_HOME)/build/riscv64-nemu-so
+REF_SO := $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
+
+$(REF_SO):
+	$(MAKE) -C $(NEMU_HOME) ISA=riscv64 SHARE=1 ENGINE=interpreter
 
 all: sim wave
 

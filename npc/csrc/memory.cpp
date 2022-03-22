@@ -6,7 +6,7 @@ extern u_int8_t pmem[0x8000000];
 extern const char *img_file;
 extern int inst_num;
 
-void init_pmem()
+long init_pmem()
 {
     if (img_file == NULL)
     {
@@ -25,6 +25,8 @@ void init_pmem()
     assert(ret == 1);
 
     fclose(fp);
+
+    return size;
 }
 
 u_int32_t inst_fetch(unsigned long long pc)

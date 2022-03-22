@@ -15,14 +15,16 @@ const char *img_file = NULL;
 char *log_file = NULL;
 int inst_num = 0;
 bool is_batch_mode = false;
+static char *diff_so_file = NULL;
 
 static int parse_args(int argc, char *argv[]);
-void init_pmem();
+long init_pmem();
 u_int32_t inst_fetch(unsigned long long pc);
 void npc_exec(unsigned int n);
 void set_batch_mode();
 void init_regex();
 extern void sdb_mainloop();
+extern void init_difftest(char *ref_so_file, long img_size);
 
 void set_batch_mode()
 {
@@ -34,6 +36,7 @@ static int parse_args(int argc, char *argv[])
     const struct option table[] = {
         {"batch", no_argument, NULL, 'b'},
         {"log", required_argument, NULL, 'l'},
+        {"diff", required_argument, NULL, 'd'},
         {0, 0, NULL, 0},
     };
     int o;
@@ -46,6 +49,9 @@ static int parse_args(int argc, char *argv[])
             break;
         case 'l':
             log_file = optarg;
+            break;
+        case 'd':
+            diff_so_file = optarg;
             break;
         case 1:
             img_file = optarg;
@@ -107,7 +113,6 @@ void npc_exec(unsigned int n)
     }
 }
 
-
 int main(int argc, char **argv, char **env)
 {
     contextp->commandArgs(argc, argv);
@@ -116,8 +121,9 @@ int main(int argc, char **argv, char **env)
     m_trace->open("waveform.vcd");
 
     parse_args(argc, argv);
-    init_pmem();
+    int img_size = init_pmem();
     init_regex();
+    init_difftest(diff_so_file, img_size);
 
     top->clk = 1;
     top->rst = 1;
