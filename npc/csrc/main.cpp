@@ -79,9 +79,10 @@ void reset_npc(uint n)
         top->eval();
 
         npc_time++;
-    }difftest_read_regs
-difftest_read_regs
-difftest_read_regsgned int n)
+    }
+}
+
+void npc_exec(unsigned int n)
 {
     while (!is_finish && n > 0)
     {
@@ -139,12 +140,12 @@ int main(int argc, char **argv, char **env)
     reset_npc(10);
     
     difftest_read_regs(difftest_regs);
-    init_difftest(diff_so_file, img_size, difftest_regs);
+    //init_difftest(diff_so_file, img_size, difftest_regs);
 
-    top->clk = 1;
-    top->rst = 0;
+    //top->clk = 1;
+    //top->rst = 0;
 
-    svSetScope(svGetScopeFromName("TOP.top"));
+    //svSetScope(svGetScopeFromName("TOP.top"));
 
     sdb_mainloop();
 
