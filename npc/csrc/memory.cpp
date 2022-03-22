@@ -64,6 +64,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
         real_mask << 4;
         if (mem_wmask | 0b01000000)
         {
+            printf("1\n");
             real_mask |= 0b11111111;
         }
         real_mask << 4;
