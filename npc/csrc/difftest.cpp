@@ -85,7 +85,7 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc)
     ref_difftest_regcpy(&ref_r, 0);
 
     bool is_different = false;
-
+    printf("111\n");
     for (int i = 0; i < 33; i++)
     {
         if (difftest_regs[i] != ref_r[i])
@@ -94,12 +94,13 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc)
             is_different = true;
         }
     }
-    printf("111\n");
+
     if (is_different)
     {
         isa_reg_display();
         return 1;
     }
+
 
     return 0;
 }
