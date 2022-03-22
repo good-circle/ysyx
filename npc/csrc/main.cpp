@@ -92,7 +92,7 @@ void npc_exec(unsigned int n)
         top->inst = inst_fetch(top->pc);
         //printf("%08x\n", top->inst);
         
-        char p[128];
+        char p[128] = {0};
         disassemble(p, 128, top->pc, (uint8_t *)&top->inst, 8);
 
         m_trace->dump(2 * npc_time);
