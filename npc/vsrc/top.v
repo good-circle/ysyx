@@ -143,15 +143,22 @@ regfile u_regfile(
 
 assign halt = rf_rdata1;
 
-import "DPI-C" function void pmem_read(
-  input longint mem_raddr, output longint mem_rdata);
-import "DPI-C" function void pmem_write(
-  input longint mem_waddr, input longint mem_wdata, input byte mem_wmask);
+assign mem_raddr = 0;
+assign mem_read = 0;
+assign mem_waddr = 0;
+assign mem_wdata = 0;
+assign mem_wmask = 0;
+assign mem_write = 0;
 
-wire [63:0] rdata;
+import "DPI-C" function void pmem_read(
+  input longint mem_raddr, output longint mem_rdata, input int mem_read);
+import "DPI-C" function void pmem_write(
+  input longint mem_waddr, input longint mem_wdata, input byte mem_wmask, input int mem_write);
+
+wire [63:0] mem_rdata;
 always @(*) begin
-  pmem_read(mem_raddr, mem_rdata);
-  pmem_write(mem_waddr, mem_wdata, mem_wmask);
+  pmem_read(mem_raddr, mem_rdata, mem_read);
+  pmem_write(mem_waddr, mem_wdata, mem_wmask, mem_write);
 end
 
 export "DPI-C" task finish;
