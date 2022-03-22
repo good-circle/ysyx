@@ -133,6 +133,7 @@ void npc_exec(unsigned int n)
             is_finish = 1;
             break;
         }
+        printf("%d\n", npc_time);
     }
 
     if (is_finish)
