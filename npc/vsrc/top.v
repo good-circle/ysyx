@@ -165,7 +165,7 @@ wire [63:0] mem_rdata;
 always @(*) begin
   pmem_read(mem_raddr, mem_rdata, mem_read);
   pmem_write(mem_waddr, mem_wdata, mem_wmask, mem_write);
-  //$display("%lx",mem_rdata);
+  $display("%lx",mem_rdata);
 end
 
 export "DPI-C" task finish;
@@ -174,7 +174,6 @@ task finish;
     is_finish = ebreak;
 endtask
 
-//assign halt = rf_rdata1;
-assign halt = mem_rdata;
+assign halt = rf_rdata1;
 
 endmodule
