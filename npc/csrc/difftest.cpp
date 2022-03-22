@@ -81,7 +81,6 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc)
     uint64_t ref_r[33];
 
     ref_difftest_exec(1);
-    assert(0);
     ref_difftest_regcpy(&ref_r, 0);
 
     bool is_different = false;
