@@ -56,7 +56,7 @@ void init_difftest(char *ref_so_file, long img_size, uint64_t *difftest_regs)
     handle = dlopen(ref_so_file, RTLD_LAZY | RTLD_DEEPBIND);
     assert(handle);
 
-    ref_difftest_memcpy = dlsym(handle, "difftest_memcpy");
+    ref_difftest_memcpy = (void(*))(paddr_t, void *, uint64_t, bool)dlsym(handle, "difftest_memcpy");
     assert(ref_difftest_memcpy);
 
     ref_difftest_regcpy = dlsym(handle, "difftest_regcpy");
@@ -94,12 +94,11 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc)
         }
     }
 
-    if(is_different)
+    if (is_different)
     {
         isa_reg_display();
         return 1;
     }
 
     return 0;
-    
 }
