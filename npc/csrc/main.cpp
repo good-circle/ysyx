@@ -107,7 +107,7 @@ void npc_exec(unsigned int n)
             is_finish = 1;
             break;
         }
-        assert(0);
+
         finish(&is_finish);
 
         n--;
