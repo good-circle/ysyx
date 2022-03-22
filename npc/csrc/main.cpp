@@ -16,7 +16,7 @@ char *log_file = NULL;
 int inst_num = 0;
 bool is_batch_mode = false;
 static char *diff_so_file = NULL;
-u_int64_t *difftest_regs = NULL;
+u_int64_t *difftest_regs = malloc(sizeof(u_int64_t *) * 33);
 
 static int parse_args(int argc, char *argv[]);
 long init_pmem();
