@@ -130,6 +130,7 @@ void npc_exec(unsigned int n)
 
         if (!is_finish && difftest_step(difftest_regs, last_pc) != 0)
         {
+             printf("%d\n", npc_time);
             is_finish = 1;
             break;
         }
