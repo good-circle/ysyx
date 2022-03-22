@@ -67,6 +67,7 @@ static int parse_args(int argc, char *argv[])
 
 void reset_npc(uint n)
 {
+    top->reset = 1;
     for (int i = 0; i < n; i++)
     {
         m_trace->dump(2 * npc_time);
