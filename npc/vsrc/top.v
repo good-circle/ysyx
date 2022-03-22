@@ -149,12 +149,12 @@ wire [63:0] mem_waddr;
 wire [63:0] mem_wdata;
 wire [7:0] mem_wmask;
 wire mem_write;
-assign mem_raddr = 0;
-assign mem_read = 0;
-assign mem_waddr = 0;
-assign mem_wdata = 0;
-assign mem_wmask = 0;
-assign mem_write = 0;
+assign mem_raddr = 64'b0;
+assign mem_read = 1'b0;
+assign mem_waddr = 64'b0;
+assign mem_wdata = 64'b0;
+assign mem_wmask = 8'b0;
+assign mem_write = 1'b0;
 
 import "DPI-C" function void pmem_read(
   input longint mem_raddr, output longint mem_rdata, input int mem_read);
