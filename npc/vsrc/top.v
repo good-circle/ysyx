@@ -143,7 +143,7 @@ regfile u_regfile(
 
 assign halt = rf_rdata1;
 
-assign mem_raddr = 0;
+wire mem_raddr = 0;
 assign mem_read = 0;
 assign mem_waddr = 0;
 assign mem_wdata = 0;
