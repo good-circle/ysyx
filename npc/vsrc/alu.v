@@ -5,6 +5,9 @@ module alu(
     output [63:0] result
 );
 
+wire op_add;
+wire op_sltu;
+
 assign op_add = aluop[0];
 assign op_sltu = aluop[1];
 
