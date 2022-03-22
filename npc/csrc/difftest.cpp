@@ -88,7 +88,7 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc)
 
     if (difftest_regs[33] != ref_r[33])
     {
-        printf("pc is different after executing instruction at pc 0x%08lx, right= 0x%lx, wrong = 0x%lx\n", pc, ref_r[i], difftest_regs[i]);
+        printf("pc is different after executing instruction at pc 0x%08lx, right= 0x%lx, wrong = 0x%lx\n", pc, ref_r[33], difftest_regs[33]);
         is_different = true;
         return 1;
     }
