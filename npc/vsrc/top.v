@@ -32,6 +32,7 @@ wire sd;
 wire ebreak;
 wire sltiu;
 wire beq;
+wire bne;
 
 wire br_taken;
 wire [63:0] br_target;
@@ -72,15 +73,17 @@ assign ebreak = inst == 32'h00100073;
 
 assign sltiu = funct3 == 3'b011 && opcode == 7'b0010011;
 assign beq = funct3 == 3'b000 && opcode == 7'b1100011;
+assign bne = funct3 == 3'b001 && opcode == 7'b1100011;
 
 assign br_taken = jal | jalr
-                | beq & (rf_rdata1 == rf_rdata2);
+                | beq & (rf_rdata1 == rf_rdata2)
+                | bne & (rf_rdata1 != rf_rdata2);
 assign br_target = jalr ? {alu_result[63:1], 1'b0} : pc + imm_extension;
 
 assign I_Type = addi | jalr | sltiu;
 //assign R_Type = 0;
 assign S_Type = sd;
-assign B_Type = beq;
+assign B_Type = beq | bne;
 assign U_Type = auipc | lui;
 assign J_Type = jal;
 
