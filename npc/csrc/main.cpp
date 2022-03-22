@@ -101,13 +101,13 @@ void npc_exec(unsigned int n)
 
 
         difftest_read_regs(difftest_regs);
-        assert(0);
+
         if(difftest_step(difftest_regs, top->pc) != 0)
         {
             is_finish = 1;
             break;
         }
-
+        assert(0);
         finish(&is_finish);
 
         n--;
