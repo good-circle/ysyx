@@ -68,39 +68,37 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
         {
             real_mask |= 0b11111111;
         }
-        printf("real_mask: %llx\n", real_mask);
-        real_mask >> 64;
-        printf("real_mask: %llx\n", real_mask);
+        real_mask <<= 8;
         if (mem_wmask | 0b01000000)
         {
             real_mask |= 0b11111111;
         }
-        real_mask << 8;
+        real_mask <<= 8;
         if (mem_wmask | 0b00100000)
         {
             real_mask |= 0b11111111;
         }
-        real_mask << 8;
+        real_mask <<= 8;
         if (mem_wmask | 0b00010000)
         {
             real_mask |= 0b11111111;
         }
-        real_mask << 8;
+        real_mask <<= 8;
         if (mem_wmask | 0b00001000)
         {
             real_mask |= 0b11111111;
         }
-        real_mask << 8;
+        real_mask <<= 8;
         if (mem_wmask | 0b00000100)
         {
             real_mask |= 0b11111111;
         }
-        real_mask << 8;
+        real_mask <<= 8;
         if (mem_wmask | 0b00000010)
         {
             real_mask |= 0b11111111;
         }
-        real_mask << 8;
+        real_mask <<= 8;
         if (mem_wmask | 0b00000001)
         {
             real_mask |= 0b11111111;
