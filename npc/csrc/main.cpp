@@ -29,6 +29,7 @@ extern void init_difftest(char *ref_so_file, long img_size, u_int64_t *difftest_
 void reset_npc(uint n);
 extern void difftest_read_regs(u_int64_t *difftest_regs);
 extern int difftest_step(u_int64_t *difftest_regs, u_int64_t pc);
+extern void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
 void set_batch_mode()
 {
@@ -90,6 +91,9 @@ void npc_exec(unsigned int n)
         //printf("%08lx ", top->pc);
         top->inst = inst_fetch(top->pc);
         //printf("%08x\n", top->inst);
+        
+        char p[128];
+        disassemble(p, 128, top->pc), (uint8_t *)&top->inst, 8);
 
         m_trace->dump(2 * npc_time);
         top->clk = !top->clk;

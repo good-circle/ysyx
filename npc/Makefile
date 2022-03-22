@@ -7,7 +7,7 @@ $(REF_SO):
 	$(MAKE) -C $(NEMU_HOME) ISA=riscv64 SHARE=1 ENGINE=interpreter
 
 CXXFLAGS += $(shell llvm-config --cxxflags) -fPIE
-#LIBS += $(shell llvm-config --libs)
+LIBS += $(shell llvm-config --libs)
 
 
 all: sim wave
