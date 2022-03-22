@@ -138,14 +138,13 @@ int main(int argc, char **argv, char **env)
 
     reset_npc(10);
     
-    difftest_read_regs(difftest_regs);
-    assert(0);
-    init_difftest(diff_so_file, img_size, difftest_regs);
+    //difftest_read_regs(difftest_regs);
+    //init_difftest(diff_so_file, img_size, difftest_regs);
 
-    top->clk = 1;
-    top->rst = 0;
+    //top->clk = 1;
+    //top->rst = 0;
 
-    svSetScope(svGetScopeFromName("TOP.top"));
+    //svSetScope(svGetScopeFromName("TOP.top"));
 
     sdb_mainloop();
 
