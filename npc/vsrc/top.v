@@ -1,13 +1,14 @@
 module top(
     input clk,
     input rst,
-    input [31:0] inst,
     output reg [63:0] pc,
     output [63:0] address,
     output [63:0] data,
     output memwrite,
     output [63:0] halt
 );
+
+wire [31:0] inst;
 
 //wire [6:0] funct7;
 wire [4:0] rs2;
@@ -102,6 +103,10 @@ assign imm_extension = {64{I_Type}} & I_extension
 always @(posedge clk) begin
     if(rst) pc <= 64'h0000000080000000;
     else pc <= br_taken ? br_target : pc + 4;
+end
+
+always @(posedge clk) begin
+    if(!rst) pmem_read(pc, inst, 1);
 end
 
 assign memwrite = sd;
