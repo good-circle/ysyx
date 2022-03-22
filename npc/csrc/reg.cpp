@@ -49,5 +49,4 @@ void difftest_read_regs(uint64_t *difftest_regs)
         difftest_regs[i] = cpu_gpr[i];
     }
     difftest_regs[32] = top->pc;
-    assert(0);
 }
