@@ -106,7 +106,7 @@ always @(posedge clk) begin
 end
 
 always @(*) begin
-    pmem_read(pc, inst_2, 1);
+    if(!rst) pmem_read(pc, inst_2, 1);
 end
 
 assign inst = pc[3] ? inst_2[63:32] : inst_2[31:0];
