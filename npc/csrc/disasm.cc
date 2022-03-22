@@ -69,7 +69,7 @@ extern "C" void init_disasm(const char *triple)
 
 extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte)
 {
-    printf("%s %d %ld %d %d\n", str, size, pc, *code, nbyte);
+    printf("%s %d %lx %d %d\n", str, size, pc, *code, nbyte);
     MCInst inst;
     llvm::ArrayRef<uint8_t> arr(code, nbyte);
     uint64_t dummy_size = 0;
