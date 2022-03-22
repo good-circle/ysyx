@@ -29,6 +29,8 @@ extern void init_difftest(char *ref_so_file, long img_size, u_int64_t *difftest_
 void reset_npc(uint n);
 extern void difftest_read_regs(u_int64_t *difftest_regs);
 extern int difftest_step(u_int64_t *difftest_regs, u_int64_t pc);
+extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+extern "C" void init_disasm(const char *triple);
 
 void set_batch_mode()
 {
@@ -91,6 +93,27 @@ void npc_exec(unsigned int n)
         top->inst = inst_fetch(top->pc);
         //printf("%08x\n", top->inst);
 
+#define ITRACE 1
+#ifdef ITRACE
+        char start[128];
+        char *p = start;
+        p += snprintf(p, sizeof(start),"0x%08lx:", top->pc);
+        int ilen = 4;
+        int i;
+        u_int8_t *inst = (u_int8_t *)&top->inst;
+        for (i = 0; i < ilen; i++)
+        {
+            p += snprintf(p, 4, " %02x", inst[i]);
+        }
+        int space_len = 1;
+        memset(p, ' ', space_len);
+        p += space_len;
+
+        disassemble(p, start + 128 - p, top->pc, (uint8_t *)&top->inst, ilen);
+
+        printf("%s\n", start);
+#endif
+
         m_trace->dump(2 * npc_time);
         top->clk = !top->clk;
         top->eval();
@@ -141,6 +164,9 @@ int main(int argc, char **argv, char **env)
 
     difftest_read_regs(difftest_regs);
     init_difftest(diff_so_file, img_size, difftest_regs);
+#ifdef ITRACE
+    init_disasm("riscv64-pc-linux-gnu");
+#endif
     top->clk = 1;
     top->rst = 0;
 
