@@ -106,6 +106,7 @@ void npc_exec(unsigned int n)
 
         if (!is_finish)
         {
+            printf("%08lx %08lx\n", top->pc, top->inst);
             if (difftest_step(difftest_regs, top->pc) != 0)
             {
                 is_finish = 1;
