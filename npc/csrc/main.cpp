@@ -94,7 +94,6 @@ void npc_exec(unsigned int n)
         
         char p[128];
         disassemble(p, 128, top->pc, (uint8_t *)&top->inst, 8);
-        assert(0);
 
         m_trace->dump(2 * npc_time);
         top->clk = !top->clk;
