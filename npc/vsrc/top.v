@@ -8,7 +8,7 @@ module top(
     output [63:0] halt
 );
 
-reg [63:0] 2_inst;
+wire [63:0] 2_inst;
 wire [31:0] inst;
 //wire [6:0] funct7;
 wire [4:0] rs2;
