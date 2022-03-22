@@ -89,9 +89,9 @@ void npc_exec(unsigned int n)
     while (!is_finish && n > 0)
     {
         u_int64_t last_pc = top->pc;
-        //printf("%08lx ", top->pc);
+        printf("%08lx ", top->pc);
         top->inst = inst_fetch(top->pc);
-        //printf("%08x\n", top->inst);
+        printf("%08x\n", top->inst);
 
 #define ITRACE 1
 #ifdef ITRACE
