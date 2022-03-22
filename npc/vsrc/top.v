@@ -120,7 +120,7 @@ alu u_alu(
 assign rf_waddr  =  rd;
 assign rf_raddr1 =  ebreak ? 5'd10 : rs1;
 assign rf_raddr2 =  rs2;
-assign rf_we = !S_Type;
+assign rf_we = !S_Type && !B_Type;
 assign rf_wdata  = {64{jal | jalr}} & (pc + 4)
 				 | {64{lui}}        & U_extension
 				 | {64{auipc}}      & (pc + U_extension)
