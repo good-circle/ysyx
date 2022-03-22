@@ -100,16 +100,18 @@ void npc_exec(unsigned int n)
 
         difftest_read_regs(difftest_regs);
 
-        if(difftest_step(difftest_regs, top->pc) != 0)
-        {
-            is_finish = 1;
-            break;
-        }
-
         finish(&is_finish);
-
         n--;
         npc_time++;
+
+        if (!is_finish)
+        {
+            if (difftest_step(difftest_regs, top->pc) != 0)
+            {
+                is_finish = 1;
+                break;
+            }
+        }
     }
 
     if (is_finish)
@@ -138,7 +140,7 @@ int main(int argc, char **argv, char **env)
     init_regex();
 
     reset_npc(10);
-    
+
     difftest_read_regs(difftest_regs);
     init_difftest(diff_so_file, img_size, difftest_regs);
     top->clk = 1;
