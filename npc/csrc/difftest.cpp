@@ -72,8 +72,9 @@ void init_difftest(char *ref_so_file, long img_size, uint64_t *difftest_regs)
     assert(ref_difftest_init);
 
     ref_difftest_init();
-    assert(0);
     ref_difftest_memcpy(0x80000000, 0, img_size, 1);
+        assert(0);
+
     ref_difftest_regcpy(difftest_regs, 1);
 }
 
