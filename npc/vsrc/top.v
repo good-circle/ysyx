@@ -158,11 +158,11 @@ wire [63:0] mem_wdata;
 wire [7:0] mem_wmask;
 wire mem_write;
 assign mem_raddr = 64'h0000000080001000;
-assign mem_read = 1'b1;
+assign mem_read = !rst;
 assign mem_waddr = 64'h0000000080001000;
 assign mem_wdata = I_Type ? 64'h1234567887654321 : S_Type ? 64'h8765432112345678 : U_Type ? 64'h0000000000000000 : 64'h1111111111111111;
 assign mem_wmask = I_Type ? 8'b11111111 : S_Type ? 8'b00000011 : U_Type ? 8'b00111100 : 8'b00000000;
-assign mem_write = 1'b1;
+assign mem_write = !rst;
 
 import "DPI-C" function void pmem_read(
   input longint mem_raddr, output longint mem_rdata, input bit mem_read);
@@ -170,7 +170,7 @@ import "DPI-C" function void pmem_write(
   input longint mem_waddr, input longint mem_wdata, input byte mem_wmask, input bit mem_write);
 
 wire [63:0] mem_rdata;
-always @(posedge clk) begin
+always @(*) begin
   pmem_read(mem_raddr, mem_rdata, mem_read);
   pmem_write(mem_waddr, mem_wdata, mem_wmask, mem_write);
   $display("%h",mem_rdata);

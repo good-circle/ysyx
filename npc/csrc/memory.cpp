@@ -56,46 +56,23 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
     if (mem_write)
     {
         unsigned long long real_mask;
+        unsigned char mask_mask = 0b10000000;
 
-        if (mem_wmask | 0b10000000)
+        for (int i = 0; i < 7; i++)
+        {
+            if (mem_wmask | mask_mask)
+            {
+                real_mask |= 0b11111111;
+            }
+            real_mask <<= 8;
+            mask_mask >>= 1;
+        }
+        if (mem_wmask | mask_mask)
         {
             real_mask |= 0b11111111;
         }
-        real_mask <<= 8;
-        if (mem_wmask | 0b01000000)
-        {
-            real_mask |= 0b11111111;
-        }
-        real_mask <<= 8;
-        if (mem_wmask | 0b00100000)
-        {
-            real_mask |= 0b11111111;
-        }
-        real_mask <<= 8;
-        if (mem_wmask | 0b00010000)
-        {
-            real_mask |= 0b11111111;
-        }
-        real_mask <<= 8;
-        if (mem_wmask | 0b00001000)
-        {
-            real_mask |= 0b11111111;
-        }
-        real_mask <<= 8;
-        if (mem_wmask | 0b00000100)
-        {
-            real_mask |= 0b11111111;
-        }
-        real_mask <<= 8;
-        if (mem_wmask | 0b00000010)
-        {
-            real_mask |= 0b11111111;
-        }
-        real_mask <<= 8;
-        if (mem_wmask | 0b00000001)
-        {
-            real_mask |= 0b11111111;
-        }
-        *(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000) |= (mem_wdata & real_mask);
+        long long clear_wdata = ~real_mask;
+        long long real_wdata = mem_wdata & real_mask;
+        *(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000) = (*(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000) & clear_wdata) | real_wdata;
     }
 }
