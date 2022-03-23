@@ -55,7 +55,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
 {
     if (mem_write)
     {
-        unsigned long long real_mask;
+        unsigned long long real_mask = 0;
         unsigned char mask_mask = 0b10000000;
 
         for (int i = 0; i < 7; i++)
@@ -67,13 +67,14 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
             real_mask <<= 8;
             mask_mask >>= 1;
         }
+        printf("\n%llx\n", real_mask);
         if (mem_wmask | mask_mask)
         {
             real_mask |= 0b11111111;
         }
         long long clear_wdata = ~real_mask;
         long long real_wdata = mem_wdata & real_mask;
-        printf("%llx %llx %llx %c\n", clear_wdata, real_wdata, *(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000), mask_mask);
+        printf("%llx %llx %llx\n", clear_wdata, real_wdata, *(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000));
         *(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000) = (*(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000) & clear_wdata) | real_wdata;
     }
 }
