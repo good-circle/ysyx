@@ -57,6 +57,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
     {
         unsigned long long real_mask = 0;
         char mask_mask = 0b10000000;
+        printf("mem_wmask:%x\n", mem_wmask);
 
         for (int i = 0; i < 7; i++)
         {
