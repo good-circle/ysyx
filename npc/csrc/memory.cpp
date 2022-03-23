@@ -66,6 +66,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
             }
             real_mask <<= 8;
             mask_mask >>= 1;
+            printf("\n%llx\n", real_mask);
         }
         printf("\n%llx\n", real_mask);
         if (mem_wmask | mask_mask)
