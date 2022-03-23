@@ -57,12 +57,12 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
     {
         unsigned long long real_mask = 0;
         unsigned char mask_mask = 0b10000000;
-        printf("\n%x\n", mem_wmask);
 
         for (int i = 0; i < 7; i++)
         {
             if (mem_wmask | mask_mask)
             {
+                printf("|result: %x\n", mem_wmask | mask_mask);
                 real_mask |= 0b11111111;
             }
             real_mask <<= 8;
