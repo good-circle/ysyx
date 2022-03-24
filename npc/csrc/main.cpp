@@ -125,7 +125,7 @@ void npc_exec(unsigned int n)
 
         difftest_read_regs(difftest_regs);
 
-        finish(&is_finish);
+        is_finish = finish();
         n--;
         npc_time++;
 
