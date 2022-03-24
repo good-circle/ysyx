@@ -19,9 +19,9 @@ function bit finish();
     return ebreak;
 endfunction
 
-import "DPI-C" function void pmem_read(
+import "DPI-C" context function void pmem_read(
   input longint mem_raddr, output longint mem_rdata, input bit mem_read);
-import "DPI-C" function void pmem_write(
+import "DPI-C" context function void pmem_write(
   input longint mem_waddr, input longint mem_wdata, input byte mem_wmask, input bit mem_write);
 
 always @(*) begin
