@@ -171,7 +171,9 @@ import "DPI-C" function void pmem_write(
 
 wire [63:0] mem_rdata;
 always @(*) begin
-
+  pmem_read(mem_raddr, mem_rdata, mem_read);
+  pmem_write(mem_waddr, mem_wdata, mem_wmask, mem_write);
+  $display("%h",mem_rdata);
 end
 
 export "DPI-C" task finish;
