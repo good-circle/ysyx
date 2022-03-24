@@ -2,7 +2,6 @@ module top(
     input clk,
     input rst,
     output reg [63:0] pc,
-    output [63:0] halt
 );
 
 wire [63:0] inst_2;
@@ -121,7 +120,7 @@ alu u_alu(
 );
 
 assign rf_waddr  =  rd;
-assign rf_raddr1 =  ebreak ? 5'd10 : rs1;
+assign rf_raddr1 =  rs1;
 assign rf_raddr2 =  rs2;
 assign rf_we = !S_Type && !B_Type;
 assign rf_wdata  = {64{jal | jalr}} & (pc + 4)
@@ -161,8 +160,6 @@ wire [63:0] mem_rdata;
 always @(*) begin
   $display("%h",mem_rdata);
 end
-
-assign halt = rf_rdata1;
 
 blackbox u_blackbox(
     .mem_raddr (mem_raddr),
