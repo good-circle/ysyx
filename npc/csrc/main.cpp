@@ -125,7 +125,7 @@ void npc_exec(unsigned int n)
 
         difftest_read_regs(difftest_regs);
 
-        finish(&is_finish);
+        is_finish = finish();
         n--;
         npc_time++;
 
@@ -139,7 +139,7 @@ void npc_exec(unsigned int n)
     if (is_finish)
     {
         printf("number of instructions is %d\n", inst_num);
-        if (top->halt == 0)
+        if (difftest_regs[10] == 0)
         {
             printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
         }
@@ -170,7 +170,7 @@ int main(int argc, char **argv, char **env)
 #endif
     top->clk = 1;
     top->rst = 0;
-
+    
     svSetScope(svGetScopeFromName("TOP.top"));
 
     sdb_mainloop();

@@ -1,11 +1,7 @@
 module top(
     input clk,
     input rst,
-    output reg [63:0] pc,
-    output [63:0] address,
-    output [63:0] data,
-    output memwrite,
-    output [63:0] halt
+    output reg [63:0] pc
 );
 
 wire [63:0] inst_2;
@@ -106,15 +102,10 @@ always @(posedge clk) begin
 end
 
 wire inst_ready = !rst;
-always @(*) begin
-    pmem_read(pc, inst_2, inst_ready);
-end
+
 
 assign inst = pc[2] ? inst_2[63:32] : inst_2[31:0];
 
-assign memwrite = sd;
-assign address = alu_result;
-assign data = rf_rdata2;
 
 assign alu_src1 = jal ? pc : rf_rdata1;
 assign alu_src2 = imm_extension;
@@ -129,7 +120,7 @@ alu u_alu(
 );
 
 assign rf_waddr  =  rd;
-assign rf_raddr1 =  ebreak ? 5'd10 : rs1;
+assign rf_raddr1 =  rs1;
 assign rf_raddr2 =  rs2;
 assign rf_we = !S_Type && !B_Type;
 assign rf_wdata  = {64{jal | jalr}} & (pc + 4)
@@ -164,24 +155,24 @@ assign mem_wdata = I_Type ? 64'h1234567887654321 : S_Type ? 64'h8765432112345678
 assign mem_wmask = I_Type ? 8'b01010101 : S_Type ? 8'b10101010 : U_Type ? 8'b00111100 : 8'b11000011;
 assign mem_write = !rst;
 
-import "DPI-C" function void pmem_read(
-  input longint mem_raddr, output longint mem_rdata, input bit mem_read);
-import "DPI-C" function void pmem_write(
-  input longint mem_waddr, input longint mem_wdata, input byte mem_wmask, input bit mem_write);
-
 wire [63:0] mem_rdata;
+
 always @(*) begin
-  pmem_read(mem_raddr, mem_rdata, mem_read);
-  pmem_write(mem_waddr, mem_wdata, mem_wmask, mem_write);
   $display("%h",mem_rdata);
 end
 
-export "DPI-C" task finish;
-task finish;
-    output bit is_finish;
-    is_finish = ebreak;
-endtask
-
-assign halt = rf_rdata1;
+blackbox u_blackbox(
+    .mem_raddr (mem_raddr),
+    .mem_read  (mem_read),
+    .mem_waddr (mem_waddr),
+    .mem_wdata (mem_wdata),
+    .mem_wmask (mem_wmask),
+    .mem_write (mem_write),
+    .mem_rdata (mem_rdata),
+    .inst_ready(inst_ready),
+    .pc        (pc),
+    .inst_2    (inst_2),
+    .ebreak    (ebreak)
+);
 
 endmodule
