@@ -33,3 +33,6 @@ end
 always @(*) begin
     pmem_read(pc, inst_2, inst_ready);
 end
+
+endmodule
+
