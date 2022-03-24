@@ -14,7 +14,7 @@ module blackbox(
     input ebreak
 );
 
-export "DPI-C" function finish;
+export "DPI-C" context function finish;
 function bit finish();
     return ebreak;
 endfunction

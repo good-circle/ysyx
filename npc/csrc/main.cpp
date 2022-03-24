@@ -171,7 +171,7 @@ int main(int argc, char **argv, char **env)
     top->clk = 1;
     top->rst = 0;
     
-    svGetNameFromScope(svGetScope());
+    svSetScope(svGetScopeFromName("Top.top"));
 
     sdb_mainloop();
 
