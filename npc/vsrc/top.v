@@ -1,7 +1,7 @@
 module top(
     input clk,
     input rst,
-    output reg [63:0] pc,
+    output reg [63:0] pc
 );
 
 wire [63:0] inst_2;
