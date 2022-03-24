@@ -14,7 +14,7 @@ module blackbox(
     input ebreak
 );
 
-export "DPI-C" task finish;
+export "DPI-C" context task finish;
 task finish;
     output bit is_finish;
     is_finish = ebreak;
