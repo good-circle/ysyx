@@ -15,8 +15,9 @@ module blackbox(
 );
 
 export "DPI-C" function finish;
-function int finish(bit ebreak);
-    return ebreak;
+wire is_finish = ebreak;
+function int finish(bit is_finish);
+    return is_finish;
 endfunction
 
 import "DPI-C" function void pmem_read(
