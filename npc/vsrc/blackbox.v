@@ -15,7 +15,7 @@ module blackbox(
 );
 
 export "DPI-C" function finish;
-wire is_finish = ebreak;
+assign is_finish = ebreak;
 function int finish(bit is_finish);
     return is_finish;
 endfunction
