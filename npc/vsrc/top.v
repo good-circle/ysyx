@@ -185,7 +185,7 @@ endtask
 assign halt = rf_rdata1;
 
 endmodule
-
+/* verilator lint_off DECLFILENAME */
 module alu(
     input [63:0] src1,
     input [63:0] src2,
@@ -209,4 +209,4 @@ assign result = {64{op_add}} & add_result
               | {64{op_sltu}} & sltu_result;
 
 endmodule
-
+/* verilator lint_on DECLFILENAME */
