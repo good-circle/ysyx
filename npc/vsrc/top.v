@@ -1,3 +1,4 @@
+/* verilator lint_off DECLFILENAME */
 module top(
     input clk,
     input rst,
@@ -185,7 +186,7 @@ endtask
 assign halt = rf_rdata1;
 
 endmodule
-/* verilator lint_off DECLFILENAME */
+
 module alu(
     input [63:0] src1,
     input [63:0] src2,
