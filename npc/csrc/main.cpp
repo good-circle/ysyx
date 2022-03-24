@@ -172,7 +172,7 @@ int main(int argc, char **argv, char **env)
     top->rst = 0;
 
     svScope scope = svGetScope();
-    svSetScope(svGetScopeFromName(scope));
+    svSetScope(scope);
 
     sdb_mainloop();
 
