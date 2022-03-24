@@ -107,8 +107,6 @@ wire inst_ready = !rst;
 
 assign inst = pc[2] ? inst_2[63:32] : inst_2[31:0];
 
-assign memwrite = sd;
-assign data = rf_rdata2;
 
 assign alu_src1 = jal ? pc : rf_rdata1;
 assign alu_src2 = imm_extension;
