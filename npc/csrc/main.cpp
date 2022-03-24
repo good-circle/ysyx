@@ -170,9 +170,8 @@ int main(int argc, char **argv, char **env)
 #endif
     top->clk = 1;
     top->rst = 0;
-
-    svScope scope = svGetScope();
-    svSetScope(scope);
+    
+    svSetScope(svGetScopeFromName("blackbox"));
 
     sdb_mainloop();
 
