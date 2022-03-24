@@ -7,7 +7,7 @@
 VerilatedContext *contextp = new VerilatedContext;
 Vtop *top = new Vtop{contextp};
 VerilatedVcdC *m_trace = new VerilatedVcdC;
-bool is_finish = false;
+svBit is_finish = 0;
 int npc_time = 0;
 
 u_int8_t pmem[0x8000000];
@@ -171,7 +171,7 @@ int main(int argc, char **argv, char **env)
     top->clk = 1;
     top->rst = 0;
     
-    svSetScope(svGetScopeFromName("BLACKBOX.blackbox"));
+    svSetScope(svGetScopeFromName("Top.top"));
 
     sdb_mainloop();
 
