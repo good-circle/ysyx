@@ -2,9 +2,6 @@ module top(
     input clk,
     input rst,
     output reg [63:0] pc,
-    output [63:0] address,
-    output [63:0] data,
-    output memwrite,
     output [63:0] halt
 );
 
@@ -111,7 +108,6 @@ wire inst_ready = !rst;
 assign inst = pc[2] ? inst_2[63:32] : inst_2[31:0];
 
 assign memwrite = sd;
-assign address = alu_result;
 assign data = rf_rdata2;
 
 assign alu_src1 = jal ? pc : rf_rdata1;
