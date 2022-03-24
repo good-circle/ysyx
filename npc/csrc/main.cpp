@@ -139,7 +139,7 @@ void npc_exec(unsigned int n)
     if (is_finish)
     {
         printf("number of instructions is %d\n", inst_num);
-        if (top->halt == 0)
+        if (cpu_gpr[10] == 0)
         {
             printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
         }
