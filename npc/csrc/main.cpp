@@ -171,7 +171,7 @@ int main(int argc, char **argv, char **env)
     top->clk = 1;
     top->rst = 0;
     
-    svSetScope(svGetScopeFromName("blackbox"));
+    svSetScope(svGetScopeFromName("BLACKBOX.blackbox"));
 
     sdb_mainloop();
 
