@@ -5,7 +5,7 @@ module blackbox(
     input [63:0] mem_wdata,
     input [7:0] mem_wmask,
     input mem_write,
-    output mem_rdata,
+    output [63:0] mem_rdata,
 
     input inst_ready,
     input [63:0] pc,
