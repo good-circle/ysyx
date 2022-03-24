@@ -57,14 +57,6 @@ wire B_Type;
 wire U_Type;
 wire J_Type;
 
-wire [63:0] mem_raddr;
-wire mem_read;
-wire [63:0] mem_waddr;
-wire [63:0] mem_wdata;
-wire [7:0] mem_wmask;
-wire mem_write;
-wire [63:0] mem_rdata;
-
 //assign funct7  = inst[31:25];
 assign rs2     = inst[24:20];
 assign rs1     = inst[19:15];
@@ -116,9 +108,6 @@ end
 wire inst_ready = !rst;
 always @(*) begin
     pmem_read(pc, inst_2, inst_ready);
-    pmem_read(mem_raddr, mem_rdata, mem_read);
-    pmem_write(mem_waddr, mem_wdata, mem_wmask, mem_write);
-    $display("%h",mem_rdata);
 end
 
 assign inst = pc[2] ? inst_2[63:32] : inst_2[31:0];
@@ -162,7 +151,12 @@ regfile u_regfile(
 
 
 
-
+wire [63:0] mem_raddr;
+wire mem_read;
+wire [63:0] mem_waddr;
+wire [63:0] mem_wdata;
+wire [7:0] mem_wmask;
+wire mem_write;
 assign mem_raddr = 64'h0000000080001000;
 assign mem_read = !rst;
 assign mem_waddr = 64'h0000000080001000;
@@ -175,7 +169,10 @@ import "DPI-C" function void pmem_read(
 import "DPI-C" function void pmem_write(
   input longint mem_waddr, input longint mem_wdata, input byte mem_wmask, input bit mem_write);
 
+wire [63:0] mem_rdata;
+always @(*) begin
 
+end
 
 export "DPI-C" task finish;
 task finish;
