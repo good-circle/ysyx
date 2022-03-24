@@ -7,7 +7,7 @@
 VerilatedContext *contextp = new VerilatedContext;
 Vtop *top = new Vtop{contextp};
 VerilatedVcdC *m_trace = new VerilatedVcdC;
-svBit is_finish = 0;
+bool is_finish = false;
 int npc_time = 0;
 
 u_int8_t pmem[0x8000000];
