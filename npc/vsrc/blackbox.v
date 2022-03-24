@@ -14,11 +14,10 @@ module blackbox(
     input ebreak
 );
 
-export "DPI-C" task finish;
-task finish;
-    output bit is_finish;
-    is_finish = ebreak;
-endtask
+export "DPI-C" function finish;
+function bool finish(bit ebreak)
+    return ebreak;
+endfunction
 
 import "DPI-C" function void pmem_read(
   input longint mem_raddr, output longint mem_rdata, input bit mem_read);
