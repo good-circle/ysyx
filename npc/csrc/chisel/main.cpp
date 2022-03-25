@@ -164,13 +164,14 @@ int main(int argc, char **argv, char **env)
     reset_npc(10);
 
     difftest_read_regs(difftest_regs);
+        assert(0);
     init_difftest(diff_so_file, img_size, difftest_regs);
 #ifdef ITRACE
     init_disasm("riscv64-pc-linux-gnu");
 #endif
     top->clock = 1;
     top->reset = 0;
-    assert(0);
+
     svSetScope(svGetScopeFromName("TOP.Top"));
 
     sdb_mainloop();
