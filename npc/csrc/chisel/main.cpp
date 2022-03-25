@@ -143,9 +143,9 @@ void npc_exec(unsigned int n)
     if (is_finish)
     {
         gettimeofday(&end, NULL);
-        double npc_time = (end.tv_sec - begin.tv_sec) + (end.tv_usec - begin.tv_usec) / 1000000;
+        double npc_time = (end.tv_sec - begin.tv_sec) * 1000000 + (end.tv_usec - begin.tv_usec) ;
         printf("number of instructions is %d\n", inst_num);
-        printf("total spend time %lfs\n", npc_time);
+        printf("total spend time %lfs\n", npc_time / 1000000);
         if (difftest_regs[10] == 0)
         {
             printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->io_pc);
