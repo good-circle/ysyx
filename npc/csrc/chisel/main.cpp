@@ -69,15 +69,15 @@ static int parse_args(int argc, char *argv[])
 
 void reset_npc(uint n)
 {
-    top->rst = 1;
+    top->reset = 1;
     for (int i = 0; i < n; i++)
     {
         m_trace->dump(2 * npc_time);
-        top->clk = !top->clk;
+        top->clock = !top->clock;
         top->eval();
 
         m_trace->dump(2 * npc_time + 1);
-        top->clk = !top->clk;
+        top->clock = !top->clock;
         top->eval();
 
         npc_time++;
@@ -116,11 +116,11 @@ void npc_exec(unsigned int n)
 #endif
 
         m_trace->dump(2 * npc_time);
-        top->clk = !top->clk;
+        top->clock = !top->clock;
         top->eval();
 
         m_trace->dump(2 * npc_time + 1);
-        top->clk = !top->clk;
+        top->clock = !top->clock;
         top->eval();
 
         difftest_read_regs(difftest_regs);
@@ -168,8 +168,8 @@ int main(int argc, char **argv, char **env)
 #ifdef ITRACE
     init_disasm("riscv64-pc-linux-gnu");
 #endif
-    top->clk = 1;
-    top->rst = 0;
+    top->clock = 1;
+    top->reset = 0;
     
     svSetScope(svGetScopeFromName("TOP.top"));
 
