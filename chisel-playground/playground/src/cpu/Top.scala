@@ -208,7 +208,7 @@ class Top extends Module {
   regfile.io.waddr := rf_waddr
   regfile.io.wdata := rf_wdata
   regfile.io.wen := wen
-  regfile.io.clock := Clock()
+  regfile.io.clock := Wire(Clock())
 
   io.pc := pc
   next_pc := Mux(br_taken, br_target, pc + 4.U)
