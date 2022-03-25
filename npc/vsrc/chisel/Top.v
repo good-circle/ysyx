@@ -80,90 +80,6 @@ module ALU(
   wire [63:0] _io_result_T_2 = {io_result_hi,io_result_lo}; // @[Cat.scala 30:58]
   assign io_result = io_rv64 ? _io_result_T_2 : tmp_result; // @[ALU.scala 43:19]
 endmodule
-module Regfile(
-  input         clock,
-  input  [4:0]  io_raddr1,
-  output [63:0] io_rdata1,
-  input  [4:0]  io_raddr2,
-  output [63:0] io_rdata2,
-  input  [4:0]  io_waddr,
-  input  [63:0] io_wdata,
-  input         io_wen
-);
-`ifdef RANDOMIZE_MEM_INIT
-  reg [63:0] _RAND_0;
-`endif // RANDOMIZE_MEM_INIT
-  reg [63:0] rf [0:31]; // @[Regfile.scala 14:15]
-  wire [63:0] rf_io_rdata1_MPORT_data; // @[Regfile.scala 14:15]
-  wire [4:0] rf_io_rdata1_MPORT_addr; // @[Regfile.scala 14:15]
-  wire [63:0] rf_io_rdata2_MPORT_data; // @[Regfile.scala 14:15]
-  wire [4:0] rf_io_rdata2_MPORT_addr; // @[Regfile.scala 14:15]
-  wire [63:0] rf_MPORT_data; // @[Regfile.scala 14:15]
-  wire [4:0] rf_MPORT_addr; // @[Regfile.scala 14:15]
-  wire  rf_MPORT_mask; // @[Regfile.scala 14:15]
-  wire  rf_MPORT_en; // @[Regfile.scala 14:15]
-  assign rf_io_rdata1_MPORT_addr = io_raddr1;
-  assign rf_io_rdata1_MPORT_data = rf[rf_io_rdata1_MPORT_addr]; // @[Regfile.scala 14:15]
-  assign rf_io_rdata2_MPORT_addr = io_raddr2;
-  assign rf_io_rdata2_MPORT_data = rf[rf_io_rdata2_MPORT_addr]; // @[Regfile.scala 14:15]
-  assign rf_MPORT_data = io_wdata;
-  assign rf_MPORT_addr = io_waddr;
-  assign rf_MPORT_mask = 1'h1;
-  assign rf_MPORT_en = io_wen;
-  assign io_rdata1 = io_raddr1 == 5'h0 ? 64'h0 : rf_io_rdata1_MPORT_data; // @[Regfile.scala 20:19]
-  assign io_rdata2 = io_raddr2 == 5'h0 ? 64'h0 : rf_io_rdata2_MPORT_data; // @[Regfile.scala 21:19]
-  always @(posedge clock) begin
-    if(rf_MPORT_en & rf_MPORT_mask) begin
-      rf[rf_MPORT_addr] <= rf_MPORT_data; // @[Regfile.scala 14:15]
-    end
-  end
-// Register and memory initialization
-`ifdef RANDOMIZE_GARBAGE_ASSIGN
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_INVALID_ASSIGN
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_REG_INIT
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_MEM_INIT
-`define RANDOMIZE
-`endif
-`ifndef RANDOM
-`define RANDOM $random
-`endif
-`ifdef RANDOMIZE_MEM_INIT
-  integer initvar;
-`endif
-`ifndef SYNTHESIS
-`ifdef FIRRTL_BEFORE_INITIAL
-`FIRRTL_BEFORE_INITIAL
-`endif
-initial begin
-  `ifdef RANDOMIZE
-    `ifdef INIT_RANDOM
-      `INIT_RANDOM
-    `endif
-    `ifndef VERILATOR
-      `ifdef RANDOMIZE_DELAY
-        #`RANDOMIZE_DELAY begin end
-      `else
-        #0.002 begin end
-      `endif
-    `endif
-`ifdef RANDOMIZE_MEM_INIT
-  _RAND_0 = {2{`RANDOM}};
-  for (initvar = 0; initvar < 32; initvar = initvar+1)
-    rf[initvar] = _RAND_0[63:0];
-`endif // RANDOMIZE_MEM_INIT
-  `endif // RANDOMIZE
-end // initial
-`ifdef FIRRTL_AFTER_INITIAL
-`FIRRTL_AFTER_INITIAL
-`endif
-`endif // SYNTHESIS
-endmodule
 module Top(
   input         clock,
   input         reset,
@@ -185,14 +101,13 @@ module Top(
   wire [63:0] alu_io_src1; // @[Top.scala 182:19]
   wire [63:0] alu_io_src2; // @[Top.scala 182:19]
   wire [63:0] alu_io_result; // @[Top.scala 182:19]
-  wire  regfile_clock; // @[Top.scala 192:23]
-  wire [4:0] regfile_io_raddr1; // @[Top.scala 192:23]
-  wire [63:0] regfile_io_rdata1; // @[Top.scala 192:23]
-  wire [4:0] regfile_io_raddr2; // @[Top.scala 192:23]
-  wire [63:0] regfile_io_rdata2; // @[Top.scala 192:23]
-  wire [4:0] regfile_io_waddr; // @[Top.scala 192:23]
-  wire [63:0] regfile_io_wdata; // @[Top.scala 192:23]
-  wire  regfile_io_wen; // @[Top.scala 192:23]
+  wire [4:0] regfile_raddr1; // @[Top.scala 192:23]
+  wire [63:0] regfile_rdata1; // @[Top.scala 192:23]
+  wire [4:0] regfile_raddr2; // @[Top.scala 192:23]
+  wire [63:0] regfile_rdata2; // @[Top.scala 192:23]
+  wire [4:0] regfile_waddr; // @[Top.scala 192:23]
+  wire [63:0] regfile_wdata; // @[Top.scala 192:23]
+  wire  regfile_wen; // @[Top.scala 192:23]
   wire  blackbox_mem_read; // @[Top.scala 218:24]
   wire [63:0] blackbox_mem_raddr; // @[Top.scala 218:24]
   wire [63:0] blackbox_mem_rdata; // @[Top.scala 218:24]
@@ -726,8 +641,8 @@ module Top(
   wire [63:0] _imm_T_7 = 3'h4 == information_1 ? imm_u : _imm_T_5; // @[Mux.scala 80:57]
   wire [63:0] imm = 3'h5 == information_1 ? imm_j : _imm_T_7; // @[Mux.scala 80:57]
   wire [63:0] _src1_value_T_1 = 2'h0 == information_6 ? pc : 64'h0; // @[Mux.scala 80:57]
-  wire [63:0] rs1_value = regfile_io_rdata1; // @[Top.scala 35:23 Top.scala 203:13]
-  wire [63:0] rs2_value = regfile_io_rdata2; // @[Top.scala 36:23 Top.scala 204:13]
+  wire [63:0] rs1_value = regfile_rdata1; // @[Top.scala 35:23 Top.scala 203:13]
+  wire [63:0] rs2_value = regfile_rdata2; // @[Top.scala 36:23 Top.scala 204:13]
   wire [63:0] _src2_value_T_1 = 2'h1 == information_7 ? rs2_value : 64'h0; // @[Mux.scala 80:57]
   wire [63:0] _rf_wdata_T_1 = pc + 64'h4; // @[Top.scala 197:19]
   wire [63:0] alu_result = alu_io_result; // @[Top.scala 29:24 Top.scala 185:14]
@@ -869,15 +784,14 @@ module Top(
     .io_src2(alu_io_src2),
     .io_result(alu_io_result)
   );
-  Regfile regfile ( // @[Top.scala 192:23]
-    .clock(regfile_clock),
-    .io_raddr1(regfile_io_raddr1),
-    .io_rdata1(regfile_io_rdata1),
-    .io_raddr2(regfile_io_raddr2),
-    .io_rdata2(regfile_io_rdata2),
-    .io_waddr(regfile_io_waddr),
-    .io_wdata(regfile_io_wdata),
-    .io_wen(regfile_io_wen)
+  Blackregfile regfile ( // @[Top.scala 192:23]
+    .raddr1(regfile_raddr1),
+    .rdata1(regfile_rdata1),
+    .raddr2(regfile_raddr2),
+    .rdata2(regfile_rdata2),
+    .waddr(regfile_waddr),
+    .wdata(regfile_wdata),
+    .wen(regfile_wen)
   );
   Blackbox blackbox ( // @[Top.scala 218:24]
     .mem_read(blackbox_mem_read),
@@ -902,13 +816,12 @@ module Top(
   assign alu_io_rv64 = _information_T_1 ? 1'h0 : _information_T_745; // @[Lookup.scala 33:37]
   assign alu_io_src1 = {{62'd0}, information_6}; // @[Lookup.scala 33:37]
   assign alu_io_src2 = {{62'd0}, information_7}; // @[Lookup.scala 33:37]
-  assign regfile_clock = clock;
-  assign regfile_io_raddr1 = inst[19:15]; // @[Top.scala 200:20]
-  assign regfile_io_raddr2 = inst[24:20]; // @[Top.scala 201:20]
-  assign regfile_io_waddr = inst[11:7]; // @[Top.scala 194:19]
-  assign regfile_io_wdata = 2'h2 == fu_type ? load_rdata : _rf_wdata_T_5; // @[Mux.scala 80:57]
-  assign regfile_io_wen = _information_T_1 | (_information_T_3 | (_information_T_5 | (_information_T_7 |
-    _information_T_680))); // @[Lookup.scala 33:37]
+  assign regfile_raddr1 = inst[19:15]; // @[Top.scala 200:20]
+  assign regfile_raddr2 = inst[24:20]; // @[Top.scala 201:20]
+  assign regfile_waddr = inst[11:7]; // @[Top.scala 194:19]
+  assign regfile_wdata = 2'h2 == fu_type ? load_rdata : _rf_wdata_T_5; // @[Mux.scala 80:57]
+  assign regfile_wen = _information_T_1 | (_information_T_3 | (_information_T_5 | (_information_T_7 | _information_T_680
+    ))); // @[Lookup.scala 33:37]
   assign blackbox_mem_read = fu_type == 2'h2 & information_8; // @[Top.scala 303:36]
   assign blackbox_mem_raddr = alu_io_result; // @[Top.scala 29:24 Top.scala 185:14]
   assign blackbox_mem_write = _mem_read_T & ~information_8; // @[Top.scala 307:37]
