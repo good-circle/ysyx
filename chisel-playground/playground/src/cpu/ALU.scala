@@ -14,10 +14,12 @@ class ALU extends Module {
   val aluop = io.aluop
   val rv64 = io.rv64
 
-  val strange = Wire(Bool())
-  strange := ((aluop === alu_srl) || (aluop === alu_sra)) && rv64
+  val srl = Wire(Bool())
+  val sra = Wire(Bool())
+  srl := (aluop === alu_srl) && rv64
+  sra := (aluop === alu_sra) && rv64
 
-  val src1 = Mux(strange, Cat(Fill(32, io.src1(31)), io.src1(31, 0)), io.src1)
+  val src1 = Mux(sra, Cat(Fill(32, io.src1(31)), io.src1(31, 0)), Mux(srl, Cat(Fill(32, 0.U), io.src1)))
   val src2 = io.src2
 
   val shamt = Mux(rv64, src2(4, 0), src2(5, 0))
