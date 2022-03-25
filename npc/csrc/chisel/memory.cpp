@@ -47,6 +47,7 @@ extern "C" void pmem_read(long long mem_raddr, long long *mem_rdata, bool mem_re
 {
     printf("mem_raddr: %llx\n", mem_raddr);
     assert(mem_raddr >= 0x80000000 || !mem_read);
+    if(mem_raddr == 0x180000010) return;
     if (mem_read)
     {
         *mem_rdata = *(long long *)(pmem + (mem_raddr & ~0x7ull) - 0x80000000);
