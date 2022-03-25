@@ -162,9 +162,9 @@ int main(int argc, char **argv, char **env)
     init_regex();
 
     reset_npc(10);
-
+    assert(0);
     difftest_read_regs(difftest_regs);
-        assert(0);
+    
     init_difftest(diff_so_file, img_size, difftest_regs);
 #ifdef ITRACE
     init_disasm("riscv64-pc-linux-gnu");
