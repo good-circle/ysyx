@@ -53,6 +53,8 @@ extern "C" void pmem_read(long long mem_raddr, long long *mem_rdata, bool mem_re
 
 extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wmask, bool mem_write)
 {
+        assert(mem_waddr >= 0x80000000);
+
     if (mem_write)
     {
         unsigned long long real_mask = 0;
