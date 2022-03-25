@@ -321,7 +321,7 @@ class Top extends Module {
   ))
 
   ebreak := (inst_valid === n)
-  inst_ready := ~reset
+  inst_ready := !reset
 
   blackbox.io.mem_raddr := mem_raddr
   blackbox.io.mem_read := mem_read
