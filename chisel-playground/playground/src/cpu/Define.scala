@@ -44,7 +44,7 @@ object Define {
   val mem_lbu = 4.U(4.W)
   val mem_lhu = 5.U(4.W)
   val mem_sb = 6.U(4.W)
-  val mem_sh 7.U(4.W)
+  val mem_sh = 7.U(4.W)
   val mem_sw = 8.U(4.W)
   val mem_lwu = 9.U(4.W)
   val mem_ld = 10.U(4.W)
