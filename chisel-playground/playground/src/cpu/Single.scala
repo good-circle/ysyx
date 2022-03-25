@@ -21,7 +21,7 @@ class Single extends Module {
   pc := next_pc
 
   // List(valid, inst_type, fu_type, alu_op, bru_op, mem_op, src1, src2, wen, rv64)
-  val information: Seq[Element] = ListLookup(inst, List(n, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare), Array(
+  val information = ListLookup(inst, List(n, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare), Array(
     // RV32I
     LUI    ->  List(y, u_type, fu_alu, alu_add   , bru_x   , mem_x  , 0.U     , src_imm, y, n),
     AUIPC  ->  List(y, u_type, fu_alu, alu_add   , bru_x   , mem_x  , src_pc  , src_imm, y, n),
