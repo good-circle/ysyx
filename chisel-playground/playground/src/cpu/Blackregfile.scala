@@ -3,6 +3,7 @@ import chisel3.util._
 
 class Blackregfile extends BlackBox with HasBlackBoxInline{
   val io = IO(new Bundle {
+    val clock = Input(Clock())
     val raddr1 = Input(UInt(5.W))
     val rdata1 = Output(UInt(64.W))
 
@@ -15,7 +16,7 @@ class Blackregfile extends BlackBox with HasBlackBoxInline{
   })
   setInline("Blackregfile.v",
     """module Blackregfile(
-      |    input         clk,
+      |    input         clock,
       |
       |    input  [ 4:0] raddr1,
       |    output [63:0] rdata1,
@@ -30,7 +31,7 @@ class Blackregfile extends BlackBox with HasBlackBoxInline{
       |
       |reg [63:0] rf [31:0];
       |
-      |always @(posedge clk) begin
+      |always @(posedge clock) begin
       |    if (wen) rf[waddr] <= wdata;
       |end
       |
