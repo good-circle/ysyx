@@ -8,7 +8,7 @@ class Single extends Module {
     val pc_out = Output(UInt(64.W))
   })
 
-  io.pc := pc
+  io.pc_out := pc
 
   val inst = Wire(UInt(32.W))
   inst := Mux(pc(2), inst_2(63, 32), inst_2(31, 0))
@@ -17,7 +17,6 @@ class Single extends Module {
   val next_pc = Wire(UInt(64.W))
   next_pc := Mux(br_taken, br_target, pc + 4.U)
   pc := next_pc
-  pc_out := pc
 
   // List(valid, inst_type, fu_type, alu_op, bru_op, mem_op, src1, src2, wen, rv64)
   val information = ListLookup(inst, List(n, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U), Array(
