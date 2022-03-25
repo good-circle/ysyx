@@ -88,7 +88,7 @@ void npc_exec(unsigned int n)
 {
     struct timeval begin;
     struct timeval end;
-    gettimeofday(&start, NULL);
+    gettimeofday(&begin, NULL);
     while (!is_finish && n > 0)
     {
         inst_num++;
