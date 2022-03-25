@@ -31,7 +31,7 @@ class ALU extends Module {
     alu_srl    ->  (src1 >> shamt).asUInt,
     alu_sra    ->  (src1.asSInt >> shamt).asUInt,
     alu_mul    ->  (src1 * src2).asUInt,
-    alu_mulh   ->  (src1.asSInt * src2.asSInt >> 64.asUInt),
+    alu_mulh   ->  (src1.asSInt * src2.asSInt >> 64).asUInt,
     alu_mulhsu ->  (src1.asSInt * src2.asUInt >> 64).asUInt,
     alu_mulhu  ->  (src1.asUInt * src2.asUInt >> 64).asUInt,
     alu_div    ->  (src1.asSInt / src2.asSInt).asUInt,
