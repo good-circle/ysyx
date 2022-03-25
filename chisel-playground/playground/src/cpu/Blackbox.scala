@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.util._
 
 class Blackbox extends Blackbox with HasBlackBoxInline {
-  val io = IO(new Bundle() {
+  val io = IO(new Bundle {
     val mem_read = Input(Bool())
     val mem_raddr = Input(UInt(64.W))
     val mem_rdata = Output(UInt(64.W))
