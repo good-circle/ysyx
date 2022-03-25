@@ -89,7 +89,7 @@ void npc_exec(unsigned int n)
     while (!is_finish && n > 0)
     {
         u_int64_t last_pc = top->io_pc;
-        printf("%08lx ", top->io_pc);
+        //printf("%08lx ", top->io_pc);
         //top->inst = inst_fetch(top->io_pc);
         //printf("%08x\n", top->inst);
 
@@ -160,6 +160,8 @@ int main(int argc, char **argv, char **env)
     parse_args(argc, argv);
     int img_size = init_pmem();
     init_regex();
+
+    assert(0);
 
     reset_npc(10);
 
