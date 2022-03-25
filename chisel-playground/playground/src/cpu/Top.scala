@@ -3,7 +3,7 @@ import chisel3.util._
 import Instructions._
 import Define._
 
-class Single extends Module {
+class Top extends Module {
   val io = IO(new Bundle {
     val pc = Output(UInt(64.W))
   })
