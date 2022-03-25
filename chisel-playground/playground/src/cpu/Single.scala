@@ -96,7 +96,7 @@ class Single extends Module {
     EBREAK ->  List(n, i_type, fu_alu, alu_x     , bru_x   , mem_x  , 0.U     , 0.U    , y, y)
   ))
 
-  val (inst_valid: UInt) :: (inst_type: UInt) :: (fu_type: UInt) :: (alu_op: UInt) :: (bru_op: UInt) :: (mem_op: UInt) :: (src1: UInt) :: (src2: UInt) :: (wen : UInt) :: (rv64 : UInt) :: Nil = information
+  val (inst_valid: Bool) :: (inst_type: UInt) :: (fu_type: UInt) :: (alu_op: UInt) :: (bru_op: UInt) :: (mem_op: UInt) :: (src1: UInt) :: (src2: UInt) :: (wen : Bool) :: (rv64 : Bool) :: Nil = information
   
   val dest = Wire(UInt(5.W))
   val imm = Wire(UInt(64.W))

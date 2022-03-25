@@ -11,8 +11,9 @@ object Define {
   val mem_x :: mem_lb :: mem_lh :: mem_lw :: mem_lbu :: mem_lhu :: mem_sb :: mem_sh :: mem_sw :: mem_lwu :: mem_ld :: mem_sd :: Nil = Enum(12)
 
   val r_type :: i_type :: s_type :: b_type :: u_type :: j_type :: Nil = Enum(6)
-
-  val y :: n :: Nil = Enum(2)
+  
+  val y = true.B
+  val n = false.B
 
   val fu_alu :: fu_bru :: fu_mem :: fu_csr :: Nil = Enum(4)
 
