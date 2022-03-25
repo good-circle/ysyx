@@ -12,6 +12,64 @@ class Single extends Module {
   val next_pc = Wire(UInt(64.W))
   val inst = Wire(UInt(32.W))
 
+  val imm = Wire(UInt(64.W))
+
+  val imm_i = Cat(Fill(52, inst(31)), inst(31, 20))
+  val imm_s = Cat(Fill(52, inst(31)), inst(31, 25), inst(11, 7))
+  val imm_b = Cat(Fill(52, inst(31)), inst(7), inst(30, 25), inst(11, 8), 0.U)
+  val imm_u = Cat(Fill(32, inst(31)), inst(31, 12), Fill(12, 0.U))
+  val imm_j = Cat(Fill(44, inst(31)), inst(19, 12), inst(20), inst(30, 21), 0.U)
+
+  val src1_value = Wire(UInt(64.W))
+  val src2_value = Wire(UInt(64.W))
+
+  val br_taken = Wire(Bool())
+  val br_target = Wire(UInt(64.W))
+
+  val alu_result = Wire(UInt(64.W))
+  
+  val rf_waddr = Wire(UInt(5.W))
+  val rf_wdata = Wire(UInt(64.W))
+  val rf_raddr1 = Wire(UInt(5.W))
+  val rf_raddr2 = Wire(UInt(5.W))
+  val rs1_value = Wire(UInt(64.W))
+  val rs2_value = Wire(UInt(64.W))
+
+  val mem_read = Wire(Bool())
+  val mem_raddr = Wire(UInt(64.W))
+  val mem_rdata = Wire(UInt(64.W))
+
+  val mem_write = Wire(Bool())
+  val mem_waddr = Wire(UInt(64.W))
+  val mem_wmask = Wire(UInt(8.W))
+  val mem_wdata = Wire(UInt(64.W))
+
+  val inst_ready = Wire(Bool())
+  val inst_2 = Wire(UInt(64.W))
+
+  val ebreak = Wire(Bool())
+
+  val sb_wmask = Wire(UInt(8.W))
+  val sh_wmask = Wire(UInt(8.W))
+  val sw_wmask = Wire(UInt(8.W))
+  val sd_wmask = Wire(UInt(8.W))
+  val sb_wdata = Wire(UInt(64.W))
+  val sh_wdata = Wire(UInt(64.W))
+  val sw_wdata = Wire(UInt(64.W))
+  val sd_wdata = Wire(UInt(64.W))
+
+  val waddr_low = Wire(UInt(3.W))
+
+  val raddr_low = Wire(UInt(3.W))
+  val lb_rdata = Wire(UInt(64.W))
+  val lbu_rdata = Wire(UInt(64.W))
+  val lh_rdata = Wire(UInt(64.W))
+  val lhu_rdata = Wire(UInt(64.W))
+  val lw_rdata = Wire(UInt(64.W))
+  val lwu_rdata = Wire(UInt(64.W))
+  val ld_rdata = Wire(UInt(64.W))
+  val load_rdata = Wire(UInt(64.W))
+
   // List(valid, inst_type, fu_type, alu_op, bru_op, mem_op, src1, src2, wen, rv64)
   val information = ListLookup(inst, List(n, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, n, n), Array(
     // RV32I
@@ -90,17 +148,6 @@ class Single extends Module {
 
   val (inst_valid: Bool) :: inst_type :: fu_type :: alu_op :: bru_op :: mem_op :: src1 :: src2 :: (wen : Bool) :: (rv64 : Bool) :: Nil = information
 
-  val dest = Wire(UInt(5.W))
-  val imm = Wire(UInt(64.W))
-
-  dest := Mux(wen, inst(11, 7), DontCare)
-
-  val imm_i = Cat(Fill(52, inst(31)), inst(31, 20))
-  val imm_s = Cat(Fill(52, inst(31)), inst(31, 25), inst(11, 7))
-  val imm_b = Cat(Fill(52, inst(31)), inst(7), inst(30, 25), inst(11, 8), 0.U)
-  val imm_u = Cat(Fill(32, inst(31)), inst(31, 12), Fill(12, 0.U))
-  val imm_j = Cat(Fill(44, inst(31)), inst(19, 12), inst(20), inst(30, 21), 0.U)
-
   imm := MuxLookup(inst_type, 0.U, Array(
     i_type -> imm_i,
     s_type -> imm_s,
@@ -109,8 +156,7 @@ class Single extends Module {
     j_type -> imm_j
   ))
 
-  val src1_value = Wire(UInt(64.W))
-  val src2_value = Wire(UInt(64.W))
+
   src1_value := MuxLookup(src1, 0.U, Array(
     src_pc -> pc,
     src_rf -> rs1_value,
@@ -123,9 +169,6 @@ class Single extends Module {
   /* bru */
   val bru = Module(new BRU)
 
-  val br_taken = Wire(Bool())
-  val br_target = Wire(UInt(64.W))
-
   br_taken := bru.io.br_taken
   br_target := bru.io.br_target
 
@@ -137,7 +180,7 @@ class Single extends Module {
 
   /* alu */
   val alu = Module(new ALU)
-  val alu_result = Wire(UInt(64.W))
+
 
   alu_result := alu.io.result
   alu.io.aluop := alu_op
@@ -148,11 +191,6 @@ class Single extends Module {
   /* regfile */
   val regfile = Module(new Regfile)
 
-  val rf_waddr = Wire(UInt(5.W))
-  val rf_wdata = Wire(UInt(64.W))
-  val rf_raddr1 = Wire(UInt(5.W))
-  val rf_raddr2 = Wire(UInt(5.W))
-
   rf_waddr := inst(11, 7)
   rf_wdata := MuxLookup(fu_type, 0.U, Array(
     fu_alu -> alu_result,
@@ -161,9 +199,6 @@ class Single extends Module {
   ))
   rf_raddr1 := inst(19, 15)
   rf_raddr2 := inst(24, 20)
-
-  val rs1_value = Wire(UInt(64.W))
-  val rs2_value= Wire(UInt(64.W))
 
   rs1_value := regfile.io.rdata1
   rs2_value := regfile.io.rdata2
@@ -182,30 +217,6 @@ class Single extends Module {
   /* blackbox */
   val blackbox = Module(new Blackbox)
 
-  val mem_read = Wire(Bool())
-  val mem_raddr = Wire(UInt(64.W))
-  val mem_rdata = Wire(UInt(64.W))
-
-  val mem_write = Wire(Bool())
-  val mem_waddr = Wire(UInt(64.W))
-  val mem_wmask = Wire(UInt(8.W))
-  val mem_wdata = Wire(UInt(64.W))
-
-  val inst_ready = Wire(Bool())
-  val inst_2 = Wire(UInt(64.W))
-
-  val ebreak = Wire(Bool())
-
-  val sb_wmask = Wire(UInt(8.W))
-  val sh_wmask = Wire(UInt(8.W))
-  val sw_wmask = Wire(UInt(8.W))
-  val sd_wmask = Wire(UInt(8.W))
-  val sb_wdata = Wire(UInt(64.W))
-  val sh_wdata = Wire(UInt(64.W))
-  val sw_wdata = Wire(UInt(64.W))
-  val sd_wdata = Wire(UInt(64.W))
-
-  val waddr_low = Wire(UInt(3.W))
   waddr_low := mem_waddr(2, 0)
 
   sb_wmask := MuxLookup(waddr_low, 0.U, Array(
@@ -235,17 +246,7 @@ class Single extends Module {
   sw_wdata := Fill(2, rs2_value(31, 0))
   sd_wdata := rs2_value(63, 0)
 
-  val raddr_low = Wire(UInt(3.W))
   raddr_low := mem_raddr(2, 0)
-
-  val lb_rdata = Wire(UInt(64.W))
-  val lbu_rdata = Wire(UInt(64.W))
-  val lh_rdata = Wire(UInt(64.W))
-  val lhu_rdata = Wire(UInt(64.W))
-  val lw_rdata = Wire(UInt(64.W))
-  val lwu_rdata = Wire(UInt(64.W))
-  val ld_rdata = Wire(UInt(64.W))
-  val load_rdata = Wire(UInt(64.W))
 
   lb_rdata := MuxLookup(raddr_low, 0.U, Array(
     0.U -> Cat(Fill(56, mem_rdata(7)), mem_rdata(7, 0)),
