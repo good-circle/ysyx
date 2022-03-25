@@ -1,5 +1,3 @@
-package cpu
-
 import chisel3._
 import chisel3.util._
 
@@ -62,10 +60,10 @@ object Define {
   val n = false.B
 
   //val fu_alu :: fu_bru :: fu_mem :: fu_csr :: Nil = Enum(4)
-  val fu_alu = 0.U(3.W) 
-  val fu_bru = 1.U(3.W) 
-  val fu_mem = 2.U(3.W) 
-  val fu_csr = 3.U(3.W) 
+  val fu_alu = 0.U(2.W) 
+  val fu_bru = 1.U(2.W) 
+  val fu_mem = 2.U(2.W) 
+  val fu_csr = 3.U(2.W) 
   
   //val src_pc :: src_rf :: src_imm :: Nil = Enum(3)
   val src_pc = 0.U(2.W) 
