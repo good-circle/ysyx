@@ -1,5 +1,5 @@
 IMG ?=
-override ARGS ?= -d $(REF_SO)
+override ARGS ?= -b -d $(REF_SO)
 
 REF_SO := $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 
