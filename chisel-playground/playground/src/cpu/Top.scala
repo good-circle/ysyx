@@ -27,7 +27,7 @@ class Top extends Module {
   val br_target = Wire(UInt(64.W))
 
   val alu_result = Wire(UInt(64.W))
-  
+
   val rf_waddr = Wire(UInt(5.W))
   val rf_wdata = Wire(UInt(64.W))
   val rf_raddr1 = Wire(UInt(5.W))
@@ -189,7 +189,7 @@ class Top extends Module {
   alu.io.src2 := src2
 
   /* regfile */
-  val regfile = Module(new Regfile)
+  val regfile = Module(new Blackregfile)
 
   rf_waddr := inst(11, 7)
   rf_wdata := MuxLookup(fu_type, 0.U, Array(

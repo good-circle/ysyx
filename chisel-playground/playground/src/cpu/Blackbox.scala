@@ -56,7 +56,8 @@ class Blackbox extends BlackBox with HasBlackBoxInline {
       |    pmem_read(pc, inst_2, inst_ready);
       |end
       |
-      |endmodule""".stripMargin)
+      |endmodule
+      |""".stripMargin)
 
 }
 
