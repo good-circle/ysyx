@@ -1,7 +1,7 @@
 import chisel3._
 import chisel3.util._
-import cpu.Instructions._
-import cpu.Define._
+import Instructions._
+import Define._
 
 class Single extends Module {
   val io = IO(new Bundle {
