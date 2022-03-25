@@ -169,7 +169,6 @@ int main(int argc, char **argv, char **env)
 #ifdef ITRACE
     init_disasm("riscv64-pc-linux-gnu");
 #endif
-    top->clock = 1;
     top->reset = 0;
 
     svSetScope(svGetScopeFromName("TOP.Top"));
