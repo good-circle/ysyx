@@ -6,10 +6,7 @@ test:
 verilog:
 	$(call git_commit, "generate verilog")
 	mkdir -p $(BUILD_DIR)
-	mill -i __.test.runMain Elaborate -td $(BUILD_DIR)
-	rm $(NPC_HOME)/vsrc/chisel/*.v
-	cp $(wildcard *.v)$(NPC_HOME)/vsrc/chisel
-	
+	mill -i __.test.runMain Elaborate -td $(BUILD_DIR)	
 
 help:
 	mill -i __.test.runMain Elaborate --help
