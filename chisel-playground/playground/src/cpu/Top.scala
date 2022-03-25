@@ -121,9 +121,9 @@ class Top extends Module {
     SLLW   ->  List(y, r_type, fu_alu, alu_sll   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
     SRLW   ->  List(y, r_type, fu_alu, alu_srl   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
     SRAW   ->  List(y, r_type, fu_alu, alu_sra   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
-    LWU    ->  List(y, i_type, fu_mem, alu_add   , bru_x   , mem_lwu, src_rf  , src_imm, y, y),
-    LD     ->  List(y, i_type, fu_mem, alu_add   , bru_x   , mem_ld , src_rf  , src_imm, y, y),
-    SD     ->  List(y, s_type, fu_mem, alu_add   , bru_x   , mem_sd , src_rf  , src_imm, n, y),
+    LWU    ->  List(y, i_type, fu_mem, alu_add   , bru_x   , mem_lwu, src_rf  , src_imm, y, n),
+    LD     ->  List(y, i_type, fu_mem, alu_add   , bru_x   , mem_ld , src_rf  , src_imm, y, n),
+    SD     ->  List(y, s_type, fu_mem, alu_add   , bru_x   , mem_sd , src_rf  , src_imm, n, n),
 
     // RV32W
     MUL    ->  List(y, r_type, fu_alu, alu_mul   , bru_x   , mem_x  , src_rf  , src_rf , y, n),
