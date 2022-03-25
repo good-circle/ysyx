@@ -87,6 +87,7 @@ static int parse_args(int argc, char *argv[]) {
 }
 
 void init_monitor(int argc, char *argv[]) {
+    assert(0);
   /* Perform some global initialization. */
 
   /* Parse arguments. */
