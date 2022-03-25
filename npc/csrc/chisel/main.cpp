@@ -146,7 +146,7 @@ void npc_exec(unsigned int n)
         double npc_time = (end.tv_sec - begin.tv_sec) * 1000000 + (end.tv_usec - begin.tv_usec) ;
         printf("number of instructions is %d\n", inst_num);
         printf("total spend time %lfs\n", npc_time / 1000000);
-        double frequency = inst_num * 1000000 / npc_time;
+        double frequency = inst_num  / npc_time;
         printf("simulation frequency = %d inst/s", (int)frequency);
         if (difftest_regs[10] == 0)
         {
