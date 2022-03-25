@@ -37,7 +37,7 @@ class ALU extends Module {
     alu_div    ->  (src1.asSInt / src2.asSInt),
     alu_divu   ->  (src1.asUInt / src2.asUInt),
     alu_rem    ->  (src1.asSInt % src2.asSInt),
-    alu_remu   ->  (src1.asUInt % src2.asUInt),
+    alu_remu   ->  (src1.asUInt % src2.asUInt)
   ))
 
   io.result := Mux(rv64, Cat(Fill(32, tmp_result(31)), tmp_result(31, 0)), tmp_result)
