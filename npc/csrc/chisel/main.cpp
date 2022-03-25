@@ -89,7 +89,7 @@ void npc_exec(unsigned int n)
     while (!is_finish && n > 0)
     {
         u_int64_t last_pc = top->io_pc;
-        printf("%08lx \n", top->io_pc);
+        //printf("%08lx \n", top->io_pc);
         //top->inst = inst_fetch(top->io_pc);
         //printf("%08x\n", top->inst);
 
@@ -118,7 +118,7 @@ void npc_exec(unsigned int n)
         m_trace->dump(2 * npc_time);
         top->clock = !top->clock;
         top->eval();
-
+        printf("%08lx \n", top->io_pc);
         m_trace->dump(2 * npc_time + 1);
         top->clock = !top->clock;
         top->eval();
