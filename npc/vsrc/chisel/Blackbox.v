@@ -1,4 +1,4 @@
-module blackbox(
+module Blackbox(
     input  [63:0] mem_raddr,
     input         mem_read ,
     output [63:0] mem_rdata,
