@@ -21,7 +21,7 @@ class Single extends Module {
   pc := next_pc
 
   // List(valid, inst_type, fu_type, alu_op, bru_op, mem_op, src1, src2, wen, rv64)
-  val information = ListLookup(inst, List(n, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare), Array(
+  val information: Seq[Element] = ListLookup(inst, List(n, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare, DontCare), Array(
     // RV32I
     LUI    ->  List(y, u_type, fu_alu, alu_add   , bru_x   , mem_x  , 0.U     , src_imm, y, n),
     AUIPC  ->  List(y, u_type, fu_alu, alu_add   , bru_x   , mem_x  , src_pc  , src_imm, y, n),
@@ -97,10 +97,10 @@ class Single extends Module {
   ))
 
   val (inst_valid: Bool) :: (inst_type: UInt) :: (fu_type: UInt) :: (alu_op: UInt) :: (bru_op: UInt) :: (mem_op: UInt) :: (src1: UInt) :: (src2: UInt) :: (wen : Bool) :: (rv64 : Bool) :: Nil = information
-  
+
   val dest = Wire(UInt(5.W))
   val imm = Wire(UInt(64.W))
-  
+
   dest := Mux(wen, inst(11, 7), DontCare)
 
   val imm_i = Cat(Fill(52, inst(31)), inst(31, 20))
@@ -303,11 +303,11 @@ class Single extends Module {
     mem_ld -> ld_rdata
   ))
 
-  mem_read := (fu_type === fu_mem) && wen === y
+  mem_read := (fu_type === fu_mem) && (wen === y)
   mem_raddr := alu_result
   mem_rdata := blackbox.io.mem_rdata
 
-  mem_write := (fu_type === fu_mem) && wen === n
+  mem_write := (fu_type === fu_mem) && (wen === n)
   mem_waddr := alu_result
   mem_wmask := MuxLookup(mem_op, 0.U, Array(
     mem_sb -> sb_wmask,
