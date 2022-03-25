@@ -1,5 +1,5 @@
 module Blackregfile(
-    input         clk,
+    input         clock,
 
     input  [ 4:0] raddr1,
     output [63:0] rdata1,
@@ -14,7 +14,7 @@ module Blackregfile(
 
 reg [63:0] rf [31:0];
 
-always @(posedge clk) begin
+always @(posedge clock) begin
     if (wen) rf[waddr] <= wdata;
 end
 

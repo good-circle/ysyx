@@ -101,6 +101,7 @@ module Top(
   wire [63:0] alu_io_src1; // @[Top.scala 182:19]
   wire [63:0] alu_io_src2; // @[Top.scala 182:19]
   wire [63:0] alu_io_result; // @[Top.scala 182:19]
+  wire  regfile_clock; // @[Top.scala 192:23]
   wire [4:0] regfile_raddr1; // @[Top.scala 192:23]
   wire [63:0] regfile_rdata1; // @[Top.scala 192:23]
   wire [4:0] regfile_raddr2; // @[Top.scala 192:23]
@@ -785,6 +786,7 @@ module Top(
     .io_result(alu_io_result)
   );
   Blackregfile regfile ( // @[Top.scala 192:23]
+    .clock(regfile_clock),
     .raddr1(regfile_raddr1),
     .rdata1(regfile_rdata1),
     .raddr2(regfile_raddr2),
@@ -816,6 +818,7 @@ module Top(
   assign alu_io_rv64 = _information_T_1 ? 1'h0 : _information_T_745; // @[Lookup.scala 33:37]
   assign alu_io_src1 = {{62'd0}, information_6}; // @[Lookup.scala 33:37]
   assign alu_io_src2 = {{62'd0}, information_7}; // @[Lookup.scala 33:37]
+  assign regfile_clock = 1'h0;
   assign regfile_raddr1 = inst[19:15]; // @[Top.scala 200:20]
   assign regfile_raddr2 = inst[24:20]; // @[Top.scala 201:20]
   assign regfile_waddr = inst[11:7]; // @[Top.scala 194:19]
