@@ -93,7 +93,7 @@ void npc_exec(unsigned int n)
         //top->inst = inst_fetch(top->io_pc);
         //printf("%08x\n", top->inst);
 
-#define ITRACE 1
+//#define ITRACE 1
 #ifdef ITRACE
         char start[128];
         char *p = start;
