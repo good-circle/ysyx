@@ -1,5 +1,3 @@
-package cpu
-
 import chisel3._
 
 class Regfile extends Module {

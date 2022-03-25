@@ -1,5 +1,3 @@
-package cpu
-
 import chisel3.util._
 
 object Instructions {
