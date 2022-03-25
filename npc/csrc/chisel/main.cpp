@@ -6,7 +6,7 @@
 
 VerilatedContext *contextp = new VerilatedContext;
 VTop *top = new VTop{contextp};
-VerilatedVcdC *m_trace = new VerilatedVcdC;
+//VerilatedVcdC *m_trace = new VerilatedVcdC;
 svBit is_finish = 0;
 int npc_time = 0;
 
@@ -72,11 +72,11 @@ void reset_npc(uint n)
     top->reset = 1;
     for (int i = 0; i < n; i++)
     {
-        m_trace->dump(2 * npc_time);
+        //m_trace->dump(2 * npc_time);
         top->clock = !top->clock;
         top->eval();
 
-        m_trace->dump(2 * npc_time + 1);
+        //m_trace->dump(2 * npc_time + 1);
         top->clock = !top->clock;
         top->eval();
 
@@ -116,10 +116,10 @@ void npc_exec(unsigned int n)
         //printf("%s\n", start);
 #endif
 */
-        m_trace->dump(2 * npc_time);
+        //m_trace->dump(2 * npc_time);
         top->clock = !top->clock;
         top->eval();
-        m_trace->dump(2 * npc_time + 1);
+        //m_trace->dump(2 * npc_time + 1);
         top->clock = !top->clock;
         top->eval();
 
@@ -154,9 +154,9 @@ void npc_exec(unsigned int n)
 int main(int argc, char **argv, char **env)
 {
     contextp->commandArgs(argc, argv);
-    Verilated::traceEverOn(true);
-    top->trace(m_trace, 99);
-    m_trace->open("waveform.vcd");
+    //Verilated::traceEverOn(true);
+    //top->trace(m_trace, 99);
+    //m_trace->open("waveform.vcd");
 
     parse_args(argc, argv);
     int img_size = init_pmem();
@@ -178,7 +178,7 @@ int main(int argc, char **argv, char **env)
 
     sdb_mainloop();
 
-    m_trace->close();
+    //m_trace->close();
     delete top;
     delete contextp;
 }
