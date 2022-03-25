@@ -44,7 +44,6 @@ uint64_t isa_reg_str2val(const char *s, bool *success)
 
 void difftest_read_regs(uint64_t *difftest_regs)
 {
-    
     difftest_regs[0] = 0;
     for (int i = 1; i < 32; i++)
     {

@@ -44,7 +44,7 @@ class Top extends Module {
   val mem_wmask = Wire(UInt(8.W))
   val mem_wdata = Wire(UInt(64.W))
 
-  val inst_ready = RegInit(false.B)
+  val inst_ready = Wire(Bool())
   val inst_2 = Wire(UInt(64.W))
 
   val ebreak = Wire(Bool())
@@ -73,7 +73,7 @@ class Top extends Module {
   // List(valid, inst_type, fu_type, alu_op, bru_op, mem_op, src1, src2, wen, rv64)
   val information = ListLookup(inst, List(n, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, n, n), Array(
     // RV32I
-    LUI    ->  List(y, u_type, fu_alu, alu_add   , bru_x   , mem_x  , 0.U     , src_imm, y, n),
+    LUI    ->  List(y, u_type, fu_alu, alu_add   , bru_x   , mem_x  , src_x   , src_imm, y, n),
     AUIPC  ->  List(y, u_type, fu_alu, alu_add   , bru_x   , mem_x  , src_pc  , src_imm, y, n),
     JAL    ->  List(y, j_type, fu_bru, alu_x     , bru_jal , mem_x  , src_pc  , src_imm, y, n),
     JALR   ->  List(y, i_type, fu_bru, alu_x     , bru_jalr, mem_x  , src_rf  , src_imm, y, n),
@@ -112,18 +112,18 @@ class Top extends Module {
     AND    ->  List(y, r_type, fu_alu, alu_and   , bru_x   , mem_x  , src_rf  , src_rf , y, n),
 
     // RV64I
-    ADDIW  ->  List(y, i_type, fu_alu, alu_add   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
-    SLLIW  ->  List(y, i_type, fu_alu, alu_sll   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
-    SRLIW  ->  List(y, i_type, fu_alu, alu_srl   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
-    SRAIW  ->  List(y, i_type, fu_alu, alu_sra   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
+    ADDIW  ->  List(y, i_type, fu_alu, alu_add   , bru_x   , mem_x  , src_rf  , src_imm, y, y),
+    SLLIW  ->  List(y, i_type, fu_alu, alu_sll   , bru_x   , mem_x  , src_rf  , src_imm, y, y),
+    SRLIW  ->  List(y, i_type, fu_alu, alu_srl   , bru_x   , mem_x  , src_rf  , src_imm, y, y),
+    SRAIW  ->  List(y, i_type, fu_alu, alu_sra   , bru_x   , mem_x  , src_rf  , src_imm, y, y),
     ADDW   ->  List(y, r_type, fu_alu, alu_add   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
     SUBW   ->  List(y, r_type, fu_alu, alu_sub   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
     SLLW   ->  List(y, r_type, fu_alu, alu_sll   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
     SRLW   ->  List(y, r_type, fu_alu, alu_srl   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
     SRAW   ->  List(y, r_type, fu_alu, alu_sra   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
-    LWU    ->  List(y, i_type, fu_mem, alu_add   , bru_x   , mem_lwu, src_rf  , src_imm, y, y),
-    LD     ->  List(y, i_type, fu_mem, alu_add   , bru_x   , mem_ld , src_rf  , src_imm, y, y),
-    SD     ->  List(y, s_type, fu_mem, alu_add   , bru_x   , mem_sd , src_rf  , src_imm, n, y),
+    LWU    ->  List(y, i_type, fu_mem, alu_add   , bru_x   , mem_lwu, src_rf  , src_imm, y, n),
+    LD     ->  List(y, i_type, fu_mem, alu_add   , bru_x   , mem_ld , src_rf  , src_imm, y, n),
+    SD     ->  List(y, s_type, fu_mem, alu_add   , bru_x   , mem_sd , src_rf  , src_imm, n, n),
 
     // RV32W
     MUL    ->  List(y, r_type, fu_alu, alu_mul   , bru_x   , mem_x  , src_rf  , src_rf , y, n),
@@ -185,8 +185,8 @@ class Top extends Module {
   alu_result := alu.io.result
   alu.io.aluop := alu_op
   alu.io.rv64 := rv64
-  alu.io.src1 := src1
-  alu.io.src2 := src2
+  alu.io.src1 := src1_value
+  alu.io.src2 := src2_value
 
   /* regfile */
   val regfile = Module(new Blackregfile)
@@ -321,7 +321,7 @@ class Top extends Module {
   ))
 
   ebreak := (inst_valid === n)
-  inst_ready := true.B
+  inst_ready := !(reset.asBool)
 
   blackbox.io.mem_raddr := mem_raddr
   blackbox.io.mem_read := mem_read
