@@ -20,24 +20,24 @@ class ALU extends Module {
   val tmp_result = Wire(UInt(64.W))
 
   tmp_result := MuxLookup(aluop, 0.U, Array(
-    alu_add    ->  (src1 + src2),
-    alu_sub    ->  (src1 - src2),
-    alu_and    ->  (src1 & src2),
-    alu_or     ->  (src1 | src2),
-    alu_xor    ->  (src1 ^ src2),
-    alu_slt    ->  (src1.asSInt < src2.asSInt),
-    alu_sltu   ->  (src1 < src2),
-    alu_sll    ->  (src1 << shamt),
-    alu_srl    ->  (src1 >> shamt),
-    alu_sra    ->  (src1.asSInt >> shamt),
-    alu_mul    ->  (src1 * src2),
-    alu_mulh   ->  (src1.asSInt * src2.asSInt >> 64),
-    alu_mulhsu ->  (src1.asSInt * src2.asUInt >> 64),
-    alu_mulhu  ->  (src1.asUInt * src2.asUInt >> 64),
-    alu_div    ->  (src1.asSInt / src2.asSInt),
-    alu_divu   ->  (src1.asUInt / src2.asUInt),
-    alu_rem    ->  (src1.asSInt % src2.asSInt),
-    alu_remu   ->  (src1.asUInt % src2.asUInt)
+    alu_add    ->  (src1 + src2).asUInt,
+    alu_sub    ->  (src1 - src2).asUInt,
+    alu_and    ->  (src1 & src2).asUInt,
+    alu_or     ->  (src1 | src2).asUInt,
+    alu_xor    ->  (src1 ^ src2).asUInt,
+    alu_slt    ->  (src1.asSInt < src2.asSInt).asUInt,
+    alu_sltu   ->  (src1 < src2).asUInt,
+    alu_sll    ->  (src1 << shamt).asUInt,
+    alu_srl    ->  (src1 >> shamt).asUInt,
+    alu_sra    ->  (src1.asSInt >> shamt).asUInt,
+    alu_mul    ->  (src1 * src2).asUInt,
+    alu_mulh   ->  (src1.asSInt * src2.asSInt >> 64.asUInt),
+    alu_mulhsu ->  (src1.asSInt * src2.asUInt >> 64).asUInt,
+    alu_mulhu  ->  (src1.asUInt * src2.asUInt >> 64).asUInt,
+    alu_div    ->  (src1.asSInt / src2.asSInt).asUInt,
+    alu_divu   ->  (src1.asUInt / src2.asUInt).asUInt,
+    alu_rem    ->  (src1.asSInt % src2.asSInt).asUInt,
+    alu_remu   ->  (src1.asUInt % src2.asUInt).asUInt
   ))
 
   io.result := Mux(rv64, Cat(Fill(32, tmp_result(31)), tmp_result(31, 0)), tmp_result)
