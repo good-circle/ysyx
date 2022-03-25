@@ -13,8 +13,8 @@ all: sim wave
 
 sim:
 	$(call git_commit, "sim RTL") 
-	verilator -Wall --cc --exe --build --trace --top-module top -LDFLAGS "-lreadline -ldl $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/chisel/*.cpp) $(wildcard ./csrc/chisel/*.cc) $(wildcard ./vsrc/chisel/*.v)
-	./obj_dir/Vtop $(ARGS) $(IMG) 
+	verilator -Wall --cc --exe --build --trace --top-module Top -LDFLAGS "-lreadline -ldl $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/chisel/*.cpp) $(wildcard ./csrc/chisel/*.cc) $(wildcard ./vsrc/chisel/*.v)
+	./obj_dir/VTop $(ARGS) $(IMG) 
 
 wave:
 	$(call git_commit, "check waveform")
