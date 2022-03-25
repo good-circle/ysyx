@@ -88,19 +88,19 @@ void npc_exec(unsigned int n)
 {
     while (!is_finish && n > 0)
     {
-        u_int64_t last_pc = top->pc;
-        //printf("%08lx ", top->pc);
-        //top->inst = inst_fetch(top->pc);
+        u_int64_t last_pc = top->io_pc;
+        //printf("%08lx ", top->io_pc);
+        //top->inst = inst_fetch(top->io_pc);
         //printf("%08x\n", top->inst);
 
 #define ITRACE 1
 #ifdef ITRACE
         char start[128];
         char *p = start;
-        p += snprintf(p, sizeof(start),"0x%08lx:", top->pc);
+        p += snprintf(p, sizeof(start),"0x%08lx:", top->io_pc);
         int ilen = 4;
         int i;
-        int pc_inst = inst_fetch(top->pc);
+        int pc_inst = inst_fetch(top->io_pc);
         u_int8_t *inst = (u_int8_t *)&pc_inst;
         for (i = 0; i < ilen; i++)
         {
@@ -110,7 +110,7 @@ void npc_exec(unsigned int n)
         memset(p, ' ', space_len);
         p += space_len;
 
-        disassemble(p, start + 128 - p, top->pc, (uint8_t *)&pc_inst, ilen);
+        disassemble(p, start + 128 - p, top->io_pc, (uint8_t *)&pc_inst, ilen);
 
         printf("%s\n", start);
 #endif
@@ -141,11 +141,11 @@ void npc_exec(unsigned int n)
         printf("number of instructions is %d\n", inst_num);
         if (difftest_regs[10] == 0)
         {
-            printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
+            printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->io_pc);
         }
         else
         {
-            printf(COLOR_BLUE "NPC: " COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
+            printf(COLOR_BLUE "NPC: " COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->io_pc);
         }
     }
 }
