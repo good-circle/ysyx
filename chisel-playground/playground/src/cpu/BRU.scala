@@ -7,7 +7,7 @@ class BRU extends Module {
     val bruop = Input(UInt(4.W))
     val src1 = Input(UInt(64.W))
     val src2 = Input(UInt(64.W))
-    val pc = Input(UInt(32.W))
+    val pc = Input(UInt(64.W))
     val imm = Input(UInt(32.W))
     val br_taken = Output(Bool())
     val br_target = Output(UInt(64.W))
