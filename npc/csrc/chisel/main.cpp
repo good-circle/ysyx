@@ -118,7 +118,7 @@ void npc_exec(unsigned int n)
         m_trace->dump(2 * npc_time);
 
         top->clock = !top->clock;
-        printf("%08lx \n", top->io_pc);
+
         top->eval();
         printf("%08lx \n", top->io_pc);
         m_trace->dump(2 * npc_time + 1);
