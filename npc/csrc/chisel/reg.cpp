@@ -1,6 +1,6 @@
 #include "common.h"
 
-extern Vtop *top;
+extern VTop *top;
 uint64_t *cpu_gpr = NULL;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
 {
