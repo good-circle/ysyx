@@ -8,7 +8,7 @@ verilog:
 	mkdir -p $(BUILD_DIR)
 	mill -i __.test.runMain Elaborate -td $(BUILD_DIR)
 	rm $(NPC_HOME)/vsrc/chisel/*.v
-	cp /*.v $(NPC_HOME)/vsrc/chisel
+	cp $(wildcard *.v)$(NPC_HOME)/vsrc/chisel
 	
 
 help:
