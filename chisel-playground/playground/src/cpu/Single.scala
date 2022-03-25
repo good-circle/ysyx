@@ -5,18 +5,18 @@ import Define._
 
 class Single extends Module {
   val io = IO(new Bundle {
-    val pc_out = Output(UInt(64.W))
+    val pc = Output(UInt(64.W))
   })
 
-  io.pc_out := pc
-
-  val inst = Wire(UInt(32.W))
-  inst := Mux(pc(2), inst_2(63, 32), inst_2(31, 0))
+  io.pc := pc
 
   val pc = RegInit(0x80000000.U(64.W))
   val next_pc = Wire(UInt(64.W))
   next_pc := Mux(br_taken, br_target, pc + 4.U)
   pc := next_pc
+
+  val inst = Wire(UInt(32.W))
+  inst := Mux(pc(2), inst_2(63, 32), inst_2(31, 0))
 
   // List(valid, inst_type, fu_type, alu_op, bru_op, mem_op, src1, src2, wen, rv64)
   val information = ListLookup(inst, List(n, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U), Array(
