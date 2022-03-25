@@ -112,10 +112,10 @@ class Top extends Module {
     AND    ->  List(y, r_type, fu_alu, alu_and   , bru_x   , mem_x  , src_rf  , src_rf , y, n),
 
     // RV64I
-    ADDIW  ->  List(y, i_type, fu_alu, alu_add   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
-    SLLIW  ->  List(y, i_type, fu_alu, alu_sll   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
-    SRLIW  ->  List(y, i_type, fu_alu, alu_srl   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
-    SRAIW  ->  List(y, i_type, fu_alu, alu_sra   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
+    ADDIW  ->  List(y, i_type, fu_alu, alu_add   , bru_x   , mem_x  , src_rf  , src_imm, y, y),
+    SLLIW  ->  List(y, i_type, fu_alu, alu_sll   , bru_x   , mem_x  , src_rf  , src_imm, y, y),
+    SRLIW  ->  List(y, i_type, fu_alu, alu_srl   , bru_x   , mem_x  , src_rf  , src_imm, y, y),
+    SRAIW  ->  List(y, i_type, fu_alu, alu_sra   , bru_x   , mem_x  , src_rf  , src_imm, y, y),
     ADDW   ->  List(y, r_type, fu_alu, alu_add   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
     SUBW   ->  List(y, r_type, fu_alu, alu_sub   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
     SLLW   ->  List(y, r_type, fu_alu, alu_sll   , bru_x   , mem_x  , src_rf  , src_rf , y, y),
