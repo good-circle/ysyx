@@ -170,7 +170,7 @@ int main(int argc, char **argv, char **env)
 #endif
     top->clock = 1;
     top->reset = 0;
-    
+    assert(0);
     svSetScope(svGetScopeFromName("TOP.Top"));
 
     sdb_mainloop();
