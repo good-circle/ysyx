@@ -13,7 +13,7 @@ class Single extends Module {
   val inst = Wire(UInt(32.W))
   inst := Mux(pc(2), inst_2(63, 32), inst_2(31, 0))
 
-  val pc = RegInit(0x80000000.U(64.W))
+  val pc = RegInit(0.U(64.W))
   val next_pc = Wire(UInt(64.W))
   next_pc := Mux(br_taken, br_target, pc + 4.U)
   pc := next_pc
