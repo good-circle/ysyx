@@ -9,13 +9,8 @@ class Single extends Module {
   })
 
   val pc = RegInit("x80000000".U(64.W))
-  io.pc := pc
   val next_pc = Wire(UInt(64.W))
-  next_pc := Mux(br_taken, br_target, pc + 4.U)
-  pc := next_pc
-
   val inst = Wire(UInt(32.W))
-  inst := Mux(pc(2), inst_2(63, 32), inst_2(31, 0))
 
   // List(valid, inst_type, fu_type, alu_op, bru_op, mem_op, src1, src2, wen, rv64)
   val information = ListLookup(inst, List(n, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U), Array(
@@ -150,7 +145,6 @@ class Single extends Module {
   alu.io.src1 := src1
   alu.io.src2 := src2
 
-
   /* regfile */
   val regfile = Module(new Regfile)
 
@@ -179,6 +173,11 @@ class Single extends Module {
   regfile.io.waddr := rf_waddr
   regfile.io.wdata := rf_wdata
   regfile.io.wen := wen
+
+  io.pc := pc
+  next_pc := Mux(br_taken, br_target, pc + 4.U)
+  pc := next_pc
+  inst := Mux(pc(2), inst_2(63, 32), inst_2(31, 0))
 
   /* blackbox */
   val blackbox = Module(new Blackbox)
