@@ -20,7 +20,7 @@ class ALU extends Module {
   sra := (aluop === alu_sra) && rv64
 
   val src1 = MuxCase(io.src1, Array(
-    srl -> Cat(Fill(32, 0.U), io.src1(31, 0))
+    srl -> Cat(Fill(32, 0.U), io.src1(31, 0)),
     sra -> Cat(Fill(32, io.src1(31)), io.src1(31, 0))
   ))
   val src2 = io.src2
