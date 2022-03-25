@@ -171,8 +171,8 @@ int main(int argc, char **argv, char **env)
     top->clock = 1;
     top->reset = 0;
     
-    svSetScope(svGetScopeFromName("TOP.top"));
-    assert(0);
+    svSetScope(svGetScopeFromName("TOP.Top"));
+
     sdb_mainloop();
 
     m_trace->close();
