@@ -112,13 +112,12 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Load the image to memory. This will overwrite the built-in image. */
   long img_size = load_img();
-
+  assert(0);
   /* Initialize differential testing. */
   init_difftest(diff_so_file, img_size, difftest_port);
 
   /* Initialize the simple debugger. */
   init_sdb();
-  assert(0);
 
   IFDEF(CONFIG_ITRACE, init_disasm(
     MUXDEF(CONFIG_ISA_x86,     "i686",
