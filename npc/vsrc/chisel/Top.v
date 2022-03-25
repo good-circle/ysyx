@@ -87,7 +87,6 @@ module Top(
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [63:0] _RAND_0;
-  reg [31:0] _RAND_1;
 `endif // RANDOMIZE_REG_INIT
   wire [3:0] bru_io_bruop; // @[Top.scala 170:19]
   wire [63:0] bru_io_src1; // @[Top.scala 170:19]
@@ -141,7 +140,6 @@ module Top(
   wire  imm_j_hi_lo = inst[20]; // @[Top.scala 21:57]
   wire [9:0] imm_j_lo_hi = inst[30:21]; // @[Top.scala 21:67]
   wire [63:0] imm_j = {imm_j_hi_hi_hi,imm_j_hi_hi_lo,imm_j_hi_lo,imm_j_lo_hi,1'h0}; // @[Cat.scala 30:58]
-  reg  inst_ready; // @[Top.scala 47:27]
   wire [31:0] _information_T = inst & 32'h7f; // @[Lookup.scala 31:38]
   wire  _information_T_1 = 32'h37 == _information_T; // @[Lookup.scala 31:38]
   wire  _information_T_3 = 32'h17 == _information_T; // @[Lookup.scala 31:38]
@@ -831,7 +829,7 @@ module Top(
   assign blackbox_mem_waddr = alu_io_result; // @[Top.scala 29:24 Top.scala 185:14]
   assign blackbox_mem_wmask = 4'hb == information_5 ? 8'hff : _mem_wmask_T_5; // @[Mux.scala 80:57]
   assign blackbox_mem_wdata = 4'hb == information_5 ? rs2_value : _mem_wdata_T_5; // @[Mux.scala 80:57]
-  assign blackbox_inst_ready = inst_ready; // @[Top.scala 334:26]
+  assign blackbox_inst_ready = ~reset; // @[Top.scala 324:17]
   assign blackbox_pc = pc; // @[Top.scala 335:18]
   assign blackbox_ebreak = ~information_0; // @[Top.scala 323:25]
   always @(posedge clock) begin
@@ -841,11 +839,6 @@ module Top(
       pc <= br_target;
     end else begin
       pc <= _rf_wdata_T_1;
-    end
-    if (reset) begin // @[Top.scala 47:27]
-      inst_ready <= 1'h0; // @[Top.scala 47:27]
-    end else begin
-      inst_ready <= 1'h1; // @[Top.scala 324:14]
     end
   end
 // Register and memory initialization
@@ -886,8 +879,6 @@ initial begin
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {2{`RANDOM}};
   pc = _RAND_0[63:0];
-  _RAND_1 = {1{`RANDOM}};
-  inst_ready = _RAND_1[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
