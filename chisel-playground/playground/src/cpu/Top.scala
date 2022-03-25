@@ -44,7 +44,7 @@ class Top extends Module {
   val mem_wmask = Wire(UInt(8.W))
   val mem_wdata = Wire(UInt(64.W))
 
-  val inst_ready = RegInit(false.B)
+  val inst_ready = Wire(Bool())
   val inst_2 = Wire(UInt(64.W))
 
   val ebreak = Wire(Bool())
@@ -321,7 +321,7 @@ class Top extends Module {
   ))
 
   ebreak := (inst_valid === n)
-  inst_ready := true.B
+  inst_ready := ~reset
 
   blackbox.io.mem_raddr := mem_raddr
   blackbox.io.mem_read := mem_read
