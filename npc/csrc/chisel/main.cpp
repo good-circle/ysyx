@@ -86,6 +86,7 @@ void reset_npc(uint n)
 
 void npc_exec(unsigned int n)
 {
+        assert(0);
     while (!is_finish && n > 0)
     {
         u_int64_t last_pc = top->io_pc;
@@ -162,7 +163,7 @@ int main(int argc, char **argv, char **env)
     init_regex();
 
     reset_npc(10);
-    assert(0);
+
     difftest_read_regs(difftest_regs);
     init_difftest(diff_so_file, img_size, difftest_regs);
 #ifdef ITRACE
