@@ -73,7 +73,7 @@ class Top extends Module {
   // List(valid, inst_type, fu_type, alu_op, bru_op, mem_op, src1, src2, wen, rv64)
   val information = ListLookup(inst, List(n, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, 0.U, n, n), Array(
     // RV32I
-    LUI    ->  List(y, u_type, fu_alu, alu_add   , bru_x   , mem_x  , 0.U     , src_imm, y, n),
+    LUI    ->  List(y, u_type, fu_alu, alu_add   , bru_x   , mem_x  , src_x   , src_imm, y, n),
     AUIPC  ->  List(y, u_type, fu_alu, alu_add   , bru_x   , mem_x  , src_pc  , src_imm, y, n),
     JAL    ->  List(y, j_type, fu_bru, alu_x     , bru_jal , mem_x  , src_pc  , src_imm, y, n),
     JALR   ->  List(y, i_type, fu_bru, alu_x     , bru_jalr, mem_x  , src_rf  , src_imm, y, n),

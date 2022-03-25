@@ -15,5 +15,5 @@ object Define {
 
   val fu_alu :: fu_bru :: fu_mem :: fu_csr :: Nil = Enum(4)
 
-  val src_pc :: src_rf :: src_imm :: Nil = Enum(3)
+  val src_x :: src_pc :: src_rf :: src_imm :: Nil = Enum(4)
 }
