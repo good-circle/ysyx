@@ -44,10 +44,10 @@ uint64_t isa_reg_str2val(const char *s, bool *success)
 
 void difftest_read_regs(uint64_t *difftest_regs)
 {
-    printf("111\n");
+    
     difftest_regs[0] = 0;
     for (int i = 1; i < 32; i++)
-    {
+    {printf("111\n");
         difftest_regs[i] = cpu_gpr[i];
     }
     difftest_regs[32] = top->io_pc;
