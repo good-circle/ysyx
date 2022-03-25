@@ -8,7 +8,7 @@ class Single extends Module {
     val pc = Output(UInt(64.W))
   })
 
-  val pc = RegInit(0x80000000.U(64.W))
+  val pc = RegInit("x80000000".U(64.W))
   io.pc := pc
   val next_pc = Wire(UInt(64.W))
   next_pc := Mux(br_taken, br_target, pc + 4.U)
