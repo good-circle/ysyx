@@ -7,6 +7,9 @@ verilog:
 	$(call git_commit, "generate verilog")
 	mkdir -p $(BUILD_DIR)
 	mill -i __.test.runMain Elaborate -td $(BUILD_DIR)
+	rm $(NPC_HOME)/vsrc/chisel/*.v
+	cp *.v $(NPC_HOME)/vsrc/chisel
+	
 
 help:
 	mill -i __.test.runMain Elaborate --help

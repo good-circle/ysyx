@@ -185,8 +185,8 @@ class Top extends Module {
   alu_result := alu.io.result
   alu.io.aluop := alu_op
   alu.io.rv64 := rv64
-  alu.io.src1 := src1
-  alu.io.src2 := src2
+  alu.io.src1 := src1_value
+  alu.io.src2 := src2_value
 
   /* regfile */
   val regfile = Module(new Blackregfile)
