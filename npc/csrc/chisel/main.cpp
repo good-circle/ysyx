@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <getopt.h>
-
+#include <sys/time.h>
 #include "common.h"
 
 VerilatedContext *contextp = new VerilatedContext;
@@ -86,6 +86,9 @@ void reset_npc(uint n)
 
 void npc_exec(unsigned int n)
 {
+    struct timeval begin;
+    struct timeval end;
+    gettimeofday(&start, NULL);
     while (!is_finish && n > 0)
     {
         inst_num++;
@@ -139,7 +142,10 @@ void npc_exec(unsigned int n)
 
     if (is_finish)
     {
+        gettimeofday(&end, NULL);
+        double npc_time = (end.tv_sec - begin.tv_sec) + (end.tv_usec - begin.tv_usec) / 1000000;
         printf("number of instructions is %d\n", inst_num);
+        printf("total spend time %lfs\n", npc_time);
         if (difftest_regs[10] == 0)
         {
             printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->io_pc);
