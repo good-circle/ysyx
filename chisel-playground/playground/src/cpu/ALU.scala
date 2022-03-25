@@ -17,7 +17,7 @@ class ALU extends Module {
   val strange = Wire(Bool())
   strange := ((aluop === alu_srl) || (aluop === alu_sra)) && rv64
 
-  val src1 = Mux(strange, io.src1(31, 0), io.src1)
+  val src1 = Mux(strange, Cat(Fill(32, io.src1(31)), io.src1(31, 0)), io.src1)
   val src2 = io.src2
 
   val shamt = Mux(rv64, src2(4, 0), src2(5, 0))
