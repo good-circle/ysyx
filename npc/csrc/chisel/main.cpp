@@ -86,6 +86,7 @@ void reset_npc(uint n)
 
 void npc_exec(unsigned int n)
 {
+    n = 7;
     while (!is_finish && n > 0)
     {
         u_int64_t last_pc = top->io_pc;
