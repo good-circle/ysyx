@@ -3,7 +3,7 @@ module BRU(
   input  [63:0] io_src1,
   input  [63:0] io_src2,
   input  [63:0] io_pc,
-  input  [31:0] io_imm,
+  input  [63:0] io_imm,
   output        io_br_taken,
   output [63:0] io_br_target
 );
@@ -18,10 +18,9 @@ module BRU(
   wire  _io_br_taken_T_19 = 4'h5 == io_bruop ? _io_br_taken_T_4 : _io_br_taken_T_17; // @[Mux.scala 80:57]
   wire  _io_br_taken_T_21 = 4'h6 == io_bruop ? _io_br_taken_T_7 : _io_br_taken_T_19; // @[Mux.scala 80:57]
   wire  _io_br_taken_T_23 = 4'h7 == io_bruop ? _io_br_taken_T_8 : _io_br_taken_T_21; // @[Mux.scala 80:57]
-  wire [63:0] _GEN_0 = {{32'd0}, io_imm}; // @[BRU.scala 27:56]
-  wire [63:0] _io_br_target_T_2 = io_src1 + _GEN_0; // @[BRU.scala 27:56]
+  wire [63:0] _io_br_target_T_2 = io_src1 + io_imm; // @[BRU.scala 27:56]
   wire [63:0] _io_br_target_T_4 = {_io_br_target_T_2[63:1], 1'h0}; // @[BRU.scala 27:72]
-  wire [63:0] _io_br_target_T_6 = io_pc + _GEN_0; // @[BRU.scala 27:84]
+  wire [63:0] _io_br_target_T_6 = io_pc + io_imm; // @[BRU.scala 27:84]
   assign io_br_taken = 4'h8 == io_bruop ? _io_br_taken_T_9 : _io_br_taken_T_23; // @[Mux.scala 80:57]
   assign io_br_target = io_bruop == 4'h2 ? _io_br_target_T_4 : _io_br_target_T_6; // @[BRU.scala 27:22]
 endmodule
@@ -92,7 +91,7 @@ module Top(
   wire [63:0] bru_io_src1; // @[Top.scala 170:19]
   wire [63:0] bru_io_src2; // @[Top.scala 170:19]
   wire [63:0] bru_io_pc; // @[Top.scala 170:19]
-  wire [31:0] bru_io_imm; // @[Top.scala 170:19]
+  wire [63:0] bru_io_imm; // @[Top.scala 170:19]
   wire  bru_io_br_taken; // @[Top.scala 170:19]
   wire [63:0] bru_io_br_target; // @[Top.scala 170:19]
   wire [4:0] alu_io_aluop; // @[Top.scala 182:19]
@@ -814,7 +813,7 @@ module Top(
   assign bru_io_src1 = 2'h1 == information_6 ? rs1_value : _src1_value_T_1; // @[Mux.scala 80:57]
   assign bru_io_src2 = 2'h2 == information_7 ? imm : _src2_value_T_1; // @[Mux.scala 80:57]
   assign bru_io_pc = pc; // @[Top.scala 178:13]
-  assign bru_io_imm = imm[31:0]; // @[Top.scala 179:14]
+  assign bru_io_imm = 3'h5 == information_1 ? imm_j : _imm_T_7; // @[Mux.scala 80:57]
   assign alu_io_aluop = _information_T_1 ? 5'h1 : _information_T_373; // @[Lookup.scala 33:37]
   assign alu_io_rv64 = _information_T_1 ? 1'h0 : _information_T_745; // @[Lookup.scala 33:37]
   assign alu_io_src1 = 2'h1 == information_6 ? rs1_value : _src1_value_T_1; // @[Mux.scala 80:57]
