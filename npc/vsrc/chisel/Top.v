@@ -94,6 +94,8 @@ module Regfile(
   reg [63:0] _RAND_0;
 `endif // RANDOMIZE_MEM_INIT
   reg [63:0] rf [0:31]; // @[Regfile.scala 14:15]
+  import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
+initial set_gpr_ptr(rf); 
   wire [63:0] rf_io_rdata1_MPORT_data; // @[Regfile.scala 14:15]
   wire [4:0] rf_io_rdata1_MPORT_addr; // @[Regfile.scala 14:15]
   wire [63:0] rf_io_rdata2_MPORT_data; // @[Regfile.scala 14:15]
