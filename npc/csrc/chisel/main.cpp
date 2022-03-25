@@ -112,7 +112,7 @@ void npc_exec(unsigned int n)
 
         disassemble(p, start + 128 - p, top->io_pc, (uint8_t *)&pc_inst, ilen);
 
-        printf("%s\n", start);
+        //printf("%s\n", start);
 #endif
 
         m_trace->dump(2 * npc_time);
