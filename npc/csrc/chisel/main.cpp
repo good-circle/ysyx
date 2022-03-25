@@ -88,12 +88,13 @@ void npc_exec(unsigned int n)
 {
     while (!is_finish && n > 0)
     {
+        inst_num++;
         u_int64_t last_pc = top->io_pc;
         //printf("%08lx \n", top->io_pc);
         //top->inst = inst_fetch(top->io_pc);
         //printf("%08x\n", top->inst);
-
-//#define ITRACE 1
+/*
+#define ITRACE 1
 #ifdef ITRACE
         char start[128];
         char *p = start;
@@ -114,7 +115,7 @@ void npc_exec(unsigned int n)
 
         //printf("%s\n", start);
 #endif
-
+*/
         m_trace->dump(2 * npc_time);
         top->clock = !top->clock;
         top->eval();
@@ -166,9 +167,11 @@ int main(int argc, char **argv, char **env)
     difftest_read_regs(difftest_regs);
     
     init_difftest(diff_so_file, img_size, difftest_regs);
+/*
 #ifdef ITRACE
     init_disasm("riscv64-pc-linux-gnu");
 #endif
+*/
     top->reset = 0;
 
     svSetScope(svGetScopeFromName("TOP.Top"));

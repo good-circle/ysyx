@@ -34,7 +34,6 @@ long init_pmem()
 u_int32_t inst_fetch(unsigned long long pc)
 {
     assert(pc >= 0x80000000);
-    inst_num++;
     return *(u_int32_t *)(pmem + pc - 0x80000000);
 }
 
