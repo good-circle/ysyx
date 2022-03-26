@@ -25,7 +25,7 @@ Context *__am_irq_handle(Context *c)
             ev.event = EVENT_ERROR;
             break;
         }
-                c->mepc += 4;
+                //c->mepc += 4;
         c = user_handler(ev, c);
         assert(c != NULL);
 
