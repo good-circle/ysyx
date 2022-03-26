@@ -43,7 +43,7 @@ Context *schedule(Context *prev)
     printf("prev: %x\n", prev);
     current->cp = prev;
     
-    current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+    current = (current == &pcb[1] ? &pcb[0] : &pcb[1]);
     //current = &pcb[0];
 
     // then return the new context
