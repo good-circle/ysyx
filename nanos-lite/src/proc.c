@@ -15,6 +15,7 @@ void switch_boot_pcb()
 
 void hello_fun(void *arg)
 {
+        printf("hello_cps: %x %x\n", pcb[0].cp, pcb[1].cp);
     int j = 1;
     while (1)
     {
@@ -48,6 +49,5 @@ Context *schedule(Context *prev)
 
     // then return the new context
     printf("current->cp: %x\n", current->cp);
-    printf("cps: %x %x\n", pcb[0].cp, pcb[1].cp);
     return current->cp;
 }
