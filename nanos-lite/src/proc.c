@@ -39,7 +39,7 @@ void init_proc()
 Context *schedule(Context *prev)
 {
     // save the context pointer
-    printf("cps: %x %x\n", &pcb[0].cp, &pcb[1].cp);
+    printf("cps: %x %x\n", pcb[0].cp, pcb[1].cp);
     printf("prev: %x\n", prev);
     current->cp = prev;
     
