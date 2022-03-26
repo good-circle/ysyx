@@ -40,7 +40,7 @@ Context *schedule(Context *prev)
 {
     // save the context pointer
     printf("cps: %x %x\n", pcb[0].cp, pcb[1].cp);
-    printf("pcb_cps: %x %x\n", pcb[0], pcb[1]);
+    printf("pcb_cps: %x %x\n", &pcb[0], &pcb[1]);
     printf("prev: %x\n", prev);
     current->cp = prev;
     
