@@ -52,7 +52,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg)
 {
     Context *kct = kstack.end - sizeof(Context);
     kct->mepc = (uintptr_t)entry;
-    kct->mstatus = 0xa00001800;
+    //kct->mstatus = 0xa00001800;
 
     return kct;
 }
