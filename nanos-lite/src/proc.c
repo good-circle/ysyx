@@ -33,7 +33,6 @@ void init_proc()
     // load program here
     context_kload(&pcb[0], hello_fun, (void *)10);
     context_kload(&pcb[1], hello_fun, (void *)11);
-    //switch_boot_pcb();
 }
 
 Context *schedule(Context *prev)
