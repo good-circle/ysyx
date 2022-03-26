@@ -31,8 +31,8 @@ void init_proc()
     Log("Initializing processes...");
 
     // load program here
-    context_kload(&pcb[0], hello_fun, "1");
-    context_kload(&pcb[1], hello_fun, "2");
+    context_kload(&pcb[0], hello_fun, (void *)0);
+    context_kload(&pcb[1], hello_fun, (void *)1);
     switch_boot_pcb();
 }
 
@@ -41,7 +41,8 @@ Context *schedule(Context *prev)
     // save the context pointer
     current->cp = prev;
     
-    current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+    //current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+    current = &pcb[0];
 
     // then return the new context
     return current->cp;
