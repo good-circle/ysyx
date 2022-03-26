@@ -48,5 +48,6 @@ Context *schedule(Context *prev)
 
     // then return the new context
     printf("current->cp: %x\n", current->cp);
+    printf("cps: %x %x\n", pcb[0].cp, pcb[1].cp);
     return current->cp;
 }
