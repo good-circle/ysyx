@@ -6,6 +6,7 @@ static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
 void naive_uload(PCB *pcb, const char *filename);
+void context_kload(PCB *pcb, void (*entry)(void *), void *arg);
 
 void switch_boot_pcb()
 {
@@ -30,10 +31,18 @@ void init_proc()
     Log("Initializing processes...");
 
     // load program here
-    naive_uload(NULL, "/bin/nterm");
+    context_kload(&pcb[0], hello_fun, NULL);
+    switch_boot_pcb();
 }
 
 Context *schedule(Context *prev)
 {
-    return NULL;
+    // save the context pointer
+    current->cp = prev;
+    
+    // always select pcb[0] as the new process
+    current = &pcb[0];
+
+    // then return the new context
+    return current->cp;
 }
