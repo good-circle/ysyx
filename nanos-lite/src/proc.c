@@ -26,14 +26,14 @@ void hello_fun(void *arg)
 
 void init_proc()
 {
-    //switch_boot_pcb();
+    switch_boot_pcb();
 
     Log("Initializing processes...");
 
     // load program here
     context_kload(&pcb[0], hello_fun, (void *)10);
     context_kload(&pcb[1], hello_fun, (void *)11);
-    switch_boot_pcb();
+    //switch_boot_pcb();
 }
 
 Context *schedule(Context *prev)
