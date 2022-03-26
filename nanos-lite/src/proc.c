@@ -31,8 +31,8 @@ void init_proc()
     Log("Initializing processes...");
 
     // load program here
-    context_kload(&pcb[0], hello_fun, (void *)10);
-    context_kload(&pcb[1], hello_fun, (void *)11);
+    context_kload(&pcb[0], hello_fun, (void *)12345678);
+    context_kload(&pcb[1], hello_fun, (void *)87654321);
 }
 
 Context *schedule(Context *prev)
