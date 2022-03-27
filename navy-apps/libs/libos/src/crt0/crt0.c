@@ -8,12 +8,10 @@ extern char **environ;
 void call_main(uintptr_t *args)
 {
     uintptr_t argc = *args;
-    printf("argc: %ld\n", argc);
 
-    args = (uintptr_t *)(args + 1);
+    args = (uintptr_t *)(args + 1 + 1);
     char **argv = (char **)(args);
-    printf("argv: %s\n", argv[1]);
-    assert(0);
+
     args = (uintptr_t *)(args + argc + 1);
     char **envp = (char **)(args);
 
