@@ -74,9 +74,10 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     int envp_num = 0;
     int argc = 0;
     int i = 0;
-    assert(0);
+
     for (i = 0; envp[i] != NULL; i++)
     {
+            assert(0);
         ustack -= (strlen(envp[i]) + 1);
         envp_buf[i] = strcpy(ustack, envp[i]);
         printf("%s\n", envp_buf[i]);
