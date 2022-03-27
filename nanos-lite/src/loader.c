@@ -57,15 +57,56 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg)
     pcb->cp = kcontext(kstack, entry, arg);
 }
 
-void context_uload(PCB *pcb, const char *filename)
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[])
 {
     uintptr_t entry = loader(pcb, filename);
     Log("uload: entry = %p", entry);
-    
+
     Area kstack;
     kstack.start = pcb;
     kstack.end = kstack.start + STACK_SIZE;
 
     pcb->cp = ucontext(NULL, kstack, (void (*)())entry);
-    pcb->cp->GPRx = (uintptr_t)heap.end;
+    void *ustack = heap.end;
+    char *envp_buf[128];
+    char *argv_buf[128];
+    int envp_num = 0;
+    int argc = 0;
+    int i = 0;
+
+    for (i = 0; envp[i] != NULL; i++)
+    {
+        ustack -= (strlen(envp[i]) + 1);
+        envp_buf[i] = strcpy(ustack, envp[i]);
+    }
+    envp_num = i;
+
+    for (i = 0; argv[i] != NULL; i++)
+    {
+        ustack -= (strlen(argv[i]) + 1);
+        argv_buf[i] = strcpy(ustack, argv[i]);
+    }
+    argc = i;
+
+    ustack -= sizeof(NULL);
+    memcpy(ustack, NULL, 1);
+
+    int envp_size = envp_num * sizeof(char *);
+    ustack -= envp_size;
+    memcpy(ustack, envp_buf, envp_size);
+
+    ustack -= sizeof(NULL);
+    memcpy(ustack, NULL, 1);
+
+    int argv_size = argc * sizeof(char *);
+    ustack -= argv_size;
+    memcpy(ustack, argv_buf, argv_size);
+
+    ustack -= sizeof(NULL);
+    memcpy(ustack, NULL, 1);
+
+    ustack -= sizeof(int);
+    *(int *)ustack = argc;
+
+    pcb->cp->GPRx = (uintptr_t)ustack;
 }
