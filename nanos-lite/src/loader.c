@@ -90,10 +90,10 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
         printf("%s\n", argv_buf[i]);
     }
     argc = i;
-assert(0);
+
     ustack -= sizeof(NULL);
     memcpy(ustack, NULL, 1);
-
+assert(0);
     int envp_size = envp_num * sizeof(char *);
     printf("%x\n", envp_size);
     ustack -= envp_size;
