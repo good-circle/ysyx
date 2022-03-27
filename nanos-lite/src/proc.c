@@ -31,11 +31,12 @@ void init_proc()
 
     Log("Initializing processes...");
 
+    char *skip_arg[] = {"--skip"};
     char *null_arg[] = {NULL};
 
     // load program here
     context_kload(&pcb[0], hello_fun, (void *)12345678);
-    context_uload(&pcb[1], "/bin/pal", null_arg, null_arg);
+    context_uload(&pcb[1], "/bin/pal", skip_arg, null_arg);
 }
 
 Context *schedule(Context *prev)

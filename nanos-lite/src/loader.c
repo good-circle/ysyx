@@ -71,8 +71,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     void *ustack = heap.end;
     char *envp_buf[128];
     char *argv_buf[128];
-    int envp_num = 0;
-    int argc = 0;
+    uintptr_t envp_num = 0;
+    uintptr_t argc = 0;
     int i = 0;
 
     for (i = 0; envp[i] != NULL; i++)
@@ -110,8 +110,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     ustack -= sizeof((uintptr_t)NULL);
     *(uintptr_t *)ustack = (uintptr_t)NULL;
 
-    ustack -= sizeof(int);
-    *(int *)ustack = argc;
+    ustack -= sizeof(uintptr_t);
+    *(uintptr_t *)ustack = argc;
 
     pcb->cp->GPRx = (uintptr_t)ustack;
 }
