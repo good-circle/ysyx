@@ -98,17 +98,17 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     printf("%x\n", envp_size);
     ustack -= envp_size;
     memcpy(ustack, envp_buf, envp_size);
-assert(0);
-    ustack -= sizeof(NULL);
-    memcpy(ustack, NULL, 1);
+
+    ustack -= sizeof((uintptr_t)NULL);
+    *(uintptr_t *)ustack = (uintptr_t)NULL;
 
     int argv_size = argc * sizeof(char *);
     printf("%x\n", argv_size);
     ustack -= argv_size;
     memcpy(ustack, argv_buf, argv_size);
 
-    ustack -= sizeof(NULL);
-    memcpy(ustack, NULL, 1);
+    ustack -= sizeof((uintptr_t)NULL);
+    *(uintptr_t *)ustack = (uintptr_t)NULL;
 
     ustack -= sizeof(int);
     *(int *)ustack = argc;
