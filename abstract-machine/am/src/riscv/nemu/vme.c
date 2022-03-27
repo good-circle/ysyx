@@ -86,7 +86,7 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry)
 {
     Context *uct = kstack.end - sizeof(Context);
     uct->mepc = (uintptr_t)entry;
-    uct->mstatus = 0xa00001800;
+    //uct->mstatus = 0xa00001800;
 
     return uct;
 }
