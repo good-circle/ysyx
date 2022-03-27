@@ -12,7 +12,7 @@ void call_main(uintptr_t *args)
 
     args = (uintptr_t *)(args + 1);
     char **argv = (char **)(args);
-    printf("argv: %s\n", argv[0]);
+    printf("argv: %p\n", argv[0]);
     assert(0);
     args = (uintptr_t *)(args + argc + 1);
     char **envp = (char **)(args);
