@@ -9,6 +9,7 @@ void call_main(uintptr_t *args)
 {
     uintptr_t argc = *args;
     printf("argc: %ld\n", argc);
+    assert(0);
     args = (uintptr_t *)(args + 1);
     char **argv = (char **)(args);
 
