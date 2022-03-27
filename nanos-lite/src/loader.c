@@ -91,27 +91,30 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     }
     argc = i;
 
-    ustack -= sizeof((uintptr_t)NULL);
-    *(uintptr_t *)ustack = (uintptr_t)NULL;
+    intptr_t *ustack_64 = (intptr_t *)(ustack);
+    ustack_64 -= 1;
+    *ustack_64 = (uintptr_t)NULL;
 
-    int envp_size = envp_num * sizeof(char *);
-    printf("envp_size: %x\n", envp_size);
-    ustack -= envp_size;
-    memcpy(ustack, envp_buf, envp_size);
+    ustack_64-= envp_num;
+    for (i = 0; i < envp_num; i++)
+    {
+        ustack_64[i] = (intptr_t)(envp_buf[i]);
+    }
 
-    ustack -= sizeof((uintptr_t)NULL);
-    *(uintptr_t *)ustack = (uintptr_t)NULL;
+    ustack_64 -= 1;
+    *ustack_64 = (uintptr_t)NULL;
 
-    int argv_size = argc * sizeof(char *);
-    printf("argv_size: %x\n", argv_size);
-    ustack -= argv_size;
-    memcpy(ustack, argv_buf, argv_size);
+    ustack_64 -= argc;
+    for (i = 0; i < argc; i++)
+    {
+        ustack_64[i] = (intptr_t)(argv_buf[i]);
+    }
 
-    ustack -= sizeof((uintptr_t)NULL);
-    *(uintptr_t *)ustack = (uintptr_t)NULL;
+    ustack_64 -= 1;
+    *ustack_64 = (uintptr_t)NULL;
 
-    ustack -= sizeof(uintptr_t);
-    *(uintptr_t *)ustack = argc;
+    ustack_64 -= 1;
+    *ustack_64 = (uintptr_t)argc;
 
-    pcb->cp->GPRx = (uintptr_t)ustack;
+    pcb->cp->GPRx = (uintptr_t)ustack_64;
 }
