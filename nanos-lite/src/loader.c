@@ -93,7 +93,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
     ustack -= sizeof((uintptr_t)NULL);
     *(uintptr_t *)ustack = (uintptr_t)NULL;
-
+assert(0);
     int envp_size = envp_num * sizeof(char *);
     printf("envp_size: %x\n", envp_size);
     ustack -= envp_size;
