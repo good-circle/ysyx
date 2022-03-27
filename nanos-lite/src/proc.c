@@ -31,16 +31,18 @@ void init_proc()
 
     Log("Initializing processes...");
 
+    char *null_arg[] = {NULL};
+
     // load program here
     context_kload(&pcb[0], hello_fun, (void *)12345678);
-    context_uload(&pcb[1], "/bin/pal", NULL, NULL);
+    context_uload(&pcb[1], "/bin/pal", null_arg, null_arg);
 }
 
 Context *schedule(Context *prev)
 {
     // save the context pointer
     current->cp = prev;
-    
+
     current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
 
     // then return the new context
