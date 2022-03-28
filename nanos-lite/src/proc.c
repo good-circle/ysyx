@@ -32,12 +32,12 @@ void init_proc()
     Log("Initializing processes...");
 
     //char *skip_arg[] = {"--skip"};
-    char *exec_arg[] = {"/bin/menu"};
+    //char *exec_arg[] = {"/bin/menu"};
     char *null_arg[] = {NULL};
 
     // load program here
     //context_kload(&pcb[0], hello_fun, (void *)12345678);
-    context_uload(&pcb[0], "/bin/nterm", exec_arg, null_arg);
+    context_uload(&pcb[0], "/bin/menu", null_arg, null_arg);
 }
 
 Context *schedule(Context *prev)
