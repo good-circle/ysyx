@@ -65,6 +65,7 @@ void do_syscall(Context *c)
 
     case SYS_execve: // 13
         context_uload(current, (char*)a[1], (char**)a[2], (char**)a[3]);
+        printf("%S\n", (char *)a[3]);
         switch_boot_pcb();
         yield();
         c->GPRx = 0;
