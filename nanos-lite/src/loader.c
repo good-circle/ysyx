@@ -21,7 +21,6 @@ static uintptr_t loader(PCB *pcb, const char *filename)
     /* read elf from ramdisk */
     int fd = fs_open(filename, 0, 0);
     fs_read(fd, ehdr, sizeof(Elf_Ehdr));
-    printf("%d %s\n", fd, filename);
 
     /* assert if not elf file */
     //! pay attention: this is uint32_t not size_t
@@ -62,15 +61,12 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg)
 
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[])
 {
-    printf("%s\n", filename);
-    uintptr_t entry = loader(pcb, filename);
-    Log("uload: entry = %p", entry);
 
     Area kstack;
     kstack.start = pcb;
     kstack.end = kstack.start + STACK_SIZE;
 
-    pcb->cp = ucontext(NULL, kstack, (void (*)())entry);
+
 
     void *ustack = new_page(8) + 8 * PGSIZE;
     char *envp_buf[128];
@@ -112,6 +108,9 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
     ustack -= sizeof(uintptr_t);
     *(uintptr_t *)ustack = argc;
-
+    printf("%s\n", filename);
+    uintptr_t entry = loader(pcb, filename);
+    Log("uload: entry = %p", entry);
+    pcb->cp = ucontext(NULL, kstack, (void (*)())entry);
     pcb->cp->GPRx = (uintptr_t)ustack;
 }
