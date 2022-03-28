@@ -38,6 +38,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
             printf("filename: %s\n", filename);
             fs_lseek(fd, phdr->p_offset, SEEK_SET);
             printf("filename: %s\n", filename);
+            printf("position of filename is %p\n", filename);
             fs_read(fd, (void *)phdr->p_vaddr, phdr->p_filesz);
             /* padding filesz ~ memsz zero */
             printf("filename: %s\n", filename);
