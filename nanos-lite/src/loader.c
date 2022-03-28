@@ -15,6 +15,7 @@ void *new_page(size_t nr_page);
 
 static uintptr_t loader(PCB *pcb, const char *filename)
 {
+                printf("filename: %s\n", filename);
     Elf_Ehdr *ehdr = malloc(sizeof(Elf_Ehdr));
     Elf_Phdr *phdr = malloc(sizeof(Elf_Phdr));
 
