@@ -68,7 +68,7 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg)
 
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[])
 {
-    printf("%s\n", filename);
+    printf("position of argv is %p, envp is %p\n", argv, envp);
     uintptr_t entry = loader(pcb, filename);
     Log("uload: entry = %p", entry);
 
@@ -78,7 +78,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     pcb->cp = ucontext(NULL, kstack, (void (*)())entry);
 
     void *ustack = new_page(8) + 8 * PGSIZE;
-    printf("position of ustack is %x\n", ustack);
     char *envp_buf[128];
     char *argv_buf[128];
     uintptr_t envp_num = 0;
