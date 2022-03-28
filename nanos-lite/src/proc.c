@@ -32,7 +32,7 @@ void init_proc()
     Log("Initializing processes...");
 
     //char *skip_arg[] = {"--skip"};
-    char *exec_arg[] = {"exec-test"};
+    char *exec_arg[] = {"/bin/exec-test"};
     char *null_arg[] = {NULL};
 
     // load program here
