@@ -21,6 +21,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
     /* read elf from ramdisk */
     int fd = fs_open(filename, 0, 0);
     fs_read(fd, ehdr, sizeof(Elf_Ehdr));
+    printf("%d %s\n", fd, filename);
 
     /* assert if not elf file */
     //! pay attention: this is uint32_t not size_t
