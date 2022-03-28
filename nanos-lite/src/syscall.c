@@ -65,7 +65,7 @@ void do_syscall(Context *c)
 
     case SYS_execve: // 13
         printf("do_syscall\n");
-        printf("%d\n", a[3]);
+        printf("%x\n", a[3]);
         context_uload(current, (char*)a[1], (char**)a[2], (char**)a[3]);
         switch_boot_pcb();
         yield();
