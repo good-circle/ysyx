@@ -40,10 +40,11 @@ static void sh_handle_cmd(const char *cmd)
 
     while (token != NULL)
     {
-        printf("%s\n", token);
         argv[i++] = token;
         token = strtok(NULL, s);
     }
+
+    printf("%s %s\n", argv[0] ,argv[1]);
 
     execvp(argv[0], argv);
 }
