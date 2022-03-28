@@ -11,6 +11,7 @@
 #endif
 
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
+void *new_page(size_t nr_page);
 
 static uintptr_t loader(PCB *pcb, const char *filename)
 {
@@ -69,7 +70,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
     pcb->cp = ucontext(NULL, kstack, (void (*)())entry);
 
-    void *ustack = heap.end;
+    void *ustack = new_page(8) + 8 * PGSIZE;
     char *envp_buf[128];
     char *argv_buf[128];
     uintptr_t envp_num = 0;
