@@ -29,8 +29,7 @@ static void sh_handle_cmd(const char *cmd)
 {
     char c[64];
     sscanf(cmd, "%s\n", c);
-    char *arg1[] = {"/bin/pal"}
-    execvp(arg1, NULL);
+    execvp("/bin/pal", NULL);
 }
 
 void builtin_sh_run()
