@@ -31,12 +31,12 @@ static void sh_handle_cmd(const char *cmd)
     sscanf(cmd, "%s\n", c);
     char *token;
     char *argv[64];
+    char *char_cmd;
     const char s[2] = " ";
     int i = 0;
 
-    printf("%s\n", cmd);
 
-    token = strtok(c, s);
+    token = strtok(char_cmd, s);
 
     while (token != NULL)
     {
