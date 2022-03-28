@@ -15,14 +15,13 @@ void *new_page(size_t nr_page);
 
 static uintptr_t loader(PCB *pcb, const char *filename)
 {
-                printf("filename: %s\n", filename);
     Elf_Ehdr *ehdr = malloc(sizeof(Elf_Ehdr));
     Elf_Phdr *phdr = malloc(sizeof(Elf_Phdr));
 
     /* read elf from ramdisk */
     int fd = fs_open(filename, 0, 0);
     fs_read(fd, ehdr, sizeof(Elf_Ehdr));
-
+printf("filename: %s\n", filename);
     /* assert if not elf file */
     //! pay attention: this is uint32_t not size_t
     assert(*(uint32_t *)ehdr->e_ident == 0x464c457f);
