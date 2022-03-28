@@ -110,4 +110,5 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     *(uintptr_t *)ustack = argc;
 
     pcb->cp->GPRx = (uintptr_t)ustack;
+    printf("111\n");
 }
