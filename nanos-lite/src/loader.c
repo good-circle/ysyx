@@ -36,7 +36,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
             fs_lseek(fd, phdr->p_offset, SEEK_SET);
             fs_read(fd, (void *)phdr->p_vaddr, phdr->p_filesz);
             /* padding filesz ~ memsz zero */
-            printf("filesz-memsz: %x %x", (void *)(phdr->p_vaddr + phdr->p_filesz), (void *)(phdr->p_vaddr + phdr->p_memsz));
+            printf("filesz-memsz: %x %x\n", (void *)(phdr->p_vaddr + phdr->p_filesz), (void *)(phdr->p_vaddr + phdr->p_memsz));
             memset((void *)(phdr->p_vaddr + phdr->p_filesz), 0, phdr->p_memsz - phdr->p_filesz);
         }
     }
