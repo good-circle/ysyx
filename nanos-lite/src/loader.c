@@ -70,7 +70,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     pcb->cp = ucontext(NULL, kstack, (void (*)())entry);
 
     void *ustack = new_page(8) + 8 * PGSIZE;
-    printf("%x\n", (uintptr_t)ustack);
     char *envp_buf[128];
     char *argv_buf[128];
     uintptr_t envp_num = 0;
