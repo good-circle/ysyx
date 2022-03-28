@@ -67,14 +67,14 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     kstack.start = pcb;
     kstack.end = kstack.start + STACK_SIZE;
     pcb->cp = ucontext(NULL, kstack, (void (*)())entry);
-    printf("111\n");
+
     void *ustack = new_page(8) + 8 * PGSIZE;
     char *envp_buf[128];
     char *argv_buf[128];
     uintptr_t envp_num = 0;
     uintptr_t argc = 0;
     int i = 0;
-
+    printf("111\n");
     for (i = 0; envp[i] != NULL; i++)
     {
         ustack -= (strlen(envp[i]) + 1);
