@@ -34,6 +34,8 @@ static void sh_handle_cmd(const char *cmd)
     const char s[2] = " ";
     int i = 0;
 
+    printf("%s\n", c);
+
     token = strtok(c, s);
 
     while (token != NULL)
