@@ -8,7 +8,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc)
 #ifdef CONFIG_ETRACE
     printf("Exception at PC 0X%08lx, mcause is %ld\n", epc, NO);
 #endif
-
+    assert(0);
     cpu.csr[MEPC] = epc;
     cpu.csr[MCAUSE] = NO;
     return cpu.csr[MTVEC];
