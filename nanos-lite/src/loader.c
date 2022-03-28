@@ -24,7 +24,6 @@ static uintptr_t loader(PCB *pcb, const char *filename)
 
     /* assert if not elf file */
     //! pay attention: this is uint32_t not size_t
-    printf("%x\n", *(uint32_t *)ehdr->e_ident);
     assert(*(uint32_t *)ehdr->e_ident == 0x464c457f);
 
     /* read program header */
