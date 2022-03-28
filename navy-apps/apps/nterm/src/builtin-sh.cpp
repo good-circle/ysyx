@@ -31,10 +31,9 @@ static void sh_handle_cmd(const char *cmd)
     sscanf(cmd, "%s\n", c);
     char *token;
     char *argv[64];
-    char *char_cmd;
+    char *char_cmd = (char *)cmd;
     const char s[2] = " ";
     int i = 0;
-
 
     token = strtok(char_cmd, s);
 
@@ -45,7 +44,7 @@ static void sh_handle_cmd(const char *cmd)
         printf("%s\n", token);
     }
 
-    //execvp(argv[0], argv);
+    // execvp(argv[0], argv);
 }
 
 void builtin_sh_run()
