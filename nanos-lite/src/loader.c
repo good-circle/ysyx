@@ -21,7 +21,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
     /* read elf from ramdisk */
     int fd = fs_open(filename, 0, 0);
     fs_read(fd, ehdr, sizeof(Elf_Ehdr));
-printf("filename: %s\n", filename);
+
     /* assert if not elf file */
     //! pay attention: this is uint32_t not size_t
     assert(*(uint32_t *)ehdr->e_ident == 0x464c457f);
@@ -31,6 +31,7 @@ printf("filename: %s\n", filename);
     {
         fs_lseek(fd, ehdr->e_phoff + i * ehdr->e_phentsize, SEEK_SET);
         fs_read(fd, phdr, ehdr->e_phentsize);
+        printf("filename: %s\n", filename);
         if (phdr->p_type == PT_LOAD)
         {
             fs_lseek(fd, phdr->p_offset, SEEK_SET);
