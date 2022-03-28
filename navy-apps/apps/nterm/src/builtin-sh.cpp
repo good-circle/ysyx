@@ -44,8 +44,6 @@ static void sh_handle_cmd(const char *cmd)
         token = strtok(NULL, s);
     }
 
-    printf("%s %s\n", argv[0] ,argv[1]);
-
     execvp(argv[0], argv);
 }
 
