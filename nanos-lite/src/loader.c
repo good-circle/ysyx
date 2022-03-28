@@ -59,6 +59,7 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg)
 
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[])
 {
+    printf("%s\n", filename);
     uintptr_t entry = loader(pcb, filename);
     Log("uload: entry = %p", entry);
 
