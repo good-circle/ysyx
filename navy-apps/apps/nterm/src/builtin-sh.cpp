@@ -27,9 +27,10 @@ static void sh_prompt()
 
 static void sh_handle_cmd(const char *cmd)
 {
-    //char c[64];
-    //sscanf(cmd, "%s\n", c);
-    execvp("/bin/pal", NULL);
+    char c[64];
+    sscanf(cmd, "%s\n", c);
+    printf("%s\n", cmd);
+    execvp(c, NULL);
 }
 
 void builtin_sh_run()
