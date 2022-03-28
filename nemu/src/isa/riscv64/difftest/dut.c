@@ -8,12 +8,12 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc)
     {
         if (!difftest_check_reg(reg_name(i, 4), pc, ref_r->gpr[i], cpu.gpr[i]))
         {
-            //return false;
+            return false;
         }
     }
     if (!difftest_check_reg("pc", pc, ref_r->pc, cpu.pc))
     {
-        //return false;
+        return false;
     }
     return true;
 }
