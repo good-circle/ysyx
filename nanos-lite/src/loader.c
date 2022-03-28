@@ -88,7 +88,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
         argv_buf[i] = strcpy(ustack, argv[i]);
     }
     argc = i;
-
+    printf("111\n");
     ustack -= sizeof((uintptr_t)NULL);
     *(uintptr_t *)ustack = (uintptr_t)NULL;
 
@@ -110,5 +110,5 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     *(uintptr_t *)ustack = argc;
 
     pcb->cp->GPRx = (uintptr_t)ustack;
-    printf("111\n");
+
 }
