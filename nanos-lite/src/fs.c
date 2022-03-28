@@ -74,7 +74,8 @@ int fs_open(const char *pathname, int flags, int mode)
         {
 #ifdef STRACE
             printf("FS: open file %s\n", file_table[i].name);
-#endif
+#endif      
+            file_table[i].open_offset = 0;
             return i;
         }
     }
