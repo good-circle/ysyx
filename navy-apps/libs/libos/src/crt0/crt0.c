@@ -14,7 +14,7 @@ void call_main(uintptr_t *args)
 
     for (int i = 0; i < argc; i++)
     {
-        printf("call_main: argv %d = %s\n", i, argv[i]);
+        //printf("call_main: argv %d = %s\n", i, argv[i]);
     }
 
     args = (uintptr_t *)(args + argc + 1);
