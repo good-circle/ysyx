@@ -42,9 +42,8 @@ static void sh_handle_cmd(const char *cmd)
     {
         argv[i++] = token;
         token = strtok(NULL, s);
-        printf("nterm: argv %d = %s\n", i-1, argv[i-1]);
     }
-
+    argv[i] = NULL;
 
     execvp(argv[0], argv);
 }
