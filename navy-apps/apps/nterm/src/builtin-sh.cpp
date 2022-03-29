@@ -29,7 +29,23 @@ static void sh_handle_cmd(const char *cmd)
 {
     char c[64];
     sscanf(cmd, "%s\n", c);
-    execvp(c, NULL);
+    char *token;
+    char *argv[64];
+    char *char_cmd = (char *)cmd;
+    char_cmd[strlen(cmd) - 1] = '\0';
+    const char s[2] = " ";
+    int i = 0;
+
+    token = strtok(char_cmd, s);
+
+    while (token != NULL)
+    {
+        argv[i++] = token;
+        token = strtok(NULL, s);
+    }
+    argv[i] = NULL;
+
+    execvp(argv[0], argv);
 }
 
 void builtin_sh_run()

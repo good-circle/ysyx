@@ -7,6 +7,7 @@ static PCB pcb_boot = {};
 PCB *current = NULL;
 void naive_uload(PCB *pcb, const char *filename);
 void context_kload(PCB *pcb, void (*entry)(void *), void *arg);
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
 
 void switch_boot_pcb()
 {
@@ -30,17 +31,23 @@ void init_proc()
 
     Log("Initializing processes...");
 
+    //char *skip_arg[] = {"/bin/pal","--skip", NULL};
+    //char *exec_arg[] = {"/bin/menu"};
+    char *null_arg[] = {NULL};
+
     // load program here
-    context_kload(&pcb[0], hello_fun, (void *)12345678);
-    context_kload(&pcb[1], hello_fun, (void *)87654321);
+    //context_kload(&pcb[0], hello_fun, (void *)12345678);
+    //context_uload(&pcb[0], "/bin/pal", skip_arg, null_arg);
+    context_uload(&pcb[0], "/bin/nterm", null_arg, null_arg);
 }
 
 Context *schedule(Context *prev)
 {
     // save the context pointer
     current->cp = prev;
-    
-    current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+
+    //current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+    current = &pcb[0];
 
     // then return the new context
     return current->cp;
