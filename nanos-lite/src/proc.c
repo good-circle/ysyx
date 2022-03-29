@@ -38,7 +38,7 @@ void init_proc()
     // load program here
     //context_kload(&pcb[0], hello_fun, (void *)12345678);
     //context_uload(&pcb[0], "/bin/menu", null_arg, null_arg);
-    naive_uload(NULL, "/bin/pal");
+    naive_uload(NULL, "/bin/menu");
 }
 
 Context *schedule(Context *prev)
