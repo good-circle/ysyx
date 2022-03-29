@@ -4,7 +4,7 @@
 #include <sys/time.h>
 #include <proc.h>
 
-#define STRACE
+//#define STRACE
 void switch_boot_pcb();
 static int my_gettimeofday(struct timeval *tv, struct timezone *tz);
 void naive_uload(PCB *pcb, const char *filename);
