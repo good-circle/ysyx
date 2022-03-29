@@ -36,9 +36,9 @@ void init_proc()
     char *null_arg[] = {NULL};
 
     // load program here
-    context_kload(&pcb[0], hello_fun, (void *)12345678);
+    //context_kload(&pcb[0], hello_fun, (void *)12345678);
     //context_uload(&pcb[0], "/bin/pal", skip_arg, null_arg);
-    context_uload(&pcb[1], "/bin/nterm", null_arg, null_arg);
+    context_uload(&pcb[0], "/bin/nterm", null_arg, null_arg);
 }
 
 Context *schedule(Context *prev)
@@ -46,8 +46,8 @@ Context *schedule(Context *prev)
     // save the context pointer
     current->cp = prev;
 
-    current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
-    //current = &pcb[0];
+    //current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+    current = &pcb[0];
 
     // then return the new context
     return current->cp;
