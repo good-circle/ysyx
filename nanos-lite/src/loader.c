@@ -81,7 +81,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
         printf("argv %d = %s\n", i, argv[i]);
     }
     argc = i;
-printf("111\n");
+
     ustack -= sizeof((uintptr_t)NULL);
     *(uintptr_t *)ustack = (uintptr_t)NULL;
 
