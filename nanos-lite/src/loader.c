@@ -62,51 +62,7 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg)
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[])
 {
     void *ustack = new_page(8) + 8 * PGSIZE;
-    char *envp_buf[128];
-    char *argv_buf[128];
-    uintptr_t envp_num = 0;
-    uintptr_t argc = 0;
-    int i = 0;
-    for (i = 0; envp[i] != NULL; i++)
-    {
-        ustack -= (strlen(envp[i]) + 1);
-        envp_buf[i] = strcpy(ustack, envp[i]);
-        //printf("envp %d = %s\n", i, envp[i]);
-    }
-    envp_num = i;
-    printf("%p\n", argv);
-    for (i = 0; argv[i] != NULL; i++)
-    {
-        ustack -= (strlen(argv[i]) + 1);
-        argv_buf[i] = strcpy(ustack, argv[i]);
-        //printf("argv %d = %s\n", i, argv[i]);
-    }
-    argc = i;
-
-    ustack -= sizeof((uintptr_t)NULL);
-    *(uintptr_t *)ustack = (uintptr_t)NULL;
-
-    int envp_size = envp_num * sizeof(char *);
-    ustack -= envp_size;
-    memcpy(ustack, envp_buf, envp_size);
-
-    ustack -= sizeof((uintptr_t)NULL);
-    *(uintptr_t *)ustack = (uintptr_t)NULL;
-
-    int argv_size = argc * sizeof(char *);
-    ustack -= argv_size;
-    memcpy(ustack, argv_buf, argv_size);
-
-    ustack -= sizeof((uintptr_t)NULL);
-    *(uintptr_t *)ustack = (uintptr_t)NULL;
-
-    ustack -= sizeof(uintptr_t);
-    *(uintptr_t *)ustack = argc;
-
-
-    /* load after copy argv and envp to stack,
-     * or loader will cover these args.
-     * pay attention! */
+ 
     uintptr_t entry = loader(pcb, filename);
     Log("uload: entry = %p", entry);
 
