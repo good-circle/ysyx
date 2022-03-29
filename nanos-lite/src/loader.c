@@ -35,7 +35,6 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         {
             fs_lseek(fd, phdr->p_offset, SEEK_SET);
             fs_read(fd, (void *)phdr->p_vaddr, phdr->p_filesz);
-
             /* padding filesz ~ memsz zero */
             memset((void *)(phdr->p_vaddr + phdr->p_filesz), 0, phdr->p_memsz - phdr->p_filesz);
         }
@@ -107,7 +106,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     /* load after copy argv and envp to stack,
      * or loader will cover these args.
      * pay attention! */
-    printf("111\n");
     uintptr_t entry = loader(pcb, filename);
     Log("uload: entry = %p", entry);
 
