@@ -107,6 +107,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     /* load after copy argv and envp to stack,
      * or loader will cover these args.
      * pay attention! */
+    printf("111\n");
     uintptr_t entry = loader(pcb, filename);
     Log("uload: entry = %p", entry);
 
