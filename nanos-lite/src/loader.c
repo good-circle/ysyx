@@ -106,7 +106,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
      * or loader will cover these args.
      * pay attention! */
     uintptr_t entry = loader(pcb, filename);
-    Log("uload: entry = %p", entry);
+    Log("uload: %s load to entry = %p", filename, entry);
 
     Area kstack;
     kstack.start = pcb;
