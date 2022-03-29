@@ -20,7 +20,7 @@ Context *__am_irq_handle(Context *c)
             {
                 ev.event = EVENT_SYSCALL;
             }
-
+            c->mepc += 4;
             break;
         default:
             ev.event = EVENT_ERROR;
@@ -53,7 +53,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg)
 {
     Context *kct = kstack.end - sizeof(Context);
     kct->mepc = (uintptr_t)entry;
-    kct->mstatus = 0xa00001800;
+    kct->mstatus = 0xa00001800 | 0x80;
     kct->gpr[10] = (uintptr_t)arg;
 
     return kct;
