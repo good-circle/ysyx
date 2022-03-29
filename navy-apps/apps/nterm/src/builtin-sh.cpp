@@ -31,9 +31,7 @@ static void sh_handle_cmd(const char *cmd)
     sscanf(cmd, "%s\n", c);
     char *token;
     char *argv[64];
-    char char_cmd[64];
-    memcpy(char_cmd, cmd, strlen(cmd));
-    //char *char_cmd = (char *)cmd;
+    char *char_cmd = (char *)cmd;
     char_cmd[strlen(cmd) - 1] = '\0';
     const char s[2] = " ";
     int i = 0;
@@ -44,7 +42,7 @@ static void sh_handle_cmd(const char *cmd)
     {
         argv[i++] = token;
         token = strtok(NULL, s);
-        printf("nterm: argv %d = %s\n", i-1, argv[i-1]);
+        //printf("nterm: argv %d = %s\n", i-1, argv[i-1]);
     }
 
 
