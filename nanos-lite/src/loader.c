@@ -78,6 +78,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     {
         ustack -= (strlen(argv[i]) + 1);
         argv_buf[i] = strcpy(ustack, argv[i]);
+        printf("argv %d = %s", i, argv[i]);
     }
     argc = i;
 
@@ -94,7 +95,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     int argv_size = argc * sizeof(char *);
     ustack -= argv_size;
     memcpy(ustack, argv_buf, argv_size);
-    printf("%s\n", argv_buf[0]);
 
     ustack -= sizeof((uintptr_t)NULL);
     *(uintptr_t *)ustack = (uintptr_t)NULL;
