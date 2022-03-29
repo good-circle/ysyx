@@ -31,19 +31,12 @@ static uintptr_t loader(PCB *pcb, const char *filename)
     {
         fs_lseek(fd, ehdr->e_phoff + i * ehdr->e_phentsize, SEEK_SET);
         fs_read(fd, phdr, ehdr->e_phentsize);
-        printf("filename: %s\n", filename);
         if (phdr->p_type == PT_LOAD)
         {
-            printf("enter_if\n");
-            printf("filename: %s\n", filename);
             fs_lseek(fd, phdr->p_offset, SEEK_SET);
-            printf("filename: %s\n", filename);
-            printf("position of filename %s is %p\n", filename, filename);
-            printf("p_vaddr is %x, p_filesz is %x, %x - %x\n", phdr->p_vaddr, phdr->p_filesz, phdr->p_vaddr, phdr->p_vaddr + phdr->p_filesz);
             fs_read(fd, (void *)phdr->p_vaddr, phdr->p_filesz);
+
             /* padding filesz ~ memsz zero */
-            printf("filename: %s\n", filename);
-            printf("filesz-memsz: %x %x\n", (void *)(phdr->p_vaddr + phdr->p_filesz), (void *)(phdr->p_vaddr + phdr->p_memsz));
             memset((void *)(phdr->p_vaddr + phdr->p_filesz), 0, phdr->p_memsz - phdr->p_filesz);
         }
     }
@@ -68,15 +61,6 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg)
 
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[])
 {
-    printf("position of argv is %p, envp is %p\n", argv, envp);
-    uintptr_t entry = loader(pcb, filename);
-    Log("uload: entry = %p", entry);
-
-    Area kstack;
-    kstack.start = pcb;
-    kstack.end = kstack.start + STACK_SIZE;
-    pcb->cp = ucontext(NULL, kstack, (void (*)())entry);
-
     void *ustack = new_page(8) + 8 * PGSIZE;
     char *envp_buf[128];
     char *argv_buf[128];
@@ -116,6 +100,17 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
     ustack -= sizeof(uintptr_t);
     *(uintptr_t *)ustack = argc;
+
+    /* load after copy argv and envp to stack,
+     * or loader will cover these args.
+     * pay attention! */
+    uintptr_t entry = loader(pcb, filename);
+    Log("uload: entry = %p", entry);
+
+    Area kstack;
+    kstack.start = pcb;
+    kstack.end = kstack.start + STACK_SIZE;
+    pcb->cp = ucontext(NULL, kstack, (void (*)())entry);
 
     pcb->cp->GPRx = (uintptr_t)ustack;
 }
