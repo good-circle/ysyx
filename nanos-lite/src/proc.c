@@ -37,7 +37,7 @@ void init_proc()
 
     // load program here
     //context_kload(&pcb[0], hello_fun, (void *)12345678);
-    context_uload(&pcb[0], "/bin/pal", null_arg, null_arg);
+    context_uload(&pcb[0], "/bin/menu", null_arg, null_arg);
 }
 
 Context *schedule(Context *prev)
