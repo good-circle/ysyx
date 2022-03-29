@@ -31,7 +31,7 @@ void init_proc()
 
     Log("Initializing processes...");
 
-    char *skip_arg[] = {"/bin/pal","--skip"};
+    char *skip_arg[] = {"/bin/pal","--skip", NULL};
     //char *exec_arg[] = {"/bin/menu"};
     char *null_arg[] = {NULL};
 
