@@ -27,10 +27,6 @@ void do_syscall(Context *c)
     switch (a[0])
     {
     case SYS_exit: // 0
-        if (a[1] != 0)
-        {
-            printf("a0 is not 0 when sys_exit, maybe you forget to add case in navy-apps/libs/libos/src/syscall.c?\n");
-        }
         my_execve("/bin/nterm", null_arg, null_arg);
         c->GPRx = a[1];
         break;
