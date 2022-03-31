@@ -34,7 +34,7 @@ printf("ehdr %p, phdr %p\n", ehdr, phdr);
         if (phdr->p_type == PT_LOAD)
         {
             fs_lseek(fd, phdr->p_offset, SEEK_SET);
-                        assert(0);
+            printf("%x\n", phdr->p_vaddr);
             fs_read(fd, (void *)phdr->p_vaddr, phdr->p_filesz);
             /* padding filesz ~ memsz zero */
             memset((void *)(phdr->p_vaddr + phdr->p_filesz), 0, phdr->p_memsz - phdr->p_filesz);
