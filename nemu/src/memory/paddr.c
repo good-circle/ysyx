@@ -8,7 +8,7 @@ static uint8_t *pmem = NULL;
 #else // CONFIG_PMEM_GARRAY
 static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};
 #endif
-#define CONFIG_MTRACE 1
+
 uint8_t *guest_to_host(paddr_t paddr)
 {
     return pmem + paddr - CONFIG_MBASE;
