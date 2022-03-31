@@ -12,11 +12,11 @@
 
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 void *new_page(size_t nr_page);
-extern void *pg_alloc(int n);
+
 static uintptr_t loader(PCB *pcb, const char *filename)
 {
-    Elf_Ehdr *ehdr = pg_alloc(4096);
-    Elf_Phdr *phdr = pg_alloc(4096);
+    Elf_Ehdr *ehdr = malloc(sizeof(Elf_Ehdr));
+    Elf_Phdr *phdr = malloc(sizeof(Elf_Phdr));
 
     /* read elf from ramdisk */
     int fd = fs_open(filename, 0, 0);
@@ -34,7 +34,6 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         if (phdr->p_type == PT_LOAD)
         {
             fs_lseek(fd, phdr->p_offset, SEEK_SET);
-            printf("buf addr = %p\n", (void *)phdr->p_vaddr);
             fs_read(fd, (void *)phdr->p_vaddr, phdr->p_filesz);
             /* padding filesz ~ memsz zero */
             memset((void *)(phdr->p_vaddr + phdr->p_filesz), 0, phdr->p_memsz - phdr->p_filesz);
