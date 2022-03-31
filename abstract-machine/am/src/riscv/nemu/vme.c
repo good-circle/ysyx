@@ -90,17 +90,14 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
     if ((*first_level_pgdir & _PAGE_PRESENT) == 0)
     {
         base_addr = pgalloc_usr(PGSIZE);
-        printf("addr1: %x\n", base_addr);
         *first_level_pgdir = (PTE)(((uintptr_t)base_addr >> 12) << 10 | _PAGE_PRESENT);
     }
-    //printf("vme, pgdir: %x\n", *first_level_pgdir);
     base_addr = (PTE *)((*first_level_pgdir >> 10) << 12);
 
     PTE *second_level_pgdir = base_addr + vpn1;
     if ((*second_level_pgdir & _PAGE_PRESENT) == 0)
     {
         base_addr = pgalloc_usr(PGSIZE);
-        printf("addr2: %x\n", base_addr);
         *second_level_pgdir = (PTE)(((uintptr_t)base_addr >> 12) << 10 | _PAGE_PRESENT);
     }
     base_addr = (PTE *)((*second_level_pgdir >> 10) << 12);
