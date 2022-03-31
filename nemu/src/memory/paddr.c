@@ -64,9 +64,9 @@ word_t paddr_read(paddr_t addr, int len)
 
 void paddr_write(paddr_t addr, int len, word_t data)
 {
-#ifdef CONFIG_MTRACE
-    printf("memory write at 0x%x of length 0x%x\n", addr, len);
-#endif
+//#ifdef CONFIG_MTRACE
+    printf("memory write 0x%lx at 0x%x of length 0x%x\n", data, addr, len);
+//#endif
     if (likely(in_pmem(addr)))
     {
         pmem_write(addr, len, data);
