@@ -4,6 +4,7 @@
 
 paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type)
 {
+    assert(0);
     vaddr_t vpn0 = (vaddr << 43) >> 55;
     vaddr_t vpn1 = (vaddr << 34) >> 55;
     vaddr_t vpn2 = (vaddr << 25) >> 55;
