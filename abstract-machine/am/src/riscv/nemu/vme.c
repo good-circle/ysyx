@@ -91,6 +91,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
     {
         base_addr = pgalloc_usr(PGSIZE);
         *first_level_pgdir = (PTE)(((uintptr_t)base_addr >> 12) << 10 | _PAGE_PRESENT);
+        printf("111\n");
     }
     base_addr = (PTE *)((*first_level_pgdir >> 10) << 12);
 
