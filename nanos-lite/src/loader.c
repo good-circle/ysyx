@@ -95,7 +95,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     int argv_size = argc * sizeof(char *);
     ustack -= argv_size;
     memcpy(ustack, argv_buf, argv_size);
-assert(0);
+
     ustack -= sizeof((uintptr_t)NULL);
     *(uintptr_t *)ustack = (uintptr_t)NULL;
 
@@ -107,7 +107,7 @@ assert(0);
      * pay attention! */
     uintptr_t entry = loader(pcb, filename);
     Log("uload: %s load to entry = %p", filename, entry);
-
+assert(0);
     Area kstack;
     kstack.start = pcb;
     kstack.end = kstack.start + STACK_SIZE;
