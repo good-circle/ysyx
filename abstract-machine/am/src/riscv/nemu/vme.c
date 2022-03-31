@@ -78,8 +78,33 @@ void __am_switch(Context *c)
     }
 }
 
+#define _PAGE_PRESENT (1 << 0)
 void map(AddrSpace *as, void *va, void *pa, int prot)
 {
+    uintptr_t vpn0 = ((uintptr_t)va >> 12) & ~(~0 << 9);
+    uintptr_t vpn1 = ((uintptr_t)va >> 21) & ~(~0 << 9);
+    uintptr_t vpn2 = ((uintptr_t)va >> 30) & ~(~0 << 9);
+
+    PTE *base_addr = as->ptr;
+    PTE *first_level_pgdir = base_addr + vpn2;
+    if ((*first_level_pgdir & _PAGE_PRESENT) == 0)
+    {
+        base_addr = pgalloc_usr(PGSIZE);
+        *first_level_pgdir = (PTE)(((uintptr_t)base_addr >> 12) << 10 | _PAGE_PRESENT);
+    }
+    printf("vme, pgdir: %x\n", *first_level_pgdir);
+    base_addr = (PTE *)((*first_level_pgdir >> 10) << 12);
+
+    PTE *second_level_pgdir = base_addr + vpn1;
+    if ((*second_level_pgdir & _PAGE_PRESENT) == 0)
+    {
+        base_addr = pgalloc_usr(PGSIZE);
+        *second_level_pgdir = (PTE)(((uintptr_t)base_addr >> 12) << 10 | _PAGE_PRESENT);
+    }
+    base_addr = (PTE *)((*second_level_pgdir >> 10) << 12);
+
+    PTE *last_level_pgdir = base_addr + vpn0;
+    *last_level_pgdir = (PTE)(((uintptr_t)pa >> 12) << 10 | _PAGE_PRESENT);
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry)
