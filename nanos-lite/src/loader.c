@@ -17,7 +17,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
 {
     Elf_Ehdr *ehdr = malloc(sizeof(Elf_Ehdr));
     Elf_Phdr *phdr = malloc(sizeof(Elf_Phdr));
-
+printf("ehdr %p, phdr %p\n", ehdr, phdr);
     /* read elf from ramdisk */
     int fd = fs_open(filename, 0, 0);
     fs_read(fd, ehdr, sizeof(Elf_Ehdr));
