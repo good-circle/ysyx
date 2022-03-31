@@ -90,7 +90,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
     if ((*first_level_pgdir & _PAGE_PRESENT) == 0)
     {
         base_addr = pgalloc_usr(PGSIZE);
-        printf("addr: %x\n", ((uintptr_t)base_addr >> 12) << 10);
+        printf("addr: %x\n", base_addr);
         *first_level_pgdir = (PTE)(((uintptr_t)base_addr >> 12) << 10 | _PAGE_PRESENT);
     }
     //printf("vme, pgdir: %x\n", *first_level_pgdir);
