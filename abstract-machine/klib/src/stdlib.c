@@ -37,7 +37,7 @@ int atoi(const char *nptr)
     return x;
 }
 
-static char *Free = NULL;
+static char *Free = (char *)(0x82ff0000);
 
 void *malloc(size_t size)
 {
