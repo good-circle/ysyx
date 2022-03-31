@@ -67,6 +67,7 @@ static void CSR(word_t dest, word_t src1, word_t src2, int op)
         break;
     case 0x180:
         csr = SATP;
+        printf("1111!\n");
         break;
     default:
         assert(0);
