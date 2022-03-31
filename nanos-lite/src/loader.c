@@ -14,7 +14,7 @@ size_t ramdisk_read(void *buf, size_t offset, size_t len);
 void *new_page(size_t nr_page);
 
 static uintptr_t loader(PCB *pcb, const char *filename)
-{
+{assert(0);
     Elf_Ehdr *ehdr = malloc(sizeof(Elf_Ehdr));
     Elf_Phdr *phdr = malloc(sizeof(Elf_Phdr));
 
@@ -107,7 +107,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
      * pay attention! */
     uintptr_t entry = loader(pcb, filename);
     Log("uload: %s load to entry = %p", filename, entry);
-assert(0);
+
     Area kstack;
     kstack.start = pcb;
     kstack.end = kstack.start + STACK_SIZE;
