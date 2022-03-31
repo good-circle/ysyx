@@ -15,11 +15,12 @@ void *new_page(size_t nr_page);
 
 static uintptr_t loader(PCB *pcb, const char *filename)
 {
-    Elf_Ehdr *ehdr =NULL;
-    Elf_Phdr *phdr =NULL;
+    Elf_Ehdr *ehdr = malloc(sizeof(Elf_Ehdr));
+    Elf_Phdr *phdr = malloc(sizeof(Elf_Phdr));
 
     /* read elf from ramdisk */
     int fd = fs_open(filename, 0, 0);
+    assert(0);
     fs_read(fd, ehdr, sizeof(Elf_Ehdr));
 
     /* assert if not elf file */
