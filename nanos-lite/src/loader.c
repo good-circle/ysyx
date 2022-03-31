@@ -60,7 +60,6 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg)
 
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[])
 {
-    assert(0);
     void *ustack = new_page(8) + 8 * PGSIZE;
     char *envp_buf[128];
     char *argv_buf[128];
