@@ -102,12 +102,9 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
         *second_level_pgdir = (PTE)(((uintptr_t)base_addr >> 12) << 10 | _PAGE_PRESENT);
     }
     base_addr = (PTE *)((*second_level_pgdir >> 10) << 12);
-    PTE *last_level_pgdir = base_addr + vpn0;
-    if ((*last_level_pgdir & _PAGE_PRESENT) == 0)
-    {
 
-        *last_level_pgdir = (PTE)(((uintptr_t)pa >> 12) << 10 | _PAGE_PRESENT);
-    }
+    PTE *last_level_pgdir = base_addr + vpn0;
+    *last_level_pgdir = (PTE)(((uintptr_t)pa >> 12) << 10 | _PAGE_PRESENT);
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry)
