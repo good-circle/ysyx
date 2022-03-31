@@ -4,7 +4,7 @@
 
 paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type)
 {
-    printf("vaddr = %lx\n", vaddr);
+    printf("vaddr = %lx ", vaddr);
     vaddr_t vpn0 = (vaddr << 43) >> 55;
     vaddr_t vpn1 = (vaddr << 34) >> 55;
     vaddr_t vpn2 = (vaddr << 25) >> 55;
@@ -16,6 +16,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type)
     word_t last_level_pgdir = paddr_read(((second_level_pgdir >> 10) << 12) + vpn0 * sizeof(word_t), sizeof(word_t));
 
     word_t paddr = ((last_level_pgdir >> 10) << 12) | offset;
+    printf("paddr = %lx\n", paddr);
     assert(paddr == vaddr);
     return paddr;
 }
