@@ -99,8 +99,8 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
     PTE *second_level_pgdir = base_addr + vpn1;
     if ((*second_level_pgdir & _PAGE_PRESENT) == 0)
     {
-        printf("addr2: %x\n", base_addr);
         base_addr = pgalloc_usr(PGSIZE);
+        printf("addr2: %x\n", base_addr);
         *second_level_pgdir = (PTE)(((uintptr_t)base_addr >> 12) << 10 | _PAGE_PRESENT);
     }
     base_addr = (PTE *)((*second_level_pgdir >> 10) << 12);
