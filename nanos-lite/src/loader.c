@@ -12,11 +12,11 @@
 
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 void *new_page(size_t nr_page);
-
+extern void *pg_alloc(int n);
 static uintptr_t loader(PCB *pcb, const char *filename)
 {
-    Elf_Ehdr *ehdr = new_page(1);
-    Elf_Phdr *phdr = new_page(1);
+    Elf_Ehdr *ehdr = pg_alloc(sizeof(Elf_Ehdr));
+    Elf_Phdr *phdr = pg_alloc(sizeof(Elf_Phdr));
 
     /* read elf from ramdisk */
     int fd = fs_open(filename, 0, 0);
