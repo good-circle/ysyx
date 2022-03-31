@@ -30,11 +30,11 @@ printf("ehdr %p, phdr %p\n", ehdr, phdr);
     for (int i = 0; i < ehdr->e_phnum; i++)
     {
         fs_lseek(fd, ehdr->e_phoff + i * ehdr->e_phentsize, SEEK_SET);
-        fs_read(fd, phdr, 4096);
+        fs_read(fd, phdr, ehdr->e_phentsize);
         if (phdr->p_type == PT_LOAD)
         {
             fs_lseek(fd, phdr->p_offset, SEEK_SET);
-            printf("%x\n", phdr->p_vaddr);
+            printf("%x %x\n", phdr->p_vaddr, phdr->p_offset);
             fs_read(fd, (void *)phdr->p_vaddr, phdr->p_filesz);
             /* padding filesz ~ memsz zero */
             memset((void *)(phdr->p_vaddr + phdr->p_filesz), 0, phdr->p_memsz - phdr->p_filesz);
