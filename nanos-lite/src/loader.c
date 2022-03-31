@@ -15,8 +15,8 @@ void *new_page(size_t nr_page);
 extern void *pg_alloc(int n);
 static uintptr_t loader(PCB *pcb, const char *filename)
 {
-    Elf_Ehdr *ehdr = pg_alloc(sizeof(Elf_Ehdr));
-    Elf_Phdr *phdr = pg_alloc(sizeof(Elf_Phdr));
+    Elf_Ehdr *ehdr = pg_alloc(4096);
+    Elf_Phdr *phdr = pg_alloc(4096);
 
     /* read elf from ramdisk */
     int fd = fs_open(filename, 0, 0);
