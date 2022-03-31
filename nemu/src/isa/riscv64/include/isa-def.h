@@ -6,7 +6,7 @@
 typedef struct {
   word_t gpr[32];
   vaddr_t pc;
-  word_t csr[4]; // mepc, mstatus, mcause, mtvec
+  word_t csr[5]; // mepc, mstatus, mcause, mtvec, satp
 } riscv64_CPU_state;
 
 // decode
@@ -17,9 +17,9 @@ typedef struct {
 } riscv64_ISADecodeInfo;
 
 enum{
-    MEPC, MSTATUS, MCAUSE, MTVEC
+    MEPC, MSTATUS, MCAUSE, MTVEC, SATP
 };
 
-#define isa_mmu_check(vaddr, len, type) (MMU_DIRECT)
+#define isa_mmu_check(vaddr, len, type) ((cpu.csr[SATP] >> 60) == 0x8 ? MMU_TRANSLATE : MMU_DIRECT)
 
 #endif
