@@ -36,7 +36,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         fs_read(fd, phdr, ehdr->e_phentsize);
         if (phdr->p_type == PT_LOAD)
         {
-            printf("offset: %x, vaddr: %x. filesz: %x, memsz:%x\n", phdr->p_offset, phdr->p_vaddr, phdr->p_filesz, phdr->p_memsz);
+            printf("offset: %x, paddr: %s, vaddr: %x. filesz: %x, memsz:%x\n", phdr->p_offset, phdr->p_paddr, phdr->p_vaddr, phdr->p_filesz, phdr->p_memsz);
             fs_lseek(fd, phdr->p_offset, SEEK_SET);
             fs_read(fd, (void *)phdr->p_vaddr, phdr->p_filesz);
             /* padding filesz ~ memsz zero */
