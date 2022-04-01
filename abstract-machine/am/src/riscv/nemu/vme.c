@@ -113,6 +113,7 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry)
     uct->mepc = (uintptr_t)entry;
     uct->mstatus = MPIE;
     uct->pdir = as->ptr;
+    uct->np = 1;
     
     return uct;
 }

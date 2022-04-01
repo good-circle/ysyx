@@ -13,7 +13,6 @@ static Context *do_event(Event e, Context *c)
         do_syscall(c);
         break;
     case EVENT_IRQ_TIMER:
-        printf("111\n");
         return schedule(c);
         break;
     default:

@@ -49,7 +49,9 @@ bool cte_init(Context *(*handler)(Event, Context *))
     asm volatile("csrw mtvec, %0"
                  :
                  : "r"(__am_asm_trap));
-
+    
+    /* initialize ksp */
+    asm volatile("csrw mscratch, x0");
     // register event handler
     user_handler = handler;
 
@@ -63,6 +65,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg)
     kct->mepc = (uintptr_t)entry;
     kct->mstatus = MPIE;
     kct->gpr[10] = (uintptr_t)arg;
+    kct->np = 0;
 
     return kct;
 }
