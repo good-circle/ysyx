@@ -52,7 +52,8 @@ static uintptr_t loader(PCB *pcb, const char *filename)
             /* padding filesz ~ memsz zero */
             memset((void *)((pa | offset) + phdr->p_filesz), 0, phdr->p_memsz - phdr->p_filesz);
 
-            pcb->max_brk = pcb->max_brk > (phdr->p_vaddr + phdr->p_memsz) ? pcb->max_brk : phdr->p_vaddr + phdr->p_memsz;
+            pcb->max_brk = pcb->max_brk > (ROUNDUP(phdr->p_vaddr + phdr->p_memsz, PGSIZE)) ? pcb->max_brk : (ROUNDUP(phdr->p_vaddr + phdr->p_memsz, PGSIZE));
+            //printf("loader: max = %x\n", )
         }
     }
     return ehdr->e_entry;
