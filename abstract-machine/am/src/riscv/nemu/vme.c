@@ -58,7 +58,7 @@ void protect(AddrSpace *as)
     as->area = USER_SPACE;
     as->pgsize = PGSIZE;
     // map kernel space
-    memcpy(updir, kas.ptr, PGSIZE);
+    //memcpy(updir, kas.ptr, PGSIZE);
 }
 
 void unprotect(AddrSpace *as)
@@ -112,6 +112,6 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry)
     uct->mepc = (uintptr_t)entry;
     uct->mstatus = 0xa00001800;
     uct->pdir = as->ptr;
-    
+
     return uct;
 }
