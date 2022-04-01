@@ -25,12 +25,12 @@ printf("ehdr %p, phdr %p\n", ehdr, phdr);
     /* assert if not elf file */
     //! pay attention: this is uint32_t not size_t
     assert(*(uint32_t *)ehdr->e_ident == 0x464c457f);
-    printf("%x\n", *(uint32_t *)ehdr->e_ident);
 
     /* read program header */
     for (int i = 0; i < ehdr->e_phnum; i++)
     {
         fs_lseek(fd, ehdr->e_phoff + i * ehdr->e_phentsize, SEEK_SET);
+        printf("ehdr->e_phentsize: %x\n", ehdr->e_phentsize);
         fs_read(fd, phdr, ehdr->e_phentsize);
         if (phdr->p_type == PT_LOAD)
         {
