@@ -81,8 +81,14 @@ void *_sbrk(intptr_t increment)
         program_break = &_end;
     }
 
-    _syscall_(SYS_brk, increment, 0, 0);
-    program_break += increment;
+    if (_syscall_(SYS_brk, (intptr_t)(program_break + increment), 0, 0) == 0)
+    {
+        program_break += increment;
+    }
+    else
+    {
+        assert(0);
+    }
 
     return program_break - increment;
 }
@@ -110,7 +116,7 @@ int _gettimeofday(struct timeval *tv, struct timezone *tz)
 int _execve(const char *fname, char *const argv[], char *const envp[])
 {
     int ret = _syscall_(SYS_execve, (intptr_t)fname, (intptr_t)argv, (intptr_t)envp);
-    if(ret != 0)
+    if (ret != 0)
     {
         errno = -ret;
         return -1;
