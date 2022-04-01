@@ -31,6 +31,8 @@ int mm_brk(uintptr_t brk)
     uintptr_t current_ppn = current->max_brk >> 12;
     uintptr_t new_ppn = brk >> 12;
 
+    printf("old: %x, new: %x\n", current_ppn << 12, new_ppn << 12);
+
     if (brk >= current->max_brk)
     {
         void *new = new_page(new_ppn - current_ppn);
