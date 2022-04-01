@@ -31,5 +31,9 @@ word_t isa_query_intr()
         cpu.INTR = false;
         return IRQ_TIMER;
     }
+    if(cpu.INTR)
+    {
+        printf("111\n");
+    }
     return INTR_EMPTY;
 }
