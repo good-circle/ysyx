@@ -30,7 +30,6 @@ Context *__am_irq_handle(Context *c)
             ev.event = EVENT_IRQ_TIMER;
             break;
         default:
-            printf("c->mcause = %x\n", c->mcause);
             ev.event = EVENT_ERROR;
             break;
         }

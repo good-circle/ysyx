@@ -162,7 +162,6 @@ static void execute(uint64_t n)
         word_t intr = isa_query_intr();
         if (intr != INTR_EMPTY)
         {
-            printf("intr = %lx\n", intr);
             cpu.pc = isa_raise_intr(intr, cpu.pc);
         }
     }
