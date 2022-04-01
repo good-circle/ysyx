@@ -28,6 +28,9 @@ static uintptr_t loader(PCB *pcb, const char *filename)
     //! pay attention: this is uint32_t not size_t
     assert(*(uint32_t *)ehdr->e_ident == 0x464c457f);
 
+    /* init max_brk */
+    pcb->max_brk = 0;
+
     /* read program header */
     for (int i = 0; i < ehdr->e_phnum; i++)
     {
@@ -48,6 +51,8 @@ static uintptr_t loader(PCB *pcb, const char *filename)
             fs_read(fd, (void *)(pa | offset), phdr->p_filesz);
             /* padding filesz ~ memsz zero */
             memset((void *)((pa | offset) + phdr->p_filesz), 0, phdr->p_memsz - phdr->p_filesz);
+
+            pcb->max_brk = pcb->max_brk > (phdr->p_vaddr + phdr->p_memsz) ? pcb->max_brk : phdr->p_vaddr + phdr->p_memsz;
         }
     }
     return ehdr->e_entry;
