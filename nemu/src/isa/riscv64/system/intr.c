@@ -30,7 +30,6 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc)
 
 word_t isa_query_intr()
 {
-    printf("query: %lx\n", cpu.csr[MCAUSE]);
     if ((cpu.csr[MCAUSE] & MIE) && cpu.INTR)
     {
         cpu.INTR = false;

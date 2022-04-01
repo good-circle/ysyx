@@ -91,6 +91,7 @@ static void CSR(word_t dest, word_t src1, word_t src2, int op)
 #define MPIE (1ULL << 7)
 static word_t MRET()
 {
+    assert(0);
     bool mpie = cpu.csr[MCAUSE] & MPIE;
     word_t mcause = cpu.csr[MCAUSE];
     word_t offset_7 = (mcause << 57) >> 57;
