@@ -15,9 +15,11 @@ void *new_page(size_t nr_page);
 
 static uintptr_t loader(PCB *pcb, const char *filename)
 {
+    //Elf_Ehdr *ehdr = new_page(1);
+    //Elf_Phdr *phdr = new_page(1);
     Elf_Ehdr *ehdr = malloc(sizeof(Elf_Ehdr));
     Elf_Phdr *phdr = malloc(sizeof(Elf_Phdr));
-
+printf("ehdr %p, phdr %p\n", ehdr, phdr);
     /* read elf from ramdisk */
     int fd = fs_open(filename, 0, 0);
     fs_read(fd, ehdr, sizeof(Elf_Ehdr));
@@ -33,6 +35,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         fs_read(fd, phdr, ehdr->e_phentsize);
         if (phdr->p_type == PT_LOAD)
         {
+            printf("%x %x\n", phdr->p_vaddr, phdr->p_offset);
             fs_lseek(fd, phdr->p_offset, SEEK_SET);
             fs_read(fd, (void *)phdr->p_vaddr, phdr->p_filesz);
             /* padding filesz ~ memsz zero */
