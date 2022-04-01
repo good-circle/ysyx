@@ -21,7 +21,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc)
     mcause = mcause << 7;
     mcause = mcause | offset_7;
     cpu.csr[MCAUSE] = mcause;
-    printf("%lx\n", cpu.csr[MCAUSE]);
+    printf("intr: %lx\n", cpu.csr[MCAUSE]);
     return cpu.csr[MTVEC];
 }
 

@@ -104,6 +104,7 @@ static word_t MRET()
     mcause = mcause << 7;
     mcause = mcause | offset_7;
     cpu.csr[MCAUSE] = mcause;
+    printf("inst: %lx\n", cpu.csr[MCAUSE]);
     return cpu.csr[MEPC];
 }
 
