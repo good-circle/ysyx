@@ -32,7 +32,7 @@ word_t isa_query_intr()
 {
     if ((cpu.csr[MCAUSE] & MIE) && cpu.INTR)
     {
-        cpu.INTR = false;
+        cpu.INTR = 0;
         return IRQ_TIMER;
     }
 
