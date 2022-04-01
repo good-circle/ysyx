@@ -15,8 +15,10 @@ void *new_page(size_t nr_page);
 
 static uintptr_t loader(PCB *pcb, const char *filename)
 {
-    Elf_Ehdr *ehdr = malloc(sizeof(Elf_Ehdr));
-    Elf_Phdr *phdr = malloc(sizeof(Elf_Phdr));
+    Elf_Ehdr *ehdr = new_page(1);
+    Elf_Phdr *phdr = new_page(1);
+    // Elf_Ehdr *ehdr = malloc(sizeof(Elf_Ehdr));
+    // Elf_Phdr *phdr = malloc(sizeof(Elf_Phdr));
 
     /* read elf from ramdisk */
     int fd = fs_open(filename, 0, 0);
@@ -70,7 +72,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     {
         ustack -= (strlen(envp[i]) + 1);
         envp_buf[i] = strcpy(ustack, envp[i]);
-        //printf("envp %d = %s\n", i, envp[i]);
+        // printf("envp %d = %s\n", i, envp[i]);
     }
     envp_num = i;
 
@@ -78,7 +80,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     {
         ustack -= (strlen(argv[i]) + 1);
         argv_buf[i] = strcpy(ustack, argv[i]);
-        //printf("argv %d = %s\n", i, argv[i]);
+        // printf("argv %d = %s\n", i, argv[i]);
     }
     argc = i;
 
