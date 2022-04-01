@@ -7,6 +7,9 @@ html:
 
 ## 1. Basic Setup and Checks
 
+### use VME
+VME = 1
+
 ### Default to build an application
 ifeq ($(MAKECMDGOALS),)
   MAKECMDGOALS  = app
