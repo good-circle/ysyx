@@ -21,6 +21,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc)
     mcause = mcause << 7;
     mcause = mcause | offset_7;
     cpu.csr[MCAUSE] = mcause;
+    printf("%lx\n", cpu.csr[MCAUSE]);
     return cpu.csr[MTVEC];
 }
 
@@ -31,9 +32,6 @@ word_t isa_query_intr()
         cpu.INTR = false;
         return IRQ_TIMER;
     }
-    if(cpu.INTR)
-    {
-        printf("111\n");
-    }
+
     return INTR_EMPTY;
 }
