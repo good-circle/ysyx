@@ -82,6 +82,7 @@ static void CSR(word_t dest, word_t src1, word_t src2, int op)
         cpu.csr[csr] = t | src1;
         break;
     default:
+        printf("%x\n", op);
         assert(0);        
     }
     
