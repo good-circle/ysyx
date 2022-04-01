@@ -66,7 +66,6 @@ static void CSR(word_t dest, word_t src1, word_t src2, int op)
         csr = MTVEC;
         break;
     case 0x180:
-    assert(0);
         csr = SATP;
         break;
     default:
