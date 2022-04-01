@@ -12,11 +12,6 @@ void call_main(uintptr_t *args)
     args = (uintptr_t *)(args + 1 + 1);
     char **argv = (char **)(args);
 
-    for (int i = 0; i < argc; i++)
-    {
-        printf("call_main: argv %d = %s\n", i, argv[i]);
-    }
-
     args = (uintptr_t *)(args + argc + 1);
     char **envp = (char **)(args);
 
