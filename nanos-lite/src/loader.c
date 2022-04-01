@@ -25,6 +25,7 @@ printf("ehdr %p, phdr %p\n", ehdr, phdr);
     /* assert if not elf file */
     //! pay attention: this is uint32_t not size_t
     assert(*(uint32_t *)ehdr->e_ident == 0x464c457f);
+    printf("%x\n", *(uint32_t *)ehdr->e_ident);
 
     /* read program header */
     for (int i = 0; i < ehdr->e_phnum; i++)
