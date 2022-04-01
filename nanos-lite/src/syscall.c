@@ -11,6 +11,7 @@ void naive_uload(PCB *pcb, const char *filename);
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
 static int my_execve(const char *filename, char *const argv[], char *const envp[]);
 char *null_arg[] = {NULL};
+int mm_brk(uintptr_t brk);
 
 void do_syscall(Context *c)
 {
@@ -59,7 +60,7 @@ void do_syscall(Context *c)
 
     case SYS_brk: // 9
         /* will always success in pa3 */
-        c->GPRx = 0;
+        c->GPRx = mm_brk(a[1]);
         break;
 
     case SYS_execve: // 13
