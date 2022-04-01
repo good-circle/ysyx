@@ -106,12 +106,14 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
     *last_level_pgdir = (PTE)(((uintptr_t)pa >> 12) << 10 | _PAGE_PRESENT);
 }
 
+#define MPIE (1ULL << 7)
 Context *ucontext(AddrSpace *as, Area kstack, void *entry)
 {
     Context *uct = kstack.end - sizeof(Context);
     uct->mepc = (uintptr_t)entry;
-    uct->mstatus = 0xa00001800;
+    uct->mstatus = MPIE;
     uct->pdir = as->ptr;
+    uct->np = 1;
     
     return uct;
 }

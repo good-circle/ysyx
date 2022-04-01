@@ -13,7 +13,7 @@ static Context *do_event(Event e, Context *c)
         do_syscall(c);
         break;
     case EVENT_IRQ_TIMER:
-        printf("event_irq_timer!\n");
+        return schedule(c);
         break;
     default:
         panic("Unhandled event ID = %d", e.event);

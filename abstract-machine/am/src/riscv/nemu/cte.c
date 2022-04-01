@@ -5,6 +5,7 @@
 static Context *(*user_handler)(Event, Context *) = NULL;
 void __am_get_cur_as(Context *c);
 void __am_switch(Context *c);
+#define IRQ_TIMER 0x8000000000000007
 
 Context *__am_irq_handle(Context *c)
 {
@@ -24,6 +25,9 @@ Context *__am_irq_handle(Context *c)
                 ev.event = EVENT_SYSCALL;
             }
             c->mepc += 4;
+            break;
+        case IRQ_TIMER:
+            ev.event = EVENT_IRQ_TIMER;
             break;
         default:
             ev.event = EVENT_ERROR;
@@ -45,19 +49,23 @@ bool cte_init(Context *(*handler)(Event, Context *))
     asm volatile("csrw mtvec, %0"
                  :
                  : "r"(__am_asm_trap));
-
+    
+    /* initialize ksp */
+    asm volatile("csrw mscratch, x0");
     // register event handler
     user_handler = handler;
 
     return true;
 }
 
+#define MPIE (1ULL << 7)
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg)
 {
     Context *kct = kstack.end - sizeof(Context);
     kct->mepc = (uintptr_t)entry;
-    kct->mstatus = 0xa00001800;
+    kct->mstatus = MPIE;
     kct->gpr[10] = (uintptr_t)arg;
+    kct->np = 0;
 
     return kct;
 }
