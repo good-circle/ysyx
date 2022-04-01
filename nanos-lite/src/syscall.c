@@ -27,7 +27,8 @@ void do_syscall(Context *c)
     switch (a[0])
     {
     case SYS_exit: // 0
-        my_execve("/bin/nterm", null_arg, null_arg);
+        //my_execve("/bin/nterm", null_arg, null_arg);
+        halt(0);
         c->GPRx = a[1];
         break;
 
