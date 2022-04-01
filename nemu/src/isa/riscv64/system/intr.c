@@ -15,6 +15,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc)
     cpu.csr[MCAUSE] = NO;
     printf("intr: %lx\n", cpu.csr[MCAUSE]);
     bool mie = cpu.csr[MCAUSE] & MIE;
+    printf("mie: %x\n", mie);
     word_t mcause = cpu.csr[MCAUSE];
     word_t offset_7 = ((mcause << 57) >> 57) & ~MIE;
     mcause = (mcause >> 8) << 1;
