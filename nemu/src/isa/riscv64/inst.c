@@ -91,21 +91,19 @@ static void CSR(word_t dest, word_t src1, word_t src2, int op)
 #define MPIE (1ULL << 7)
 static word_t MRET()
 {
-    assert(0);
-    bool mpie = cpu.csr[MCAUSE] & MPIE;
-    word_t mcause = cpu.csr[MCAUSE];
-    word_t offset_7 = (mcause << 57) >> 57;
-    word_t offset_3 = (mcause << 61) >> 61;
+    bool mpie = cpu.csr[MSTATUS] & MPIE;
+    word_t mstatus = cpu.csr[MSTATUS];
+    word_t offset_7 = (mstatus << 57) >> 57;
+    word_t offset_3 = (mstatus << 61) >> 61;
     offset_7 = (offset_7 >> 4) << 1;
     offset_7 = offset_7 | mpie;
     offset_7 = offset_7 << 3;
     offset_7 = offset_7 | offset_3;
-    mcause = mcause >> 7;
-    mcause = mcause | 1;
-    mcause = mcause << 7;
-    mcause = mcause | offset_7;
-    cpu.csr[MCAUSE] = mcause;
-    printf("inst: %lx\n", cpu.csr[MCAUSE]);
+    mstatus = mstatus >> 7;
+    mstatus = mstatus | 1;
+    mstatus = mstatus << 7;
+    mstatus = mstatus | offset_7;
+    cpu.csr[MSTATUS] = mstatus;
     return cpu.csr[MEPC];
 }
 
