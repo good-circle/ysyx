@@ -81,7 +81,6 @@ void __am_switch(Context *c)
 #define _PAGE_PRESENT (1 << 0)
 void map(AddrSpace *as, void *va, void *pa, int prot)
 {
-    assert(0);
     uintptr_t vpn0 = ((uintptr_t)va >> 12) & ~(~0 << 9);
     uintptr_t vpn1 = ((uintptr_t)va >> 21) & ~(~0 << 9);
     uintptr_t vpn2 = ((uintptr_t)va >> 30) & ~(~0 << 9);

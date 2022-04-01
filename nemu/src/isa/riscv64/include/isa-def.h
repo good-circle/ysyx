@@ -20,6 +20,6 @@ enum{
     MEPC, MSTATUS, MCAUSE, MTVEC, SATP
 };
 
-#define isa_mmu_check(vaddr, len, type) ((cpu.csr[SATP] >> 60) == 0x8 ? MMU_TRANSLATE : MMU_DIRECT)
+#define isa_mmu_check(vaddr, len, type) (MMU_DIRECT)
 
 #endif
