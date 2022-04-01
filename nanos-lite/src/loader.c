@@ -15,7 +15,6 @@ void *new_page(size_t nr_page);
 
 static uintptr_t loader(PCB *pcb, const char *filename)
 {
-    printf("filename: %s\n", filename);
     Elf_Ehdr *ehdr = new_page(1);
     Elf_Phdr *phdr = new_page(1);
     // Elf_Ehdr *ehdr = malloc(sizeof(Elf_Ehdr));
@@ -36,11 +35,19 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         fs_read(fd, phdr, ehdr->e_phentsize);
         if (phdr->p_type == PT_LOAD)
         {
-            printf("offset: %x, paddr: %s, vaddr: %x. filesz: %x, memsz:%x\n", phdr->p_offset, phdr->p_paddr, phdr->p_vaddr, phdr->p_filesz, phdr->p_memsz);
+            bool add_1 = (phdr->p_memsz % PGSIZE + phdr->p_vaddr % PGSIZE) / PGSIZE;
+            size_t nr_page = (phdr->p_memsz % PGSIZE == 0) ? (phdr->p_memsz / PGSIZE) : (phdr->p_memsz / PGSIZE + 1 + add_1);
+            uintptr_t va = (phdr->p_vaddr >> 12) << 12;
+            uintptr_t offset = (phdr->p_vaddr << 52) >> 52;
+            uintptr_t pa = (uintptr_t)new_page(nr_page);
+            for (int i = 0; i < nr_page; i++)
+            {
+                map(&pcb->as, (void *)va + i * PGSIZE, (void *)pa + i * PGSIZE, 0);
+            }
             fs_lseek(fd, phdr->p_offset, SEEK_SET);
-            fs_read(fd, (void *)phdr->p_vaddr, phdr->p_filesz);
+            fs_read(fd, (void *)(pa | offset), phdr->p_filesz);
             /* padding filesz ~ memsz zero */
-            memset((void *)(phdr->p_vaddr + phdr->p_filesz), 0, phdr->p_memsz - phdr->p_filesz);
+            memset((void *)((pa | offset) + phdr->p_filesz), 0, phdr->p_memsz - phdr->p_filesz);
         }
     }
     return ehdr->e_entry;
@@ -64,7 +71,17 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg)
 
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[])
 {
+    protect(&pcb->as);
     void *ustack = new_page(8) + 8 * PGSIZE;
+    void *va = pcb->as.area.end;
+    void *pa = ustack;
+    for (int i = 0; i < 8; i++)
+    {
+        pa -= PGSIZE;
+        va -= PGSIZE;
+        map(&pcb->as, va, pa, 0);
+    }
+
     char *envp_buf[128];
     char *argv_buf[128];
     uintptr_t envp_num = 0;
