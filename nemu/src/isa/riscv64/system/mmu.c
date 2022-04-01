@@ -21,7 +21,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type)
     assert((last_level_pgdir & 0x1) == 1);
 
     word_t paddr = ((last_level_pgdir >> 10) << 12) | offset;
-    assert(paddr == vaddr);
+    //assert(paddr == vaddr);
 
     return paddr;
 }
