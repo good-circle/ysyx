@@ -17,9 +17,9 @@ static uintptr_t loader(PCB *pcb, const char *filename)
 {
     Elf_Ehdr *ehdr = new_page(1);
     Elf_Phdr *phdr = new_page(1);
-    //Elf_Ehdr *ehdr = malloc(sizeof(Elf_Ehdr));
-    //Elf_Phdr *phdr = malloc(sizeof(Elf_Phdr));
-printf("ehdr %p, phdr %p\n", ehdr, phdr);
+    // Elf_Ehdr *ehdr = malloc(sizeof(Elf_Ehdr));
+    // Elf_Phdr *phdr = malloc(sizeof(Elf_Phdr));
+
     /* read elf from ramdisk */
     int fd = fs_open(filename, 0, 0);
     fs_read(fd, ehdr, sizeof(Elf_Ehdr));
@@ -35,7 +35,6 @@ printf("ehdr %p, phdr %p\n", ehdr, phdr);
         fs_read(fd, phdr, ehdr->e_phentsize);
         if (phdr->p_type == PT_LOAD)
         {
-            printf("%x %x\n", phdr->p_vaddr, phdr->p_offset);
             fs_lseek(fd, phdr->p_offset, SEEK_SET);
             fs_read(fd, (void *)phdr->p_vaddr, phdr->p_filesz);
             /* padding filesz ~ memsz zero */
@@ -73,7 +72,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     {
         ustack -= (strlen(envp[i]) + 1);
         envp_buf[i] = strcpy(ustack, envp[i]);
-        //printf("envp %d = %s\n", i, envp[i]);
+        // printf("envp %d = %s\n", i, envp[i]);
     }
     envp_num = i;
 
@@ -81,7 +80,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     {
         ustack -= (strlen(argv[i]) + 1);
         argv_buf[i] = strcpy(ustack, argv[i]);
-        //printf("argv %d = %s\n", i, argv[i]);
+        // printf("argv %d = %s\n", i, argv[i]);
     }
     argc = i;
 
