@@ -1,5 +1,7 @@
 #include <isa.h>
 
+#define IRQ_TIMER 0x8000000000000007
+#define MIE (1ULL << 3)
 word_t isa_raise_intr(word_t NO, vaddr_t epc)
 {
     /* TODO: Trigger an interrupt/exception with ``NO''.
@@ -11,10 +13,23 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc)
 
     cpu.csr[MEPC] = epc;
     cpu.csr[MCAUSE] = NO;
+    bool mie = cpu.csr[MCAUSE] & MIE;
+    word_t mcause = cpu.csr[MCAUSE];
+    word_t offset_7 = ((mcause << 57) >> 57) & ~MIE;
+    mcause = (mcause >> 8) << 1;
+    mcause = mcause | mie;
+    mcause = mcause << 7;
+    mcause = mcause | offset_7;
+    cpu.csr[MCAUSE] = mcause;
     return cpu.csr[MTVEC];
 }
 
 word_t isa_query_intr()
 {
+    if ((cpu.csr[MCAUSE] & MIE) && cpu.INTR)
+    {
+        cpu.INTR = false;
+        return IRQ_TIMER;
+    }
     return INTR_EMPTY;
 }

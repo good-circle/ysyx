@@ -88,6 +88,25 @@ static void CSR(word_t dest, word_t src1, word_t src2, int op)
     R(dest) = t;   
 }
 
+#define MPIE (1ULL << 7)
+static word_t MRET()
+{
+    bool mpie = cpu.csr[MCAUSE] & MPIE;
+    word_t mcause = cpu.csr[MCAUSE];
+    word_t offset_7 = (mcause << 57) >> 57;
+    word_t offset_3 = (mcause << 61) >> 61;
+    offset_7 = (offset_7 >> 4) << 1;
+    offset_7 = offset_7 | mpie;
+    offset_7 = offset_7 << 3;
+    offset_7 = offset_7 | offset_3;
+    mcause = mcause >> 7;
+    mcause = mcause | 1;
+    mcause = mcause << 7;
+    mcause = mcause | offset_7;
+    cpu.csr[MCAUSE] = mcause;
+    return cpu.csr[MEPC];
+}
+
 static int decode_exec(Decode *s) {
   word_t dest = 0, src1 = 0, src2 = 0;
   s->dnpc = s->snpc;
@@ -153,7 +172,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I, CSR(dest, src1, src2, CSRRW));
   INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , I, CSR(dest, src1, src2, CSRRS));
 
-  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc = cpu.csr[MEPC]);
+  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc = MRET());
   
   // RV64I
   INSTPAT("??????? ????? ????? 110 ????? 00000 11", lwu    , I, R(dest) = (uint32_t)Mr(src1 + src2, 4));
