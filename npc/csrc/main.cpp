@@ -61,7 +61,8 @@ static int parse_args(int argc, char *argv[])
             break;
         case 1:
             img_file = optarg;
-            return optind - 1;
+            /* ? */
+            return 0;
         }
     }
     return 0;
