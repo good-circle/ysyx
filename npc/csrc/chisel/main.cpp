@@ -161,7 +161,6 @@ void npc_exec(unsigned int n)
 
 int main(int argc, char **argv, char **env)
 {
-    printf("11111\n");
     contextp->commandArgs(argc, argv);
     //Verilated::traceEverOn(true);
     //top->trace(m_trace, 99);
@@ -184,6 +183,7 @@ int main(int argc, char **argv, char **env)
     top->reset = 0;
 
     svSetScope(svGetScopeFromName("TOP.Top"));
+    printf("11111\n");
 
     sdb_mainloop();
 
