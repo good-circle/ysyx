@@ -86,6 +86,7 @@ void reset_npc(uint n)
 
 void npc_exec(unsigned int n)
 {
+    printf("11111\n");
     struct timeval begin;
     struct timeval end;
     gettimeofday(&begin, NULL);
@@ -183,7 +184,6 @@ int main(int argc, char **argv, char **env)
     top->reset = 0;
 
     svSetScope(svGetScopeFromName("TOP.Top"));
-    printf("11111\n");
 
     sdb_mainloop();
 
