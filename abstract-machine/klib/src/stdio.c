@@ -21,6 +21,29 @@ int printf(const char *fmt, ...)
 
 int vsprintf(char *out, const char *fmt, va_list ap)
 {
+    return vsnprintf(out, -1, fmt, ap);
+}
+
+int sprintf(char *out, const char *fmt, ...)
+{
+    va_list ap;
+    va_start(ap, fmt);
+    int length = vsprintf(out, fmt, ap);
+    va_end(ap);
+    return length;
+}
+
+int snprintf(char *out, size_t n, const char *fmt, ...)
+{
+    va_list ap;
+    va_start(ap, fmt);
+    int length = vsnprintf(out, n, fmt, ap);
+    va_end(ap);
+    return length;
+}
+
+int vsnprintf(char *out, size_t n, const char *fmt, va_list ap)
+{
     int pos = 0;
     for (; *fmt != '\0'; fmt++)
     {
@@ -28,6 +51,10 @@ int vsprintf(char *out, const char *fmt, va_list ap)
         while (*fmt != '%' && *fmt != '\0')
         {
             out[pos++] = *fmt++;
+            if (pos > n)
+            {
+                return n;
+            }
         }
 
         if (*fmt == '%')
@@ -62,6 +89,10 @@ int vsprintf(char *out, const char *fmt, va_list ap)
             while (*s != '\0')
             {
                 out[pos++] = *s++;
+                if (pos > n)
+                {
+                    return n;
+                }
             }
             break;
         }
@@ -73,6 +104,10 @@ int vsprintf(char *out, const char *fmt, va_list ap)
             {
                 d = -d;
                 out[pos++] = '-';
+                if (pos > n)
+                {
+                    return n;
+                }
             }
             char num[20] = {0};
             int rem = 0;
@@ -90,12 +125,79 @@ int vsprintf(char *out, const char *fmt, va_list ap)
             {
                 out[pos++] = padding;
                 width--;
+                if (pos > n)
+                {
+                    return n;
+                }
             }
 
             length--;
             for (; length >= 0; length--)
             {
                 out[pos++] = num[length];
+                if (pos > n)
+                {
+                    return n;
+                }
+            }
+
+            break;
+        }
+
+        case 'p':
+        case 'x':
+        {
+            uint64_t d = va_arg(ap, uint64_t);
+            char num[20] = {0};
+            int rem = 0;
+            int length = 0;
+
+            do
+            {
+                rem = d % 16;
+                d = d / 16;
+                if (rem <= 9)
+                {
+                    num[length++] = rem + '0';
+                }
+                else
+                {
+                    num[length++] = rem - 10 + 'a';
+                }
+
+            } while (d > 0);
+
+            // padding
+            while (length < width)
+            {
+                out[pos++] = padding;
+                width--;
+                if (pos > n)
+                {
+                    return n;
+                }
+            }
+
+            out[pos++] = '0';
+            if (pos > n)
+            {
+                return n;
+            }
+
+            out[pos++] = 'x';
+            if (pos > n)
+            {
+                return n;
+            }
+
+            length--;
+            for (; length >= 0; length--)
+            {
+                out[pos++] = num[length];
+                if (pos > n)
+                {
+                    return n;
+                }
             }
 
             break;
@@ -110,27 +212,12 @@ int vsprintf(char *out, const char *fmt, va_list ap)
     }
     */
 
+    if (pos > n)
+    {
+        return n;
+    }
     out[pos] = '\0';
     return pos;
-}
-
-int sprintf(char *out, const char *fmt, ...)
-{
-    va_list ap;
-    va_start(ap, fmt);
-    int length = vsprintf(out, fmt, ap);
-    va_end(ap);
-    return length;
-}
-
-int snprintf(char *out, size_t n, const char *fmt, ...)
-{
-    panic("Not implemented");
-}
-
-int vsnprintf(char *out, size_t n, const char *fmt, va_list ap)
-{
-    panic("Not implemented");
 }
 
 #endif

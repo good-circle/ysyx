@@ -1,35 +1,25 @@
-BUILD_DIR = ./build
+IMG ?=
+override ARGS ?= -b -d $(REF_SO)
 
-test:
-	mill -i __.test
+REF_SO := $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 
-verilog:
-	$(call git_commit, "generate verilog")
-	mkdir -p $(BUILD_DIR)
-	mill -i __.test.runMain Elaborate -td $(BUILD_DIR)
+$(REF_SO):
+	$(MAKE) -C $(NEMU_HOME) ISA=riscv64 SHARE=1 ENGINE=interpreter
 
-help:
-	mill -i __.test.runMain Elaborate --help
+CXXFLAGS += $(shell llvm-config --cxxflags) -fPIE
+LIBS += $(shell llvm-config --libs)
 
-compile:
-	mill -i __.compile
+all: sim wave
 
-bsp:
-	mill -i mill.bsp.BSP/install
-
-reformat:
-	mill -i __.reformat
-
-checkformat:
-	mill -i __.checkFormat
-
-clean:
-	-rm -rf $(BUILD_DIR)
-
-.PHONY: test verilog help compile bsp reformat checkformat clean
+#	verilator -Wno-lint --cc --exe --build --trace --top-module Top -LDFLAGS "-lreadline -ldl $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/chisel/*.cpp) $(wildcard ./csrc/chisel/*.cc) $(wildcard ./vsrc/chisel/*.v)
 
 sim:
-	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	@echo "Write this Makefile by yourself."
+	$(call git_commit, "sim RTL") 
+	verilator -Wno-lint --cc --exe --build --top-module Top -LDFLAGS "-lreadline -ldl $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/chisel/*.cpp) $(wildcard ./csrc/chisel/*.cc) $(wildcard ./vsrc/chisel/*.v)
+	./obj_dir/VTop $(ARGS) $(IMG) 
+
+wave:
+	$(call git_commit, "check waveform")
+	gtkwave waveform.vcd
 
 include ../Makefile
