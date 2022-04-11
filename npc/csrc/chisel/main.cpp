@@ -86,12 +86,12 @@ void reset_npc(uint n)
 
 void npc_exec(unsigned int n)
 {
-    printf("11111\n");
     struct timeval begin;
     struct timeval end;
     gettimeofday(&begin, NULL);
     while (!is_finish && n > 0)
     {
+        printf("11111\n");
         inst_num++;
         u_int64_t last_pc = top->io_pc;
         //printf("%08lx \n", top->io_pc);
