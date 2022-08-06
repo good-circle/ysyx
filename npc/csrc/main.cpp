@@ -19,6 +19,7 @@ int inst_num = 0;
 bool is_batch_mode = false;
 static char *diff_so_file = NULL;
 u_int64_t difftest_regs[33] = {0};
+extern uint64_t cpu_pc;
 
 static int parse_args(int argc, char *argv[]);
 long init_pmem();
@@ -94,7 +95,7 @@ void npc_exec(unsigned int n)
     while (!is_finish && n > 0)
     {
         cycle_num++;
-        u_int64_t last_pc = top->io_pc;
+        u_int64_t last_pc = cpu_pc;
         // printf("%08lx \n", top->io_pc);
         // top->inst = inst_fetch(top->io_pc);
         // printf("%08x\n", top->inst);
