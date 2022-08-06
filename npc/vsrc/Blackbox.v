@@ -9,7 +9,7 @@ module Blackbox(
     input  [63:0] dmem_wdata,
 
     input  [63:0] dmem_wmask,
-    input         dmem_wen  
+    input         dmem_wen  ,
 
 );
 
