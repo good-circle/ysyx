@@ -41,7 +41,7 @@ class ram_2r1w extends BlackBox with HasBlackBoxInline {
       |    input  [63:0] dmem_wdata,
       |
       |    input  [63:0] dmem_wmask,
-      |    input         dmem_wen  ,
+      |    input         dmem_wen  
       |
       |);
       |
