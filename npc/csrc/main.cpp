@@ -190,7 +190,7 @@ int main(int argc, char **argv, char **env)
     */
     top->reset = 0;
 
-    svSetScope(svGetScopeFromName("TOP.SimTop"));
+    svSetScope(svGetScopeFromName("TOP.Core"));
 
     sdb_mainloop();
 
