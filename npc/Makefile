@@ -11,8 +11,6 @@ LIBS += $(shell llvm-config --libs)
 
 all: sim wave
 
-#	verilator -Wno-lint --cc --exe --build --trace --top-module Top -LDFLAGS "-lreadline -ldl $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/chisel/*.cpp) $(wildcard ./csrc/chisel/*.cc) $(wildcard ./vsrc/chisel/*.v)
-
 sim:
 	$(call git_commit, "sim RTL") 
 	verilator -Wno-lint --cc --exe --build --top-module Top -LDFLAGS "-lreadline -ldl $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./csrc/*.cc) $(wildcard ./vsrc/*.v)
