@@ -1,7 +1,8 @@
 import chisel3._
+import chisel3.util._
 import chisel3.util.experimental._
 
-class RegFile extends Module {
+class RegFile extends BlackBox with HasBlackBoxInline {
   val io = IO(new Bundle {
     val raddr1 = Input(UInt(5.W))
     val raddr2 = Input(UInt(5.W))
@@ -11,7 +12,7 @@ class RegFile extends Module {
     val wdata = Input(UInt(64.W))
     val wen = Input(Bool())
   })
-  
+
   setInline("regfile.v",
     """module regfile(
       |    input         clock ,
