@@ -1,7 +1,6 @@
 import chisel3._
 import chisel3.util.experimental._
 import Instructions._
-import difftest._
 
 class Core extends Module {
   val io = IO(new Bundle {

@@ -1,6 +1,5 @@
 import chisel3._
 import chisel3.util.experimental._
-import difftest._
 
 class RegFile extends Module {
   val io = IO(new Bundle {
@@ -21,11 +20,6 @@ class RegFile extends Module {
 
   io.rdata1 := Mux((io.raddr1 =/= 0.U), rf(io.raddr1), 0.U)
   io.rdata2 := Mux((io.raddr2 =/= 0.U), rf(io.raddr2), 0.U)
-
-  val dt_ar = Module(new DifftestArchIntRegState)
-  dt_ar.io.clock  := clock
-  dt_ar.io.coreid := 0.U
-  dt_ar.io.gpr    := rf
 
   BoringUtils.addSource(rf(10), "rf_a0")
 }
