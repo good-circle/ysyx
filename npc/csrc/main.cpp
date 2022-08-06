@@ -189,7 +189,7 @@ int main(int argc, char **argv, char **env)
     #endif
     */
     top->reset = 0;
-    char a[100] = (char *)svGetScopeFromName("TOP.SimTop.core");
+    char a[] = (char *)svGetScopeFromName("TOP.SimTop.core");
     printf("%s\n", a);
 
     //svSetScope(svGetScopeFromName("TOP.SimTop.core"));
