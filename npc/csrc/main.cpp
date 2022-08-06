@@ -192,7 +192,7 @@ int main(int argc, char **argv, char **env)
 
     Verilated::scopesDump();
 
-    svSetScope(svGetScopeFromName("TOP.SimTop.core.commit"));
+    svSetScope(0x5642e7995240);
 
     sdb_mainloop();
 
