@@ -47,12 +47,12 @@ class Core extends Module {
       |);
       |
       |export "DPI-C" function export_finish;
-      |function bit export_finish();
+      |function byte export_finish();
       |    return ebreak;
       |endfunction
       |
       |export "DPI-C" function export_commit;
-      |function bit export_commit();
+      |function byte export_commit();
       |    return valid;
       |endfunction
       |
