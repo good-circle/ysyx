@@ -4,13 +4,13 @@ module Commit(
     input        ebreak
 );
 
-export "DPI-C" function finish;
-function bit finish();
+export "DPI-C" function export_finish;
+function bit export_finish();
     return ebreak;
 endfunction
 
-export "DPI-C" function commit;
-function bit commit();
+export "DPI-C" function export_commit;
+function bit export_commit();
     return valid;
 endfunction
 
