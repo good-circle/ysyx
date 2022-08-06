@@ -6,13 +6,15 @@
 
 VerilatedContext *contextp = new VerilatedContext;
 VTop *top = new VTop{contextp};
-//VerilatedVcdC *m_trace = new VerilatedVcdC;
+// VerilatedVcdC *m_trace = new VerilatedVcdC;
 svBit is_finish = 0;
-int npc_time = 0;
+svBit is_commit = 0;
+int npc_cycle = 0;
 
 u_int8_t pmem[0x8000000];
 const char *img_file = NULL;
 char *log_file = NULL;
+int cycle_num = 0;
 int inst_num = 0;
 bool is_batch_mode = false;
 static char *diff_so_file = NULL;
@@ -72,15 +74,15 @@ void reset_npc(uint n)
     top->reset = 1;
     for (int i = 0; i < n; i++)
     {
-        //m_trace->dump(2 * npc_time);
+        // m_trace->dump(2 * npc_cycle);
         top->clock = !top->clock;
         top->eval();
 
-        //m_trace->dump(2 * npc_time + 1);
+        // m_trace->dump(2 * npc_cycle + 1);
         top->clock = !top->clock;
         top->eval();
 
-        npc_time++;
+        npc_cycle++;
     }
 }
 
@@ -91,62 +93,67 @@ void npc_exec(unsigned int n)
     gettimeofday(&begin, NULL);
     while (!is_finish && n > 0)
     {
-        inst_num++;
+        cycle_num++;
         u_int64_t last_pc = top->io_pc;
-        //printf("%08lx \n", top->io_pc);
-        //top->inst = inst_fetch(top->io_pc);
-        //printf("%08x\n", top->inst);
-/*
-#define ITRACE 1
-#ifdef ITRACE
-        char start[128];
-        char *p = start;
-        p += snprintf(p, sizeof(start),"0x%08lx:", top->io_pc);
-        int ilen = 4;
-        int i;
-        int pc_inst = inst_fetch(top->io_pc);
-        u_int8_t *inst = (u_int8_t *)&pc_inst;
-        for (i = 0; i < ilen; i++)
+        // printf("%08lx \n", top->io_pc);
+        // top->inst = inst_fetch(top->io_pc);
+        // printf("%08x\n", top->inst);
+        /*
+        #define ITRACE 1
+        #ifdef ITRACE
+                char start[128];
+                char *p = start;
+                p += snprintf(p, sizeof(start),"0x%08lx:", top->io_pc);
+                int ilen = 4;
+                int i;
+                int pc_inst = inst_fetch(top->io_pc);
+                u_int8_t *inst = (u_int8_t *)&pc_inst;
+                for (i = 0; i < ilen; i++)
+                {
+                    p += snprintf(p, 4, " %02x", inst[i]);
+                }
+                int space_len = 1;
+                memset(p, ' ', space_len);
+                p += space_len;
+
+                disassemble(p, start + 128 - p, top->io_pc, (uint8_t *)&pc_inst, ilen);
+
+                //printf("%s\n", start);
+        #endif
+        */
+        // m_trace->dump(2 * npc_cycle);
+        top->clock = !top->clock;
+        top->eval();
+        // m_trace->dump(2 * npc_cycle + 1);
+        top->clock = !top->clock;
+        top->eval();
+
+        is_commit = commit();
+
+        if (is_commit)
         {
-            p += snprintf(p, 4, " %02x", inst[i]);
+            inst_num++;
+            difftest_read_regs(difftest_regs);
+            is_finish = finish();
+            if (!is_finish && difftest_step(difftest_regs, last_pc) != 0)
+            {
+                is_finish = 1;
+                break;
+            }
         }
-        int space_len = 1;
-        memset(p, ' ', space_len);
-        p += space_len;
 
-        disassemble(p, start + 128 - p, top->io_pc, (uint8_t *)&pc_inst, ilen);
-
-        //printf("%s\n", start);
-#endif
-*/
-        //m_trace->dump(2 * npc_time);
-        top->clock = !top->clock;
-        top->eval();
-        //m_trace->dump(2 * npc_time + 1);
-        top->clock = !top->clock;
-        top->eval();
-
-        difftest_read_regs(difftest_regs);
-
-        is_finish = finish();
         n--;
-        npc_time++;
-
-        if (!is_finish && difftest_step(difftest_regs, last_pc) != 0)
-        {
-            is_finish = 1;
-            break;
-        }
-
+        npc_cycle++;
     }
 
     if (is_finish)
     {
         gettimeofday(&end, NULL);
-        double npc_time = (end.tv_sec - begin.tv_sec) * 1000000 + (end.tv_usec - begin.tv_usec) ;
+        double npc_time = (end.tv_sec - begin.tv_sec) * 1000000 + (end.tv_usec - begin.tv_usec);
+        printf("number of cycles is %d\n", cycle_num);        
         printf("number of instructions is %d\n", inst_num);
         printf("total spend time %lfs\n", npc_time / 1000000);
-        double frequency = inst_num  / (npc_time / 1000000);
+        double frequency = cycle_num / (npc_time / 1000000);
         printf("simulation frequency = %d inst/s\n", (int)frequency);
         if (difftest_regs[10] == 0)
         {
@@ -162,9 +169,9 @@ void npc_exec(unsigned int n)
 int main(int argc, char **argv, char **env)
 {
     contextp->commandArgs(argc, argv);
-    //Verilated::traceEverOn(true);
-    //top->trace(m_trace, 99);
-    //m_trace->open("waveform.vcd");
+    // Verilated::traceEverOn(true);
+    // top->trace(m_trace, 99);
+    // m_trace->open("waveform.vcd");
 
     parse_args(argc, argv);
     int img_size = init_pmem();
@@ -173,20 +180,20 @@ int main(int argc, char **argv, char **env)
     reset_npc(10);
 
     difftest_read_regs(difftest_regs);
-    
+
     init_difftest(diff_so_file, img_size, difftest_regs);
-/*
-#ifdef ITRACE
-    init_disasm("riscv64-pc-linux-gnu");
-#endif
-*/
+    /*
+    #ifdef ITRACE
+        init_disasm("riscv64-pc-linux-gnu");
+    #endif
+    */
     top->reset = 0;
 
     svSetScope(svGetScopeFromName("TOP.Top"));
 
     sdb_mainloop();
 
-    //m_trace->close();
+    // m_trace->close();
     delete top;
     delete contextp;
 }

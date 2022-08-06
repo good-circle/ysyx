@@ -2,9 +2,15 @@
 
 extern VTop *top;
 uint64_t *cpu_gpr = NULL;
+uint64_t cpu_pc = NULL;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
 {
     cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar *)r)->datap());
+}
+
+extern "C" void set_pc(const svOpenArrayHandle r)
+{
+    pc = (uint64_t)(((VerilatedDpiOpenVar *)r)->datap());
 }
 
 const char *regs[] = {
@@ -49,5 +55,5 @@ void difftest_read_regs(uint64_t *difftest_regs)
     {
         difftest_regs[i] = cpu_gpr[i];
     }
-    difftest_regs[32] = top->io_pc;
+    difftest_regs[32] = cpu_pc;
 }

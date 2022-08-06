@@ -42,14 +42,15 @@ u_int32_t memory_read(unsigned long long addr)
     return *(u_int32_t *)(pmem + addr - 0x80000000);
 }
 
-extern "C" void pmem_read(long long mem_raddr, long long *mem_rdata, bool mem_read)
+extern "C" uint64_t pmem_read(long long mem_raddr,  bool mem_read)
 {
     //printf("mem_raddr: %llx\n", mem_raddr);
     assert(mem_raddr >= 0x80000000 || !mem_read);
     if (mem_read)
     {
-        *mem_rdata = *(long long *)(pmem + (mem_raddr & ~0x7ull) - 0x80000000);
+        return (long long *)(pmem + (mem_raddr & ~0x7ull) - 0x80000000);
     }
+    return 0;
 }
 
 extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wmask, bool mem_write)
