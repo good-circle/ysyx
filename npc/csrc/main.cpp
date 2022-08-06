@@ -129,13 +129,13 @@ void npc_exec(unsigned int n)
         top->clock = !top->clock;
         top->eval();
 
-        is_commit = commit();
+        is_commit = export_commit();
 
         if (is_commit)
         {
             inst_num++;
             difftest_read_regs(difftest_regs);
-            is_finish = finish();
+            is_finish = export_finish();
             if (!is_finish && difftest_step(difftest_regs, last_pc) != 0)
             {
                 is_finish = 1;
@@ -190,7 +190,7 @@ int main(int argc, char **argv, char **env)
     */
     top->reset = 0;
 
-    svSetScope(svGetScopeFromName("TOP.SimTop.core"));
+    //svSetScope(svGetScopeFromName("TOP.SimTop.core"));
 
     sdb_mainloop();
 
