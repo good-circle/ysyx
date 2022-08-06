@@ -137,13 +137,13 @@ void npc_exec(unsigned int n)
         if (is_commit)
         {
             inst_num++;
-            //difftest_read_regs(difftest_regs);
+            difftest_read_regs(difftest_regs);
             is_finish = export_finish();
-            //if (!is_finish && difftest_step(difftest_regs, last_pc) != 0)
-            //{
-            //    is_finish = 1;
-            //    break;
-            //}
+            if (!is_finish && difftest_step(difftest_regs, last_pc) != 0)
+            {
+                is_finish = 1;
+                break;
+            }
         }
 
         n--;
