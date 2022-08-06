@@ -1,10 +1,10 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__
-#include "VTop.h"
+#include "VSimTop.h"
 #include "verilated.h"
 #include <verilated_vcd_c.h>
 #include "svdpi.h"
-#include "VTop__Dpi.h"
+#include "VSimTop__Dpi.h"
 #include "verilated_dpi.h"
 
 #define COLOR_NONE "\033[0m"
