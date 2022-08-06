@@ -8,9 +8,9 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
     cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar *)r)->datap());
 }
 
-extern "C" void set_pc(const svOpenArrayHandle r)
+extern "C" void set_pc(long long pc)
 {
-    cpu_pc = (uint64_t)(((VerilatedDpiOpenVar)r)->datap());
+    cpu_pc = pc;
 }
 
 const char *regs[] = {

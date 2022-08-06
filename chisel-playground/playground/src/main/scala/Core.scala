@@ -56,7 +56,7 @@ class Core extends Module {
       |    return valid;
       |endfunction
       |
-      |import "DPI-C" function void set_pc(input logic [31:0] a);
+      |import "DPI-C" function void set_pc(input longint pc);
       |initial set_pc(pc);
       |
       |endmodule
