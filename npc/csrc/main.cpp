@@ -129,7 +129,6 @@ void npc_exec(unsigned int n)
         top->clock = !top->clock;
         top->eval();
 
-        extern bool commit(void);
         is_commit = commit();
 
         if (is_commit)
@@ -190,6 +189,8 @@ int main(int argc, char **argv, char **env)
     #endif
     */
     top->reset = 0;
+
+    svSetScope(svGetScopeFromName("TOP.SimTop.core.commit"));
 
     sdb_mainloop();
 
