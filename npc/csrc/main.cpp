@@ -190,7 +190,7 @@ int main(int argc, char **argv, char **env)
     */
     top->reset = 0;
 
-    svSetScope(svGetScopeFromName("TOP.dut"));
+    svSetScope(svGetScopeFromName("TOP.123"));
 
     sdb_mainloop();
 
