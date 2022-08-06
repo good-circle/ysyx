@@ -190,9 +190,7 @@ int main(int argc, char **argv, char **env)
     */
     top->reset = 0;
 
-    //svSetScope(svGetScopeFromName("TOP.VSimTop"));
-
-    using namespace std;
+    svSetScope(svGetScopeFromName("TOP.commit"));
 
     sdb_mainloop();
 
