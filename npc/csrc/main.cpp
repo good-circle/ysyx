@@ -190,9 +190,9 @@ int main(int argc, char **argv, char **env)
     */
     top->reset = 0;
 
-    //svSetScope(svGetScopeFromName("TOP.Core"));
+    svSetScope(svGetScopeFromName("TOP.Core"));
 
-    //sdb_mainloop();
+    sdb_mainloop();
 
     // m_trace->close();
     delete top;
