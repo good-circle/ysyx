@@ -1,12 +1,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <getopt.h>
-
+#include <sys/time.h>
 #include "common.h"
 
 VerilatedContext *contextp = new VerilatedContext;
-Vtop *top = new Vtop{contextp};
-VerilatedVcdC *m_trace = new VerilatedVcdC;
+VTop *top = new VTop{contextp};
+//VerilatedVcdC *m_trace = new VerilatedVcdC;
 svBit is_finish = 0;
 int npc_time = 0;
 
@@ -69,15 +69,15 @@ static int parse_args(int argc, char *argv[])
 
 void reset_npc(uint n)
 {
-    top->rst = 1;
+    top->reset = 1;
     for (int i = 0; i < n; i++)
     {
-        m_trace->dump(2 * npc_time);
-        top->clk = !top->clk;
+        //m_trace->dump(2 * npc_time);
+        top->clock = !top->clock;
         top->eval();
 
-        m_trace->dump(2 * npc_time + 1);
-        top->clk = !top->clk;
+        //m_trace->dump(2 * npc_time + 1);
+        top->clock = !top->clock;
         top->eval();
 
         npc_time++;
@@ -86,21 +86,25 @@ void reset_npc(uint n)
 
 void npc_exec(unsigned int n)
 {
+    struct timeval begin;
+    struct timeval end;
+    gettimeofday(&begin, NULL);
     while (!is_finish && n > 0)
     {
-        u_int64_t last_pc = top->pc;
-        //printf("%08lx ", top->pc);
-        //top->inst = inst_fetch(top->pc);
+        inst_num++;
+        u_int64_t last_pc = top->io_pc;
+        //printf("%08lx \n", top->io_pc);
+        //top->inst = inst_fetch(top->io_pc);
         //printf("%08x\n", top->inst);
-
+/*
 #define ITRACE 1
 #ifdef ITRACE
         char start[128];
         char *p = start;
-        p += snprintf(p, sizeof(start),"0x%08lx:", top->pc);
+        p += snprintf(p, sizeof(start),"0x%08lx:", top->io_pc);
         int ilen = 4;
         int i;
-        int pc_inst = inst_fetch(top->pc);
+        int pc_inst = inst_fetch(top->io_pc);
         u_int8_t *inst = (u_int8_t *)&pc_inst;
         for (i = 0; i < ilen; i++)
         {
@@ -110,17 +114,16 @@ void npc_exec(unsigned int n)
         memset(p, ' ', space_len);
         p += space_len;
 
-        disassemble(p, start + 128 - p, top->pc, (uint8_t *)&pc_inst, ilen);
+        disassemble(p, start + 128 - p, top->io_pc, (uint8_t *)&pc_inst, ilen);
 
-        printf("%s\n", start);
+        //printf("%s\n", start);
 #endif
-
-        m_trace->dump(2 * npc_time);
-        top->clk = !top->clk;
+*/
+        //m_trace->dump(2 * npc_time);
+        top->clock = !top->clock;
         top->eval();
-
-        m_trace->dump(2 * npc_time + 1);
-        top->clk = !top->clk;
+        //m_trace->dump(2 * npc_time + 1);
+        top->clock = !top->clock;
         top->eval();
 
         difftest_read_regs(difftest_regs);
@@ -134,18 +137,24 @@ void npc_exec(unsigned int n)
             is_finish = 1;
             break;
         }
+
     }
 
     if (is_finish)
     {
+        gettimeofday(&end, NULL);
+        double npc_time = (end.tv_sec - begin.tv_sec) * 1000000 + (end.tv_usec - begin.tv_usec) ;
         printf("number of instructions is %d\n", inst_num);
+        printf("total spend time %lfs\n", npc_time / 1000000);
+        double frequency = inst_num  / (npc_time / 1000000);
+        printf("simulation frequency = %d inst/s\n", (int)frequency);
         if (difftest_regs[10] == 0)
         {
-            printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
+            printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->io_pc);
         }
         else
         {
-            printf(COLOR_BLUE "NPC: " COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->pc);
+            printf(COLOR_BLUE "NPC: " COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->io_pc);
         }
     }
 }
@@ -153,9 +162,9 @@ void npc_exec(unsigned int n)
 int main(int argc, char **argv, char **env)
 {
     contextp->commandArgs(argc, argv);
-    Verilated::traceEverOn(true);
-    top->trace(m_trace, 99);
-    m_trace->open("waveform.vcd");
+    //Verilated::traceEverOn(true);
+    //top->trace(m_trace, 99);
+    //m_trace->open("waveform.vcd");
 
     parse_args(argc, argv);
     int img_size = init_pmem();
@@ -164,18 +173,20 @@ int main(int argc, char **argv, char **env)
     reset_npc(10);
 
     difftest_read_regs(difftest_regs);
+    
     init_difftest(diff_so_file, img_size, difftest_regs);
+/*
 #ifdef ITRACE
     init_disasm("riscv64-pc-linux-gnu");
 #endif
-    top->clk = 1;
-    top->rst = 0;
-    
-    svSetScope(svGetScopeFromName("TOP.top"));
+*/
+    top->reset = 0;
+
+    svSetScope(svGetScopeFromName("TOP.Top"));
 
     sdb_mainloop();
 
-    m_trace->close();
+    //m_trace->close();
     delete top;
     delete contextp;
 }
