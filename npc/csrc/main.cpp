@@ -190,7 +190,7 @@ int main(int argc, char **argv, char **env)
     */
     top->reset = 0;
 
-    publicSetBool(is_commit);
+    svSetScope(svGetScopeFromName("TOP__DOT__SimTop__DOT__core__commit"));
 
     sdb_mainloop();
 
