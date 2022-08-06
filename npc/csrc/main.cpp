@@ -158,7 +158,7 @@ void npc_exec(unsigned int n)
         printf("simulation frequency = %d inst/s\n", (int)frequency);
         if (difftest_regs[10] == 0)
         {
-            printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->io_pc);
+            printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", cpu_pc);
         }
         else
         {
