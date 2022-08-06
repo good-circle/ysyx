@@ -162,7 +162,7 @@ void npc_exec(unsigned int n)
         }
         else
         {
-            printf(COLOR_BLUE "NPC: " COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc 0x%016lx\n", top->io_pc);
+            printf(COLOR_BLUE "NPC: " COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc 0x%016lx\n", cpu_pc);
         }
     }
 }
