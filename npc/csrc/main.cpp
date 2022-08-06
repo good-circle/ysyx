@@ -129,7 +129,7 @@ void npc_exec(unsigned int n)
         top->clock = !top->clock;
         top->eval();
 
-        extern bool export_commit(void);
+        extern svBit export_commit(void);
 
         is_commit = export_commit();
 
