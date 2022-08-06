@@ -190,6 +190,8 @@ int main(int argc, char **argv, char **env)
     */
     top->reset = 0;
 
+    Verilated::scopesDump();
+
     svSetScope(svGetScopeFromName("TOP"));
 
     sdb_mainloop();
