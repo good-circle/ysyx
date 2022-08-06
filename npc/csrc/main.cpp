@@ -129,7 +129,7 @@ void npc_exec(unsigned int n)
         top->clock = !top->clock;
         top->eval();
 
-        is_commit = VSimTop::commit();
+        is_commit = commit();
 
         if (is_commit)
         {
@@ -191,6 +191,8 @@ int main(int argc, char **argv, char **env)
     top->reset = 0;
 
     //svSetScope(svGetScopeFromName("TOP.VSimTop"));
+
+    using namespace std;
 
     sdb_mainloop();
 
