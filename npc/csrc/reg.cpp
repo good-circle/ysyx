@@ -2,7 +2,7 @@
 
 extern VSimTop *top;
 uint64_t *cpu_gpr = NULL;
-uint64_t cpu_pc = NULL;
+uint64_t cpu_pc = 0;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
 {
     cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar *)r)->datap());
