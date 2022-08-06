@@ -20,6 +20,4 @@ class RegFile extends Module {
 
   io.rdata1 := Mux((io.raddr1 =/= 0.U), rf(io.raddr1), 0.U)
   io.rdata2 := Mux((io.raddr2 =/= 0.U), rf(io.raddr2), 0.U)
-
-  BoringUtils.addSource(rf(10), "rf_a0")
 }
