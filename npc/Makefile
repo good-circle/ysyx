@@ -14,7 +14,7 @@ all: sim wave
 sim:
 	$(call git_commit, "sim RTL") 
 	verilator -Wno-lint --cc --exe --build --top-module SimTop -LDFLAGS "-lreadline -ldl $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./csrc/*.cc) $(wildcard ./vsrc/*.v)
-	./obj_dir/VTop $(ARGS) $(IMG) 
+	./obj_dir/VSimTop $(ARGS) $(IMG) 
 
 wave:
 	$(call git_commit, "check waveform")

@@ -5,7 +5,7 @@
 #include "common.h"
 
 VerilatedContext *contextp = new VerilatedContext;
-VTop *top = new VTop{contextp};
+VSimTop *top = new VSimTop{contextp};
 // VerilatedVcdC *m_trace = new VerilatedVcdC;
 svBit is_finish = 0;
 svBit is_commit = 0;
