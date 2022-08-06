@@ -27,15 +27,18 @@ class Core extends Module {
   exu.io.dmem <> io.dmem
   Connect(exu.io.out, wbu.io.in, true.B, false.B)
 
-  class commit extends BlackBox with HasBlackBoxInline {
+  val commit = Module(new Commit)
+  exu.io.commit <> commit.io
+
+  class Commit extends BlackBox with HasBlackBoxInline {
   val io = IO(new Bundle {
     val valid = Input(Bool())
     val pc = Input(UInt(32.W))
     val ebreak = Input(Bool())
   })
 
-  setInline("commit.v",
-    """module commit(
+  setInline("Commit.v",
+    """module Commit(
       |    input        valid ,
       |    input [31:0] pc    ,
       |    input        ebreak
