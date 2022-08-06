@@ -21,7 +21,7 @@ const char *regs[] = {
 
 void isa_reg_display()
 {
-    printf("%s\t\t0x%lx\t\t\n", "pc", top->io_pc);
+    printf("%s\t\t0x%lx\t\t\n", "pc", cpu_pc);
     for (int i = 0; i < 32; i++)
     {
         printf("%s\t\t0x%lx\t\t\n", regs[i], cpu_gpr[i]);
@@ -33,7 +33,7 @@ uint64_t isa_reg_str2val(const char *s, bool *success)
     *success = true;
     if (strcmp(s, "pc") == 0)
     {
-        return top->io_pc;
+        return cpu_pc;
     }
     for (int i = 0; i < 32; i++)
     {
