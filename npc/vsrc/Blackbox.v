@@ -1,37 +1,30 @@
 module Blackbox(
-    input  [63:0] mem_raddr,
-    input         mem_read ,
-    output [63:0] mem_rdata,
+    input         clk,
+    input         imem_en,
+    input  [63:0] imem_addr,
 
-    input  [63:0] mem_waddr,
-    input         mem_write,
-    input  [ 7:0] mem_wmask,
-    input  [63:0] mem_wdata,
+    input         dmem_en,
+    input  [63:0] dmem_addr,
+    output [63:0] dmem_rdata,
+    input  [63:0] dmem_wdata,
 
-    input         inst_ready,
-    input  [63:0] pc        ,
-    output [63:0] inst_2    ,
+    input  [63:0] dmem_wmask,
+    input         dmem_wen  ,
 
-    input ebreak
 );
 
-export "DPI-C" function finish;
-function bit finish();
-    return ebreak;
-endfunction
-
 import "DPI-C" context function void pmem_read(
-  input longint mem_raddr, output longint mem_rdata, input bit mem_read);
+  input longint mem_raddr, input bit mem_read);
 import "DPI-C" context function void pmem_write(
   input longint mem_waddr, input longint mem_wdata, input byte mem_wmask, input bit mem_write);
 
-always @(*) begin
-  pmem_read(mem_raddr, mem_rdata, mem_read);
-  pmem_write(mem_waddr, mem_wdata, mem_wmask, mem_write);
+always @(posedge clk) begin
+  pmem_write(dmem_addr, dmem_wdata, dmem_wmask, dmem_wen);
 end
 
-always @(*) begin
-    pmem_read(pc, inst_2, inst_ready);
-end
+wire [63:0] inst_2 = pmem_read(imem_addr, imem_en);
+assign imem_data = imem_addr[2] ? inst_2[63:32] : inst_2[31:0];
+assign dmem_rdata = pmem_read(dmem_addr, dmem_en);
+
 
 endmodule
