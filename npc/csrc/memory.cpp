@@ -49,7 +49,7 @@ extern "C" uint64_t pmem_read(long long mem_raddr,  bool mem_read)
     assert(mem_raddr >= 0x80000000 || !mem_read);
     if (mem_read)
     {
-        return (long long *)(pmem + (mem_raddr & ~0x7ull) - 0x80000000);
+        return (uint64_t)(long long *)(pmem + (mem_raddr & ~0x7ull) - 0x80000000);
     }
     return 0;
 }
