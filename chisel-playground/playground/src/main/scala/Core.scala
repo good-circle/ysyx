@@ -28,7 +28,9 @@ class Core extends Module {
   Connect(exu.io.out, wbu.io.in, true.B, false.B)
 
   val commit = Module(new Commit)
-  exu.io.commit <> commit.io
+  commit.io.valid := wbu.io.commit.valid
+  commit.io.pc := wbu.io.commit.pc
+  commit.io.ebreak := wbu.io.commit.inst === "h0000007b".U
 
   class Commit extends BlackBox with HasBlackBoxInline {
   val io = IO(new Bundle {
