@@ -192,7 +192,7 @@ int main(int argc, char **argv, char **env)
 
     //svSetScope(svGetScopeFromName("TOP.Core"));
 
-    sdb_mainloop();
+    //sdb_mainloop();
 
     // m_trace->close();
     delete top;
