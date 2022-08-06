@@ -129,7 +129,7 @@ void npc_exec(unsigned int n)
         top->clock = !top->clock;
         top->eval();
 
-        extern bool commit();
+        extern bool commit(void);
         is_commit = commit();
 
         if (is_commit)
