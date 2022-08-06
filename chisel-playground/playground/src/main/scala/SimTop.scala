@@ -3,7 +3,6 @@ import chisel3.util._
 
 class SimTop extends Module {
   val io = IO(new Bundle {
-    val pc = 
   })
 
   val core = Module(new Core)
