@@ -129,6 +129,8 @@ void npc_exec(unsigned int n)
         top->clock = !top->clock;
         top->eval();
 
+        svSetScope(svGetScopeFromName("TOP.SimTop.core.commit"));
+
         is_commit = export_commit();
 
         if (is_commit)
@@ -192,7 +194,7 @@ int main(int argc, char **argv, char **env)
 
     Verilated::scopesDump();
 
-    svSetScope(0x5642e7995240);
+    svSetScope(svGetScopeFromName("TOP.SimTop.core.commit"));
 
     sdb_mainloop();
 
