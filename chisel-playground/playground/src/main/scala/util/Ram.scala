@@ -29,8 +29,8 @@ class ram_2r1w extends BlackBox with HasBlackBoxInline {
     val dmem_wen = Input(Bool())
   })
 
-  setInline("Blackbox.v",
-    """module Blackbox(
+  setInline("ram_2r1w.v",
+    """module ram_2r1w(
       |    input         clk,
       |    input         imem_en,
       |    input  [63:0] imem_addr,

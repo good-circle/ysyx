@@ -13,8 +13,8 @@ class RegFile extends BlackBox with HasBlackBoxInline {
     val wen = Input(Bool())
   })
 
-  setInline("regfile.v",
-    """module regfile(
+  setInline("RegFile.v",
+    """module RegFile(
       |    input         clock ,
       |
       |    input  [ 4:0] raddr1,
