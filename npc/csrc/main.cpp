@@ -132,6 +132,7 @@ void npc_exec(unsigned int n)
         svSetScope(svGetScopeFromName("TOP.SimTop.core.commit"));
 
         is_commit = export_commit();
+        printf("%d\n", is_commit);
 
         if (is_commit)
         {
@@ -192,9 +193,7 @@ int main(int argc, char **argv, char **env)
     */
     top->reset = 0;
 
-    Verilated::scopesDump();
-
-    svSetScope(svGetScopeFromName("TOP.SimTop.core.commit"));
+    //Verilated::scopesDump();
 
     sdb_mainloop();
 
