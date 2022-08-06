@@ -15,6 +15,6 @@ function bit commit();
 endfunction
 
 import "DPI-C" function void set_pc(input logic [31:0] a);
-initial set_gpr_ptr(pc);
+initial set_pc(pc);
 
 endmodule
