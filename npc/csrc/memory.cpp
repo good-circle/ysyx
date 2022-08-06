@@ -43,8 +43,9 @@ u_int32_t memory_read(unsigned long long addr)
     return *(u_int32_t *)(pmem + addr - 0x80000000);
 }
 
-extern "C" uint64_t pmem_read(long long mem_raddr,  bool mem_read)
+extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
 {
+    if(mem_read)
     printf("mem_raddr: %llx\n", mem_raddr);
     assert(mem_raddr >= 0x80000000 || !mem_read);
     if (mem_read)
@@ -56,6 +57,7 @@ extern "C" uint64_t pmem_read(long long mem_raddr,  bool mem_read)
 
 extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wmask, bool mem_write)
 {
+    if(mem_write)
     printf("mem_waddr: %llx\n", mem_waddr);
     assert(mem_waddr >= 0x80000000 || !mem_write);
     if (mem_write)
