@@ -2061,17 +2061,17 @@ module Ram2r1w(
   input  [63:0] io_dmem_wmask,
   input         io_dmem_wen
 );
-  wire  mem_clk; // @[Ram.scala 72:19]
-  wire  mem_imem_en; // @[Ram.scala 72:19]
-  wire [63:0] mem_imem_addr; // @[Ram.scala 72:19]
-  wire [31:0] mem_imem_data; // @[Ram.scala 72:19]
-  wire  mem_dmem_en; // @[Ram.scala 72:19]
-  wire [63:0] mem_dmem_addr; // @[Ram.scala 72:19]
-  wire [63:0] mem_dmem_rdata; // @[Ram.scala 72:19]
-  wire [63:0] mem_dmem_wdata; // @[Ram.scala 72:19]
-  wire [63:0] mem_dmem_wmask; // @[Ram.scala 72:19]
-  wire  mem_dmem_wen; // @[Ram.scala 72:19]
-  ram_2r1w mem ( // @[Ram.scala 72:19]
+  wire  mem_clk; // @[Ram.scala 73:19]
+  wire  mem_imem_en; // @[Ram.scala 73:19]
+  wire [63:0] mem_imem_addr; // @[Ram.scala 73:19]
+  wire [31:0] mem_imem_data; // @[Ram.scala 73:19]
+  wire  mem_dmem_en; // @[Ram.scala 73:19]
+  wire [63:0] mem_dmem_addr; // @[Ram.scala 73:19]
+  wire [63:0] mem_dmem_rdata; // @[Ram.scala 73:19]
+  wire [63:0] mem_dmem_wdata; // @[Ram.scala 73:19]
+  wire [63:0] mem_dmem_wmask; // @[Ram.scala 73:19]
+  wire  mem_dmem_wen; // @[Ram.scala 73:19]
+  ram_2r1w mem ( // @[Ram.scala 73:19]
     .clk(mem_clk),
     .imem_en(mem_imem_en),
     .imem_addr(mem_imem_addr),
@@ -2083,16 +2083,16 @@ module Ram2r1w(
     .dmem_wmask(mem_dmem_wmask),
     .dmem_wen(mem_dmem_wen)
   );
-  assign io_imem_rdata = {{32'd0}, mem_imem_data}; // @[Ram.scala 76:21]
-  assign io_dmem_rdata = mem_dmem_rdata; // @[Ram.scala 79:21]
-  assign mem_clk = clock; // @[Ram.scala 73:21]
-  assign mem_imem_en = io_imem_en; // @[Ram.scala 74:21]
-  assign mem_imem_addr = io_imem_addr; // @[Ram.scala 75:21]
-  assign mem_dmem_en = io_dmem_en; // @[Ram.scala 77:21]
-  assign mem_dmem_addr = io_dmem_addr; // @[Ram.scala 78:21]
-  assign mem_dmem_wdata = io_dmem_wdata; // @[Ram.scala 80:21]
-  assign mem_dmem_wmask = io_dmem_wmask; // @[Ram.scala 81:21]
-  assign mem_dmem_wen = io_dmem_wen; // @[Ram.scala 82:21]
+  assign io_imem_rdata = {{32'd0}, mem_imem_data}; // @[Ram.scala 77:21]
+  assign io_dmem_rdata = mem_dmem_rdata; // @[Ram.scala 80:21]
+  assign mem_clk = clock; // @[Ram.scala 74:21]
+  assign mem_imem_en = io_imem_en; // @[Ram.scala 75:21]
+  assign mem_imem_addr = io_imem_addr; // @[Ram.scala 76:21]
+  assign mem_dmem_en = io_dmem_en; // @[Ram.scala 78:21]
+  assign mem_dmem_addr = io_dmem_addr; // @[Ram.scala 79:21]
+  assign mem_dmem_wdata = io_dmem_wdata; // @[Ram.scala 81:21]
+  assign mem_dmem_wmask = io_dmem_wmask; // @[Ram.scala 82:21]
+  assign mem_dmem_wen = io_dmem_wen; // @[Ram.scala 83:21]
 endmodule
 module SimTop(
   input   clock,

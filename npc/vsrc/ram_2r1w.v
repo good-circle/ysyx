@@ -2,6 +2,7 @@ module ram_2r1w(
     input         clk,
     input         imem_en,
     input  [63:0] imem_addr,
+    output [63:0] imem_data,
 
     input         dmem_en,
     input  [63:0] dmem_addr,
