@@ -46,7 +46,7 @@ class ram_2r1w extends BlackBox with HasBlackBoxInline {
       |
       |);
       |
-      |import "DPI-C" context function void pmem_read(
+      |import "DPI-C" context function longint pmem_read(
       |  input longint mem_raddr, input bit mem_read);
       |import "DPI-C" context function void pmem_write(
       |  input longint mem_waddr, input longint mem_wdata, input byte mem_wmask, input bit mem_write);
