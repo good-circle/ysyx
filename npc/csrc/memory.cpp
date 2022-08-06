@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 extern u_int8_t pmem[0x8000000];
 extern const char *img_file;
