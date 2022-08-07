@@ -87,6 +87,7 @@ void reset_npc(uint n)
     }
 }
 
+bool first_commit = false;
 void npc_exec(unsigned int n)
 {
     struct timeval begin;
@@ -136,13 +137,21 @@ void npc_exec(unsigned int n)
 
         if (is_commit)
         {
-            inst_num++;
-            difftest_read_regs(difftest_regs);
-            is_finish = export_finish();
-            if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
+            if (first_commit)
             {
-                is_finish = 1;
-                break;
+                inst_num++;
+                first_commit = false;
+            }
+            else
+            {
+                inst_num++;
+                difftest_read_regs(difftest_regs);
+                is_finish = export_finish();
+                if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
+                {
+                    is_finish = 1;
+                    break;
+                }
             }
         }
 
@@ -154,7 +163,7 @@ void npc_exec(unsigned int n)
     {
         gettimeofday(&end, NULL);
         double npc_time = (end.tv_sec - begin.tv_sec) * 1000000 + (end.tv_usec - begin.tv_usec);
-        printf("number of cycles is %d\n", cycle_num);        
+        printf("number of cycles is %d\n", cycle_num);
         printf("number of instructions is %d\n", inst_num);
         printf("total spend time %lfs\n", npc_time / 1000000);
         double frequency = cycle_num / (npc_time / 1000000);
@@ -193,7 +202,7 @@ int main(int argc, char **argv, char **env)
     */
     top->reset = 0;
 
-    //Verilated::scopesDump();
+    // Verilated::scopesDump();
 
     sdb_mainloop();
 
