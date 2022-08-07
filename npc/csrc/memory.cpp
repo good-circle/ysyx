@@ -50,10 +50,9 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
     assert(mem_raddr >= 0x80000000 || !mem_read);
     if (mem_read)
     {
-        printf("111 %lx 111\n", *(long long *)(pmem + (mem_raddr & ~0x7ull) - 0x80000000));
         return *(long long *)(pmem + (mem_raddr & ~0x7ull) - 0x80000000);
     }
-    return 0;
+    return 12345678;
 }
 
 extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wmask, bool mem_write)
