@@ -73,6 +73,7 @@ void init_difftest(char *ref_so_file, long img_size, uint64_t *difftest_regs)
     assert(ref_difftest_init);
 
     ref_difftest_init();
+    printf("npc, img_Size %lx\n", img_size);
     ref_difftest_memcpy(0x80000000, pmem, img_size, 1);
     ref_difftest_regcpy(difftest_regs, 1);
 }
