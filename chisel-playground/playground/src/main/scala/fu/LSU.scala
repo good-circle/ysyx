@@ -24,13 +24,13 @@ class LSU extends Module{
   addr_low := dmem_addr(2, 0)
 
   val dmem_wdata = Wire(UInt(64.W))
-  val dmem_wmask = Wire(UInt(64.W))
+  val dmem_wmask = Wire(UInt(8.W))
   val dmem_rdata = Wire(UInt(64.W))
 
-  val sb_wmask = Wire(UInt(64.W))
-  val sh_wmask = Wire(UInt(64.W))
-  val sw_wmask = Wire(UInt(64.W))
-  val sd_wmask = Wire(UInt(64.W))
+  val sb_wmask = Wire(UInt(8.W))
+  val sh_wmask = Wire(UInt(8.W))
+  val sw_wmask = Wire(UInt(8.W))
+  val sd_wmask = Wire(UInt(8.W))
   val sb_wdata = Wire(UInt(64.W))
   val sh_wdata = Wire(UInt(64.W))
   val sw_wdata = Wire(UInt(64.W))
@@ -57,26 +57,26 @@ class LSU extends Module{
   ))
 
   sb_wmask := MuxLookup(addr_low, 0.U, Array(
-    0.U -> "h0000_0000_0000_00ff".U,
-    1.U -> "h0000_0000_0000_ff00".U,
-    2.U -> "h0000_0000_00ff_0000".U,
-    3.U -> "h0000_0000_ff00_0000".U,
-    4.U -> "h0000_00ff_0000_0000".U,
-    5.U -> "h0000_ff00_0000_0000".U,
-    6.U -> "h00ff_0000_0000_0000".U,
-    7.U -> "hff00_0000_0000_0000".U
+    0.U -> "b00000001".U,
+    1.U -> "b00000010".U,
+    2.U -> "b00000100".U,
+    3.U -> "b00001000".U,
+    4.U -> "b00010000".U,
+    5.U -> "b00100000".U,
+    6.U -> "b01000000".U,
+    7.U -> "b10000000".U
   ))
   sh_wmask := MuxLookup(addr_low, 0.U, Array(
-    0.U -> "h0000_0000_0000_ffff".U,
-    2.U -> "h0000_0000_ffff_0000".U,
-    4.U -> "h0000_ffff_0000_0000".U,
-    6.U -> "hffff_0000_0000_0000".U
+    0.U -> "b00000011".U,
+    2.U -> "b00001100".U,
+    4.U -> "b00110000".U,
+    6.U -> "b11000000".U
   ))
   sw_wmask := MuxLookup(addr_low, 0.U, Array(
-    0.U -> "h0000_0000_ffff_ffff".U,
-    4.U -> "hffff_ffff_0000_0000".U
+    0.U -> "b00001111".U,
+    4.U -> "b11110000".U
   ))
-  sd_wmask := "hffff_ffff_ffff_ffff".U
+  sd_wmask := "b11111111".U
   dmem_wmask := MuxLookup(lsu_op, 0.U, Array(
     lsu_sb -> sb_wmask,
     lsu_sh -> sh_wmask,
