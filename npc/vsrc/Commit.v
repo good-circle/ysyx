@@ -17,8 +17,4 @@ endfunction
 import "DPI-C" function void set_pc(input longint pc);
 initial set_pc(pc);
 
-always begin
-    $display("%lx\n", pc);
-end
-
 endmodule
