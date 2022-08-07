@@ -61,7 +61,7 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
     return 0;
 }
 
-extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wmask, bool mem_write)
+extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, long long mem_wmask, bool mem_write)
 {
     if (mem_write)
     {
@@ -71,24 +71,8 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
     assert(mem_waddr >= 0x80000000 || !mem_write);
     if (mem_write)
     {
-        unsigned long long real_mask = 0;
-        u_int8_t mask_mask = 0b10000000;
-
-        for (int i = 0; i < 7; i++)
-        {
-            if (mem_wmask & mask_mask)
-            {
-                real_mask |= 0b11111111;
-            }
-            real_mask <<= 8;
-            mask_mask >>= 1;
-        }
-        if (mem_wmask & mask_mask)
-        {
-            real_mask |= 0b11111111;
-        }
-        long long clear_wdata = ~real_mask;
-        long long real_wdata = mem_wdata & real_mask;
+        long long clear_wdata = ~mem_wmask;
+        long long real_wdata = mem_wdata & mem_wmask;
         *(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000) = (*(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000) & clear_wdata) | real_wdata;
         printf("after: %llx\n", *(long long *)(pmem + (mem_waddr & ~0x7ull) - 0x80000000));
     }
