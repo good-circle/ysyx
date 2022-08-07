@@ -4,6 +4,7 @@ import chisel3.util.experimental._
 
 class RegFile extends BlackBox with HasBlackBoxInline {
   val io = IO(new Bundle {
+    val clock = Input(Clock())
     val raddr1 = Input(UInt(5.W))
     val raddr2 = Input(UInt(5.W))
     val rdata1 = Output(UInt(64.W))
