@@ -95,7 +95,6 @@ void npc_exec(unsigned int n)
     while (!is_finish && n > 0)
     {
         cycle_num++;
-        cpu_pc = set_pc();
         u_int64_t last_pc = cpu_pc;
         // printf("%08lx \n", top->io_pc);
         // top->inst = inst_fetch(top->io_pc);
