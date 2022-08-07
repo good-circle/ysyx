@@ -42,6 +42,4 @@ void difftest_init()
 {
     /* Perform ISA dependent initialization. */
     init_isa();
-
-    cpu.pc = RESET_VECTOR;
 }
