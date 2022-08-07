@@ -96,7 +96,6 @@ void npc_exec(unsigned int n)
     while (!is_finish && n > 0)
     {
         cycle_num++;
-        u_int64_t last_pc = cpu_pc;
         // printf("%08lx \n", top->io_pc);
         // top->inst = inst_fetch(top->io_pc);
         // printf("%08x\n", top->inst);
@@ -140,7 +139,7 @@ void npc_exec(unsigned int n)
             inst_num++;
             difftest_read_regs(difftest_regs);
             is_finish = export_finish();
-            if (!is_finish && difftest_step(difftest_regs, last_pc) != 0)
+            if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
             {
                 is_finish = 1;
                 break;
