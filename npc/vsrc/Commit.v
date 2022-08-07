@@ -15,7 +15,6 @@ function byte export_commit();
 endfunction
 
 import "DPI-C" function void set_pc(input longint pc);
-$display(pc);
 initial set_pc(pc);
 
 endmodule
