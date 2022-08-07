@@ -11,9 +11,12 @@ LIBS += $(shell llvm-config --libs)
 
 all: sim wave
 
+# verilator -Wno-lint --cc --exe --build --top-module SimTop --trace -LDFLAGS "-lreadline -ldl $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./csrc/*.cc) $(wildcard ./vsrc/*.v)
+
+
 sim:
 	$(call git_commit, "sim RTL") 
-	verilator -Wno-lint --cc --exe --build --top-module SimTop --trace -LDFLAGS "-lreadline -ldl $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./csrc/*.cc) $(wildcard ./vsrc/*.v)
+	verilator -Wno-lint --cc --exe --build --top-module SimTop -LDFLAGS "-lreadline -ldl $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./csrc/*.cc) $(wildcard ./vsrc/*.v)
 	./obj_dir/VSimTop $(ARGS) $(IMG) 
 
 wave:

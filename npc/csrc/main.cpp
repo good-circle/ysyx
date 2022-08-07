@@ -6,6 +6,7 @@
 
 VerilatedContext *contextp = new VerilatedContext;
 VSimTop *top = new VSimTop{contextp};
+//#define WAVE_ON 1;
 VerilatedVcdC *m_trace = new VerilatedVcdC;
 svBit is_finish = 0;
 svBit is_commit = 0;
@@ -75,11 +76,15 @@ void reset_npc(uint n)
     top->reset = 1;
     for (int i = 0; i < n; i++)
     {
+#ifdef WAVE_ON
         m_trace->dump(2 * npc_cycle);
+#endif
         top->clock = !top->clock;
         top->eval();
 
+#ifdef WAVE_ON
         m_trace->dump(2 * npc_cycle + 1);
+#endif
         top->clock = !top->clock;
         top->eval();
 
@@ -122,17 +127,21 @@ void npc_exec(unsigned int n)
                 //printf("%s\n", start);
         #endif
         */
+#ifdef WAVE_ON
         m_trace->dump(2 * npc_cycle);
+#endif
         top->clock = !top->clock;
         top->eval();
+#ifdef WAVE_ON
         m_trace->dump(2 * npc_cycle + 1);
+#endif
         top->clock = !top->clock;
         top->eval();
 
         svSetScope(svGetScopeFromName("TOP.SimTop.core.commit"));
 
         is_commit = export_commit();
-        //printf("%d\n", is_commit);
+        // printf("%d\n", is_commit);
 
         if (is_commit)
         {
@@ -146,7 +155,7 @@ void npc_exec(unsigned int n)
                 inst_num++;
                 difftest_read_regs(difftest_regs);
                 is_finish = export_finish();
-                //printf("\n is_finish = %d\n", is_finish);
+                // printf("\n is_finish = %d\n", is_finish);
                 if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
                 {
                     is_finish = 1;
@@ -183,8 +192,10 @@ int main(int argc, char **argv, char **env)
 {
     contextp->commandArgs(argc, argv);
     Verilated::traceEverOn(true);
+#ifdef WAVE_ON
     top->trace(m_trace, 99);
     m_trace->open("waveform.vcd");
+#endif
 
     parse_args(argc, argv);
     int img_size = init_pmem();
@@ -206,7 +217,9 @@ int main(int argc, char **argv, char **env)
 
     sdb_mainloop();
 
+#ifdef WAVE_ON
     m_trace->close();
+#endif
     delete top;
     delete contextp;
 }
