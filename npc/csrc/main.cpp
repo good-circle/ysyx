@@ -180,7 +180,8 @@ void npc_exec(unsigned int n)
         printf("total spend time %lfs\n", npc_time / 1000000);
         double frequency = cycle_num / (npc_time / 1000000);
         printf("simulation frequency = %d inst/s\n", (int)frequency);
-        printf("IPC = %lf\n", (double)(inst_num / cycle_num));
+        double IPC = inst_num / cycle_num
+        printf("IPC = %lf\n", IPC);
         if (difftest_regs[10] == 0)
         {
             printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%016lx\n", cpu_pc);
