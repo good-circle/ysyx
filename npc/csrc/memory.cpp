@@ -28,6 +28,7 @@ long init_pmem()
     assert(ret == 1);
 
     fclose(fp);
+    printf("size = %lx\n", size);
 
     return size;
 }
