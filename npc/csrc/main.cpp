@@ -178,7 +178,7 @@ void npc_exec(unsigned int n)
         printf("number of cycles is %d, ", cycle_num);
         printf("number of instructions is %d\n", inst_num);
         printf("total spend time %lfs\n", npc_time / 1000000);
-        double frequency = cycle_num / (npc_time / 1000000);
+        double frequency = (double)cycle_num / (npc_time / 1000000);
         printf("simulation frequency = %d inst/s\n", (int)frequency);
         double IPC = (double)inst_num / (double)cycle_num;
         printf("IPC = %lf\n", IPC);
