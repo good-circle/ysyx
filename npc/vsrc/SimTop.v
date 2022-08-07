@@ -1889,7 +1889,7 @@ module Core(
   assign wbu_io_in_bits_wen = wbu_io_in_bits_r_wen; // @[Connect.scala 13:16]
   assign commit_valid = wbu_io_commit_valid; // @[Core.scala 31:19]
   assign commit_pc = wbu_io_commit_pc; // @[Core.scala 32:16]
-  assign commit_ebreak = wbu_io_commit_inst == 32'h7b; // @[Core.scala 33:42]
+  assign commit_ebreak = wbu_io_commit_inst == 32'h100073; // @[Core.scala 33:42]
   always @(posedge clock) begin
     if (reset) begin // @[Connect.scala 6:24]
       valid <= 1'h0; // @[Connect.scala 6:24]
