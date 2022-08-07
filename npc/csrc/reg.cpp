@@ -5,13 +5,11 @@ uint64_t *cpu_gpr = NULL;
 uint64_t cpu_pc = 0;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
 {
-    printf("111\n");
     cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar *)r)->datap());
 }
 
 extern "C" void set_pc(long long pc)
 {
-    printf("set_pc: %lx\n", pc);
     cpu_pc = pc;
 }
 
@@ -53,7 +51,6 @@ uint64_t isa_reg_str2val(const char *s, bool *success)
 
 void difftest_read_regs(uint64_t *difftest_regs)
 {
-    printf("pc:%lx\n", cpu_pc);
     difftest_regs[0] = 0;
     for (int i = 1; i < 32; i++)
     {
