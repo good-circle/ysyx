@@ -30,5 +30,5 @@ class IFU extends Module {
 
   io.out.bits.pc := Mux(pc_en, pc, 0.U)
   io.out.bits.inst := Mux(pc_en, io.imem.rdata(31, 0), 0.U)
-  io.out.valid := !br_taken
+  io.out.valid := !br_taken && pc_en
 }
