@@ -57,7 +57,9 @@ class Core extends Module {
       |endfunction
       |
       |import "DPI-C" function void set_pc(input longint pc);
-      |initial set_pc(pc);
+      |always begin
+      |    set_pc(pc);
+      |end
       |
       |endmodule
       |""".stripMargin)
