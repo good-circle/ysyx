@@ -160,6 +160,7 @@ class IDU extends Module {
   bru.io.imm := imm
 
   val rf = Module(new RegFile)
+  rf.io.clock := clock
   rf.io.raddr1 := rf_raddr1
   rf.io.raddr2 := rf_raddr2
   rf.io.waddr := rf_waddr
