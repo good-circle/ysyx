@@ -7,7 +7,10 @@
 VerilatedContext *contextp = new VerilatedContext;
 VSimTop *top = new VSimTop{contextp};
 //#define WAVE_ON 1;
+#ifdef WAVE_ON
 VerilatedVcdC *m_trace = new VerilatedVcdC;
+#endif
+
 svBit is_finish = 0;
 svBit is_commit = 0;
 int npc_cycle = 0;
