@@ -5,6 +5,7 @@ uint64_t *cpu_gpr = NULL;
 uint64_t cpu_pc = 0;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
 {
+        printf("111");
     cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar *)r)->datap());
 }
 
