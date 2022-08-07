@@ -14,7 +14,7 @@ function byte export_commit();
     return valid;
 endfunction
 
-import "DPI-C" function void set_pc(input longint pc);
+import "DPI-C" function void set_pc(input logic pc);
 initial set_pc(pc);
 
 endmodule

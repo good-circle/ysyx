@@ -2,17 +2,17 @@
 
 extern VSimTop *top;
 uint64_t *cpu_gpr = NULL;
-uint64_t cpu_pc = 0;
+uint64_t *cpu_pc = NULL;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
 {
     printf("111\n");
     cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar *)r)->datap());
 }
 
-extern "C" void set_pc(long long pc)
+extern "C" void set_pc(const svOpenArrayHandle r)
 {
     printf("set_pc: %lx\n", pc);
-    cpu_pc = pc;
+    cpu_pc = (uint64_t *)(((VerilatedDpiOpenVar *)r)->datap());
 }
 
 
@@ -36,7 +36,7 @@ uint64_t isa_reg_str2val(const char *s, bool *success)
     *success = true;
     if (strcmp(s, "pc") == 0)
     {
-        return cpu_pc;
+        return cpu_pc[0];
     }
     for (int i = 0; i < 32; i++)
     {
@@ -53,11 +53,11 @@ uint64_t isa_reg_str2val(const char *s, bool *success)
 
 void difftest_read_regs(uint64_t *difftest_regs)
 {
-    printf("pc:%lx\n", cpu_pc);
+    printf("pc:%lx\n", cpu_pc[0]);
     difftest_regs[0] = 0;
     for (int i = 1; i < 32; i++)
     {
         difftest_regs[i] = cpu_gpr[i];
     }
-    difftest_regs[32] = cpu_pc;
+    difftest_regs[32] = cpu_pc[0];
 }
