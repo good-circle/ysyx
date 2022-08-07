@@ -10,8 +10,10 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
 
 extern "C" void set_pc(long long pc)
 {
+    printf("set_pc: %lx\n", pc);
     cpu_pc = pc;
 }
+
 
 const char *regs[] = {
     "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
