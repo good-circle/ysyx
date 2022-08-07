@@ -33,8 +33,8 @@ void difftest_exec(uint64_t n)
     if (!reset)
     {
         // I do not know why cpu.pc = 0
-        //cpu.pc = RESET_VECTOR;
-        //reset = true;
+        cpu.pc = RESET_VECTOR;
+        reset = true;
     }
 
     cpu_exec(n);
