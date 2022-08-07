@@ -139,6 +139,7 @@ void npc_exec(unsigned int n)
             inst_num++;
             difftest_read_regs(difftest_regs);
             is_finish = export_finish();
+            printf("cpu_pc = %lx\n", cpu_pc);
             if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
             {
                 is_finish = 1;
