@@ -87,11 +87,12 @@ void reset_npc(uint n)
     }
 }
 
-void npc_exec(unsigned int 200)
+void npc_exec(unsigned int n)
 {
     struct timeval begin;
     struct timeval end;
     gettimeofday(&begin, NULL);
+    n = 100;
     while (!is_finish && n > 0)
     {
         cycle_num++;
