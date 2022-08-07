@@ -96,7 +96,6 @@ void npc_exec(unsigned int n)
     {
         cycle_num++;
         u_int64_t last_pc = cpu_pc;
-        printf("%lx\n", pc__Vcvt);
         // printf("%08lx \n", top->io_pc);
         // top->inst = inst_fetch(top->io_pc);
         // printf("%08x\n", top->inst);
