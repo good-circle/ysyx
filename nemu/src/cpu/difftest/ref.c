@@ -17,7 +17,6 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction)
 
 void difftest_regcpy(void *dut, bool direction)
 {
-    printf("%lx\n", cpu.pc);
     if (direction == DIFFTEST_TO_DUT)
     {
         memcpy(dut, &cpu, DIFFTEST_REG_SIZE);
@@ -28,9 +27,16 @@ void difftest_regcpy(void *dut, bool direction)
     }
 }
 
+bool reset = false;
 void difftest_exec(uint64_t n)
 {
-    cpu.pc = RESET_VECTOR;
+    if (!reset)
+    {
+        // I do not know why cpu.pc = 0
+        cpu.pc = RESET_VECTOR;
+        reset = true;
+    }
+
     cpu_exec(n);
 }
 
