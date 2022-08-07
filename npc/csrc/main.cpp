@@ -87,7 +87,7 @@ void reset_npc(uint n)
     }
 }
 
-bool first_commit = false;
+bool first_commit = true;
 void npc_exec(unsigned int n)
 {
     struct timeval begin;
