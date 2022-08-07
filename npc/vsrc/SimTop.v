@@ -159,6 +159,7 @@ module IDU(
   wire [63:0] bru_io_imm; // @[IDU.scala 152:19]
   wire  bru_io_br_taken; // @[IDU.scala 152:19]
   wire [31:0] bru_io_br_target; // @[IDU.scala 152:19]
+  wire  rf__clock; // @[IDU.scala 162:18]
   wire [4:0] rf__raddr1; // @[IDU.scala 162:18]
   wire [4:0] rf__raddr2; // @[IDU.scala 162:18]
   wire [63:0] rf__rdata1; // @[IDU.scala 162:18]
@@ -810,6 +811,7 @@ module IDU(
     .io_br_target(bru_io_br_target)
   );
   RegFile rf_ ( // @[IDU.scala 162:18]
+    .clock(rf__clock),
     .raddr1(rf__raddr1),
     .raddr2(rf__raddr2),
     .rdata1(rf__rdata1),
@@ -839,6 +841,7 @@ module IDU(
   assign bru_io_src2 = 2'h3 == information_8 ? imm : _src2_value_T_1; // @[Mux.scala 80:57]
   assign bru_io_pc = io_in_bits_pc; // @[IDU.scala 159:13]
   assign bru_io_imm = 3'h5 == information_1 ? imm_j : _imm_T_7; // @[Mux.scala 80:57]
+  assign rf__clock = 1'h0;
   assign rf__raddr1 = io_in_bits_inst[19:15]; // @[IDU.scala 130:14]
   assign rf__raddr2 = io_in_bits_inst[24:20]; // @[IDU.scala 131:14]
   assign rf__waddr = io_wb_bus_rf_waddr; // @[IDU.scala 33:22 IDU.scala 171:12]
@@ -1080,22 +1083,22 @@ module CSR(
   reg [63:0] mie; // @[CSR.scala 34:20]
   reg [63:0] mscratch; // @[CSR.scala 35:25]
   wire  wen = io_csr_op == 3'h1 | io_csr_op == 3'h2 | io_csr_op == 3'h3; // @[CSR.scala 43:59]
-  wire  _T_37 = io_addr == 12'hb00; // @[MAP.scala 19:18]
-  wire  _T_34 = io_addr == 12'h300; // @[MAP.scala 19:18]
-  wire  _T_31 = io_addr == 12'h341; // @[MAP.scala 19:18]
-  wire  _T_28 = io_addr == 12'h304; // @[MAP.scala 19:18]
-  wire  _T_25 = io_addr == 12'h340; // @[MAP.scala 19:18]
-  wire  _T_22 = io_addr == 12'h344; // @[MAP.scala 19:18]
-  wire  _T_19 = io_addr == 12'h305; // @[MAP.scala 19:18]
-  wire  _T_16 = io_addr == 12'h342; // @[MAP.scala 19:18]
-  wire [63:0] _GEN_14 = io_addr == 12'h342 ? mcause : 64'h0; // @[MAP.scala 19:25 MAP.scala 20:15]
-  wire [63:0] _GEN_16 = io_addr == 12'h305 ? mtvec : _GEN_14; // @[MAP.scala 19:25 MAP.scala 20:15]
-  wire [63:0] _GEN_18 = io_addr == 12'h344 ? mip : _GEN_16; // @[MAP.scala 19:25 MAP.scala 20:15]
-  wire [63:0] _GEN_20 = io_addr == 12'h340 ? mscratch : _GEN_18; // @[MAP.scala 19:25 MAP.scala 20:15]
-  wire [63:0] _GEN_22 = io_addr == 12'h304 ? mie : _GEN_20; // @[MAP.scala 19:25 MAP.scala 20:15]
-  wire [63:0] _GEN_24 = io_addr == 12'h341 ? mepc : _GEN_22; // @[MAP.scala 19:25 MAP.scala 20:15]
-  wire [63:0] _GEN_26 = io_addr == 12'h300 ? mstatus : _GEN_24; // @[MAP.scala 19:25 MAP.scala 20:15]
-  wire [63:0] rdata = io_addr == 12'hb00 ? mcycle : _GEN_26; // @[MAP.scala 19:25 MAP.scala 20:15]
+  wire  _T_37 = io_addr == 12'h344; // @[MAP.scala 19:18]
+  wire  _T_34 = io_addr == 12'hb00; // @[MAP.scala 19:18]
+  wire  _T_31 = io_addr == 12'h300; // @[MAP.scala 19:18]
+  wire  _T_28 = io_addr == 12'h340; // @[MAP.scala 19:18]
+  wire  _T_25 = io_addr == 12'h305; // @[MAP.scala 19:18]
+  wire  _T_22 = io_addr == 12'h342; // @[MAP.scala 19:18]
+  wire  _T_19 = io_addr == 12'h304; // @[MAP.scala 19:18]
+  wire  _T_16 = io_addr == 12'h341; // @[MAP.scala 19:18]
+  wire [63:0] _GEN_14 = io_addr == 12'h341 ? mepc : 64'h0; // @[MAP.scala 19:25 MAP.scala 20:15]
+  wire [63:0] _GEN_16 = io_addr == 12'h304 ? mie : _GEN_14; // @[MAP.scala 19:25 MAP.scala 20:15]
+  wire [63:0] _GEN_18 = io_addr == 12'h342 ? mcause : _GEN_16; // @[MAP.scala 19:25 MAP.scala 20:15]
+  wire [63:0] _GEN_20 = io_addr == 12'h305 ? mtvec : _GEN_18; // @[MAP.scala 19:25 MAP.scala 20:15]
+  wire [63:0] _GEN_22 = io_addr == 12'h340 ? mscratch : _GEN_20; // @[MAP.scala 19:25 MAP.scala 20:15]
+  wire [63:0] _GEN_24 = io_addr == 12'h300 ? mstatus : _GEN_22; // @[MAP.scala 19:25 MAP.scala 20:15]
+  wire [63:0] _GEN_26 = io_addr == 12'hb00 ? mcycle : _GEN_24; // @[MAP.scala 19:25 MAP.scala 20:15]
+  wire [63:0] rdata = io_addr == 12'h344 ? mip : _GEN_26; // @[MAP.scala 19:25 MAP.scala 20:15]
   wire [63:0] _wdata_T = rdata | io_src; // @[CSR.scala 63:25]
   wire [63:0] _wdata_T_1 = ~io_src; // @[CSR.scala 64:28]
   wire [63:0] _wdata_T_2 = rdata & _wdata_T_1; // @[CSR.scala 64:25]
@@ -1119,21 +1122,21 @@ module CSR(
   wire [63:0] _mstatus_T_2 = {mstatus_hi_hi_hi,1'h1,mstatus_hi_lo,mstatus_lo_hi,mstatus_lo_lo}; // @[Cat.scala 30:58]
   wire [31:0] csr_target = io_csr_op == 3'h5 ? mepc[31:0] : _GEN_10; // @[CSR.scala 84:30 CSR.scala 87:16]
   wire [63:0] _mcycle_T_1 = mcycle + 64'h1; // @[CSR.scala 90:20]
-  wire [63:0] _mip_T_2 = mip & 64'h1; // @[MAP.scala 6:33]
   wire  mstatus_mstatus_new_hi = wdata[16:15] == 2'h3 | wdata[14:13] == 2'h3; // @[CSR.scala 46:57]
   wire [62:0] mstatus_mstatus_new_lo = wdata[62:0]; // @[CSR.scala 46:98]
   wire [63:0] mstatus_mstatus_new = {mstatus_mstatus_new_hi,mstatus_mstatus_new_lo}; // @[Cat.scala 30:58]
+  wire [63:0] _mip_T_2 = mip & 64'h1; // @[MAP.scala 6:33]
   wire [55:0] mip_hi_hi = mip[63:8]; // @[CSR.scala 98:19]
   wire [6:0] mip_lo = mip[6:0]; // @[CSR.scala 98:36]
   wire [63:0] _mip_T_4 = {mip_hi_hi,1'h1,mip_lo}; // @[Cat.scala 30:58]
-  assign io_rdata = io_addr == 12'hb00 ? mcycle : _GEN_26; // @[MAP.scala 19:25 MAP.scala 20:15]
+  assign io_rdata = io_addr == 12'h344 ? mip : _GEN_26; // @[MAP.scala 19:25 MAP.scala 20:15]
   assign io_is_reflush = io_csr_op == 3'h5 | _GEN_9; // @[CSR.scala 84:30 CSR.scala 86:15]
   assign io_csr_target = {{32'd0}, csr_target}; // @[CSR.scala 84:30 CSR.scala 87:16]
   assign io_handle_int = clint_has_int & mstatus_hi_hi_lo & mie[7] & io_valid; // @[CSR.scala 96:40]
   always @(posedge clock) begin
     if (reset) begin // @[CSR.scala 28:23]
       mcycle <= 64'h0; // @[CSR.scala 28:23]
-    end else if (_T_37 & wen) begin // @[MAP.scala 23:34]
+    end else if (_T_34 & wen) begin // @[MAP.scala 23:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mcycle <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -1146,7 +1149,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 29:21]
       mepc <= 64'h0; // @[CSR.scala 29:21]
-    end else if (_T_31 & wen) begin // @[MAP.scala 23:34]
+    end else if (_T_16 & wen) begin // @[MAP.scala 23:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mepc <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -1161,7 +1164,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 30:23]
       mcause <= 64'h0; // @[CSR.scala 30:23]
-    end else if (_T_16 & wen) begin // @[MAP.scala 23:34]
+    end else if (_T_22 & wen) begin // @[MAP.scala 23:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mcause <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -1176,7 +1179,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 31:24]
       mstatus <= 64'h1800; // @[CSR.scala 31:24]
-    end else if (_T_34 & wen) begin // @[MAP.scala 23:34]
+    end else if (_T_31 & wen) begin // @[MAP.scala 23:34]
       mstatus <= mstatus_mstatus_new; // @[MAP.scala 24:13]
     end else if (io_csr_op == 3'h5) begin // @[CSR.scala 84:30]
       mstatus <= _mstatus_T_2; // @[CSR.scala 85:13]
@@ -1187,7 +1190,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 32:22]
       mtvec <= 64'h0; // @[CSR.scala 32:22]
-    end else if (_T_19 & wen) begin // @[MAP.scala 23:34]
+    end else if (_T_25 & wen) begin // @[MAP.scala 23:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mtvec <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -1200,14 +1203,14 @@ module CSR(
       mip <= 64'h0; // @[CSR.scala 33:20]
     end else if (handle_int) begin // @[CSR.scala 96:53]
       mip <= _mip_T_4; // @[CSR.scala 98:9]
-    end else if (_T_22 & wen) begin // @[MAP.scala 23:34]
+    end else if (_T_37 & wen) begin // @[MAP.scala 23:34]
       mip <= _mip_T_2; // @[MAP.scala 24:13]
     end else if (handle_int) begin // @[CSR.scala 75:20]
       mip <= 64'h0; // @[CSR.scala 76:9]
     end
     if (reset) begin // @[CSR.scala 34:20]
       mie <= 64'h0; // @[CSR.scala 34:20]
-    end else if (_T_28 & wen) begin // @[MAP.scala 23:34]
+    end else if (_T_19 & wen) begin // @[MAP.scala 23:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mie <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -1218,7 +1221,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 35:25]
       mscratch <= 64'h0; // @[CSR.scala 35:25]
-    end else if (_T_25 & wen) begin // @[MAP.scala 23:34]
+    end else if (_T_28 & wen) begin // @[MAP.scala 23:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mscratch <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
