@@ -52,7 +52,6 @@ void init_mem()
 
 word_t paddr_read(paddr_t addr, int len)
 {
-    printf("%lx\n", cpu.pc);
 #ifdef CONFIG_MTRACE
     printf("memory read  at 0x%x of length 0x%x\n", addr, len);
 #endif
