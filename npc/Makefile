@@ -13,7 +13,6 @@ all: sim wave
 
 sim:
 	$(call git_commit, "sim RTL") 
-	$(REF_SO)
 	verilator -Wno-lint --cc --exe --build --top-module SimTop -LDFLAGS "-lreadline -ldl $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./csrc/*.cc) $(wildcard ./vsrc/*.v)
 	./obj_dir/VSimTop $(ARGS) $(IMG) 
 
