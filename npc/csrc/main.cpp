@@ -191,8 +191,9 @@ void npc_exec(unsigned int n)
 int main(int argc, char **argv, char **env)
 {
     contextp->commandArgs(argc, argv);
-    Verilated::traceEverOn(true);
+
 #ifdef WAVE_ON
+    Verilated::traceEverOn(true);
     top->trace(m_trace, 99);
     m_trace->open("waveform.vcd");
 #endif
