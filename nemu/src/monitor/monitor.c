@@ -131,7 +131,6 @@ void init_monitor(int argc, char *argv[]) {
 }
 #else // CONFIG_TARGET_AM
 static long load_img() {
-    assert(0);
   extern char bin_start, bin_end;
   size_t size = &bin_end - &bin_start;
   Log("img size = %ld", size);
