@@ -50,6 +50,8 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
         //printf("mem_raddr: %llx\n", mem_raddr);
     }
 
+    assert(mem_raddr != 0xa00003f8);
+
     assert(mem_raddr >= 0x80000000 || !mem_read);
     if (mem_read)
     {
