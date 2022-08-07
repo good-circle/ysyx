@@ -6,7 +6,7 @@
 
 VerilatedContext *contextp = new VerilatedContext;
 VSimTop *top = new VSimTop{contextp};
-// VerilatedVcdC *m_trace = new VerilatedVcdC;
+VerilatedVcdC *m_trace = new VerilatedVcdC;
 svBit is_finish = 0;
 svBit is_commit = 0;
 int npc_cycle = 0;
@@ -75,11 +75,11 @@ void reset_npc(uint n)
     top->reset = 1;
     for (int i = 0; i < n; i++)
     {
-        // m_trace->dump(2 * npc_cycle);
+        m_trace->dump(2 * npc_cycle);
         top->clock = !top->clock;
         top->eval();
 
-        // m_trace->dump(2 * npc_cycle + 1);
+        m_trace->dump(2 * npc_cycle + 1);
         top->clock = !top->clock;
         top->eval();
 
@@ -87,7 +87,7 @@ void reset_npc(uint n)
     }
 }
 
-void npc_exec(unsigned int n)
+void npc_exec(unsigned int 200)
 {
     struct timeval begin;
     struct timeval end;
@@ -122,10 +122,10 @@ void npc_exec(unsigned int n)
                 //printf("%s\n", start);
         #endif
         */
-        // m_trace->dump(2 * npc_cycle);
+        m_trace->dump(2 * npc_cycle);
         top->clock = !top->clock;
         top->eval();
-        // m_trace->dump(2 * npc_cycle + 1);
+        m_trace->dump(2 * npc_cycle + 1);
         top->clock = !top->clock;
         top->eval();
 
@@ -134,17 +134,17 @@ void npc_exec(unsigned int n)
         is_commit = export_commit();
         printf("%d\n", is_commit);
 
-        if (is_commit)
-        {
-            inst_num++;
-            difftest_read_regs(difftest_regs);
-            is_finish = export_finish();
-            if (!is_finish && difftest_step(difftest_regs, last_pc) != 0)
-            {
-                is_finish = 1;
-                break;
-            }
-        }
+        //if (is_commit)
+        //{
+        //    inst_num++;
+        //    difftest_read_regs(difftest_regs);
+        //    is_finish = export_finish();
+        //    if (!is_finish && difftest_step(difftest_regs, last_pc) != 0)
+        //    {
+        //        is_finish = 1;
+        //        break;
+        //    }
+        //}
 
         n--;
         npc_cycle++;
@@ -173,9 +173,9 @@ void npc_exec(unsigned int n)
 int main(int argc, char **argv, char **env)
 {
     contextp->commandArgs(argc, argv);
-    // Verilated::traceEverOn(true);
-    // top->trace(m_trace, 99);
-    // m_trace->open("waveform.vcd");
+    Verilated::traceEverOn(true);
+    top->trace(m_trace, 99);
+    m_trace->open("waveform.vcd");
 
     parse_args(argc, argv);
     int img_size = init_pmem();
@@ -197,7 +197,7 @@ int main(int argc, char **argv, char **env)
 
     sdb_mainloop();
 
-    // m_trace->close();
+    m_trace->close();
     delete top;
     delete contextp;
 }
