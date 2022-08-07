@@ -54,7 +54,7 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
     if (mem_read)
     {
         long long pmem_data = *(long long *)(pmem + (mem_raddr & ~0x7ull) - 0x80000000);
-        // printf("%lx\n", pmem_data);
+        printf("%lx\n", pmem_data);
         return pmem_data;
         // return *(long long *)(pmem + (mem_raddr & ~0x7ull) - 0x80000000);
     }
