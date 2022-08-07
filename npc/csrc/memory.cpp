@@ -70,6 +70,8 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
         //printf("mem_waddr: %llx mem_wdata: %llx mem_wmask: %llx\n", mem_waddr, mem_wdata, mem_wmask);
     }
 
+    assert(mem_waddr != 0xa00003f8);
+
     assert(mem_waddr >= 0x80000000 || !mem_write);
     if (mem_write)
     {
