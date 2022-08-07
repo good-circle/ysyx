@@ -20,8 +20,6 @@ static void restart() {
 
   /* Initialize mstatus to fit difftest */
   cpu.csr[MSTATUS] = 0xa00001800;
-
-  printf("cpu.pc = %lx\n", cpu.pc);
 }
 
 void init_isa() {
