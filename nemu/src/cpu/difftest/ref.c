@@ -5,6 +5,7 @@
 
 void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction)
 {
+    printf("n = %ld\n", n);
     if (direction == DIFFTEST_TO_DUT)
     {
         memcpy(buf, guest_to_host(addr), n);
