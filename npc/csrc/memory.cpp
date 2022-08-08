@@ -61,7 +61,7 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
     // assert(mem_raddr >= CONFIG_MBASE || !mem_read);
     if (mem_read)
     {
-        is_mmio = false;
+        //is_mmio = false;
         if (in_pmem(mem_raddr))
         {
             long long pmem_data = *(long long *)(pmem + (mem_raddr & ~0x7ull) - CONFIG_MBASE);
