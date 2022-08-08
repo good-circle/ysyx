@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-#include <conio.h>
 
 #define CONFIG_MBASE 0x80000000
 #define CONFIG_MSIZE 0x8000000
@@ -107,7 +106,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
 
         if(mem_waddr == 0xa00003F8)
         {
-            putch(mem_wdata);
+            putchar(mem_wdata);
         }
     }
 }
