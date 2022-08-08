@@ -76,23 +76,16 @@ void init_difftest(char *ref_so_file, long img_size, uint64_t *difftest_regs)
     ref_difftest_memcpy(0x80000000, pmem, img_size, 1);
     ref_difftest_regcpy(difftest_regs, 1);
 }
-int again = 0;
+
 int difftest_step(uint64_t *difftest_regs, uint64_t pc)
 {
     if (is_skip_ref)
     {
         ref_difftest_regcpy(difftest_regs, 1);
         is_skip_ref = false;
-        again = 1;
         return 0;
     }
-    // OVO
-    if (again)
-    {
-        //ref_difftest_regcpy(difftest_regs, 1);
-        again = 0;
-        //return 0;
-    }
+
 
     uint64_t ref_r[33];
 
