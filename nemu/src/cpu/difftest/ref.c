@@ -17,17 +17,17 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction)
 
 void difftest_regcpy(void *dut, bool direction)
 {
-    uint64_t *dut_64 = dut;
+    //uint64_t *dut_64 = dut;
     if (direction == DIFFTEST_TO_DUT)
     {
         memcpy(dut, &cpu, DIFFTEST_REG_SIZE);
     }
     else
     {
-        printf("111\n");
-        printf("nemu cpu_pc = %lx\n", cpu.pc);
+        //printf("111\n");
+        //printf("nemu cpu_pc = %lx\n", cpu.pc);
         memcpy(&cpu, dut, DIFFTEST_REG_SIZE);
-        printf("nemu dut_pc = %lx\n", dut_64[32]);
+        //printf("nemu dut_pc = %lx\n", dut_64[32]);
     }
 }
 
