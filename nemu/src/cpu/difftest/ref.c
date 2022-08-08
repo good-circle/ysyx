@@ -23,6 +23,7 @@ void difftest_regcpy(void *dut, bool direction)
     }
     else
     {
+        printf("111\n");
         memcpy(&cpu, dut, DIFFTEST_REG_SIZE);
     }
 }
