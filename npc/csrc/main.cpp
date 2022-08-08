@@ -162,6 +162,7 @@ void npc_exec(unsigned int n)
                 is_finish = export_finish();
                 is_mmio = export_mmio();
                 printf("is_mmio : %d\n", is_mmio);
+                printf("cpu_pc : %lx\n", cpu_pc);
                 assert(is_mmio == 0);
 
                 // printf("\n is_finish = %d\n", is_finish);
