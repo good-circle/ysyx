@@ -77,9 +77,9 @@ uint32_t lo = 0;
 uint32_t hi = 0;
 extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
 {
-    if (mem_read)
+    if (mem_read && (mem_raddr == 0xa0000048))
     {
-        // printf("mem_raddr: %llx\n", mem_raddr);
+        printf("mem_raddr: %llx\n", mem_raddr);
     }
 
     // assert(mem_raddr >= CONFIG_MBASE || !mem_read);
@@ -101,7 +101,6 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
         }
         if (mem_raddr = 0xa0000052)
         {
-            assert(0);
             return hi;
         }
     }
