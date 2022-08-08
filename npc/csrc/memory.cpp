@@ -54,7 +54,7 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
 {
     if (mem_read)
     {
-        // printf("mem_raddr: %llx\n", mem_raddr);
+        printf("mem_raddr: %llx\n", mem_raddr);
     }
 
     // assert(mem_raddr >= CONFIG_MBASE || !mem_read);
