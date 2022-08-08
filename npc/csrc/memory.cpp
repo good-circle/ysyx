@@ -49,7 +49,7 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
 {
     if (mem_read)
     {
-        printf("mem_raddr: %llx\n", mem_raddr);
+        //printf("mem_raddr: %llx\n", mem_raddr);
     }
 
     assert(mem_raddr != 0xa00003f8);
@@ -69,7 +69,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
 {
     if (mem_write)
     {
-        printf("mem_waddr: %llx mem_wdata: %llx mem_wmask: %llx\n", mem_waddr, mem_wdata, mem_wmask);
+        //printf("mem_waddr: %llx mem_wdata: %llx mem_wmask: %llx\n", mem_waddr, mem_wdata, mem_wmask);
     }
 
     assert(mem_waddr != 0xa00003f8);
