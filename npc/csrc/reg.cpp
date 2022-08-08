@@ -1,10 +1,16 @@
 #include "common.h"
 
-extern Vtop *top;
+extern VSimTop *top;
 uint64_t *cpu_gpr = NULL;
+uint64_t cpu_pc = 0;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
 {
     cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar *)r)->datap());
+}
+
+extern "C" void set_pc(long long pc)
+{
+    cpu_pc = pc;
 }
 
 const char *regs[] = {
@@ -15,7 +21,7 @@ const char *regs[] = {
 
 void isa_reg_display()
 {
-    printf("%s\t\t0x%lx\t\t\n", "pc", top->pc);
+    printf("%s\t\t0x%lx\t\t\n", "pc", cpu_pc);
     for (int i = 0; i < 32; i++)
     {
         printf("%s\t\t0x%lx\t\t\n", regs[i], cpu_gpr[i]);
@@ -27,7 +33,7 @@ uint64_t isa_reg_str2val(const char *s, bool *success)
     *success = true;
     if (strcmp(s, "pc") == 0)
     {
-        return top->pc;
+        return cpu_pc;
     }
     for (int i = 0; i < 32; i++)
     {
@@ -49,5 +55,5 @@ void difftest_read_regs(uint64_t *difftest_regs)
     {
         difftest_regs[i] = cpu_gpr[i];
     }
-    difftest_regs[32] = top->pc;
+    difftest_regs[32] = cpu_pc;
 }

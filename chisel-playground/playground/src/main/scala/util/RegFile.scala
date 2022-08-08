@@ -1,22 +1,22 @@
 import chisel3._
 import chisel3.util._
+import chisel3.util.experimental._
 
-class Blackregfile extends BlackBox with HasBlackBoxInline{
+class RegFile extends BlackBox with HasBlackBoxInline {
   val io = IO(new Bundle {
     val clock = Input(Clock())
     val raddr1 = Input(UInt(5.W))
-    val rdata1 = Output(UInt(64.W))
-
     val raddr2 = Input(UInt(5.W))
+    val rdata1 = Output(UInt(64.W))
     val rdata2 = Output(UInt(64.W))
-
     val waddr = Input(UInt(5.W))
     val wdata = Input(UInt(64.W))
     val wen = Input(Bool())
   })
-  setInline("Blackregfile.v",
-    """module Blackregfile(
-      |    input         clock,
+
+  setInline("RegFile.v",
+    """module RegFile(
+      |    input         clock ,
       |
       |    input  [ 4:0] raddr1,
       |    output [63:0] rdata1,
@@ -45,4 +45,3 @@ class Blackregfile extends BlackBox with HasBlackBoxInline{
       |""".stripMargin)
 
 }
-
