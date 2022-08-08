@@ -107,6 +107,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
 
         if(mem_waddr == 0xa00003F8)
         {
+            printf("11111\n");
             putchar(mem_wdata);
         }
     }
