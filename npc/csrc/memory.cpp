@@ -106,7 +106,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
         }
 
         mmio_pc = cpu_pc;
-        printf("mmio_pc : %d\n", mmio_pc);
+        printf("mmio_pc : %lx\n", mmio_pc);
         if(mem_waddr == 0xa00003F8)
         {
             putchar(mem_wdata);
