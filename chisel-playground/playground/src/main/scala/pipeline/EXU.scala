@@ -74,12 +74,13 @@ class EXU extends Module {
   clint.io.is_mtime := (alu_result === "h0200bff8".U(64.W))
   clint.io.is_mtimecmp := (alu_result === "h02004000".U(64.W))
   val is_mmio = Wire(Bool())
+  val skip_ref = Wire(Bool())
   is_mmio := (alu_result < "h80000000".U(64.W)) || (alu_result > "h88000000".U(64.W))
   clint.io.is_clint := is_lsu && is_clint 
   clint.io.wen := wen
   clint.io.wdata := rs2_value
-  //is_clint := (clint.io.is_mtime || clint.io.is_mtimecmp) && io.in.valid
-  is_clint := is_mmio && io.in.valid && is_lsu
+  is_clint := (clint.io.is_mtime || clint.io.is_mtimecmp) && io.in.valid
+  skip_ref := is_mmio && io.in.valid && is_lsu
 
   final_result := MuxLookup(fu_type, 0.U, Array(
     fu_alu -> alu_result,
@@ -96,7 +97,7 @@ class EXU extends Module {
 
   /* only for difftest */
   io.out.bits.mcycle := (csr.io.addr === mcycle_addr) && (fu_type === fu_csr)
-  io.out.bits.is_clint := is_clint
+  io.out.bits.is_clint := skip_ref
 
   io.out.valid := io.in.valid && !handle_int
 
