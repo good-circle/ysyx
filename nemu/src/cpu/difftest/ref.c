@@ -17,6 +17,7 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction)
 
 void difftest_regcpy(void *dut, bool direction)
 {
+    uint64_t *dut_64 = dut;
     if (direction == DIFFTEST_TO_DUT)
     {
         memcpy(dut, &cpu, DIFFTEST_REG_SIZE);
@@ -25,6 +26,7 @@ void difftest_regcpy(void *dut, bool direction)
     {
         printf("111\n");
         memcpy(&cpu, dut, DIFFTEST_REG_SIZE);
+        printf("dut_pc = %lx\n", dut_64[32]);
     }
 }
 
