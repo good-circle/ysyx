@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <conio.h>
 
 #define CONFIG_MBASE 0x80000000
 #define CONFIG_MSIZE 0x8000000
@@ -102,6 +103,11 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
             long long real_wdata = mem_wdata & real_mask;
             *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE) = (*(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE) & clear_wdata) | real_wdata;
             // printf("after: %llx\n", *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE));
+        }
+
+        if(mem_waddr == 0xa00003F8)
+        {
+            putch(mem_wdata);
         }
     }
 }
