@@ -159,9 +159,8 @@ void npc_exec(unsigned int n)
                 inst_num++;
                 difftest_read_regs(difftest_regs);
                 is_finish = export_finish();
-                printf("is_mmio : %d\n", is_mmio);
                 printf("cpu.pc: %lx\n", cpu_pc);
-                assert(cpu_pc != mmio_pc)
+                assert(cpu_pc != mmio_pc);
                 // printf("\n is_finish = %d\n", is_finish);
                 if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
                 {
