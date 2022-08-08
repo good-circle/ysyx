@@ -26,7 +26,7 @@ void difftest_regcpy(void *dut, bool direction)
     {
         printf("111\n");
         memcpy(&cpu, dut, DIFFTEST_REG_SIZE);
-        printf("dut_pc = %lx\n", dut_64[0]);
+        printf("dut_pc = %lx\n", dut_64[32]);
     }
 }
 
