@@ -1419,6 +1419,7 @@ module EXU(
   output [63:0] io_out_bits_final_result,
   output [4:0]  io_out_bits_dest,
   output        io_out_bits_wen,
+  output        io_out_bits_is_clint,
   output        io_forward_is_reflush,
   output        io_forward_fwd_valid,
   output [4:0]  io_forward_rf_waddr,
@@ -1466,11 +1467,12 @@ module EXU(
   wire [63:0] clint_io_rdata; // @[EXU.scala 31:21]
   wire  clint_has_int_0; // @[EXU.scala 31:21]
   wire  is_lsu = io_in_bits_fu_type == 2'h2; // @[EXU.scala 52:22]
-  wire  is_clint = (clint_io_is_mtime | clint_io_is_mtimecmp) & io_in_valid; // @[EXU.scala 79:59]
+  wire [63:0] alu_result = alu_io_result; // @[EXU.scala 33:24 EXU.scala 45:14]
+  wire  is_mmio = alu_result < 64'h80000000 | alu_result > 64'h88000000; // @[EXU.scala 77:49]
+  wire  is_clint = is_mmio & io_in_valid & is_lsu; // @[EXU.scala 82:38]
   wire [63:0] lsu_rdata = is_clint ? clint_io_rdata : lsu_io_rdata; // @[EXU.scala 60:19]
   wire [2:0] _csr_io_csr_op_T_1 = io_in_valid ? 3'h7 : 3'h0; // @[Bitwise.scala 72:12]
-  wire [63:0] alu_result = alu_io_result; // @[EXU.scala 33:24 EXU.scala 45:14]
-  wire [31:0] _final_result_T_1 = io_in_bits_pc + 32'h4; // @[EXU.scala 83:19]
+  wire [31:0] _final_result_T_1 = io_in_bits_pc + 32'h4; // @[EXU.scala 86:19]
   wire [63:0] _final_result_T_3 = 2'h1 == io_in_bits_fu_type ? {{32'd0}, _final_result_T_1} : alu_result; // @[Mux.scala 80:57]
   wire [63:0] _final_result_T_5 = 2'h2 == io_in_bits_fu_type ? lsu_rdata : _final_result_T_3; // @[Mux.scala 80:57]
   wire [63:0] csr_rdata = csr_io_rdata; // @[EXU.scala 36:23 EXU.scala 68:13]
@@ -1528,18 +1530,19 @@ module EXU(
   assign io_dmem_wdata = lsu_io_dmem_wdata; // @[EXU.scala 53:15]
   assign io_dmem_wmask = lsu_io_dmem_wmask; // @[EXU.scala 53:15]
   assign io_dmem_wen = lsu_io_dmem_wen; // @[EXU.scala 53:15]
-  assign io_out_valid = io_in_valid & ~handle_int; // @[EXU.scala 98:31]
-  assign io_out_bits_pc = io_in_bits_pc; // @[EXU.scala 88:18]
-  assign io_out_bits_inst = io_in_bits_inst; // @[EXU.scala 89:20]
+  assign io_out_valid = io_in_valid & ~handle_int; // @[EXU.scala 101:31]
+  assign io_out_bits_pc = io_in_bits_pc; // @[EXU.scala 91:18]
+  assign io_out_bits_inst = io_in_bits_inst; // @[EXU.scala 92:20]
   assign io_out_bits_final_result = 2'h3 == io_in_bits_fu_type ? csr_rdata : _final_result_T_5; // @[Mux.scala 80:57]
-  assign io_out_bits_dest = io_in_bits_dest; // @[EXU.scala 91:20]
-  assign io_out_bits_wen = io_in_bits_wen; // @[EXU.scala 92:19]
+  assign io_out_bits_dest = io_in_bits_dest; // @[EXU.scala 94:20]
+  assign io_out_bits_wen = io_in_bits_wen; // @[EXU.scala 95:19]
+  assign io_out_bits_is_clint = is_mmio & io_in_valid & is_lsu; // @[EXU.scala 82:38]
   assign io_forward_is_reflush = csr_io_is_reflush; // @[EXU.scala 40:24 EXU.scala 69:14]
-  assign io_forward_fwd_valid = io_in_bits_wen & io_in_bits_dest != 5'h0 & io_in_valid; // @[EXU.scala 101:47]
-  assign io_forward_rf_waddr = io_in_bits_dest; // @[EXU.scala 102:23]
+  assign io_forward_fwd_valid = io_in_bits_wen & io_in_bits_dest != 5'h0 & io_in_valid; // @[EXU.scala 104:47]
+  assign io_forward_rf_waddr = io_in_bits_dest; // @[EXU.scala 105:23]
   assign io_forward_rf_wdata = 2'h3 == io_in_bits_fu_type ? csr_rdata : _final_result_T_5; // @[Mux.scala 80:57]
   assign io_br_bus_is_reflush = csr_io_is_reflush; // @[EXU.scala 40:24 EXU.scala 69:14]
-  assign io_br_bus_br_target = csr_target[31:0]; // @[EXU.scala 106:23]
+  assign io_br_bus_br_target = csr_target[31:0]; // @[EXU.scala 109:23]
   assign alu_io_alu_op = io_in_bits_alu_op; // @[EXU.scala 46:17]
   assign alu_io_rv64 = io_in_bits_rv64; // @[EXU.scala 47:15]
   assign alu_io_src1 = io_in_bits_src1_value; // @[EXU.scala 48:15]
@@ -1563,9 +1566,9 @@ module EXU(
   assign clint_reset = reset;
   assign clint_io_is_mtime = alu_result == 64'h200bff8; // @[EXU.scala 74:36]
   assign clint_io_is_mtimecmp = alu_result == 64'h2004000; // @[EXU.scala 75:39]
-  assign clint_io_is_clint = is_lsu & is_clint; // @[EXU.scala 76:31]
-  assign clint_io_wen = io_in_bits_wen; // @[EXU.scala 77:16]
-  assign clint_io_wdata = io_in_bits_rs2_value; // @[EXU.scala 78:18]
+  assign clint_io_is_clint = is_lsu & is_clint; // @[EXU.scala 78:31]
+  assign clint_io_wen = io_in_bits_wen; // @[EXU.scala 79:16]
+  assign clint_io_wdata = io_in_bits_rs2_value; // @[EXU.scala 80:18]
 endmodule
 module WBU(
   input         io_in_valid,
@@ -1574,12 +1577,14 @@ module WBU(
   input  [63:0] io_in_bits_final_result,
   input  [4:0]  io_in_bits_dest,
   input         io_in_bits_wen,
+  input         io_in_bits_is_clint,
   output        io_wb_bus_rf_wen,
   output [4:0]  io_wb_bus_rf_waddr,
   output [63:0] io_wb_bus_rf_wdata,
   output        io_commit_valid,
   output [31:0] io_commit_pc,
-  output [31:0] io_commit_inst
+  output [31:0] io_commit_inst,
+  output        io_commit_is_clint
 );
   assign io_wb_bus_rf_wen = io_in_bits_wen & io_in_bits_dest != 5'h0 & io_in_valid; // @[WBU.scala 23:46]
   assign io_wb_bus_rf_waddr = io_in_bits_dest; // @[WBU.scala 24:22]
@@ -1587,6 +1592,7 @@ module WBU(
   assign io_commit_valid = io_in_valid; // @[WBU.scala 32:19]
   assign io_commit_pc = io_in_bits_pc; // @[WBU.scala 27:16]
   assign io_commit_inst = io_in_bits_inst; // @[WBU.scala 28:18]
+  assign io_commit_is_clint = io_in_bits_is_clint; // @[WBU.scala 35:22]
 endmodule
 module Core(
   input         clock,
@@ -1624,6 +1630,7 @@ module Core(
   reg [63:0] _RAND_19;
   reg [31:0] _RAND_20;
   reg [31:0] _RAND_21;
+  reg [31:0] _RAND_22;
 `endif // RANDOMIZE_REG_INIT
   wire  ifu_clock; // @[Core.scala 12:19]
   wire  ifu_reset; // @[Core.scala 12:19]
@@ -1690,6 +1697,7 @@ module Core(
   wire [63:0] exu_io_out_bits_final_result; // @[Core.scala 14:19]
   wire [4:0] exu_io_out_bits_dest; // @[Core.scala 14:19]
   wire  exu_io_out_bits_wen; // @[Core.scala 14:19]
+  wire  exu_io_out_bits_is_clint; // @[Core.scala 14:19]
   wire  exu_io_forward_is_reflush; // @[Core.scala 14:19]
   wire  exu_io_forward_fwd_valid; // @[Core.scala 14:19]
   wire [4:0] exu_io_forward_rf_waddr; // @[Core.scala 14:19]
@@ -1702,15 +1710,18 @@ module Core(
   wire [63:0] wbu_io_in_bits_final_result; // @[Core.scala 15:19]
   wire [4:0] wbu_io_in_bits_dest; // @[Core.scala 15:19]
   wire  wbu_io_in_bits_wen; // @[Core.scala 15:19]
+  wire  wbu_io_in_bits_is_clint; // @[Core.scala 15:19]
   wire  wbu_io_wb_bus_rf_wen; // @[Core.scala 15:19]
   wire [4:0] wbu_io_wb_bus_rf_waddr; // @[Core.scala 15:19]
   wire [63:0] wbu_io_wb_bus_rf_wdata; // @[Core.scala 15:19]
   wire  wbu_io_commit_valid; // @[Core.scala 15:19]
   wire [31:0] wbu_io_commit_pc; // @[Core.scala 15:19]
   wire [31:0] wbu_io_commit_inst; // @[Core.scala 15:19]
+  wire  wbu_io_commit_is_clint; // @[Core.scala 15:19]
   wire  commit_valid; // @[Core.scala 30:22]
   wire [31:0] commit_pc; // @[Core.scala 30:22]
   wire  commit_ebreak; // @[Core.scala 30:22]
+  wire  commit_is_mmio; // @[Core.scala 30:22]
   reg  valid; // @[Connect.scala 6:24]
   wire  fire = ifu_io_out_valid; // @[Connect.scala 7:27]
   wire  _T_1 = idu_io_in_valid; // @[Decoupled.scala 40:37]
@@ -1745,6 +1756,7 @@ module Core(
   reg [63:0] wbu_io_in_bits_r_final_result; // @[Reg.scala 15:16]
   reg [4:0] wbu_io_in_bits_r_dest; // @[Reg.scala 15:16]
   reg  wbu_io_in_bits_r_wen; // @[Reg.scala 15:16]
+  reg  wbu_io_in_bits_r_is_clint; // @[Reg.scala 15:16]
   IFU ifu ( // @[Core.scala 12:19]
     .clock(ifu_clock),
     .reset(ifu_reset),
@@ -1815,6 +1827,7 @@ module Core(
     .io_out_bits_final_result(exu_io_out_bits_final_result),
     .io_out_bits_dest(exu_io_out_bits_dest),
     .io_out_bits_wen(exu_io_out_bits_wen),
+    .io_out_bits_is_clint(exu_io_out_bits_is_clint),
     .io_forward_is_reflush(exu_io_forward_is_reflush),
     .io_forward_fwd_valid(exu_io_forward_fwd_valid),
     .io_forward_rf_waddr(exu_io_forward_rf_waddr),
@@ -1829,17 +1842,20 @@ module Core(
     .io_in_bits_final_result(wbu_io_in_bits_final_result),
     .io_in_bits_dest(wbu_io_in_bits_dest),
     .io_in_bits_wen(wbu_io_in_bits_wen),
+    .io_in_bits_is_clint(wbu_io_in_bits_is_clint),
     .io_wb_bus_rf_wen(wbu_io_wb_bus_rf_wen),
     .io_wb_bus_rf_waddr(wbu_io_wb_bus_rf_waddr),
     .io_wb_bus_rf_wdata(wbu_io_wb_bus_rf_wdata),
     .io_commit_valid(wbu_io_commit_valid),
     .io_commit_pc(wbu_io_commit_pc),
-    .io_commit_inst(wbu_io_commit_inst)
+    .io_commit_inst(wbu_io_commit_inst),
+    .io_commit_is_clint(wbu_io_commit_is_clint)
   );
   Commit commit ( // @[Core.scala 30:22]
     .valid(commit_valid),
     .pc(commit_pc),
-    .ebreak(commit_ebreak)
+    .ebreak(commit_ebreak),
+    .is_mmio(commit_is_mmio)
   );
   assign io_imem_en = ifu_io_imem_en; // @[Core.scala 17:15]
   assign io_imem_addr = ifu_io_imem_addr; // @[Core.scala 17:15]
@@ -1888,9 +1904,11 @@ module Core(
   assign wbu_io_in_bits_final_result = wbu_io_in_bits_r_final_result; // @[Connect.scala 13:16]
   assign wbu_io_in_bits_dest = wbu_io_in_bits_r_dest; // @[Connect.scala 13:16]
   assign wbu_io_in_bits_wen = wbu_io_in_bits_r_wen; // @[Connect.scala 13:16]
+  assign wbu_io_in_bits_is_clint = wbu_io_in_bits_r_is_clint; // @[Connect.scala 13:16]
   assign commit_valid = wbu_io_commit_valid; // @[Core.scala 31:19]
   assign commit_pc = wbu_io_commit_pc; // @[Core.scala 32:16]
   assign commit_ebreak = wbu_io_commit_inst == 32'h100073; // @[Core.scala 33:42]
+  assign commit_is_mmio = wbu_io_commit_is_clint; // @[Core.scala 34:21]
   always @(posedge clock) begin
     if (reset) begin // @[Connect.scala 6:24]
       valid <= 1'h0; // @[Connect.scala 6:24]
@@ -1967,6 +1985,9 @@ module Core(
     end
     if (fire_2) begin // @[Reg.scala 16:19]
       wbu_io_in_bits_r_wen <= exu_io_out_bits_wen; // @[Reg.scala 16:23]
+    end
+    if (fire_2) begin // @[Reg.scala 16:19]
+      wbu_io_in_bits_r_is_clint <= exu_io_out_bits_is_clint; // @[Reg.scala 16:23]
     end
   end
 // Register and memory initialization
@@ -2049,6 +2070,8 @@ initial begin
   wbu_io_in_bits_r_dest = _RAND_20[4:0];
   _RAND_21 = {1{`RANDOM}};
   wbu_io_in_bits_r_wen = _RAND_21[0:0];
+  _RAND_22 = {1{`RANDOM}};
+  wbu_io_in_bits_r_is_clint = _RAND_22[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
