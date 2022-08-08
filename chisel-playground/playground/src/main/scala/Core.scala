@@ -31,7 +31,7 @@ class Core extends Module {
   commit.io.valid := wbu.io.commit.valid
   commit.io.pc := wbu.io.commit.pc
   commit.io.ebreak := wbu.io.commit.inst === "h00100073".U
-  commit.io.is_mmio := wnu.io.commit.is_clint
+  commit.io.is_mmio := wbu.io.commit.is_clint
 
   class Commit extends BlackBox with HasBlackBoxInline {
   val io = IO(new Bundle {
