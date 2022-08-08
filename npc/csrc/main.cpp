@@ -166,6 +166,11 @@ void npc_exec(unsigned int n)
                 //assert(is_mmio == 0);
 
                 // printf("\n is_finish = %d\n", is_finish);
+
+                if(is_mmio)
+                {
+                    difftest_skip_ref();
+                }
                 if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
                 {
                     is_finish = 1;
