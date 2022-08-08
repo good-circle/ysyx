@@ -31,6 +31,7 @@ void difftest_regcpy(void *dut, bool direction)
 bool reset = false;
 void difftest_exec(uint64_t n)
 {
+    printf("222\n");
     if (!reset)
     {
         // I do not know why cpu.pc = 0
