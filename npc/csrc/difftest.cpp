@@ -86,7 +86,6 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc)
         return 0;
     }
 
-
     uint64_t ref_r[33];
 
     ref_difftest_exec(1);
