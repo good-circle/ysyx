@@ -103,6 +103,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
             long long real_wdata = mem_wdata & real_mask;
             *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE) = (*(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE) & clear_wdata) | real_wdata;
             // printf("after: %llx\n", *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE));
+            return;
         }
 
         mmio_pc = cpu_pc;
