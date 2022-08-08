@@ -81,6 +81,11 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc)
 {
     if (is_skip_ref)
     {
+        for (int i = 0; i < 33; i++)
+        {
+            printf("%lx\n", difftest_regs[i]);
+        }
+
         ref_difftest_regcpy(&difftest_regs, 1);
         is_skip_ref = false;
         return 0;
