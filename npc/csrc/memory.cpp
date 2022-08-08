@@ -147,5 +147,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
         {
             putchar((char)mem_wdata);
         }
+
+        assert(mem_waddr != 0xa0000048);
     }
 }
