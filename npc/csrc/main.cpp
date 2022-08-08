@@ -171,7 +171,7 @@ void npc_exec(unsigned int n)
 
                 if(is_mmio)
                 {
-                    difftest_skip_ref();
+                    //difftest_skip_ref();
                     //ref_difftest_regcpy(difftest_regs, 1);
                 }
                 else if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
