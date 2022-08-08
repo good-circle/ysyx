@@ -83,9 +83,9 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc)
     {
         ref_difftest_regcpy(&difftest_regs, 1);
         is_skip_ref = false;
-        return;
+        return 0;
     }
-    
+
     uint64_t ref_r[33];
 
     ref_difftest_exec(1);
