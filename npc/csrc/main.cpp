@@ -173,7 +173,7 @@ void npc_exec(unsigned int n)
                 {
                     difftest_skip_ref();
                 }
-                if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
+                else if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
                 {
                     is_finish = 1;
                     break;
