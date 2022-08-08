@@ -89,9 +89,9 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc)
     // OVO
     if (again)
     {
-        ref_difftest_regcpy(difftest_regs, 1);
+        //ref_difftest_regcpy(difftest_regs, 1);
         again = 0;
-        return 0;
+        //return 0;
     }
 
     uint64_t ref_r[33];
