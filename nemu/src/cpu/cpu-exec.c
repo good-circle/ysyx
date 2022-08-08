@@ -150,7 +150,7 @@ static void execute(uint64_t n)
     //int i = 0;
     for (; n > 0; n--)
     {
-        printf("nemu cpu-exec.c execute cpu.pc = %lx\n", cpu.pc);
+        //printf("nemu cpu-exec.c execute cpu.pc = %lx\n", cpu.pc);
         exec_once(&s, cpu.pc);
         //printf("%d\n", i++);
         //printf("%lx\n", cpu.pc);
