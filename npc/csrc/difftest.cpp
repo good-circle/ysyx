@@ -79,12 +79,19 @@ void init_difftest(char *ref_so_file, long img_size, uint64_t *difftest_regs)
 
 int difftest_step(uint64_t *difftest_regs, uint64_t pc)
 {
+    if (is_skip_ref)
+    {
+        ref_difftest_regcpy(&difftest_regs, 1);
+        is_skip_ref = false;
+        return;
+    }
+    
     uint64_t ref_r[33];
 
     ref_difftest_exec(1);
     ref_difftest_regcpy(&ref_r, 0);
 
-    //printf("right_pc = %lx\n", ref_r[32]);
+    // printf("right_pc = %lx\n", ref_r[32]);
 
     bool is_different = false;
 
