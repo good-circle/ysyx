@@ -31,19 +31,22 @@ class Core extends Module {
   commit.io.valid := wbu.io.commit.valid
   commit.io.pc := wbu.io.commit.pc
   commit.io.ebreak := wbu.io.commit.inst === "h00100073".U
+  commit.io.is_mmio := wnu.io.commit.is_clint
 
   class Commit extends BlackBox with HasBlackBoxInline {
   val io = IO(new Bundle {
     val valid = Input(Bool())
     val pc = Input(UInt(32.W))
     val ebreak = Input(Bool())
+    val is_mmio = Input(Bool())
   })
 
   setInline("Commit.v",
     """module Commit(
-      |    input        valid ,
-      |    input [31:0] pc    ,
-      |    input        ebreak
+      |    input        valid  ,
+      |    input [31:0] pc     ,
+      |    input        ebreak ,
+      |    input        is_mmio
       |);
       |
       |export "DPI-C" function export_finish;
@@ -54,6 +57,11 @@ class Core extends Module {
       |export "DPI-C" function export_commit;
       |function byte export_commit();
       |    return valid;
+      |endfunction
+      |
+      |export "DPI-C" function export_mmio;
+      |function byte export_mmio();
+      |    return is_mmio;
       |endfunction
       |
       |import "DPI-C" function void set_pc(input longint pc);

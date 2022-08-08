@@ -16,7 +16,7 @@ class RamIO extends RomIO {
 class ram_2r1w extends BlackBox with HasBlackBoxInline {
   val io = IO(new Bundle {
     val clk = Input(Clock())
-    
+        
     val imem_en = Input(Bool())
     val imem_addr = Input(UInt(64.W))
     val imem_data = Output(UInt(32.W))

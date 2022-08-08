@@ -13,6 +13,7 @@ VerilatedVcdC *m_trace = new VerilatedVcdC;
 
 svBit is_finish = 0;
 svBit is_commit = 0;
+svBit is_mmio = 0;
 int npc_cycle = 0;
 
 u_int8_t pmem[0x8000000];
@@ -159,8 +160,9 @@ void npc_exec(unsigned int n)
                 inst_num++;
                 difftest_read_regs(difftest_regs);
                 is_finish = export_finish();
-                printf("cpu.pc: %lx\n", cpu_pc);
-                assert(cpu_pc != mmio_pc);
+                is_mmio = export_mmio();
+                assert(is_mmio == 0);
+
                 // printf("\n is_finish = %d\n", is_finish);
                 if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
                 {

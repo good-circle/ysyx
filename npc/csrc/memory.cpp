@@ -9,8 +9,7 @@
 extern u_int8_t pmem[CONFIG_MSIZE];
 extern const char *img_file;
 extern int inst_num;
-uint64_t mmio_pc = 0;
-extern uint64_t cpu_pc;
+
 long init_pmem()
 {
     memset(pmem, 0, CONFIG_MSIZE);
@@ -106,8 +105,6 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
             return;
         }
 
-        mmio_pc = cpu_pc;
-        printf("mmio_pc : %lx\n", mmio_pc);
         if(mem_waddr == 0xa00003F8)
         {
             putchar(mem_wdata);
