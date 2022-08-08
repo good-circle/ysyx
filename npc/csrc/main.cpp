@@ -24,6 +24,7 @@ bool is_batch_mode = false;
 static char *diff_so_file = NULL;
 u_int64_t difftest_regs[33] = {0};
 extern uint64_t cpu_pc;
+extern bool is_mmio;
 
 static int parse_args(int argc, char *argv[]);
 long init_pmem();
@@ -158,6 +159,10 @@ void npc_exec(unsigned int n)
                 inst_num++;
                 difftest_read_regs(difftest_regs);
                 is_finish = export_finish();
+                if (is_mmio)
+                {
+                    assert(0);
+                }
                 // printf("\n is_finish = %d\n", is_finish);
                 if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
                 {

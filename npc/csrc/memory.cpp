@@ -9,6 +9,7 @@
 extern u_int8_t pmem[CONFIG_MSIZE];
 extern const char *img_file;
 extern int inst_num;
+bool is_mmio = false;
 
 long init_pmem()
 {
@@ -60,6 +61,7 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
     // assert(mem_raddr >= CONFIG_MBASE || !mem_read);
     if (mem_read)
     {
+        is_mmio = false;
         if (in_pmem(mem_raddr))
         {
             long long pmem_data = *(long long *)(pmem + (mem_raddr & ~0x7ull) - CONFIG_MBASE);
@@ -80,6 +82,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
     // assert(mem_waddr >= CONFIG_MBASE || !mem_write);
     if (mem_write)
     {
+        is_mmio = false;
         if (in_pmem(mem_waddr))
         {
             unsigned long long real_mask = 0;
@@ -104,6 +107,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
             // printf("after: %llx\n", *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE));
         }
 
+        is_mmio = true;
         if(mem_waddr == 0xa00003F8)
         {
             putchar(mem_wdata);
