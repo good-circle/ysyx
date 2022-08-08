@@ -65,6 +65,12 @@ static void CSR(word_t dest, word_t src1, word_t src2, int op)
     case 0x305:
         csr = MTVEC;
         break;
+    case 0x180:
+        csr = SATP;
+        break;
+    case 0x340:
+        csr = MSCRATCH;
+        break;
     default:
         assert(0);
     }
@@ -83,6 +89,25 @@ static void CSR(word_t dest, word_t src1, word_t src2, int op)
     }
     
     R(dest) = t;   
+}
+
+#define MPIE (1ULL << 7)
+static word_t MRET()
+{
+    bool mpie = cpu.csr[MSTATUS] & MPIE;
+    word_t mstatus = cpu.csr[MSTATUS];
+    word_t offset_7 = (mstatus << 57) >> 57;
+    word_t offset_3 = (mstatus << 61) >> 61;
+    offset_7 = (offset_7 >> 4) << 1;
+    offset_7 = offset_7 | mpie;
+    offset_7 = offset_7 << 3;
+    offset_7 = offset_7 | offset_3;
+    mstatus = mstatus >> 7;
+    mstatus = mstatus | 1;
+    mstatus = mstatus << 7;
+    mstatus = mstatus | offset_7;
+    cpu.csr[MSTATUS] = mstatus;
+    return cpu.csr[MEPC];
 }
 
 static int decode_exec(Decode *s) {
@@ -150,8 +175,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I, CSR(dest, src1, src2, CSRRW));
   INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , I, CSR(dest, src1, src2, CSRRS));
 
-  // FIX ME !!!
-  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc = cpu.csr[MEPC] + 4; difftest_skip_ref());
+  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc = MRET());
   
   // RV64I
   INSTPAT("??????? ????? ????? 110 ????? 00000 11", lwu    , I, R(dest) = (uint32_t)Mr(src1 + src2, 4));

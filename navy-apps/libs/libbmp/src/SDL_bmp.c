@@ -4,6 +4,7 @@
 
 SDL_Surface* SDL_LoadBMP(const char *filename) {
   int w, h;
+  printf("filename is %s\n", filename);
   void *pixels = BMP_Load(filename, &w, &h);
   assert(pixels);
   SDL_Surface *s = SDL_CreateRGBSurfaceFrom(pixels, w, h, 32, w * sizeof(uint32_t),

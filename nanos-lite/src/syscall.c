@@ -5,9 +5,13 @@
 #include <proc.h>
 
 //#define STRACE
-
+void switch_boot_pcb();
 static int my_gettimeofday(struct timeval *tv, struct timezone *tz);
 void naive_uload(PCB *pcb, const char *filename);
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
+static int my_execve(const char *filename, char *const argv[], char *const envp[]);
+char *null_arg[] = {NULL};
+int mm_brk(uintptr_t brk);
 
 void do_syscall(Context *c)
 {
@@ -24,12 +28,9 @@ void do_syscall(Context *c)
     switch (a[0])
     {
     case SYS_exit: // 0
-        if (a[1] != 0)
-        {
-            printf("a0 is not 0 when sys_exit, maybe you forget to add case in navy-apps/libs/libos/src/syscall.c?\n");
-        }
-        naive_uload(NULL, "/bin/nterm");
-        c->GPRx = 0;
+        //my_execve("/bin/nterm", null_arg, null_arg);
+        halt(0);
+        c->GPRx = a[1];
         break;
 
     case SYS_yield: // 1
@@ -59,12 +60,11 @@ void do_syscall(Context *c)
 
     case SYS_brk: // 9
         /* will always success in pa3 */
-        c->GPRx = 0;
+        c->GPRx = mm_brk(a[1]);
         break;
 
     case SYS_execve: // 13
-        naive_uload(NULL, (char *)a[1]);
-        c->GPRx = 0;
+        c->GPRx = my_execve((char *)a[1], (char **)a[2], (char **)a[3]);
         break;
 
     case SYS_gettimeofday: // 19
@@ -81,4 +81,19 @@ static int my_gettimeofday(struct timeval *tv, struct timezone *tz)
     tv->tv_sec = usec / 1000000;
     tv->tv_usec = usec % 1000000;
     return 0;
+}
+
+static int my_execve(const char *filename, char *const argv[], char *const envp[])
+{
+    if (fs_open(filename, 0, 0) != -1)
+    {
+        context_uload(current, filename, argv, envp);
+        switch_boot_pcb();
+        yield();
+        return 0;
+    }
+    else
+    {
+        return -2;
+    }
 }
