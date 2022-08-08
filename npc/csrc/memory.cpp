@@ -45,22 +45,27 @@ u_int32_t memory_read(unsigned long long addr)
     return *(u_int32_t *)(pmem + addr - CONFIG_MBASE);
 }
 
+static inline bool in_pmem(uint64_t addr)
+{
+    return (addr >= CONFIG_MBASE) && (addr < (uint64_t)CONFIG_MBASE + CONFIG_MSIZE);
+}
+
 extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
 {
     if (mem_read)
     {
-        //printf("mem_raddr: %llx\n", mem_raddr);
+        // printf("mem_raddr: %llx\n", mem_raddr);
     }
 
-    assert(mem_raddr != 0xa00003f8);
-
-    assert(mem_raddr >= CONFIG_MBASE || !mem_read);
+    // assert(mem_raddr >= CONFIG_MBASE || !mem_read);
     if (mem_read)
     {
-        long long pmem_data = *(long long *)(pmem + (mem_raddr & ~0x7ull) - CONFIG_MBASE);
-        //printf("%llx\n", pmem_data);
-        return pmem_data;
-        // return *(long long *)(pmem + (mem_raddr & ~0x7ull) - CONFIG_MBASE);
+        if (in_pmem(mem_raddr))
+        {
+            long long pmem_data = *(long long *)(pmem + (mem_raddr & ~0x7ull) - CONFIG_MBASE);
+            // printf("%llx\n", pmem_data);
+            return pmem_data;
+        }
     }
     return 0;
 }
@@ -69,33 +74,34 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
 {
     if (mem_write)
     {
-        //printf("mem_waddr: %llx mem_wdata: %llx mem_wmask: %llx\n", mem_waddr, mem_wdata, mem_wmask);
+        // printf("mem_waddr: %llx mem_wdata: %llx mem_wmask: %llx\n", mem_waddr, mem_wdata, mem_wmask);
     }
 
-    assert(mem_waddr != 0xa00003f8);
-
-    assert(mem_waddr >= CONFIG_MBASE || !mem_write);
+    // assert(mem_waddr >= CONFIG_MBASE || !mem_write);
     if (mem_write)
     {
-        unsigned long long real_mask = 0;
-        u_int8_t mask_mask = 0b10000000;
-
-        for (int i = 0; i < 7; i++)
+        if (in_pmem(mem_waddr))
         {
+            unsigned long long real_mask = 0;
+            u_int8_t mask_mask = 0b10000000;
+
+            for (int i = 0; i < 7; i++)
+            {
+                if (mem_wmask & mask_mask)
+                {
+                    real_mask |= 0b11111111;
+                }
+                real_mask <<= 8;
+                mask_mask >>= 1;
+            }
             if (mem_wmask & mask_mask)
             {
                 real_mask |= 0b11111111;
             }
-            real_mask <<= 8;
-            mask_mask >>= 1;
+            long long clear_wdata = ~real_mask;
+            long long real_wdata = mem_wdata & real_mask;
+            *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE) = (*(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE) & clear_wdata) | real_wdata;
+            // printf("after: %llx\n", *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE));
         }
-        if (mem_wmask & mask_mask)
-        {
-            real_mask |= 0b11111111;
-        }
-        long long clear_wdata = ~real_mask;
-        long long real_wdata = mem_wdata & real_mask;
-        *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE) = (*(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE) & clear_wdata) | real_wdata;
-        //printf("after: %llx\n", *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE));
     }
 }
