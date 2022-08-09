@@ -108,7 +108,7 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
 
         //printf("mem_raddr: %llx\n", mem_raddr);
 
-        //assert(mem_raddr != 0xa0000100);
+        assert(mem_raddr != 0xa0000100);
     }
     return 0;
 }
