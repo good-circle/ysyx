@@ -187,7 +187,7 @@ void npc_exec(unsigned int n)
         npc_cycle++;
     }
 
-    if (is_finish)
+    if (is_finish || n <= 0)
     {
         gettimeofday(&end, NULL);
         double npc_time = (end.tv_sec - begin.tv_sec) * 1000000 + (end.tv_usec - begin.tv_usec);
