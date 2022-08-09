@@ -147,6 +147,9 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
             putchar((char)mem_wdata);
         }
 
-        assert(mem_waddr != 0xa0000048);
+        if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000000 + 300*400*32)
+        {
+            printf("vga = %lx\n", mem_waddr);
+        }
     }
 }
