@@ -11,7 +11,7 @@ LIBS += $(shell llvm-config --libs)
 
 all: sim wave
 
-# verilator -Wno-lint --cc --exe --build --top-module SimTop --trace -LDFLAGS "-lreadline -ldl $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./csrc/*.cc) $(wildcard ./vsrc/*.v)
+# verilator -Wno-lint --cc --exe --build --top-module SimTop --trace -LDFLAGS "-lreadline -ldl -lSDL2 $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./csrc/*.cc) $(wildcard ./vsrc/*.v)
 
 
 sim:
