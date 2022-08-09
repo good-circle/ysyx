@@ -11,6 +11,7 @@
 extern u_int8_t pmem[CONFIG_MSIZE];
 extern const char *img_file;
 extern int inst_num;
+extern int vga_size();
 
 long init_pmem()
 {
@@ -92,17 +93,33 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
             return pmem_data;
         }
 
-        if (mem_raddr = 0xa0000048)
+
+        if (mem_raddr == 0xa0000048)
         {
             uint64_t us = get_time();
             lo = (uint32_t)us;
             hi = us >> 32;
             return lo;
         }
-        if (mem_raddr = 0xa0000052)
+        
+        if (mem_raddr == 0xa000004c)
         {
             return hi;
         }
+
+        if (mem_raddr == 0xa00003f8)
+        {
+            return 0;
+        }
+
+        if (mem_raddr == 0xa0000100)
+        {
+            return vga_size();
+        }
+
+        printf("mem_raddr: %llx\n", mem_raddr);
+
+        assert(mem_raddr != 0xa0000100);
     }
     return 0;
 }
@@ -111,7 +128,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
 {
     if (mem_write)
     {
-        // printf("mem_waddr: %llx mem_wdata: %llx mem_wmask: %llx\n", mem_waddr, mem_wdata, mem_wmask);
+        //printf("mem_waddr: %llx mem_wdata: %llx mem_wmask: %llx\n", mem_waddr, mem_wdata, mem_wmask);
     }
 
     // assert(mem_waddr >= CONFIG_MBASE || !mem_write);
@@ -147,6 +164,9 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
             putchar((char)mem_wdata);
         }
 
-        assert(mem_waddr != 0xa0000048);
+        if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000000 + 300*400*32)
+        {
+            printf("vga = %lx\n", mem_waddr);
+        }
     }
 }

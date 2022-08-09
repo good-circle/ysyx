@@ -42,6 +42,7 @@ extern void difftest_skip_ref();
 extern void (*ref_difftest_regcpy)(void *dut, bool direction);
 extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 extern "C" void init_disasm(const char *triple);
+extern void init_device();
 
 void set_batch_mode()
 {
@@ -185,7 +186,7 @@ void npc_exec(unsigned int n)
         npc_cycle++;
     }
 
-    if (is_finish)
+    if (is_finish || n <= 0)
     {
         gettimeofday(&end, NULL);
         double npc_time = (end.tv_sec - begin.tv_sec) * 1000000 + (end.tv_usec - begin.tv_usec);
@@ -226,6 +227,8 @@ int main(int argc, char **argv, char **env)
     difftest_read_regs(difftest_regs);
 
     init_difftest(diff_so_file, img_size, difftest_regs);
+
+    init_device();
     /*
     #ifdef ITRACE
         init_disasm("riscv64-pc-linux-gnu");
