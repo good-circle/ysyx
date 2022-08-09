@@ -23,4 +23,4 @@ image: $(IMAGE).elf
 	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
 
 run: image
-	$(MAKE) -C $(NPC_HOME) sim IMG=$(IMAGE).bin
+	$(MAKE) -C $(NPC_HOME) sim IMG=/home/jn/Desktop/ysyx-workbench/am-kernels/tests/am-tests/build/amtest-riscv64-nemu.bin
