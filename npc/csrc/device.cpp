@@ -27,6 +27,7 @@ static uint32_t screen_size()
 
 static void init_screen()
 {
+    vmem = malloc(screen_size());
     memset(vmem, 0, screen_size());
     SDL_Window *window = NULL;
     char title[128];
