@@ -20,6 +20,11 @@ static void init_screen()
     SDL_SetWindowTitle(window, title);
     texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888,
                                 SDL_TEXTUREACCESS_STATIC, SCREEN_W, SCREEN_H);
+
+    SDL_UpdateTexture(texture, NULL, vmem, SCREEN_W * sizeof(uint32_t));
+    SDL_RenderClear(renderer);
+    SDL_RenderCopy(renderer, texture, NULL, NULL);
+    SDL_RenderPresent(renderer);
 }
 
 void init_device()
