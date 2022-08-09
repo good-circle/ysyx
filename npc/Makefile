@@ -6,7 +6,7 @@ REF_SO := $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 $(REF_SO):
 	$(MAKE) -C $(NEMU_HOME) ISA=riscv64 SHARE=1 ENGINE=interpreter
 
-CXXFLAGS += $(shell llvm-config --cxxflags) -fPIE -Werror
+CXXFLAGS += $(shell llvm-config --cxxflags) -fPIE -Wall
 LIBS += $(shell llvm-config --libs)
 
 all: sim wave
