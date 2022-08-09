@@ -95,6 +95,8 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
 
         if (mem_raddr = 0xa0000048)
         {
+                    printf("mem_raddr: %llx\n", mem_raddr);
+
             uint64_t us = get_time();
             lo = (uint32_t)us;
             hi = us >> 32;
@@ -102,6 +104,8 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
         }
         if (mem_raddr = 0xa0000052)
         {
+                    printf("mem_raddr: %llx\n", mem_raddr);
+
             return hi;
         }
         assert(0);
