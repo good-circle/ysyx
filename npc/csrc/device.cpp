@@ -27,5 +27,5 @@ static void init_screen()
 
 void init_device()
 {
-    init_screen();
+    init_screen;
 }
