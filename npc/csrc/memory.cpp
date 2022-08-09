@@ -104,6 +104,7 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
         {
             return hi;
         }
+        assert(0);
 
         printf("mem_raddr: %llx\n", mem_raddr);
 
