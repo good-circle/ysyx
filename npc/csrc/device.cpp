@@ -4,6 +4,9 @@
 #define SCREEN_W 400
 #define SCREEN_H 300
 
+static SDL_Renderer *renderer = NULL;
+static SDL_Texture *texture = NULL;
+
 static void init_screen()
 {
     SDL_Window *window = NULL;
