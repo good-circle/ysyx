@@ -48,6 +48,8 @@ void init_device()
 }
 
 int vga_size()
-[
+{
+    
+}
     return ((screen_width() << 16) | screen_height());
 ]
