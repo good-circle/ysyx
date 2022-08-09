@@ -11,6 +11,7 @@
 extern u_int8_t pmem[CONFIG_MSIZE];
 extern const char *img_file;
 extern int inst_num;
+extern int vga_size();
 
 long init_pmem()
 {
@@ -109,6 +110,11 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
         if (mem_raddr == 0xa00003f8)
         {
             return 0;
+        }
+
+        if (mem_raddr == 0xa0000100)
+        {
+            return vga_size();
         }
 
         printf("mem_raddr: %llx\n", mem_raddr);
