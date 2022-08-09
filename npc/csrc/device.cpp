@@ -1,4 +1,4 @@
-#include <common.h>
+#include "common.h"
 #include <SDL2/SDL.h>
 
 #define SCREEN_W 400
