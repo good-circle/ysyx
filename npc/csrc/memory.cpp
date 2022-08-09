@@ -91,7 +91,6 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
             // printf("%llx\n", pmem_data);
             return pmem_data;
         }
-        printf("mem_raddr: %llx\n", mem_raddr);
 
         if (mem_raddr = 0xa0000048)
         {
@@ -105,7 +104,9 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
             return hi;
         }
 
-        assert(mem_raddr != 0xa0000100);
+        printf("mem_raddr: %llx\n", mem_raddr);
+
+        //assert(mem_raddr != 0xa0000100);
     }
     return 0;
 }
