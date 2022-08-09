@@ -46,10 +46,10 @@ static void init_screen()
 
 static inline void update_screen()
 {
-    //SDL_UpdateTexture(texture, NULL, vmem, SCREEN_W * sizeof(uint32_t));
-    //SDL_RenderClear(renderer);
-    //SDL_RenderCopy(renderer, texture, NULL, NULL);
-    //SDL_RenderPresent(renderer);
+    SDL_UpdateTexture(texture, NULL, vmem, SCREEN_W * sizeof(uint32_t));
+    SDL_RenderClear(renderer);
+    SDL_RenderCopy(renderer, texture, NULL, NULL);
+    SDL_RenderPresent(renderer);
 }
 #else
 static void init_screen()
@@ -84,7 +84,7 @@ void init_vga()
     add_mmio_map("vgactl", CONFIG_VGA_CTL_MMIO, vgactl_port_base, 8, NULL);
 #endif
 
-    vmem = new_space(screen_size());
+    //vmem = new_space(screen_size());
     add_mmio_map("vmem", CONFIG_FB_ADDR, vmem, screen_size(), NULL);
     IFDEF(CONFIG_VGA_SHOW_SCREEN, init_screen());
     IFDEF(CONFIG_VGA_SHOW_SCREEN, memset(vmem, 0, screen_size()));
