@@ -29,20 +29,20 @@ static uint32_t *vgactl_port_base = NULL;
 static SDL_Renderer *renderer = NULL;
 static SDL_Texture *texture = NULL;
 
-static void init_screen()
-{
-    SDL_Window *window = NULL;
-    char title[128];
-    sprintf(title, "%s-NEMU", str(__GUEST_ISA__));
-    SDL_Init(SDL_INIT_VIDEO);
-    SDL_CreateWindowAndRenderer(
-        SCREEN_W * (MUXDEF(CONFIG_VGA_SIZE_400x300, 2, 1)),
-        SCREEN_H * (MUXDEF(CONFIG_VGA_SIZE_400x300, 2, 1)),
-        0, &window, &renderer);
-    SDL_SetWindowTitle(window, title);
-    texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888,
-                                SDL_TEXTUREACCESS_STATIC, SCREEN_W, SCREEN_H);
-}
+//static void init_screen()
+//{
+//    SDL_Window *window = NULL;
+//    char title[128];
+//    sprintf(title, "%s-NEMU", str(__GUEST_ISA__));
+//    SDL_Init(SDL_INIT_VIDEO);
+//    SDL_CreateWindowAndRenderer(
+//        SCREEN_W * (MUXDEF(CONFIG_VGA_SIZE_400x300, 2, 1)),
+//        SCREEN_H * (MUXDEF(CONFIG_VGA_SIZE_400x300, 2, 1)),
+//        0, &window, &renderer);
+//    SDL_SetWindowTitle(window, title);
+//    texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888,
+//                                SDL_TEXTUREACCESS_STATIC, SCREEN_W, SCREEN_H);
+//}
 
 static inline void update_screen()
 {
@@ -86,6 +86,6 @@ void init_vga()
 
     vmem = new_space(screen_size());
     add_mmio_map("vmem", CONFIG_FB_ADDR, vmem, screen_size(), NULL);
-    IFDEF(CONFIG_VGA_SHOW_SCREEN, init_screen());
+    //IFDEF(CONFIG_VGA_SHOW_SCREEN, init_screen());
     IFDEF(CONFIG_VGA_SHOW_SCREEN, memset(vmem, 0, screen_size()));
 }
