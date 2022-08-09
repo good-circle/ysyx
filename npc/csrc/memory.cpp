@@ -111,7 +111,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
 {
     if (mem_write)
     {
-        printf("mem_waddr: %llx mem_wdata: %llx mem_wmask: %llx\n", mem_waddr, mem_wdata, mem_wmask);
+        //printf("mem_waddr: %llx mem_wdata: %llx mem_wmask: %llx\n", mem_waddr, mem_wdata, mem_wmask);
     }
 
     // assert(mem_waddr >= CONFIG_MBASE || !mem_write);
