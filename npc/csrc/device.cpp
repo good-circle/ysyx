@@ -7,6 +7,9 @@
 static SDL_Renderer *renderer = NULL;
 static SDL_Texture *texture = NULL;
 
+static void *vmem = NULL;
+static uint32_t *vgactl_port_base = NULL;
+
 static void init_screen()
 {
     SDL_Window *window = NULL;
