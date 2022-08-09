@@ -101,13 +101,12 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
             return lo;
         }
         
-        if (mem_raddr == 0xa0000052)
+        if (mem_raddr == 0xa000004c)
         {
-            printf("mem_raddr: %llx\n", mem_raddr);
             return hi;
         }
 
-        printf("mem_raddr: %llx\n", mem_raddr);
+        //printf("mem_raddr: %llx\n", mem_raddr);
 
         //assert(mem_raddr != 0xa0000100);
     }
