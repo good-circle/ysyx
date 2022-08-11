@@ -166,7 +166,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
 
         if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000000 + 300 * 400 * 32)
         {
-            printf("vga: mem_waddr: %llx mem_wdata: %llx mem_wmask: %ux\n", mem_waddr, mem_wdata, mem_wmask);
+            printf("vga: mem_waddr: %llx mem_wdata: %llx mem_wmask: %x\n", mem_waddr, mem_wdata, mem_wmask);
         }
     }
 }
