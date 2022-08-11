@@ -25,7 +25,7 @@ class ram_2r1w extends BlackBox with HasBlackBoxInline {
     val dmem_addr = Input(UInt(64.W))
     val dmem_rdata = Output(UInt(64.W))
     val dmem_wdata = Input(UInt(64.W))
-    val dmem_wmask = Input(UInt(64.W))
+    val dmem_wmask = Input(UInt(8.W))
     val dmem_wen = Input(Bool())
   })
 
@@ -41,7 +41,7 @@ class ram_2r1w extends BlackBox with HasBlackBoxInline {
       |    output [63:0] dmem_rdata,
       |    input  [63:0] dmem_wdata,
       |
-      |    input  [63:0] dmem_wmask,
+      |    input  [8:0] dmem_wmask,
       |    input         dmem_wen  
       |
       |);
