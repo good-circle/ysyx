@@ -12,7 +12,7 @@ extern u_int8_t pmem[CONFIG_MSIZE];
 extern const char *img_file;
 extern int inst_num;
 extern int vga_size();
-extern 
+extern uint64_t cpu_pc;
 
 long init_pmem()
 {
@@ -117,7 +117,7 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
             return vga_size();
         }
 
-        printf("mem_raddr: %llx\n", mem_raddr);
+        printf("pc: %llx mem_raddr: %llx\n", cpu_pc, mem_raddr);
 
         // assert(mem_raddr != 0xa0000100);
     }
