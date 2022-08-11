@@ -12,6 +12,7 @@ extern u_int8_t pmem[CONFIG_MSIZE];
 extern const char *img_file;
 extern int inst_num;
 extern int vga_size();
+extern 
 
 long init_pmem()
 {
@@ -165,7 +166,7 @@ extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wm
 
         if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000000 + 300 * 400 * 32)
         {
-            printf("vga = %lx\n", mem_waddr);
+            printf("vga: mem_waddr: %llx mem_wdata: %llx mem_wmask: %llx\n", mem_waddr, mem_wdata, mem_wmask);
         }
     }
 }
