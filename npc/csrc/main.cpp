@@ -6,7 +6,7 @@
 
 VerilatedContext *contextp = new VerilatedContext;
 VSimTop *top = new VSimTop{contextp};
-//#define WAVE_ON 1;
+#define WAVE_ON 1;
 #ifdef WAVE_ON
 VerilatedVcdC *m_trace = new VerilatedVcdC;
 #endif
