@@ -217,7 +217,7 @@ int main(int argc, char **argv, char **env)
 #ifdef WAVE_ON
     Verilated::traceEverOn(true);
     top->trace(m_trace, 99);
-    m_trace->open("waveform.vcd");
+    m_trace->open("waveform.fst");
 #endif
 
     parse_args(argc, argv);
