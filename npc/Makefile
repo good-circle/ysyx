@@ -16,7 +16,7 @@ all: sim wave
 
 sim:
 	$(call git_commit, "sim RTL") 
-	verilator -Wno-lint --cc --exe --build --top-module SimTop --trace -LDFLAGS "-lreadline -ldl -lSDL2 $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./csrc/*.cc) $(wildcard ./vsrc/*.v)
+	verilator -Wno-lint --cc --exe --build --top-module SimTop --trace-fst -LDFLAGS "-lreadline -ldl -lSDL2 $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./csrc/*.cc) $(wildcard ./vsrc/*.v)
 	./obj_dir/VSimTop $(ARGS) $(IMG) 
 
 wave:
