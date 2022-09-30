@@ -8,7 +8,9 @@ VerilatedContext *contextp = new VerilatedContext;
 VSimTop *top = new VSimTop{contextp};
 #define WAVE_ON 1;
 #ifdef WAVE_ON
-VerilatedVcdC *m_trace = new VerilatedVcdC;
+#include "verilated_fst_c.h"
+VerilatedFstC* m_trace = new VerilatedFstC;
+//VerilatedVcdC *m_trace = new VerilatedVcdC;
 #endif
 
 svBit is_finish = 0;
