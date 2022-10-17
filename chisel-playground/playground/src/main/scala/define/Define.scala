@@ -14,32 +14,36 @@ object Define {
   val u_type = "b100".U(TYPEOP_WDITH.W)
   val j_type = "b101".U(TYPEOP_WDITH.W)
 
-  val FUOP_WIDTH = 2
-  val fu_alu = "b00".U(FUOP_WIDTH.W)
-  val fu_bru = "b01".U(FUOP_WIDTH.W)
-  val fu_lsu = "b10".U(FUOP_WIDTH.W)
-  val fu_csr = "b11".U(FUOP_WIDTH.W)
+  val FUOP_WIDTH = 3
+  val fu_alu = "b000".U(FUOP_WIDTH.W)
+  val fu_bru = "b001".U(FUOP_WIDTH.W)
+  val fu_lsu = "b010".U(FUOP_WIDTH.W)
+  val fu_csr = "b011".U(FUOP_WIDTH.W)
+  val fu_mdu = "b100".U(FUOP_WIDTH.W)
 
   val ALUOP_WIDTH = 5
-  val alu_x = "b00000".U(ALUOP_WIDTH.W)
-  val alu_add = "b00001".U(ALUOP_WIDTH.W)
-  val alu_sub = "b00010".U(ALUOP_WIDTH.W)
-  val alu_and = "b00011".U(ALUOP_WIDTH.W)
-  val alu_or = "b00100".U(ALUOP_WIDTH.W)
-  val alu_xor = "b00101".U(ALUOP_WIDTH.W)
-  val alu_slt = "b00110".U(ALUOP_WIDTH.W)
-  val alu_sltu = "b00111".U(ALUOP_WIDTH.W)
-  val alu_sll = "b01000".U(ALUOP_WIDTH.W)
-  val alu_srl = "b01001".U(ALUOP_WIDTH.W)
-  val alu_sra = "b01010".U(ALUOP_WIDTH.W)
-  val alu_mul = "b01011".U(ALUOP_WIDTH.W)
-  val alu_mulh = "b01100".U(ALUOP_WIDTH.W)
-  val alu_mulhsu = "b01101".U(ALUOP_WIDTH.W)
-  val alu_mulhu = "b01110".U(ALUOP_WIDTH.W)
-  val alu_div = "b01111".U(ALUOP_WIDTH.W)
-  val alu_divu = "b10000".U(ALUOP_WIDTH.W)
-  val alu_rem = "b10001".U(ALUOP_WIDTH.W)
-  val alu_remu = "b10010".U(ALUOP_WIDTH.W)
+  val alu_x = "b0000".U(ALUOP_WIDTH.W)
+  val alu_add = "b0001".U(ALUOP_WIDTH.W)
+  val alu_sub = "b0010".U(ALUOP_WIDTH.W)
+  val alu_and = "b0011".U(ALUOP_WIDTH.W)
+  val alu_or = "b0100".U(ALUOP_WIDTH.W)
+  val alu_xor = "b0101".U(ALUOP_WIDTH.W)
+  val alu_slt = "b0110".U(ALUOP_WIDTH.W)
+  val alu_sltu = "b0111".U(ALUOP_WIDTH.W)
+  val alu_sll = "b1000".U(ALUOP_WIDTH.W)
+  val alu_srl = "b1001".U(ALUOP_WIDTH.W)
+  val alu_sra = "b1010".U(ALUOP_WIDTH.W)
+
+  val MDUOP_WIDTH = 4
+  val mdu_x = "b0000".U(MDUOP_WIDTH.W)
+  val mdu_mul = "b0001".U(MDUOP_WIDTH.W)
+  val mdu_mulh = "b0010".U(MDUOP_WIDTH.W)
+  val mdu_mulhsu = "b0011".U(MDUOP_WIDTH.W)
+  val mdu_mulhu = "b0100".U(MDUOP_WIDTH.W)
+  val mdu_div = "b0101".U(MDUOP_WIDTH.W)
+  val mdu_divu = "b0110".U(MDUOP_WIDTH.W)
+  val mdu_rem = "b0111".U(MDUOP_WIDTH.W)
+  val mdu_remu = "b1000".U(MDUOP_WIDTH.W)
 
   val BRUOP_WIDTH = 4
   val bru_x = "b0000".U(BRUOP_WIDTH.W)
@@ -73,6 +77,7 @@ object Define {
   val csr_csrrc = "b011".U(CSROP_WIDTH.W)
   val csr_ecall = "b100".U(CSROP_WIDTH.W)
   val csr_mret = "b101".U(CSROP_WIDTH.W)
+  val csr_fence = "b110".U(CSROP_WIDTH.W)
 
   val SRCOP_WIDTH = 2
   val src_x = "b00".U(SRCOP_WIDTH.W)
@@ -89,4 +94,37 @@ object Define {
   val mip_addr = "h344".U(12.W)
   val mie_addr = "h304".U(12.W)
   val mscratch_addr = "h340".U(12.W)
+
+  val WRITE = true.B
+  val READ = false.B
+
+  val SIZE_B = "b000".U(3.W)
+  val SIZE_H = "b001".U(3.W)
+  val SIZE_W = "b010".U(3.W)
+  val SIZE_D = "b011".U(3.W)
+
+  val SRAM_BITS = 128
+  val SRAM_ADDR_WIDTH = 6
+
+  val INDEX_WIDTH = 6 // 4kB cache / 4-way associative / 16 bytes = 64
+  val TAG_WIDTH = 22 // 32 - 4 - 6 = 22
+  val OFFSET_WIDTH = 4
+
+  val BPU_OFFSET_WIDTH = OFFSET_WIDTH
+  val BTB_ENTRY = 8 // 32 entrys, 4-way associative
+  val BTB_INDEX_WIDTH = log2Up(BTB_ENTRY)
+  val BTB_TAG_WIDTH = 32 - 4 - BTB_INDEX_WIDTH // 32 - 4 - 3 = 25
+  val BTB_OFFSET_WIDTH = 2 // pc(3, 2)
+
+  val BTB_TYPE_WIDTH = 2
+  val BTB_CALL = "b00".U(2.W)
+  val BTB_RET = "b01".U(2.W)
+  val BTB_BRANCH = "b10".U(2.W)
+  val BTB_JUMP = "b11".U(2.W) // except call and ret
+
+  val RAS_ENTRY = 8
+
+  val PHT_ENTRY = 16
+  val PHT_INDEX_WIDTH = log2Up(PHT_ENTRY)
+  val INST_QUEUE_ENTRY = 16
 }

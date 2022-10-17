@@ -1,6 +1,10 @@
 import chisel3._
 import chisel3.util._
 
+object MaskExpand {
+  def apply(x: UInt) = Cat(x.asBools.map(Fill(8, _)).reverse)
+}
+
 object MaskData {
   def apply(oldData: UInt, newData: UInt, mask: UInt) = {
     (newData & mask) | (oldData & ~mask)

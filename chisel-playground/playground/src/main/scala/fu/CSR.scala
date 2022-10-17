@@ -3,7 +3,7 @@ import chisel3.util._
 import chisel3.util.experimental._
 import Define._
 
-class CSR extends Module {
+class CSR extends Module with Config {
   val io = IO(new Bundle() {
     val pc = Input(UInt(32.W))
     val csr_op = Input(UInt(3.W))
@@ -11,7 +11,7 @@ class CSR extends Module {
     val src = Input(UInt(64.W))
     val rdata = Output(UInt(64.W))
     val is_reflush = Output(Bool())
-    val csr_target = Output(UInt(64.W))
+    val csr_target = Output(UInt(32.W))
     val handle_int = Output(Bool())
     val valid = Input(Bool())
   })
@@ -22,23 +22,23 @@ class CSR extends Module {
   val src = io.src
 
   val wen = Wire(Bool())
-  val csr_taken = WireInit(Bool(), 0.B)
-  val csr_target = WireInit(UInt(32.W), 0.U)
+  val csr_taken = WireInit(false.B)
+  val csr_target = WireInit(0.U(32.W))
 
-  val mcycle = RegInit(UInt(64.W), 0.U)
-  val mepc = RegInit(UInt(64.W), 0.U)
-  val mcause = RegInit(UInt(64.W), 0.U)
-  val mstatus = RegInit(UInt(64.W), "h00001800".U)
-  val mtvec = RegInit(UInt(64.W), 0.U)
-  val mip = RegInit(UInt(64.W), 0.U)
-  val mie = RegInit(UInt(64.W), 0.U)
-  val mscratch = RegInit(UInt(64.W), 0.U)
+  val mcycle = RegInit(0.U(64.W))
+  val mepc = RegInit(0.U(64.W))
+  val mcause = RegInit(0.U(64.W))
+  val mstatus = RegInit("h00001800".U(64.W))
+  val mtvec = RegInit(0.U(64.W))
+  val mip = RegInit(0.U(64.W))
+  val mie = RegInit(0.U(64.W))
+  val mscratch = RegInit(0.U(64.W))
 
-  val rdata = WireInit(UInt(64.W), 0.U)
+  val rdata = WireInit(0.U(64.W))
   val wdata = Wire(UInt(64.W))
 
-  val has_int = WireInit(Bool(), 0.B)
-  val handle_int = WireInit(Bool(), 0.B)
+  val has_int = WireInit(false.B)
+  val handle_int = WireInit(false.B)
 
   wen := (csr_op === csr_csrrw) || (csr_op === csr_csrrs) || (csr_op === csr_csrrc)
 
@@ -49,7 +49,7 @@ class CSR extends Module {
 
   val csr_map = Map(
     CSRRegMap(mcycle_addr  , mcycle                                            ),
-    CSRRegMap(mepc_addr    , mepc                                              ),
+    CSRRegMap(mepc_addr    , mepc    , "hfffffffffffffffc".U                   ),
     CSRRegMap(mcause_addr  , mcause                                            ),
     CSRRegMap(mstatus_addr , mstatus , "hffffffffffffffff".U, mstatusSideEffect),
     CSRRegMap(mtvec_addr   , mtvec                                             ),
@@ -102,5 +102,40 @@ class CSR extends Module {
   io.is_reflush := csr_taken
   io.csr_target := csr_target
   io.handle_int := handle_int
+
+  if (Difftest) {
+    import difftest._
+    val dt_cs = Module(new DifftestCSRState)
+    dt_cs.io.clock          := clock
+    dt_cs.io.coreid         := 0.U
+    dt_cs.io.priviledgeMode := 3.U  // Machine mode
+    dt_cs.io.mstatus        := RegNext(mstatus)
+    dt_cs.io.sstatus        := RegNext(mstatus & "h80000003000de122".U)
+    dt_cs.io.mepc           := RegNext(mepc)
+    dt_cs.io.sepc           := 0.U
+    dt_cs.io.mtval          := 0.U
+    dt_cs.io.stval          := 0.U
+    dt_cs.io.mtvec          := RegNext(mtvec)
+    dt_cs.io.stvec          := 0.U
+    dt_cs.io.mcause         := RegNext(mcause)
+    dt_cs.io.scause         := 0.U
+    dt_cs.io.satp           := 0.U
+    dt_cs.io.mip            := 0.U
+    dt_cs.io.mie            := RegNext(mie)
+    dt_cs.io.mscratch       := RegNext(mscratch)
+    dt_cs.io.sscratch       := 0.U
+    dt_cs.io.mideleg        := 0.U
+    dt_cs.io.medeleg        := 0.U
+
+    val difftest_handle_int = RegInit(Bool(), 0.B)
+    difftest_handle_int := handle_int
+
+    val dt_ae = Module(new DifftestArchEvent)
+    dt_ae.io.clock        := clock
+    dt_ae.io.coreid       := 0.U
+    dt_ae.io.intrNO       := Mux(RegNext(difftest_handle_int), 7.U, 0.U)
+    dt_ae.io.cause        := 0.U
+    dt_ae.io.exceptionPC  := Mux(RegNext(difftest_handle_int), mepc, 0.U)
+  }
 }
 
