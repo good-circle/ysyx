@@ -4,7 +4,7 @@ import Define._
 
 class Cpu_Cache_IO extends Bundle {
   val valid = Output(Bool())
-  val op = Output(Bool())
+  val op = Output(Bool())0
   val addr = Output(UInt(32.W))
   val wstrb = Output(UInt(8.W))
   val wdata = Output(UInt(64.W))
