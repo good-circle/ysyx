@@ -24,6 +24,10 @@ sim:
 
 wave:
 	$(call git_commit, "check waveform")
-	gtkwave waveform.vcd
+	gtkwave waveform.fst
+
+clean:
+	rm -rf ./obj_dir
+	rm waveform.fst
 
 include ../Makefile
