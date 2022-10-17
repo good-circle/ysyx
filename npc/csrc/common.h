@@ -4,7 +4,7 @@
 #include "verilated.h"
 #include <verilated_vcd_c.h>
 #include "svdpi.h"
-#include "VMySimTop__Dpi.h"
+//#include "VMySimTop__Dpi.h"
 #include "verilated_dpi.h"
 
 #define COLOR_NONE "\033[0m"
