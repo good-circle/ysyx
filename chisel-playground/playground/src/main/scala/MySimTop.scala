@@ -34,17 +34,23 @@ class MySimTop extends Module {
     sram_from_soctop(i).rdata := sram(i).io.rdata
   }
 
-  soctop.io.slave.awready := 0.U
-  soctop.io.slave.wready := 0.U
-  soctop.io.slave.bvalid := 0.U
-  soctop.io.slave.bresp := 0.U
-  soctop.io.slave.bid := 0.U
-  soctop.io.slave.arready := 0.U
-  soctop.io.slave.rvalid := 0.U
-  soctop.io.slave.rresp := 0.U
-  soctop.io.slave.rdata := 0.U
-  soctop.io.slave.rlast := 0.U
-  soctop.io.slave.rid := 0.U
-
+  soctop.io.slave.awvalid := 0.U
+  soctop.io.slave.awaddr := 0.U
+  soctop.io.slave.awid := 0.U
+  soctop.io.slave.awlen := 0.U
+  soctop.io.slave.awsize := 0.U
+  soctop.io.slave.awburst := 0.U
+  soctop.io.slave.wvalid := 0.U
+  soctop.io.slave.wdata := 0.U
+  soctop.io.slave.wstrb := 0.U
+  soctop.io.slave.wlast := 0.U
+  soctop.io.slave.bready := 0.U
+  soctop.io.slave.arvalid := 0.U
+  soctop.io.slave.araddr := 0.U
+  soctop.io.slave.arid := 0.U
+  soctop.io.slave.arlen := 0.U
+  soctop.io.slave.arsize := 0.U
+  soctop.io.slave.arburst := 0.U
+  soctop.io.slave.rready := 0.U
 
 }
