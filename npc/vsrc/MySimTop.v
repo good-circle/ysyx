@@ -1,4 +1,4 @@
-module ysyx_040091_IFU(
+module IFU(
   input          clock,
   input          reset,
   output         io_imem_valid,
@@ -291,7 +291,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_IQueue(
+module IQueue(
   input          clock,
   input          reset,
   output         io_in_ready,
@@ -3328,7 +3328,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_Decode_Entry(
+module Decode_Entry(
   input         io_in_valid,
   input  [31:0] io_in_pc,
   input  [31:0] io_in_inst,
@@ -4050,7 +4050,7 @@ module ysyx_040091_Decode_Entry(
   assign io_out_bp_br_target = io_in_bp_br_target; // @[IDU.scala 151:20]
   assign io_out_bp_br_type = io_in_bp_br_type; // @[IDU.scala 152:18]
 endmodule
-module ysyx_040091_IDU(
+module IDU(
   input         clock,
   input         reset,
   output        io_in_ready,
@@ -4231,7 +4231,7 @@ module ysyx_040091_IDU(
   wire  _GEN_20 = _T & conflict | had_conflict; // @[IDU.scala 198:34 IDU.scala 200:18 IDU.scala 174:29]
   wire  _GEN_41 = _T & had_conflict ? conflict_decode_entry_valid : decode_entry_0_io_out_valid; // @[IDU.scala 203:38 IDU.scala 205:20 IDU.scala 169:28]
   wire  _GEN_42 = _T & had_conflict ? 1'h0 : decode_entry_1_io_out_valid & ~conflict; // @[IDU.scala 203:38 IDU.scala 206:26 IDU.scala 196:24]
-  ysyx_040091_Decode_Entry decode_entry_0 ( // @[IDU.scala 163:30]
+  Decode_Entry decode_entry_0 ( // @[IDU.scala 163:30]
     .io_in_valid(decode_entry_0_io_in_valid),
     .io_in_pc(decode_entry_0_io_in_pc),
     .io_in_inst(decode_entry_0_io_in_inst),
@@ -4259,7 +4259,7 @@ module ysyx_040091_IDU(
     .io_out_bp_br_target(decode_entry_0_io_out_bp_br_target),
     .io_out_bp_br_type(decode_entry_0_io_out_bp_br_type)
   );
-  ysyx_040091_Decode_Entry decode_entry_1 ( // @[IDU.scala 163:30]
+  Decode_Entry decode_entry_1 ( // @[IDU.scala 163:30]
     .io_in_valid(decode_entry_1_io_in_valid),
     .io_in_pc(decode_entry_1_io_in_pc),
     .io_in_inst(decode_entry_1_io_in_inst),
@@ -4541,7 +4541,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_Issue_Entry(
+module Issue_Entry(
   input         io_in_valid,
   input  [31:0] io_in_pc,
   input  [31:0] io_in_inst,
@@ -4609,7 +4609,7 @@ module ysyx_040091_Issue_Entry(
   assign io_out_bp_br_target = io_in_bp_br_target; // @[Issue.scala 60:20]
   assign io_out_bp_br_type = io_in_bp_br_type; // @[Issue.scala 61:18]
 endmodule
-module ysyx_040091_RegFile(
+module RegFile(
   input         clock,
   input         reset,
   input  [4:0]  io_rf_bus_0_raddr1,
@@ -5347,7 +5347,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_Issue(
+module Issue(
   input         clock,
   input         reset,
   output        io_in_ready,
@@ -5596,7 +5596,7 @@ module ysyx_040091_Issue(
   wire  need_blk_1 = _need_blk_1_T_7 | _need_blk_1_T_15; // @[Issue.scala 123:85]
   wire [1:0] _io_out_valid_T = {need_blk_0,need_blk_1}; // @[Cat.scala 30:58]
   wire  _io_out_valid_T_2 = ~(|_io_out_valid_T); // @[Issue.scala 131:34]
-  ysyx_040091_Issue_Entry issue_entry_0 ( // @[Issue.scala 83:29]
+  Issue_Entry issue_entry_0 ( // @[Issue.scala 83:29]
     .io_in_valid(issue_entry_0_io_in_valid),
     .io_in_pc(issue_entry_0_io_in_pc),
     .io_in_inst(issue_entry_0_io_in_inst),
@@ -5639,7 +5639,7 @@ module ysyx_040091_Issue(
     .io_rs1_value(issue_entry_0_io_rs1_value),
     .io_rs2_value(issue_entry_0_io_rs2_value)
   );
-  ysyx_040091_Issue_Entry issue_entry_1 ( // @[Issue.scala 83:29]
+  Issue_Entry issue_entry_1 ( // @[Issue.scala 83:29]
     .io_in_valid(issue_entry_1_io_in_valid),
     .io_in_pc(issue_entry_1_io_in_pc),
     .io_in_inst(issue_entry_1_io_in_inst),
@@ -5682,7 +5682,7 @@ module ysyx_040091_Issue(
     .io_rs1_value(issue_entry_1_io_rs1_value),
     .io_rs2_value(issue_entry_1_io_rs2_value)
   );
-  ysyx_040091_RegFile rf ( // @[Issue.scala 94:18]
+  RegFile rf ( // @[Issue.scala 94:18]
     .clock(rf_clock),
     .reset(rf_reset),
     .io_rf_bus_0_raddr1(rf_io_rf_bus_0_raddr1),
@@ -5801,7 +5801,7 @@ module ysyx_040091_Issue(
   assign rf_io_rf_bus_1_wdata = io_wb_bus_1_rf_wdata; // @[Issue.scala 99:24]
   assign rf_io_rf_bus_1_wen = io_wb_bus_1_rf_wen; // @[Issue.scala 100:22]
 endmodule
-module ysyx_040091_ALU(
+module ALU(
   input  [4:0]  io_alu_op,
   input         io_rv64,
   input  [63:0] io_src1,
@@ -5845,7 +5845,7 @@ module ysyx_040091_ALU(
   wire [63:0] _io_result_T_2 = {io_result_hi,io_result_lo}; // @[Cat.scala 30:58]
   assign io_result = io_rv64 ? _io_result_T_2 : tmp_result; // @[ALU.scala 44:19]
 endmodule
-module ysyx_040091_MDU(
+module MDU(
   input         clock,
   input         reset,
   input  [3:0]  io_mdu_op,
@@ -6054,7 +6054,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_BRU(
+module BRU(
   input  [3:0]  io_bru_op,
   input  [63:0] io_src1,
   input  [63:0] io_src2,
@@ -6088,7 +6088,7 @@ module ysyx_040091_BRU(
   assign io_br_target = io_bru_op == 4'h2 ? _io_br_target_T_6 : _io_br_target_T_10; // @[BRU.scala 34:22]
   assign io_btb_type = (io_bru_op == 4'h1 | _io_br_target_T) & io_rd == 5'h1 ? 2'h0 : _GEN_1; // @[BRU.scala 36:77 BRU.scala 37:14]
 endmodule
-module ysyx_040091_LSU(
+module LSU(
   input         clock,
   input         reset,
   output        io_dmem_valid,
@@ -6344,7 +6344,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_CSR(
+module CSR(
   input         clock,
   input         reset,
   input  [31:0] io_pc,
@@ -6377,22 +6377,22 @@ module ysyx_040091_CSR(
   reg [63:0] mie; // @[CSR.scala 34:20]
   reg [63:0] mscratch; // @[CSR.scala 35:25]
   wire  wen = io_csr_op == 3'h1 | io_csr_op == 3'h2 | io_csr_op == 3'h3; // @[CSR.scala 43:59]
-  wire  _T_36 = io_addr == 12'h344; // @[MAP.scala 23:18]
+  wire  _T_36 = io_addr == 12'h341; // @[MAP.scala 23:18]
   wire  _T_33 = io_addr == 12'h304; // @[MAP.scala 23:18]
-  wire  _T_30 = io_addr == 12'hb00; // @[MAP.scala 23:18]
-  wire  _T_27 = io_addr == 12'h342; // @[MAP.scala 23:18]
-  wire  _T_24 = io_addr == 12'h341; // @[MAP.scala 23:18]
+  wire  _T_30 = io_addr == 12'h305; // @[MAP.scala 23:18]
+  wire  _T_27 = io_addr == 12'hb00; // @[MAP.scala 23:18]
+  wire  _T_24 = io_addr == 12'h344; // @[MAP.scala 23:18]
   wire  _T_21 = io_addr == 12'h300; // @[MAP.scala 23:18]
   wire  _T_18 = io_addr == 12'h340; // @[MAP.scala 23:18]
-  wire  _T_15 = io_addr == 12'h305; // @[MAP.scala 23:18]
-  wire [63:0] _GEN_14 = io_addr == 12'h305 ? mtvec : 64'h0; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire  _T_15 = io_addr == 12'h342; // @[MAP.scala 23:18]
+  wire [63:0] _GEN_14 = io_addr == 12'h342 ? mcause : 64'h0; // @[MAP.scala 23:25 MAP.scala 24:15]
   wire [63:0] _GEN_16 = io_addr == 12'h340 ? mscratch : _GEN_14; // @[MAP.scala 23:25 MAP.scala 24:15]
   wire [63:0] _GEN_18 = io_addr == 12'h300 ? mstatus : _GEN_16; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_20 = io_addr == 12'h341 ? mepc : _GEN_18; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_22 = io_addr == 12'h342 ? mcause : _GEN_20; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_24 = io_addr == 12'hb00 ? mcycle : _GEN_22; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_20 = io_addr == 12'h344 ? mip : _GEN_18; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_22 = io_addr == 12'hb00 ? mcycle : _GEN_20; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_24 = io_addr == 12'h305 ? mtvec : _GEN_22; // @[MAP.scala 23:25 MAP.scala 24:15]
   wire [63:0] _GEN_26 = io_addr == 12'h304 ? mie : _GEN_24; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] rdata = io_addr == 12'h344 ? mip : _GEN_26; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] rdata = io_addr == 12'h341 ? mepc : _GEN_26; // @[MAP.scala 23:25 MAP.scala 24:15]
   wire [63:0] _wdata_T = rdata | io_src; // @[CSR.scala 63:25]
   wire [63:0] _wdata_T_1 = ~io_src; // @[CSR.scala 64:28]
   wire [63:0] _wdata_T_2 = rdata & _wdata_T_1; // @[CSR.scala 64:25]
@@ -6418,21 +6418,21 @@ module ysyx_040091_CSR(
   wire  mstatus_mstatus_new_hi = wdata[16:15] == 2'h3 | wdata[14:13] == 2'h3; // @[CSR.scala 46:57]
   wire [62:0] mstatus_mstatus_new_lo = wdata[62:0]; // @[CSR.scala 46:98]
   wire [63:0] mstatus_mstatus_new = {mstatus_mstatus_new_hi,mstatus_mstatus_new_lo}; // @[Cat.scala 30:58]
+  wire [63:0] _mip_T_2 = mip & 64'h1; // @[MAP.scala 10:33]
   wire [63:0] _mepc_T = wdata & 64'hfffffffffffffffc; // @[MAP.scala 10:14]
   wire [63:0] _mepc_T_2 = mepc & 64'h3; // @[MAP.scala 10:33]
   wire [63:0] _mepc_T_3 = _mepc_T | _mepc_T_2; // @[MAP.scala 10:22]
-  wire [63:0] _mip_T_2 = mip & 64'h1; // @[MAP.scala 10:33]
   wire [55:0] mip_hi_hi = mip[63:8]; // @[CSR.scala 98:19]
   wire [6:0] mip_lo = mip[6:0]; // @[CSR.scala 98:36]
   wire [63:0] _mip_T_4 = {mip_hi_hi,1'h1,mip_lo}; // @[Cat.scala 30:58]
-  assign io_rdata = io_addr == 12'h344 ? mip : _GEN_26; // @[MAP.scala 23:25 MAP.scala 24:15]
+  assign io_rdata = io_addr == 12'h341 ? mepc : _GEN_26; // @[MAP.scala 23:25 MAP.scala 24:15]
   assign io_is_reflush = io_csr_op == 3'h5 | _GEN_9; // @[CSR.scala 84:30 CSR.scala 86:15]
   assign io_csr_target = io_csr_op == 3'h5 ? mepc[31:0] : _GEN_10; // @[CSR.scala 84:30 CSR.scala 87:16]
   assign io_handle_int = clint_has_int & mstatus_hi_hi_lo & mie[7] & io_valid; // @[CSR.scala 96:40]
   always @(posedge clock) begin
     if (reset) begin // @[CSR.scala 28:23]
       mcycle <= 64'h0; // @[CSR.scala 28:23]
-    end else if (_T_30 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_27 & wen) begin // @[MAP.scala 27:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mcycle <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -6445,7 +6445,7 @@ module ysyx_040091_CSR(
     end
     if (reset) begin // @[CSR.scala 29:21]
       mepc <= 64'h0; // @[CSR.scala 29:21]
-    end else if (_T_24 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_36 & wen) begin // @[MAP.scala 27:34]
       mepc <= _mepc_T_3; // @[MAP.scala 28:13]
     end else if (handle_int) begin // @[CSR.scala 75:20]
       mepc <= {{32'd0}, io_pc}; // @[CSR.scala 77:10]
@@ -6454,7 +6454,7 @@ module ysyx_040091_CSR(
     end
     if (reset) begin // @[CSR.scala 30:23]
       mcause <= 64'h0; // @[CSR.scala 30:23]
-    end else if (_T_27 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_15 & wen) begin // @[MAP.scala 27:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mcause <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -6480,7 +6480,7 @@ module ysyx_040091_CSR(
     end
     if (reset) begin // @[CSR.scala 32:22]
       mtvec <= 64'h0; // @[CSR.scala 32:22]
-    end else if (_T_15 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_30 & wen) begin // @[MAP.scala 27:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mtvec <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -6493,7 +6493,7 @@ module ysyx_040091_CSR(
       mip <= 64'h0; // @[CSR.scala 33:20]
     end else if (handle_int) begin // @[CSR.scala 96:53]
       mip <= _mip_T_4; // @[CSR.scala 98:9]
-    end else if (_T_36 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_24 & wen) begin // @[MAP.scala 27:34]
       mip <= _mip_T_2; // @[MAP.scala 28:13]
     end else if (handle_int) begin // @[CSR.scala 75:20]
       mip <= 64'h0; // @[CSR.scala 76:9]
@@ -6581,7 +6581,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_CLINT(
+module CLINT(
   input         clock,
   input         reset,
   input         io_is_mtime,
@@ -6689,7 +6689,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_EXU(
+module EXU(
   input         clock,
   input         reset,
   output        io_dmem_valid,
@@ -6975,21 +6975,21 @@ module ysyx_040091_EXU(
   wire [31:0] static_next_pc = (_T_6 | fence) & io_in_bits_1_valid ? _final_result_1_T_1 : _GEN_104; // @[EXU.scala 281:73 EXU.scala 282:22]
   wire [31:0] _io_reflush_bus_br_target_T_1 = bp_wrong & br_taken ? br_target : static_next_pc; // @[EXU.scala 287:8]
   wire [31:0] csr_target = csr_io_csr_target; // @[EXU.scala 44:24 EXU.scala 172:14]
-  ysyx_040091_ALU alu_0 ( // @[EXU.scala 20:21]
+  ALU alu_0 ( // @[EXU.scala 20:21]
     .io_alu_op(alu_0_io_alu_op),
     .io_rv64(alu_0_io_rv64),
     .io_src1(alu_0_io_src1),
     .io_src2(alu_0_io_src2),
     .io_result(alu_0_io_result)
   );
-  ysyx_040091_ALU alu_1 ( // @[EXU.scala 20:21]
+  ALU alu_1 ( // @[EXU.scala 20:21]
     .io_alu_op(alu_1_io_alu_op),
     .io_rv64(alu_1_io_rv64),
     .io_src1(alu_1_io_src1),
     .io_src2(alu_1_io_src2),
     .io_result(alu_1_io_result)
   );
-  ysyx_040091_MDU mdu ( // @[EXU.scala 23:19]
+  MDU mdu ( // @[EXU.scala 23:19]
     .clock(mdu_clock),
     .reset(mdu_reset),
     .io_mdu_op(mdu_io_mdu_op),
@@ -6999,7 +6999,7 @@ module ysyx_040091_EXU(
     .io_result_ok(mdu_io_result_ok),
     .io_result(mdu_io_result)
   );
-  ysyx_040091_BRU bru ( // @[EXU.scala 24:19]
+  BRU bru ( // @[EXU.scala 24:19]
     .io_bru_op(bru_io_bru_op),
     .io_src1(bru_io_src1),
     .io_src2(bru_io_src2),
@@ -7011,7 +7011,7 @@ module ysyx_040091_EXU(
     .io_rd(bru_io_rd),
     .io_btb_type(bru_io_btb_type)
   );
-  ysyx_040091_LSU lsu ( // @[EXU.scala 25:19]
+  LSU lsu ( // @[EXU.scala 25:19]
     .clock(lsu_clock),
     .reset(lsu_reset),
     .io_dmem_valid(lsu_io_dmem_valid),
@@ -7037,7 +7037,7 @@ module ysyx_040091_EXU(
     .fence_i(lsu_fence_i),
     .icache_fence_finish_0(lsu_icache_fence_finish_0)
   );
-  ysyx_040091_CSR csr ( // @[EXU.scala 26:19]
+  CSR csr ( // @[EXU.scala 26:19]
     .clock(csr_clock),
     .reset(csr_reset),
     .io_pc(csr_io_pc),
@@ -7051,7 +7051,7 @@ module ysyx_040091_EXU(
     .io_valid(csr_io_valid),
     .clint_has_int(csr_clint_has_int)
   );
-  ysyx_040091_CLINT clint ( // @[EXU.scala 27:21]
+  CLINT clint ( // @[EXU.scala 27:21]
     .clock(clint_clock),
     .reset(clint_reset),
     .io_is_mtime(clint_io_is_mtime),
@@ -7245,7 +7245,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_WBU(
+module WBU(
   input         io_in_valid,
   input         io_in_bits_0_valid,
   input  [63:0] io_in_bits_0_final_result,
@@ -7269,7 +7269,7 @@ module ysyx_040091_WBU(
   assign io_wb_bus_1_rf_waddr = io_in_bits_1_dest; // @[WBU.scala 17:27]
   assign io_wb_bus_1_rf_wdata = io_in_bits_1_final_result; // @[WBU.scala 18:27]
 endmodule
-module ysyx_040091_BTB(
+module BTB(
   input         clock,
   input         reset,
   input         io_wen,
@@ -7882,7 +7882,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_PHT(
+module PHT(
   input        clock,
   input        reset,
   input        io_inc,
@@ -8390,7 +8390,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_RAS(
+module RAS(
   input         clock,
   input         reset,
   input         io_call,
@@ -8610,7 +8610,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_BPU(
+module BPU(
   input         clock,
   input         reset,
   input         io_ifu_valid,
@@ -9278,7 +9278,7 @@ module ysyx_040091_BPU(
   wire  _GEN_560 = _T_31 ? _GEN_532 : _GEN_417; // @[Conditional.scala 39:67]
   wire [3:0] _GEN_561 = _T_31 ? _GEN_533 : 4'h0; // @[Conditional.scala 39:67 BPU.scala 199:18]
   wire [2:0] _GEN_563 = _T_31 ? _GEN_420 : _GEN_547; // @[Conditional.scala 39:67]
-  ysyx_040091_BTB btb_0 ( // @[BPU.scala 183:21]
+  BTB btb_0 ( // @[BPU.scala 183:21]
     .clock(btb_0_clock),
     .reset(btb_0_reset),
     .io_wen(btb_0_io_wen),
@@ -9295,7 +9295,7 @@ module ysyx_040091_BPU(
     .io_valid_r(btb_0_io_valid_r),
     .io_fence(btb_0_io_fence)
   );
-  ysyx_040091_BTB btb_1 ( // @[BPU.scala 183:21]
+  BTB btb_1 ( // @[BPU.scala 183:21]
     .clock(btb_1_clock),
     .reset(btb_1_reset),
     .io_wen(btb_1_io_wen),
@@ -9312,7 +9312,7 @@ module ysyx_040091_BPU(
     .io_valid_r(btb_1_io_valid_r),
     .io_fence(btb_1_io_fence)
   );
-  ysyx_040091_BTB btb_2 ( // @[BPU.scala 183:21]
+  BTB btb_2 ( // @[BPU.scala 183:21]
     .clock(btb_2_clock),
     .reset(btb_2_reset),
     .io_wen(btb_2_io_wen),
@@ -9329,7 +9329,7 @@ module ysyx_040091_BPU(
     .io_valid_r(btb_2_io_valid_r),
     .io_fence(btb_2_io_fence)
   );
-  ysyx_040091_BTB btb_3 ( // @[BPU.scala 183:21]
+  BTB btb_3 ( // @[BPU.scala 183:21]
     .clock(btb_3_clock),
     .reset(btb_3_reset),
     .io_wen(btb_3_io_wen),
@@ -9346,7 +9346,7 @@ module ysyx_040091_BPU(
     .io_valid_r(btb_3_io_valid_r),
     .io_fence(btb_3_io_fence)
   );
-  ysyx_040091_PHT pht ( // @[BPU.scala 195:19]
+  PHT pht ( // @[BPU.scala 195:19]
     .clock(pht_clock),
     .reset(pht_reset),
     .io_inc(pht_io_inc),
@@ -9356,7 +9356,7 @@ module ysyx_040091_BPU(
     .io_fence(pht_io_fence),
     .io_br_taken(pht_io_br_taken)
   );
-  ysyx_040091_RAS ras ( // @[BPU.scala 202:19]
+  RAS ras ( // @[BPU.scala 202:19]
     .clock(ras_clock),
     .reset(ras_reset),
     .io_call(ras_io_call),
@@ -9884,7 +9884,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_META(
+module META(
   input         clock,
   input         reset,
   input  [5:0]  io_index,
@@ -12439,7 +12439,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_Cache_Soc(
+module Cache_Soc(
   input          clock,
   input          reset,
   input          io_in_valid,
@@ -14994,7 +14994,7 @@ module ysyx_040091_Cache_Soc(
   wire [7:0] _GEN_2415 = _T_74 ? _io_out_wr_wstrb_T : _GEN_2394; // @[Conditional.scala 39:67 Cache_Soc.scala 178:16]
   wire [127:0] _GEN_2416 = _T_74 ? _io_out_wr_data_T_1 : _GEN_2395; // @[Conditional.scala 39:67 Cache_Soc.scala 179:15]
   wire  _GEN_2417 = _T_74 ? 1'h0 : _GEN_2396; // @[Conditional.scala 39:67 Cache_Soc.scala 34:16]
-  ysyx_040091_META meta_0 ( // @[Cache_Soc.scala 24:22]
+  META meta_0 ( // @[Cache_Soc.scala 24:22]
     .clock(meta_0_clock),
     .reset(meta_0_reset),
     .io_index(meta_0_io_index),
@@ -15008,7 +15008,7 @@ module ysyx_040091_Cache_Soc(
     .io_fence(meta_0_io_fence),
     .io_fence_dirty(meta_0_io_fence_dirty)
   );
-  ysyx_040091_META meta_1 ( // @[Cache_Soc.scala 24:22]
+  META meta_1 ( // @[Cache_Soc.scala 24:22]
     .clock(meta_1_clock),
     .reset(meta_1_reset),
     .io_index(meta_1_io_index),
@@ -15022,7 +15022,7 @@ module ysyx_040091_Cache_Soc(
     .io_fence(meta_1_io_fence),
     .io_fence_dirty(meta_1_io_fence_dirty)
   );
-  ysyx_040091_META meta_2 ( // @[Cache_Soc.scala 24:22]
+  META meta_2 ( // @[Cache_Soc.scala 24:22]
     .clock(meta_2_clock),
     .reset(meta_2_reset),
     .io_index(meta_2_io_index),
@@ -15036,7 +15036,7 @@ module ysyx_040091_Cache_Soc(
     .io_fence(meta_2_io_fence),
     .io_fence_dirty(meta_2_io_fence_dirty)
   );
-  ysyx_040091_META meta_3 ( // @[Cache_Soc.scala 24:22]
+  META meta_3 ( // @[Cache_Soc.scala 24:22]
     .clock(meta_3_clock),
     .reset(meta_3_reset),
     .io_index(meta_3_io_index),
@@ -18102,7 +18102,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_Core_Soc(
+module Core_Soc(
   input          clock,
   input          reset,
   output         io_icache_bridge_rd_req,
@@ -18845,7 +18845,7 @@ module ysyx_040091_Core_Soc(
   reg [63:0] wbu_io_in_bits_r_1_final_result; // @[Reg.scala 27:20]
   reg [4:0] wbu_io_in_bits_r_1_dest; // @[Reg.scala 27:20]
   reg  wbu_io_in_bits_r_1_wen; // @[Reg.scala 27:20]
-  ysyx_040091_IFU ifu ( // @[Core.scala 12:19]
+  IFU ifu ( // @[Core.scala 12:19]
     .clock(ifu_clock),
     .reset(ifu_reset),
     .io_imem_valid(ifu_io_imem_valid),
@@ -18880,7 +18880,7 @@ module ysyx_040091_Core_Soc(
     .fence_i(ifu_fence_i),
     .icache_fence_finish_0(ifu_icache_fence_finish_0)
   );
-  ysyx_040091_IQueue iqueue ( // @[Core.scala 13:22]
+  IQueue iqueue ( // @[Core.scala 13:22]
     .clock(iqueue_clock),
     .reset(iqueue_reset),
     .io_in_ready(iqueue_io_in_ready),
@@ -18909,7 +18909,7 @@ module ysyx_040091_Core_Soc(
     .io_out_bits_1_bp_br_type(iqueue_io_out_bits_1_bp_br_type),
     .frontend_reflush(iqueue_frontend_reflush)
   );
-  ysyx_040091_IDU idu ( // @[Core.scala 14:19]
+  IDU idu ( // @[Core.scala 14:19]
     .clock(idu_clock),
     .reset(idu_reset),
     .io_in_ready(idu_io_in_ready),
@@ -18970,7 +18970,7 @@ module ysyx_040091_Core_Soc(
     .io_out_bits_1_bp_br_type(idu_io_out_bits_1_bp_br_type),
     .frontend_reflush(idu_frontend_reflush)
   );
-  ysyx_040091_Issue issue ( // @[Core.scala 15:21]
+  Issue issue ( // @[Core.scala 15:21]
     .clock(issue_clock),
     .reset(issue_reset),
     .io_in_ready(issue_io_in_ready),
@@ -19073,7 +19073,7 @@ module ysyx_040091_Core_Soc(
     .io_ex_fwd_1_rf_wdata(issue_io_ex_fwd_1_rf_wdata),
     .frontend_reflush(issue_frontend_reflush)
   );
-  ysyx_040091_EXU exu ( // @[Core.scala 16:19]
+  EXU exu ( // @[Core.scala 16:19]
     .clock(exu_clock),
     .reset(exu_reset),
     .io_dmem_valid(exu_io_dmem_valid),
@@ -19160,7 +19160,7 @@ module ysyx_040091_Core_Soc(
     .fence_0(exu_fence_0),
     .icache_fence_finish(exu_icache_fence_finish)
   );
-  ysyx_040091_WBU wbu ( // @[Core.scala 17:19]
+  WBU wbu ( // @[Core.scala 17:19]
     .io_in_valid(wbu_io_in_valid),
     .io_in_bits_0_valid(wbu_io_in_bits_0_valid),
     .io_in_bits_0_final_result(wbu_io_in_bits_0_final_result),
@@ -19177,7 +19177,7 @@ module ysyx_040091_Core_Soc(
     .io_wb_bus_1_rf_waddr(wbu_io_wb_bus_1_rf_waddr),
     .io_wb_bus_1_rf_wdata(wbu_io_wb_bus_1_rf_wdata)
   );
-  ysyx_040091_BPU bpu ( // @[Core.scala 18:19]
+  BPU bpu ( // @[Core.scala 18:19]
     .clock(bpu_clock),
     .reset(bpu_reset),
     .io_ifu_valid(bpu_io_ifu_valid),
@@ -19200,7 +19200,7 @@ module ysyx_040091_Core_Soc(
     .io_exu_call_count(bpu_io_exu_call_count),
     .io_exu_ret_count(bpu_io_exu_ret_count)
   );
-  ysyx_040091_Cache_Soc icache ( // @[Core.scala 19:22]
+  Cache_Soc icache ( // @[Core.scala 19:22]
     .clock(icache_clock),
     .reset(icache_reset),
     .io_in_valid(icache_io_in_valid),
@@ -19247,7 +19247,7 @@ module ysyx_040091_Core_Soc(
     .io_sram_3_wdata(icache_io_sram_3_wdata),
     .io_sram_3_rdata(icache_io_sram_3_rdata)
   );
-  ysyx_040091_Cache_Soc dcache ( // @[Core.scala 20:22]
+  Cache_Soc dcache ( // @[Core.scala 20:22]
     .clock(dcache_clock),
     .reset(dcache_reset),
     .io_in_valid(dcache_io_in_valid),
@@ -20392,7 +20392,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_SramBridge(
+module SramBridge(
   input          io_sram_cache_0_en,
   input          io_sram_cache_0_wen,
   input  [5:0]   io_sram_cache_0_addr,
@@ -20515,7 +20515,7 @@ module ysyx_040091_SramBridge(
   assign io_sram_share_7_wen = ~io_sram_cache_7_wen; // @[SramBridge.scala 17:26]
   assign io_sram_share_7_wdata = io_sram_cache_7_wdata; // @[SramBridge.scala 19:25]
 endmodule
-module ysyx_040091_SocBridge(
+module SocBridge(
   input          clock,
   input          reset,
   input          io_icache_rd_req,
@@ -20877,7 +20877,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module ysyx_040091_SocTop(
+module SocTop(
   input          clock,
   input          reset,
   input          io_master_awready,
@@ -21128,7 +21128,7 @@ module ysyx_040091_SocTop(
   wire [63:0] transfer_bridge_io_out_rdata; // @[SocTop.scala 31:31]
   wire  transfer_bridge_io_out_rlast; // @[SocTop.scala 31:31]
   wire [3:0] transfer_bridge_io_out_rid; // @[SocTop.scala 31:31]
-  ysyx_040091_Core_Soc core ( // @[SocTop.scala 19:20]
+  Core_Soc core ( // @[SocTop.scala 19:20]
     .clock(core_clock),
     .reset(core_reset),
     .io_icache_bridge_rd_req(core_io_icache_bridge_rd_req),
@@ -21191,7 +21191,7 @@ module ysyx_040091_SocTop(
     .io_sram_7_wdata(core_io_sram_7_wdata),
     .io_sram_7_rdata(core_io_sram_7_rdata)
   );
-  ysyx_040091_SramBridge sram_bridge ( // @[SocTop.scala 20:27]
+  SramBridge sram_bridge ( // @[SocTop.scala 20:27]
     .io_sram_cache_0_en(sram_bridge_io_sram_cache_0_en),
     .io_sram_cache_0_wen(sram_bridge_io_sram_cache_0_wen),
     .io_sram_cache_0_addr(sram_bridge_io_sram_cache_0_addr),
@@ -21273,7 +21273,7 @@ module ysyx_040091_SocTop(
     .io_sram_share_7_wdata(sram_bridge_io_sram_share_7_wdata),
     .io_sram_share_7_rdata(sram_bridge_io_sram_share_7_rdata)
   );
-  ysyx_040091_SocBridge transfer_bridge ( // @[SocTop.scala 31:31]
+  SocBridge transfer_bridge ( // @[SocTop.scala 31:31]
     .clock(transfer_bridge_clock),
     .reset(transfer_bridge_reset),
     .io_icache_rd_req(transfer_bridge_io_icache_rd_req),
@@ -21445,7 +21445,7 @@ module ysyx_040091_SocTop(
   assign transfer_bridge_io_out_rlast = io_master_rlast; // @[SocTop.scala 34:26]
   assign transfer_bridge_io_out_rid = io_master_rid; // @[SocTop.scala 34:26]
 endmodule
-module ysyx_040091_SRAM(
+module SRAM(
   input          clock,
   input          io_en,
   input          io_wen,
@@ -21474,7 +21474,7 @@ module ysyx_040091_SRAM(
   assign sram_A = io_addr; // @[SRAM.scala 59:13]
   assign sram_D = io_wdata; // @[SRAM.scala 60:13]
 endmodule
-module ysyx_040091_MySimTop(
+module MySimTop(
   input         clock,
   input         reset,
   input         io_axi_awready,
@@ -21635,7 +21635,7 @@ module ysyx_040091_MySimTop(
   wire  sram_from_soctop_6_wen = soctop_io_sram6_wen; // @[MySimTop.scala 13:30 MySimTop.scala 20:23]
   wire  sram_from_soctop_7_cen = soctop_io_sram7_cen; // @[MySimTop.scala 13:30 MySimTop.scala 21:23]
   wire  sram_from_soctop_7_wen = soctop_io_sram7_wen; // @[MySimTop.scala 13:30 MySimTop.scala 21:23]
-  ysyx_040091_SocTop soctop ( // @[MySimTop.scala 10:22]
+  SocTop soctop ( // @[MySimTop.scala 10:22]
     .clock(soctop_clock),
     .reset(soctop_reset),
     .io_master_awready(soctop_io_master_awready),
@@ -21701,7 +21701,7 @@ module ysyx_040091_MySimTop(
     .io_sram7_wdata(soctop_io_sram7_wdata),
     .io_sram7_rdata(soctop_io_sram7_rdata)
   );
-  ysyx_040091_SRAM sram_0 ( // @[MySimTop.scala 24:22]
+  SRAM sram_0 ( // @[MySimTop.scala 24:22]
     .clock(sram_0_clock),
     .io_en(sram_0_io_en),
     .io_wen(sram_0_io_wen),
@@ -21709,7 +21709,7 @@ module ysyx_040091_MySimTop(
     .io_wdata(sram_0_io_wdata),
     .io_rdata(sram_0_io_rdata)
   );
-  ysyx_040091_SRAM sram_1 ( // @[MySimTop.scala 24:22]
+  SRAM sram_1 ( // @[MySimTop.scala 24:22]
     .clock(sram_1_clock),
     .io_en(sram_1_io_en),
     .io_wen(sram_1_io_wen),
@@ -21717,7 +21717,7 @@ module ysyx_040091_MySimTop(
     .io_wdata(sram_1_io_wdata),
     .io_rdata(sram_1_io_rdata)
   );
-  ysyx_040091_SRAM sram_2 ( // @[MySimTop.scala 24:22]
+  SRAM sram_2 ( // @[MySimTop.scala 24:22]
     .clock(sram_2_clock),
     .io_en(sram_2_io_en),
     .io_wen(sram_2_io_wen),
@@ -21725,7 +21725,7 @@ module ysyx_040091_MySimTop(
     .io_wdata(sram_2_io_wdata),
     .io_rdata(sram_2_io_rdata)
   );
-  ysyx_040091_SRAM sram_3 ( // @[MySimTop.scala 24:22]
+  SRAM sram_3 ( // @[MySimTop.scala 24:22]
     .clock(sram_3_clock),
     .io_en(sram_3_io_en),
     .io_wen(sram_3_io_wen),
@@ -21733,7 +21733,7 @@ module ysyx_040091_MySimTop(
     .io_wdata(sram_3_io_wdata),
     .io_rdata(sram_3_io_rdata)
   );
-  ysyx_040091_SRAM sram_4 ( // @[MySimTop.scala 24:22]
+  SRAM sram_4 ( // @[MySimTop.scala 24:22]
     .clock(sram_4_clock),
     .io_en(sram_4_io_en),
     .io_wen(sram_4_io_wen),
@@ -21741,7 +21741,7 @@ module ysyx_040091_MySimTop(
     .io_wdata(sram_4_io_wdata),
     .io_rdata(sram_4_io_rdata)
   );
-  ysyx_040091_SRAM sram_5 ( // @[MySimTop.scala 24:22]
+  SRAM sram_5 ( // @[MySimTop.scala 24:22]
     .clock(sram_5_clock),
     .io_en(sram_5_io_en),
     .io_wen(sram_5_io_wen),
@@ -21749,7 +21749,7 @@ module ysyx_040091_MySimTop(
     .io_wdata(sram_5_io_wdata),
     .io_rdata(sram_5_io_rdata)
   );
-  ysyx_040091_SRAM sram_6 ( // @[MySimTop.scala 24:22]
+  SRAM sram_6 ( // @[MySimTop.scala 24:22]
     .clock(sram_6_clock),
     .io_en(sram_6_io_en),
     .io_wen(sram_6_io_wen),
@@ -21757,7 +21757,7 @@ module ysyx_040091_MySimTop(
     .io_wdata(sram_6_io_wdata),
     .io_rdata(sram_6_io_rdata)
   );
-  ysyx_040091_SRAM sram_7 ( // @[MySimTop.scala 24:22]
+  SRAM sram_7 ( // @[MySimTop.scala 24:22]
     .clock(sram_7_clock),
     .io_en(sram_7_io_en),
     .io_wen(sram_7_io_wen),

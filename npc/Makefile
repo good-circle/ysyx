@@ -14,12 +14,12 @@ LIBS += $(shell llvm-config --libs)
 
 all: sim wave
 
-# verilator -Wno-lint --cc --exe --build --top-module ysyx_040091_MySimTop --trace -LDFLAGS "-lreadline -ldl -lSDL2 $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./csrc/*.cc) $(wildcard ./vsrc/*.v)
+# verilator -Wno-lint --cc --exe --build --top-module MySimTop --trace -LDFLAGS "-lreadline -ldl -lSDL2 $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./csrc/*.cc) $(wildcard ./vsrc/*.v)
 
 
 sim:
 	$(call git_commit, "sim RTL")
-	verilator -Wno-lint --cc --exe --build --top-module ysyx_040091_MySimTop --trace-fst -LDFLAGS "-lreadline -ldl -lSDL2 $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(SIMULATOR_FILE) $(VERILOG_FILE)
+	verilator -Wno-lint --cc --exe --build --top-module MySimTop --trace-fst -LDFLAGS "-lreadline -ldl -lSDL2 $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(SIMULATOR_FILE) $(VERILOG_FILE)
 	./obj_dir/VMySimTop $(ARGS) $(IMG)
 
 wave:

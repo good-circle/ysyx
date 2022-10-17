@@ -5,7 +5,7 @@
 #include "common.h"
 
 VerilatedContext *contextp = new VerilatedContext;
-VSimTop *top = new VSimTop{contextp};
+VMySimTop *top = new VMySimTop{contextp};
 #define WAVE_ON 1;
 #ifdef WAVE_ON
 #include "verilated_fst_c.h"
