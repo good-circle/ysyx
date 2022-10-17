@@ -34,6 +34,8 @@ class MySimTop extends Module {
     sram_from_soctop(i).rdata := sram(i).io.rdata
   }
 
+  soctop.io.interrupt := 0.U
+
   soctop.io.slave.awvalid := 0.U
   soctop.io.slave.awaddr := 0.U
   soctop.io.slave.awid := 0.U
@@ -52,5 +54,4 @@ class MySimTop extends Module {
   soctop.io.slave.arsize := 0.U
   soctop.io.slave.arburst := 0.U
   soctop.io.slave.rready := 0.U
-
 }
