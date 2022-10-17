@@ -3,6 +3,9 @@ override ARGS ?= -b -d $(REF_SO)
 
 REF_SO := $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 
+SIMULATOR_FILE := $(wildcard ./csrc/*.cpp) $(wildcard ./csrc/*.cc)
+VERILOG_FILE := $(wildcard ./vsrc/*.v)
+
 $(REF_SO):
 	$(MAKE) -C $(NEMU_HOME) ISA=riscv64 SHARE=1 ENGINE=interpreter
 
@@ -15,9 +18,9 @@ all: sim wave
 
 
 sim:
-	$(call git_commit, "sim RTL") 
-	verilator -Wno-lint --cc --exe --build --top-module SimTop --trace-fst -LDFLAGS "-lreadline -ldl -lSDL2 $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(wildcard ./csrc/*.cpp) $(wildcard ./csrc/*.cc) $(wildcard ./vsrc/*.v)
-	./obj_dir/VSimTop $(ARGS) $(IMG) 
+	$(call git_commit, "sim RTL")
+	verilator -Wno-lint --cc --exe --build --top-module SimTop --trace-fst -LDFLAGS "-lreadline -ldl -lSDL2 $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(SIMULATOR_FILE) $(VERILOG_FILE)
+	./obj_dir/VSimTop $(ARGS) $(IMG)
 
 wave:
 	$(call git_commit, "check waveform")
