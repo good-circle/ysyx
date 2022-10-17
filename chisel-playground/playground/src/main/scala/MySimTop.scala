@@ -10,7 +10,7 @@ class MySimTop extends Module {
   val soctop = Module(new SocTop)
   io.axi <> soctop.io.master
 
-  val sram_from_soctop = Vec(8, new SRAMIO_Soc)
+  val sram_from_soctop = Wire(Vec(8, new SRAMIO_Soc))
   sram_from_soctop(0) <> soctop.io.sram0
   sram_from_soctop(1) <> soctop.io.sram1
   sram_from_soctop(2) <> soctop.io.sram2
