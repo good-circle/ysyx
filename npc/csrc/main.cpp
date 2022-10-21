@@ -255,6 +255,7 @@ void npc_exec(unsigned int n)
 
 int main(int argc, char **argv, char **env)
 {
+    assert(0);
     contextp->commandArgs(argc, argv);
 
 #ifdef WAVE_ON
