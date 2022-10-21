@@ -190,7 +190,8 @@ void npc_exec(unsigned int n)
 
         svSetScope(svGetScopeFromName("TOP.SimTop.core.commit"));
 
-        is_commit = export_commit();
+        //is_commit = export_commit();
+        is_commit = 0;
         // printf("%d\n", is_commit);
 
         if (is_commit)
@@ -204,8 +205,10 @@ void npc_exec(unsigned int n)
             {
                 inst_num++;
                 difftest_read_regs(difftest_regs);
-                is_finish = export_finish();
-                is_mmio = export_mmio();
+                //is_finish = export_finish();
+                //is_mmio = export_mmio();
+                is_finish = 0;
+                is_mmio = 0;
                 //printf("is_mmio : %d\n", is_mmio);
                 //printf("cpu_pc : %lx\n", cpu_pc);
                 //assert(is_mmio == 0);
@@ -272,7 +275,7 @@ int main(int argc, char **argv, char **env)
 
     init_device();
 
-    connect_wire(top, &mem_ptr);
+    connect_wire(&mem_ptr, top);
     assert(mem_ptr.check());
     /*
     #ifdef ITRACE
