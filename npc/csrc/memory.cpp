@@ -96,7 +96,7 @@ uint64_t pmem_read(long long mem_raddr, bool mem_read)
             assert(0);
         }
 
-        printf("in_pmem_read\n");
+        //printf("in_pmem_read\n");
 
         if (mem_raddr == 0xa0000048)
         {
