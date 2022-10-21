@@ -275,7 +275,7 @@ int main(int argc, char **argv, char **env)
 
     init_device();
 
-    connect_wire(&mem_ptr, top);
+    connect_wire(mem_ptr, top);
     assert(mem_ptr.check());
     /*
     #ifdef ITRACE
