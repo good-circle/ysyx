@@ -87,7 +87,7 @@ uint64_t get_time()
 
 uint32_t lo = 0;
 uint32_t hi = 0;
-uint64_t pmem_read(long long mem_raddr, bool mem_read)
+uint32_t pmem_read(uint32_t mem_raddr, bool mem_read)
 {
     if (mem_read)
     {
