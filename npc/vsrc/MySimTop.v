@@ -9934,10 +9934,8 @@ module META(
   input         io_fence,
   output        io_fence_dirty
 );
-`ifdef RANDOMIZE_MEM_INIT
-  reg [31:0] _RAND_0;
-`endif // RANDOMIZE_MEM_INIT
 `ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
   reg [31:0] _RAND_1;
   reg [31:0] _RAND_2;
   reg [31:0] _RAND_3;
@@ -10069,271 +10067,134 @@ module META(
   reg [31:0] _RAND_129;
   reg [31:0] _RAND_130;
   reg [31:0] _RAND_131;
+  reg [31:0] _RAND_132;
+  reg [31:0] _RAND_133;
+  reg [31:0] _RAND_134;
+  reg [31:0] _RAND_135;
+  reg [31:0] _RAND_136;
+  reg [31:0] _RAND_137;
+  reg [31:0] _RAND_138;
+  reg [31:0] _RAND_139;
+  reg [31:0] _RAND_140;
+  reg [31:0] _RAND_141;
+  reg [31:0] _RAND_142;
+  reg [31:0] _RAND_143;
+  reg [31:0] _RAND_144;
+  reg [31:0] _RAND_145;
+  reg [31:0] _RAND_146;
+  reg [31:0] _RAND_147;
+  reg [31:0] _RAND_148;
+  reg [31:0] _RAND_149;
+  reg [31:0] _RAND_150;
+  reg [31:0] _RAND_151;
+  reg [31:0] _RAND_152;
+  reg [31:0] _RAND_153;
+  reg [31:0] _RAND_154;
+  reg [31:0] _RAND_155;
+  reg [31:0] _RAND_156;
+  reg [31:0] _RAND_157;
+  reg [31:0] _RAND_158;
+  reg [31:0] _RAND_159;
+  reg [31:0] _RAND_160;
+  reg [31:0] _RAND_161;
+  reg [31:0] _RAND_162;
+  reg [31:0] _RAND_163;
+  reg [31:0] _RAND_164;
+  reg [31:0] _RAND_165;
+  reg [31:0] _RAND_166;
+  reg [31:0] _RAND_167;
+  reg [31:0] _RAND_168;
+  reg [31:0] _RAND_169;
+  reg [31:0] _RAND_170;
+  reg [31:0] _RAND_171;
+  reg [31:0] _RAND_172;
+  reg [31:0] _RAND_173;
+  reg [31:0] _RAND_174;
+  reg [31:0] _RAND_175;
+  reg [31:0] _RAND_176;
+  reg [31:0] _RAND_177;
+  reg [31:0] _RAND_178;
+  reg [31:0] _RAND_179;
+  reg [31:0] _RAND_180;
+  reg [31:0] _RAND_181;
+  reg [31:0] _RAND_182;
+  reg [31:0] _RAND_183;
+  reg [31:0] _RAND_184;
+  reg [31:0] _RAND_185;
+  reg [31:0] _RAND_186;
+  reg [31:0] _RAND_187;
+  reg [31:0] _RAND_188;
+  reg [31:0] _RAND_189;
+  reg [31:0] _RAND_190;
+  reg [31:0] _RAND_191;
+  reg [31:0] _RAND_192;
+  reg [31:0] _RAND_193;
+  reg [31:0] _RAND_194;
 `endif // RANDOMIZE_REG_INIT
-  reg [21:0] tag [0:63]; // @[META.scala 20:24]
-  wire [21:0] tag_io_tag_r_MPORT_data; // @[META.scala 20:24]
-  wire [5:0] tag_io_tag_r_MPORT_addr; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_1_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_1_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_1_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_1_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_2_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_2_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_2_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_2_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_3_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_3_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_3_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_3_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_4_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_4_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_4_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_4_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_5_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_5_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_5_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_5_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_6_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_6_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_6_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_6_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_7_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_7_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_7_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_7_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_8_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_8_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_8_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_8_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_9_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_9_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_9_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_9_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_10_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_10_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_10_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_10_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_11_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_11_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_11_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_11_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_12_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_12_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_12_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_12_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_13_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_13_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_13_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_13_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_14_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_14_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_14_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_14_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_15_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_15_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_15_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_15_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_16_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_16_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_16_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_16_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_17_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_17_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_17_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_17_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_18_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_18_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_18_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_18_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_19_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_19_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_19_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_19_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_20_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_20_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_20_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_20_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_21_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_21_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_21_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_21_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_22_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_22_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_22_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_22_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_23_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_23_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_23_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_23_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_24_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_24_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_24_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_24_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_25_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_25_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_25_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_25_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_26_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_26_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_26_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_26_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_27_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_27_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_27_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_27_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_28_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_28_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_28_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_28_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_29_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_29_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_29_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_29_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_30_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_30_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_30_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_30_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_31_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_31_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_31_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_31_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_32_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_32_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_32_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_32_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_33_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_33_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_33_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_33_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_34_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_34_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_34_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_34_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_35_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_35_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_35_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_35_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_36_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_36_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_36_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_36_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_37_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_37_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_37_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_37_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_38_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_38_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_38_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_38_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_39_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_39_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_39_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_39_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_40_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_40_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_40_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_40_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_41_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_41_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_41_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_41_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_42_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_42_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_42_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_42_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_43_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_43_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_43_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_43_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_44_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_44_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_44_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_44_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_45_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_45_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_45_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_45_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_46_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_46_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_46_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_46_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_47_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_47_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_47_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_47_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_48_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_48_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_48_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_48_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_49_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_49_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_49_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_49_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_50_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_50_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_50_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_50_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_51_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_51_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_51_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_51_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_52_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_52_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_52_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_52_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_53_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_53_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_53_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_53_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_54_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_54_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_54_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_54_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_55_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_55_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_55_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_55_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_56_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_56_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_56_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_56_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_57_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_57_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_57_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_57_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_58_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_58_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_58_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_58_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_59_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_59_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_59_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_59_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_60_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_60_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_60_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_60_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_61_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_61_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_61_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_61_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_62_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_62_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_62_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_62_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_63_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_63_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_63_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_63_en; // @[META.scala 20:24]
-  wire [21:0] tag_MPORT_64_data; // @[META.scala 20:24]
-  wire [5:0] tag_MPORT_64_addr; // @[META.scala 20:24]
-  wire  tag_MPORT_64_mask; // @[META.scala 20:24]
-  wire  tag_MPORT_64_en; // @[META.scala 20:24]
-  reg [5:0] tag_io_tag_r_MPORT_addr_pipe_0;
+  reg [21:0] tag_0; // @[META.scala 20:20]
+  reg [21:0] tag_1; // @[META.scala 20:20]
+  reg [21:0] tag_2; // @[META.scala 20:20]
+  reg [21:0] tag_3; // @[META.scala 20:20]
+  reg [21:0] tag_4; // @[META.scala 20:20]
+  reg [21:0] tag_5; // @[META.scala 20:20]
+  reg [21:0] tag_6; // @[META.scala 20:20]
+  reg [21:0] tag_7; // @[META.scala 20:20]
+  reg [21:0] tag_8; // @[META.scala 20:20]
+  reg [21:0] tag_9; // @[META.scala 20:20]
+  reg [21:0] tag_10; // @[META.scala 20:20]
+  reg [21:0] tag_11; // @[META.scala 20:20]
+  reg [21:0] tag_12; // @[META.scala 20:20]
+  reg [21:0] tag_13; // @[META.scala 20:20]
+  reg [21:0] tag_14; // @[META.scala 20:20]
+  reg [21:0] tag_15; // @[META.scala 20:20]
+  reg [21:0] tag_16; // @[META.scala 20:20]
+  reg [21:0] tag_17; // @[META.scala 20:20]
+  reg [21:0] tag_18; // @[META.scala 20:20]
+  reg [21:0] tag_19; // @[META.scala 20:20]
+  reg [21:0] tag_20; // @[META.scala 20:20]
+  reg [21:0] tag_21; // @[META.scala 20:20]
+  reg [21:0] tag_22; // @[META.scala 20:20]
+  reg [21:0] tag_23; // @[META.scala 20:20]
+  reg [21:0] tag_24; // @[META.scala 20:20]
+  reg [21:0] tag_25; // @[META.scala 20:20]
+  reg [21:0] tag_26; // @[META.scala 20:20]
+  reg [21:0] tag_27; // @[META.scala 20:20]
+  reg [21:0] tag_28; // @[META.scala 20:20]
+  reg [21:0] tag_29; // @[META.scala 20:20]
+  reg [21:0] tag_30; // @[META.scala 20:20]
+  reg [21:0] tag_31; // @[META.scala 20:20]
+  reg [21:0] tag_32; // @[META.scala 20:20]
+  reg [21:0] tag_33; // @[META.scala 20:20]
+  reg [21:0] tag_34; // @[META.scala 20:20]
+  reg [21:0] tag_35; // @[META.scala 20:20]
+  reg [21:0] tag_36; // @[META.scala 20:20]
+  reg [21:0] tag_37; // @[META.scala 20:20]
+  reg [21:0] tag_38; // @[META.scala 20:20]
+  reg [21:0] tag_39; // @[META.scala 20:20]
+  reg [21:0] tag_40; // @[META.scala 20:20]
+  reg [21:0] tag_41; // @[META.scala 20:20]
+  reg [21:0] tag_42; // @[META.scala 20:20]
+  reg [21:0] tag_43; // @[META.scala 20:20]
+  reg [21:0] tag_44; // @[META.scala 20:20]
+  reg [21:0] tag_45; // @[META.scala 20:20]
+  reg [21:0] tag_46; // @[META.scala 20:20]
+  reg [21:0] tag_47; // @[META.scala 20:20]
+  reg [21:0] tag_48; // @[META.scala 20:20]
+  reg [21:0] tag_49; // @[META.scala 20:20]
+  reg [21:0] tag_50; // @[META.scala 20:20]
+  reg [21:0] tag_51; // @[META.scala 20:20]
+  reg [21:0] tag_52; // @[META.scala 20:20]
+  reg [21:0] tag_53; // @[META.scala 20:20]
+  reg [21:0] tag_54; // @[META.scala 20:20]
+  reg [21:0] tag_55; // @[META.scala 20:20]
+  reg [21:0] tag_56; // @[META.scala 20:20]
+  reg [21:0] tag_57; // @[META.scala 20:20]
+  reg [21:0] tag_58; // @[META.scala 20:20]
+  reg [21:0] tag_59; // @[META.scala 20:20]
+  reg [21:0] tag_60; // @[META.scala 20:20]
+  reg [21:0] tag_61; // @[META.scala 20:20]
+  reg [21:0] tag_62; // @[META.scala 20:20]
+  reg [21:0] tag_63; // @[META.scala 20:20]
   reg  valid_0; // @[META.scala 22:22]
   reg  valid_1; // @[META.scala 22:22]
   reg  valid_2; // @[META.scala 22:22]
@@ -10462,1108 +10323,1286 @@ module META(
   reg  dirty_61; // @[META.scala 23:22]
   reg  dirty_62; // @[META.scala 23:22]
   reg  dirty_63; // @[META.scala 23:22]
-  wire  _GEN_0 = 6'h0 == io_index | valid_0; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_1 = 6'h1 == io_index | valid_1; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_2 = 6'h2 == io_index | valid_2; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_3 = 6'h3 == io_index | valid_3; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_4 = 6'h4 == io_index | valid_4; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_5 = 6'h5 == io_index | valid_5; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_6 = 6'h6 == io_index | valid_6; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_7 = 6'h7 == io_index | valid_7; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_8 = 6'h8 == io_index | valid_8; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_9 = 6'h9 == io_index | valid_9; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_10 = 6'ha == io_index | valid_10; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_11 = 6'hb == io_index | valid_11; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_12 = 6'hc == io_index | valid_12; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_13 = 6'hd == io_index | valid_13; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_14 = 6'he == io_index | valid_14; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_15 = 6'hf == io_index | valid_15; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_16 = 6'h10 == io_index | valid_16; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_17 = 6'h11 == io_index | valid_17; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_18 = 6'h12 == io_index | valid_18; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_19 = 6'h13 == io_index | valid_19; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_20 = 6'h14 == io_index | valid_20; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_21 = 6'h15 == io_index | valid_21; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_22 = 6'h16 == io_index | valid_22; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_23 = 6'h17 == io_index | valid_23; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_24 = 6'h18 == io_index | valid_24; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_25 = 6'h19 == io_index | valid_25; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_26 = 6'h1a == io_index | valid_26; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_27 = 6'h1b == io_index | valid_27; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_28 = 6'h1c == io_index | valid_28; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_29 = 6'h1d == io_index | valid_29; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_30 = 6'h1e == io_index | valid_30; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_31 = 6'h1f == io_index | valid_31; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_32 = 6'h20 == io_index | valid_32; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_33 = 6'h21 == io_index | valid_33; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_34 = 6'h22 == io_index | valid_34; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_35 = 6'h23 == io_index | valid_35; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_36 = 6'h24 == io_index | valid_36; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_37 = 6'h25 == io_index | valid_37; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_38 = 6'h26 == io_index | valid_38; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_39 = 6'h27 == io_index | valid_39; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_40 = 6'h28 == io_index | valid_40; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_41 = 6'h29 == io_index | valid_41; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_42 = 6'h2a == io_index | valid_42; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_43 = 6'h2b == io_index | valid_43; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_44 = 6'h2c == io_index | valid_44; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_45 = 6'h2d == io_index | valid_45; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_46 = 6'h2e == io_index | valid_46; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_47 = 6'h2f == io_index | valid_47; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_48 = 6'h30 == io_index | valid_48; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_49 = 6'h31 == io_index | valid_49; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_50 = 6'h32 == io_index | valid_50; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_51 = 6'h33 == io_index | valid_51; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_52 = 6'h34 == io_index | valid_52; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_53 = 6'h35 == io_index | valid_53; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_54 = 6'h36 == io_index | valid_54; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_55 = 6'h37 == io_index | valid_55; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_56 = 6'h38 == io_index | valid_56; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_57 = 6'h39 == io_index | valid_57; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_58 = 6'h3a == io_index | valid_58; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_59 = 6'h3b == io_index | valid_59; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_60 = 6'h3c == io_index | valid_60; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_61 = 6'h3d == io_index | valid_61; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_62 = 6'h3e == io_index | valid_62; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
-  wire  _GEN_63 = 6'h3f == io_index | valid_63; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_64 = 6'h0 == io_index | valid_0; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_65 = 6'h1 == io_index | valid_1; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_66 = 6'h2 == io_index | valid_2; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_67 = 6'h3 == io_index | valid_3; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_68 = 6'h4 == io_index | valid_4; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_69 = 6'h5 == io_index | valid_5; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_70 = 6'h6 == io_index | valid_6; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_71 = 6'h7 == io_index | valid_7; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_72 = 6'h8 == io_index | valid_8; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_73 = 6'h9 == io_index | valid_9; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_74 = 6'ha == io_index | valid_10; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_75 = 6'hb == io_index | valid_11; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_76 = 6'hc == io_index | valid_12; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_77 = 6'hd == io_index | valid_13; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_78 = 6'he == io_index | valid_14; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_79 = 6'hf == io_index | valid_15; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_80 = 6'h10 == io_index | valid_16; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_81 = 6'h11 == io_index | valid_17; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_82 = 6'h12 == io_index | valid_18; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_83 = 6'h13 == io_index | valid_19; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_84 = 6'h14 == io_index | valid_20; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_85 = 6'h15 == io_index | valid_21; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_86 = 6'h16 == io_index | valid_22; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_87 = 6'h17 == io_index | valid_23; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_88 = 6'h18 == io_index | valid_24; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_89 = 6'h19 == io_index | valid_25; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_90 = 6'h1a == io_index | valid_26; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_91 = 6'h1b == io_index | valid_27; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_92 = 6'h1c == io_index | valid_28; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_93 = 6'h1d == io_index | valid_29; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_94 = 6'h1e == io_index | valid_30; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_95 = 6'h1f == io_index | valid_31; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_96 = 6'h20 == io_index | valid_32; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_97 = 6'h21 == io_index | valid_33; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_98 = 6'h22 == io_index | valid_34; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_99 = 6'h23 == io_index | valid_35; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_100 = 6'h24 == io_index | valid_36; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_101 = 6'h25 == io_index | valid_37; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_102 = 6'h26 == io_index | valid_38; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_103 = 6'h27 == io_index | valid_39; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_104 = 6'h28 == io_index | valid_40; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_105 = 6'h29 == io_index | valid_41; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_106 = 6'h2a == io_index | valid_42; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_107 = 6'h2b == io_index | valid_43; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_108 = 6'h2c == io_index | valid_44; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_109 = 6'h2d == io_index | valid_45; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_110 = 6'h2e == io_index | valid_46; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_111 = 6'h2f == io_index | valid_47; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_112 = 6'h30 == io_index | valid_48; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_113 = 6'h31 == io_index | valid_49; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_114 = 6'h32 == io_index | valid_50; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_115 = 6'h33 == io_index | valid_51; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_116 = 6'h34 == io_index | valid_52; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_117 = 6'h35 == io_index | valid_53; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_118 = 6'h36 == io_index | valid_54; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_119 = 6'h37 == io_index | valid_55; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_120 = 6'h38 == io_index | valid_56; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_121 = 6'h39 == io_index | valid_57; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_122 = 6'h3a == io_index | valid_58; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_123 = 6'h3b == io_index | valid_59; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_124 = 6'h3c == io_index | valid_60; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_125 = 6'h3d == io_index | valid_61; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_126 = 6'h3e == io_index | valid_62; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  wire  _GEN_127 = 6'h3f == io_index | valid_63; // @[META.scala 27:18 META.scala 27:18 META.scala 22:22]
+  reg [21:0] io_tag_r_REG; // @[META.scala 29:22]
+  wire [21:0] _GEN_257 = 6'h1 == io_index ? tag_1 : tag_0; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_258 = 6'h2 == io_index ? tag_2 : _GEN_257; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_259 = 6'h3 == io_index ? tag_3 : _GEN_258; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_260 = 6'h4 == io_index ? tag_4 : _GEN_259; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_261 = 6'h5 == io_index ? tag_5 : _GEN_260; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_262 = 6'h6 == io_index ? tag_6 : _GEN_261; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_263 = 6'h7 == io_index ? tag_7 : _GEN_262; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_264 = 6'h8 == io_index ? tag_8 : _GEN_263; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_265 = 6'h9 == io_index ? tag_9 : _GEN_264; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_266 = 6'ha == io_index ? tag_10 : _GEN_265; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_267 = 6'hb == io_index ? tag_11 : _GEN_266; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_268 = 6'hc == io_index ? tag_12 : _GEN_267; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_269 = 6'hd == io_index ? tag_13 : _GEN_268; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_270 = 6'he == io_index ? tag_14 : _GEN_269; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_271 = 6'hf == io_index ? tag_15 : _GEN_270; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_272 = 6'h10 == io_index ? tag_16 : _GEN_271; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_273 = 6'h11 == io_index ? tag_17 : _GEN_272; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_274 = 6'h12 == io_index ? tag_18 : _GEN_273; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_275 = 6'h13 == io_index ? tag_19 : _GEN_274; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_276 = 6'h14 == io_index ? tag_20 : _GEN_275; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_277 = 6'h15 == io_index ? tag_21 : _GEN_276; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_278 = 6'h16 == io_index ? tag_22 : _GEN_277; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_279 = 6'h17 == io_index ? tag_23 : _GEN_278; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_280 = 6'h18 == io_index ? tag_24 : _GEN_279; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_281 = 6'h19 == io_index ? tag_25 : _GEN_280; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_282 = 6'h1a == io_index ? tag_26 : _GEN_281; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_283 = 6'h1b == io_index ? tag_27 : _GEN_282; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_284 = 6'h1c == io_index ? tag_28 : _GEN_283; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_285 = 6'h1d == io_index ? tag_29 : _GEN_284; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_286 = 6'h1e == io_index ? tag_30 : _GEN_285; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_287 = 6'h1f == io_index ? tag_31 : _GEN_286; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_288 = 6'h20 == io_index ? tag_32 : _GEN_287; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_289 = 6'h21 == io_index ? tag_33 : _GEN_288; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_290 = 6'h22 == io_index ? tag_34 : _GEN_289; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_291 = 6'h23 == io_index ? tag_35 : _GEN_290; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_292 = 6'h24 == io_index ? tag_36 : _GEN_291; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_293 = 6'h25 == io_index ? tag_37 : _GEN_292; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_294 = 6'h26 == io_index ? tag_38 : _GEN_293; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_295 = 6'h27 == io_index ? tag_39 : _GEN_294; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_296 = 6'h28 == io_index ? tag_40 : _GEN_295; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_297 = 6'h29 == io_index ? tag_41 : _GEN_296; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_298 = 6'h2a == io_index ? tag_42 : _GEN_297; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_299 = 6'h2b == io_index ? tag_43 : _GEN_298; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_300 = 6'h2c == io_index ? tag_44 : _GEN_299; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_301 = 6'h2d == io_index ? tag_45 : _GEN_300; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_302 = 6'h2e == io_index ? tag_46 : _GEN_301; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_303 = 6'h2f == io_index ? tag_47 : _GEN_302; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_304 = 6'h30 == io_index ? tag_48 : _GEN_303; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_305 = 6'h31 == io_index ? tag_49 : _GEN_304; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_306 = 6'h32 == io_index ? tag_50 : _GEN_305; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_307 = 6'h33 == io_index ? tag_51 : _GEN_306; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_308 = 6'h34 == io_index ? tag_52 : _GEN_307; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_309 = 6'h35 == io_index ? tag_53 : _GEN_308; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_310 = 6'h36 == io_index ? tag_54 : _GEN_309; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_311 = 6'h37 == io_index ? tag_55 : _GEN_310; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_312 = 6'h38 == io_index ? tag_56 : _GEN_311; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_313 = 6'h39 == io_index ? tag_57 : _GEN_312; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_314 = 6'h3a == io_index ? tag_58 : _GEN_313; // @[META.scala 29:22 META.scala 29:22]
+  wire [21:0] _GEN_315 = 6'h3b == io_index ? tag_59 : _GEN_314; // @[META.scala 29:22 META.scala 29:22]
   reg  io_dirty_r_REG; // @[META.scala 31:24]
-  wire  _GEN_134 = 6'h1 == io_index ? dirty_1 : dirty_0; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_135 = 6'h2 == io_index ? dirty_2 : _GEN_134; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_136 = 6'h3 == io_index ? dirty_3 : _GEN_135; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_137 = 6'h4 == io_index ? dirty_4 : _GEN_136; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_138 = 6'h5 == io_index ? dirty_5 : _GEN_137; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_139 = 6'h6 == io_index ? dirty_6 : _GEN_138; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_140 = 6'h7 == io_index ? dirty_7 : _GEN_139; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_141 = 6'h8 == io_index ? dirty_8 : _GEN_140; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_142 = 6'h9 == io_index ? dirty_9 : _GEN_141; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_143 = 6'ha == io_index ? dirty_10 : _GEN_142; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_144 = 6'hb == io_index ? dirty_11 : _GEN_143; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_145 = 6'hc == io_index ? dirty_12 : _GEN_144; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_146 = 6'hd == io_index ? dirty_13 : _GEN_145; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_147 = 6'he == io_index ? dirty_14 : _GEN_146; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_148 = 6'hf == io_index ? dirty_15 : _GEN_147; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_149 = 6'h10 == io_index ? dirty_16 : _GEN_148; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_150 = 6'h11 == io_index ? dirty_17 : _GEN_149; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_151 = 6'h12 == io_index ? dirty_18 : _GEN_150; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_152 = 6'h13 == io_index ? dirty_19 : _GEN_151; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_153 = 6'h14 == io_index ? dirty_20 : _GEN_152; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_154 = 6'h15 == io_index ? dirty_21 : _GEN_153; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_155 = 6'h16 == io_index ? dirty_22 : _GEN_154; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_156 = 6'h17 == io_index ? dirty_23 : _GEN_155; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_157 = 6'h18 == io_index ? dirty_24 : _GEN_156; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_158 = 6'h19 == io_index ? dirty_25 : _GEN_157; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_159 = 6'h1a == io_index ? dirty_26 : _GEN_158; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_160 = 6'h1b == io_index ? dirty_27 : _GEN_159; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_161 = 6'h1c == io_index ? dirty_28 : _GEN_160; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_162 = 6'h1d == io_index ? dirty_29 : _GEN_161; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_163 = 6'h1e == io_index ? dirty_30 : _GEN_162; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_164 = 6'h1f == io_index ? dirty_31 : _GEN_163; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_165 = 6'h20 == io_index ? dirty_32 : _GEN_164; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_166 = 6'h21 == io_index ? dirty_33 : _GEN_165; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_167 = 6'h22 == io_index ? dirty_34 : _GEN_166; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_168 = 6'h23 == io_index ? dirty_35 : _GEN_167; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_169 = 6'h24 == io_index ? dirty_36 : _GEN_168; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_170 = 6'h25 == io_index ? dirty_37 : _GEN_169; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_171 = 6'h26 == io_index ? dirty_38 : _GEN_170; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_172 = 6'h27 == io_index ? dirty_39 : _GEN_171; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_173 = 6'h28 == io_index ? dirty_40 : _GEN_172; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_174 = 6'h29 == io_index ? dirty_41 : _GEN_173; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_175 = 6'h2a == io_index ? dirty_42 : _GEN_174; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_176 = 6'h2b == io_index ? dirty_43 : _GEN_175; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_177 = 6'h2c == io_index ? dirty_44 : _GEN_176; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_178 = 6'h2d == io_index ? dirty_45 : _GEN_177; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_179 = 6'h2e == io_index ? dirty_46 : _GEN_178; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_180 = 6'h2f == io_index ? dirty_47 : _GEN_179; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_181 = 6'h30 == io_index ? dirty_48 : _GEN_180; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_182 = 6'h31 == io_index ? dirty_49 : _GEN_181; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_183 = 6'h32 == io_index ? dirty_50 : _GEN_182; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_184 = 6'h33 == io_index ? dirty_51 : _GEN_183; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_185 = 6'h34 == io_index ? dirty_52 : _GEN_184; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_186 = 6'h35 == io_index ? dirty_53 : _GEN_185; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_187 = 6'h36 == io_index ? dirty_54 : _GEN_186; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_188 = 6'h37 == io_index ? dirty_55 : _GEN_187; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_189 = 6'h38 == io_index ? dirty_56 : _GEN_188; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_190 = 6'h39 == io_index ? dirty_57 : _GEN_189; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_191 = 6'h3a == io_index ? dirty_58 : _GEN_190; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_192 = 6'h3b == io_index ? dirty_59 : _GEN_191; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_193 = 6'h3c == io_index ? dirty_60 : _GEN_192; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_194 = 6'h3d == io_index ? dirty_61 : _GEN_193; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_195 = 6'h3e == io_index ? dirty_62 : _GEN_194; // @[META.scala 31:24 META.scala 31:24]
-  wire  _GEN_196 = 6'h3f == io_index ? dirty_63 : _GEN_195; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_321 = 6'h1 == io_index ? dirty_1 : dirty_0; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_322 = 6'h2 == io_index ? dirty_2 : _GEN_321; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_323 = 6'h3 == io_index ? dirty_3 : _GEN_322; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_324 = 6'h4 == io_index ? dirty_4 : _GEN_323; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_325 = 6'h5 == io_index ? dirty_5 : _GEN_324; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_326 = 6'h6 == io_index ? dirty_6 : _GEN_325; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_327 = 6'h7 == io_index ? dirty_7 : _GEN_326; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_328 = 6'h8 == io_index ? dirty_8 : _GEN_327; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_329 = 6'h9 == io_index ? dirty_9 : _GEN_328; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_330 = 6'ha == io_index ? dirty_10 : _GEN_329; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_331 = 6'hb == io_index ? dirty_11 : _GEN_330; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_332 = 6'hc == io_index ? dirty_12 : _GEN_331; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_333 = 6'hd == io_index ? dirty_13 : _GEN_332; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_334 = 6'he == io_index ? dirty_14 : _GEN_333; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_335 = 6'hf == io_index ? dirty_15 : _GEN_334; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_336 = 6'h10 == io_index ? dirty_16 : _GEN_335; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_337 = 6'h11 == io_index ? dirty_17 : _GEN_336; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_338 = 6'h12 == io_index ? dirty_18 : _GEN_337; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_339 = 6'h13 == io_index ? dirty_19 : _GEN_338; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_340 = 6'h14 == io_index ? dirty_20 : _GEN_339; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_341 = 6'h15 == io_index ? dirty_21 : _GEN_340; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_342 = 6'h16 == io_index ? dirty_22 : _GEN_341; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_343 = 6'h17 == io_index ? dirty_23 : _GEN_342; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_344 = 6'h18 == io_index ? dirty_24 : _GEN_343; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_345 = 6'h19 == io_index ? dirty_25 : _GEN_344; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_346 = 6'h1a == io_index ? dirty_26 : _GEN_345; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_347 = 6'h1b == io_index ? dirty_27 : _GEN_346; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_348 = 6'h1c == io_index ? dirty_28 : _GEN_347; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_349 = 6'h1d == io_index ? dirty_29 : _GEN_348; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_350 = 6'h1e == io_index ? dirty_30 : _GEN_349; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_351 = 6'h1f == io_index ? dirty_31 : _GEN_350; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_352 = 6'h20 == io_index ? dirty_32 : _GEN_351; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_353 = 6'h21 == io_index ? dirty_33 : _GEN_352; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_354 = 6'h22 == io_index ? dirty_34 : _GEN_353; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_355 = 6'h23 == io_index ? dirty_35 : _GEN_354; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_356 = 6'h24 == io_index ? dirty_36 : _GEN_355; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_357 = 6'h25 == io_index ? dirty_37 : _GEN_356; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_358 = 6'h26 == io_index ? dirty_38 : _GEN_357; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_359 = 6'h27 == io_index ? dirty_39 : _GEN_358; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_360 = 6'h28 == io_index ? dirty_40 : _GEN_359; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_361 = 6'h29 == io_index ? dirty_41 : _GEN_360; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_362 = 6'h2a == io_index ? dirty_42 : _GEN_361; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_363 = 6'h2b == io_index ? dirty_43 : _GEN_362; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_364 = 6'h2c == io_index ? dirty_44 : _GEN_363; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_365 = 6'h2d == io_index ? dirty_45 : _GEN_364; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_366 = 6'h2e == io_index ? dirty_46 : _GEN_365; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_367 = 6'h2f == io_index ? dirty_47 : _GEN_366; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_368 = 6'h30 == io_index ? dirty_48 : _GEN_367; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_369 = 6'h31 == io_index ? dirty_49 : _GEN_368; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_370 = 6'h32 == io_index ? dirty_50 : _GEN_369; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_371 = 6'h33 == io_index ? dirty_51 : _GEN_370; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_372 = 6'h34 == io_index ? dirty_52 : _GEN_371; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_373 = 6'h35 == io_index ? dirty_53 : _GEN_372; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_374 = 6'h36 == io_index ? dirty_54 : _GEN_373; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_375 = 6'h37 == io_index ? dirty_55 : _GEN_374; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_376 = 6'h38 == io_index ? dirty_56 : _GEN_375; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_377 = 6'h39 == io_index ? dirty_57 : _GEN_376; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_378 = 6'h3a == io_index ? dirty_58 : _GEN_377; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_379 = 6'h3b == io_index ? dirty_59 : _GEN_378; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_380 = 6'h3c == io_index ? dirty_60 : _GEN_379; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_381 = 6'h3d == io_index ? dirty_61 : _GEN_380; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_382 = 6'h3e == io_index ? dirty_62 : _GEN_381; // @[META.scala 31:24 META.scala 31:24]
+  wire  _GEN_383 = 6'h3f == io_index ? dirty_63 : _GEN_382; // @[META.scala 31:24 META.scala 31:24]
   reg  io_valid_r_REG; // @[META.scala 32:24]
-  wire  _GEN_198 = 6'h1 == io_index ? valid_1 : valid_0; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_199 = 6'h2 == io_index ? valid_2 : _GEN_198; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_200 = 6'h3 == io_index ? valid_3 : _GEN_199; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_201 = 6'h4 == io_index ? valid_4 : _GEN_200; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_202 = 6'h5 == io_index ? valid_5 : _GEN_201; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_203 = 6'h6 == io_index ? valid_6 : _GEN_202; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_204 = 6'h7 == io_index ? valid_7 : _GEN_203; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_205 = 6'h8 == io_index ? valid_8 : _GEN_204; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_206 = 6'h9 == io_index ? valid_9 : _GEN_205; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_207 = 6'ha == io_index ? valid_10 : _GEN_206; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_208 = 6'hb == io_index ? valid_11 : _GEN_207; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_209 = 6'hc == io_index ? valid_12 : _GEN_208; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_210 = 6'hd == io_index ? valid_13 : _GEN_209; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_211 = 6'he == io_index ? valid_14 : _GEN_210; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_212 = 6'hf == io_index ? valid_15 : _GEN_211; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_213 = 6'h10 == io_index ? valid_16 : _GEN_212; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_214 = 6'h11 == io_index ? valid_17 : _GEN_213; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_215 = 6'h12 == io_index ? valid_18 : _GEN_214; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_216 = 6'h13 == io_index ? valid_19 : _GEN_215; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_217 = 6'h14 == io_index ? valid_20 : _GEN_216; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_218 = 6'h15 == io_index ? valid_21 : _GEN_217; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_219 = 6'h16 == io_index ? valid_22 : _GEN_218; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_220 = 6'h17 == io_index ? valid_23 : _GEN_219; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_221 = 6'h18 == io_index ? valid_24 : _GEN_220; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_222 = 6'h19 == io_index ? valid_25 : _GEN_221; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_223 = 6'h1a == io_index ? valid_26 : _GEN_222; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_224 = 6'h1b == io_index ? valid_27 : _GEN_223; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_225 = 6'h1c == io_index ? valid_28 : _GEN_224; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_226 = 6'h1d == io_index ? valid_29 : _GEN_225; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_227 = 6'h1e == io_index ? valid_30 : _GEN_226; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_228 = 6'h1f == io_index ? valid_31 : _GEN_227; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_229 = 6'h20 == io_index ? valid_32 : _GEN_228; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_230 = 6'h21 == io_index ? valid_33 : _GEN_229; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_231 = 6'h22 == io_index ? valid_34 : _GEN_230; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_232 = 6'h23 == io_index ? valid_35 : _GEN_231; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_233 = 6'h24 == io_index ? valid_36 : _GEN_232; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_234 = 6'h25 == io_index ? valid_37 : _GEN_233; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_235 = 6'h26 == io_index ? valid_38 : _GEN_234; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_236 = 6'h27 == io_index ? valid_39 : _GEN_235; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_237 = 6'h28 == io_index ? valid_40 : _GEN_236; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_238 = 6'h29 == io_index ? valid_41 : _GEN_237; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_239 = 6'h2a == io_index ? valid_42 : _GEN_238; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_240 = 6'h2b == io_index ? valid_43 : _GEN_239; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_241 = 6'h2c == io_index ? valid_44 : _GEN_240; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_242 = 6'h2d == io_index ? valid_45 : _GEN_241; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_243 = 6'h2e == io_index ? valid_46 : _GEN_242; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_244 = 6'h2f == io_index ? valid_47 : _GEN_243; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_245 = 6'h30 == io_index ? valid_48 : _GEN_244; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_246 = 6'h31 == io_index ? valid_49 : _GEN_245; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_247 = 6'h32 == io_index ? valid_50 : _GEN_246; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_248 = 6'h33 == io_index ? valid_51 : _GEN_247; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_249 = 6'h34 == io_index ? valid_52 : _GEN_248; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_250 = 6'h35 == io_index ? valid_53 : _GEN_249; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_251 = 6'h36 == io_index ? valid_54 : _GEN_250; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_252 = 6'h37 == io_index ? valid_55 : _GEN_251; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_253 = 6'h38 == io_index ? valid_56 : _GEN_252; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_254 = 6'h39 == io_index ? valid_57 : _GEN_253; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_255 = 6'h3a == io_index ? valid_58 : _GEN_254; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_256 = 6'h3b == io_index ? valid_59 : _GEN_255; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_257 = 6'h3c == io_index ? valid_60 : _GEN_256; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_258 = 6'h3d == io_index ? valid_61 : _GEN_257; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_259 = 6'h3e == io_index ? valid_62 : _GEN_258; // @[META.scala 32:24 META.scala 32:24]
-  wire  _GEN_260 = 6'h3f == io_index ? valid_63 : _GEN_259; // @[META.scala 32:24 META.scala 32:24]
-  assign tag_io_tag_r_MPORT_addr = tag_io_tag_r_MPORT_addr_pipe_0;
-  assign tag_io_tag_r_MPORT_data = tag[tag_io_tag_r_MPORT_addr]; // @[META.scala 20:24]
-  assign tag_MPORT_data = io_tag_w;
-  assign tag_MPORT_addr = io_index;
-  assign tag_MPORT_mask = 1'h1;
-  assign tag_MPORT_en = io_tag_wen;
-  assign tag_MPORT_1_data = 22'h0;
-  assign tag_MPORT_1_addr = 6'h0;
-  assign tag_MPORT_1_mask = 1'h1;
-  assign tag_MPORT_1_en = reset;
-  assign tag_MPORT_2_data = 22'h0;
-  assign tag_MPORT_2_addr = 6'h1;
-  assign tag_MPORT_2_mask = 1'h1;
-  assign tag_MPORT_2_en = reset;
-  assign tag_MPORT_3_data = 22'h0;
-  assign tag_MPORT_3_addr = 6'h2;
-  assign tag_MPORT_3_mask = 1'h1;
-  assign tag_MPORT_3_en = reset;
-  assign tag_MPORT_4_data = 22'h0;
-  assign tag_MPORT_4_addr = 6'h3;
-  assign tag_MPORT_4_mask = 1'h1;
-  assign tag_MPORT_4_en = reset;
-  assign tag_MPORT_5_data = 22'h0;
-  assign tag_MPORT_5_addr = 6'h4;
-  assign tag_MPORT_5_mask = 1'h1;
-  assign tag_MPORT_5_en = reset;
-  assign tag_MPORT_6_data = 22'h0;
-  assign tag_MPORT_6_addr = 6'h5;
-  assign tag_MPORT_6_mask = 1'h1;
-  assign tag_MPORT_6_en = reset;
-  assign tag_MPORT_7_data = 22'h0;
-  assign tag_MPORT_7_addr = 6'h6;
-  assign tag_MPORT_7_mask = 1'h1;
-  assign tag_MPORT_7_en = reset;
-  assign tag_MPORT_8_data = 22'h0;
-  assign tag_MPORT_8_addr = 6'h7;
-  assign tag_MPORT_8_mask = 1'h1;
-  assign tag_MPORT_8_en = reset;
-  assign tag_MPORT_9_data = 22'h0;
-  assign tag_MPORT_9_addr = 6'h8;
-  assign tag_MPORT_9_mask = 1'h1;
-  assign tag_MPORT_9_en = reset;
-  assign tag_MPORT_10_data = 22'h0;
-  assign tag_MPORT_10_addr = 6'h9;
-  assign tag_MPORT_10_mask = 1'h1;
-  assign tag_MPORT_10_en = reset;
-  assign tag_MPORT_11_data = 22'h0;
-  assign tag_MPORT_11_addr = 6'ha;
-  assign tag_MPORT_11_mask = 1'h1;
-  assign tag_MPORT_11_en = reset;
-  assign tag_MPORT_12_data = 22'h0;
-  assign tag_MPORT_12_addr = 6'hb;
-  assign tag_MPORT_12_mask = 1'h1;
-  assign tag_MPORT_12_en = reset;
-  assign tag_MPORT_13_data = 22'h0;
-  assign tag_MPORT_13_addr = 6'hc;
-  assign tag_MPORT_13_mask = 1'h1;
-  assign tag_MPORT_13_en = reset;
-  assign tag_MPORT_14_data = 22'h0;
-  assign tag_MPORT_14_addr = 6'hd;
-  assign tag_MPORT_14_mask = 1'h1;
-  assign tag_MPORT_14_en = reset;
-  assign tag_MPORT_15_data = 22'h0;
-  assign tag_MPORT_15_addr = 6'he;
-  assign tag_MPORT_15_mask = 1'h1;
-  assign tag_MPORT_15_en = reset;
-  assign tag_MPORT_16_data = 22'h0;
-  assign tag_MPORT_16_addr = 6'hf;
-  assign tag_MPORT_16_mask = 1'h1;
-  assign tag_MPORT_16_en = reset;
-  assign tag_MPORT_17_data = 22'h0;
-  assign tag_MPORT_17_addr = 6'h10;
-  assign tag_MPORT_17_mask = 1'h1;
-  assign tag_MPORT_17_en = reset;
-  assign tag_MPORT_18_data = 22'h0;
-  assign tag_MPORT_18_addr = 6'h11;
-  assign tag_MPORT_18_mask = 1'h1;
-  assign tag_MPORT_18_en = reset;
-  assign tag_MPORT_19_data = 22'h0;
-  assign tag_MPORT_19_addr = 6'h12;
-  assign tag_MPORT_19_mask = 1'h1;
-  assign tag_MPORT_19_en = reset;
-  assign tag_MPORT_20_data = 22'h0;
-  assign tag_MPORT_20_addr = 6'h13;
-  assign tag_MPORT_20_mask = 1'h1;
-  assign tag_MPORT_20_en = reset;
-  assign tag_MPORT_21_data = 22'h0;
-  assign tag_MPORT_21_addr = 6'h14;
-  assign tag_MPORT_21_mask = 1'h1;
-  assign tag_MPORT_21_en = reset;
-  assign tag_MPORT_22_data = 22'h0;
-  assign tag_MPORT_22_addr = 6'h15;
-  assign tag_MPORT_22_mask = 1'h1;
-  assign tag_MPORT_22_en = reset;
-  assign tag_MPORT_23_data = 22'h0;
-  assign tag_MPORT_23_addr = 6'h16;
-  assign tag_MPORT_23_mask = 1'h1;
-  assign tag_MPORT_23_en = reset;
-  assign tag_MPORT_24_data = 22'h0;
-  assign tag_MPORT_24_addr = 6'h17;
-  assign tag_MPORT_24_mask = 1'h1;
-  assign tag_MPORT_24_en = reset;
-  assign tag_MPORT_25_data = 22'h0;
-  assign tag_MPORT_25_addr = 6'h18;
-  assign tag_MPORT_25_mask = 1'h1;
-  assign tag_MPORT_25_en = reset;
-  assign tag_MPORT_26_data = 22'h0;
-  assign tag_MPORT_26_addr = 6'h19;
-  assign tag_MPORT_26_mask = 1'h1;
-  assign tag_MPORT_26_en = reset;
-  assign tag_MPORT_27_data = 22'h0;
-  assign tag_MPORT_27_addr = 6'h1a;
-  assign tag_MPORT_27_mask = 1'h1;
-  assign tag_MPORT_27_en = reset;
-  assign tag_MPORT_28_data = 22'h0;
-  assign tag_MPORT_28_addr = 6'h1b;
-  assign tag_MPORT_28_mask = 1'h1;
-  assign tag_MPORT_28_en = reset;
-  assign tag_MPORT_29_data = 22'h0;
-  assign tag_MPORT_29_addr = 6'h1c;
-  assign tag_MPORT_29_mask = 1'h1;
-  assign tag_MPORT_29_en = reset;
-  assign tag_MPORT_30_data = 22'h0;
-  assign tag_MPORT_30_addr = 6'h1d;
-  assign tag_MPORT_30_mask = 1'h1;
-  assign tag_MPORT_30_en = reset;
-  assign tag_MPORT_31_data = 22'h0;
-  assign tag_MPORT_31_addr = 6'h1e;
-  assign tag_MPORT_31_mask = 1'h1;
-  assign tag_MPORT_31_en = reset;
-  assign tag_MPORT_32_data = 22'h0;
-  assign tag_MPORT_32_addr = 6'h1f;
-  assign tag_MPORT_32_mask = 1'h1;
-  assign tag_MPORT_32_en = reset;
-  assign tag_MPORT_33_data = 22'h0;
-  assign tag_MPORT_33_addr = 6'h20;
-  assign tag_MPORT_33_mask = 1'h1;
-  assign tag_MPORT_33_en = reset;
-  assign tag_MPORT_34_data = 22'h0;
-  assign tag_MPORT_34_addr = 6'h21;
-  assign tag_MPORT_34_mask = 1'h1;
-  assign tag_MPORT_34_en = reset;
-  assign tag_MPORT_35_data = 22'h0;
-  assign tag_MPORT_35_addr = 6'h22;
-  assign tag_MPORT_35_mask = 1'h1;
-  assign tag_MPORT_35_en = reset;
-  assign tag_MPORT_36_data = 22'h0;
-  assign tag_MPORT_36_addr = 6'h23;
-  assign tag_MPORT_36_mask = 1'h1;
-  assign tag_MPORT_36_en = reset;
-  assign tag_MPORT_37_data = 22'h0;
-  assign tag_MPORT_37_addr = 6'h24;
-  assign tag_MPORT_37_mask = 1'h1;
-  assign tag_MPORT_37_en = reset;
-  assign tag_MPORT_38_data = 22'h0;
-  assign tag_MPORT_38_addr = 6'h25;
-  assign tag_MPORT_38_mask = 1'h1;
-  assign tag_MPORT_38_en = reset;
-  assign tag_MPORT_39_data = 22'h0;
-  assign tag_MPORT_39_addr = 6'h26;
-  assign tag_MPORT_39_mask = 1'h1;
-  assign tag_MPORT_39_en = reset;
-  assign tag_MPORT_40_data = 22'h0;
-  assign tag_MPORT_40_addr = 6'h27;
-  assign tag_MPORT_40_mask = 1'h1;
-  assign tag_MPORT_40_en = reset;
-  assign tag_MPORT_41_data = 22'h0;
-  assign tag_MPORT_41_addr = 6'h28;
-  assign tag_MPORT_41_mask = 1'h1;
-  assign tag_MPORT_41_en = reset;
-  assign tag_MPORT_42_data = 22'h0;
-  assign tag_MPORT_42_addr = 6'h29;
-  assign tag_MPORT_42_mask = 1'h1;
-  assign tag_MPORT_42_en = reset;
-  assign tag_MPORT_43_data = 22'h0;
-  assign tag_MPORT_43_addr = 6'h2a;
-  assign tag_MPORT_43_mask = 1'h1;
-  assign tag_MPORT_43_en = reset;
-  assign tag_MPORT_44_data = 22'h0;
-  assign tag_MPORT_44_addr = 6'h2b;
-  assign tag_MPORT_44_mask = 1'h1;
-  assign tag_MPORT_44_en = reset;
-  assign tag_MPORT_45_data = 22'h0;
-  assign tag_MPORT_45_addr = 6'h2c;
-  assign tag_MPORT_45_mask = 1'h1;
-  assign tag_MPORT_45_en = reset;
-  assign tag_MPORT_46_data = 22'h0;
-  assign tag_MPORT_46_addr = 6'h2d;
-  assign tag_MPORT_46_mask = 1'h1;
-  assign tag_MPORT_46_en = reset;
-  assign tag_MPORT_47_data = 22'h0;
-  assign tag_MPORT_47_addr = 6'h2e;
-  assign tag_MPORT_47_mask = 1'h1;
-  assign tag_MPORT_47_en = reset;
-  assign tag_MPORT_48_data = 22'h0;
-  assign tag_MPORT_48_addr = 6'h2f;
-  assign tag_MPORT_48_mask = 1'h1;
-  assign tag_MPORT_48_en = reset;
-  assign tag_MPORT_49_data = 22'h0;
-  assign tag_MPORT_49_addr = 6'h30;
-  assign tag_MPORT_49_mask = 1'h1;
-  assign tag_MPORT_49_en = reset;
-  assign tag_MPORT_50_data = 22'h0;
-  assign tag_MPORT_50_addr = 6'h31;
-  assign tag_MPORT_50_mask = 1'h1;
-  assign tag_MPORT_50_en = reset;
-  assign tag_MPORT_51_data = 22'h0;
-  assign tag_MPORT_51_addr = 6'h32;
-  assign tag_MPORT_51_mask = 1'h1;
-  assign tag_MPORT_51_en = reset;
-  assign tag_MPORT_52_data = 22'h0;
-  assign tag_MPORT_52_addr = 6'h33;
-  assign tag_MPORT_52_mask = 1'h1;
-  assign tag_MPORT_52_en = reset;
-  assign tag_MPORT_53_data = 22'h0;
-  assign tag_MPORT_53_addr = 6'h34;
-  assign tag_MPORT_53_mask = 1'h1;
-  assign tag_MPORT_53_en = reset;
-  assign tag_MPORT_54_data = 22'h0;
-  assign tag_MPORT_54_addr = 6'h35;
-  assign tag_MPORT_54_mask = 1'h1;
-  assign tag_MPORT_54_en = reset;
-  assign tag_MPORT_55_data = 22'h0;
-  assign tag_MPORT_55_addr = 6'h36;
-  assign tag_MPORT_55_mask = 1'h1;
-  assign tag_MPORT_55_en = reset;
-  assign tag_MPORT_56_data = 22'h0;
-  assign tag_MPORT_56_addr = 6'h37;
-  assign tag_MPORT_56_mask = 1'h1;
-  assign tag_MPORT_56_en = reset;
-  assign tag_MPORT_57_data = 22'h0;
-  assign tag_MPORT_57_addr = 6'h38;
-  assign tag_MPORT_57_mask = 1'h1;
-  assign tag_MPORT_57_en = reset;
-  assign tag_MPORT_58_data = 22'h0;
-  assign tag_MPORT_58_addr = 6'h39;
-  assign tag_MPORT_58_mask = 1'h1;
-  assign tag_MPORT_58_en = reset;
-  assign tag_MPORT_59_data = 22'h0;
-  assign tag_MPORT_59_addr = 6'h3a;
-  assign tag_MPORT_59_mask = 1'h1;
-  assign tag_MPORT_59_en = reset;
-  assign tag_MPORT_60_data = 22'h0;
-  assign tag_MPORT_60_addr = 6'h3b;
-  assign tag_MPORT_60_mask = 1'h1;
-  assign tag_MPORT_60_en = reset;
-  assign tag_MPORT_61_data = 22'h0;
-  assign tag_MPORT_61_addr = 6'h3c;
-  assign tag_MPORT_61_mask = 1'h1;
-  assign tag_MPORT_61_en = reset;
-  assign tag_MPORT_62_data = 22'h0;
-  assign tag_MPORT_62_addr = 6'h3d;
-  assign tag_MPORT_62_mask = 1'h1;
-  assign tag_MPORT_62_en = reset;
-  assign tag_MPORT_63_data = 22'h0;
-  assign tag_MPORT_63_addr = 6'h3e;
-  assign tag_MPORT_63_mask = 1'h1;
-  assign tag_MPORT_63_en = reset;
-  assign tag_MPORT_64_data = 22'h0;
-  assign tag_MPORT_64_addr = 6'h3f;
-  assign tag_MPORT_64_mask = 1'h1;
-  assign tag_MPORT_64_en = reset;
-  assign io_tag_r = tag_io_tag_r_MPORT_data; // @[META.scala 29:12]
+  wire  _GEN_385 = 6'h1 == io_index ? valid_1 : valid_0; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_386 = 6'h2 == io_index ? valid_2 : _GEN_385; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_387 = 6'h3 == io_index ? valid_3 : _GEN_386; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_388 = 6'h4 == io_index ? valid_4 : _GEN_387; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_389 = 6'h5 == io_index ? valid_5 : _GEN_388; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_390 = 6'h6 == io_index ? valid_6 : _GEN_389; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_391 = 6'h7 == io_index ? valid_7 : _GEN_390; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_392 = 6'h8 == io_index ? valid_8 : _GEN_391; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_393 = 6'h9 == io_index ? valid_9 : _GEN_392; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_394 = 6'ha == io_index ? valid_10 : _GEN_393; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_395 = 6'hb == io_index ? valid_11 : _GEN_394; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_396 = 6'hc == io_index ? valid_12 : _GEN_395; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_397 = 6'hd == io_index ? valid_13 : _GEN_396; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_398 = 6'he == io_index ? valid_14 : _GEN_397; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_399 = 6'hf == io_index ? valid_15 : _GEN_398; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_400 = 6'h10 == io_index ? valid_16 : _GEN_399; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_401 = 6'h11 == io_index ? valid_17 : _GEN_400; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_402 = 6'h12 == io_index ? valid_18 : _GEN_401; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_403 = 6'h13 == io_index ? valid_19 : _GEN_402; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_404 = 6'h14 == io_index ? valid_20 : _GEN_403; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_405 = 6'h15 == io_index ? valid_21 : _GEN_404; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_406 = 6'h16 == io_index ? valid_22 : _GEN_405; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_407 = 6'h17 == io_index ? valid_23 : _GEN_406; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_408 = 6'h18 == io_index ? valid_24 : _GEN_407; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_409 = 6'h19 == io_index ? valid_25 : _GEN_408; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_410 = 6'h1a == io_index ? valid_26 : _GEN_409; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_411 = 6'h1b == io_index ? valid_27 : _GEN_410; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_412 = 6'h1c == io_index ? valid_28 : _GEN_411; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_413 = 6'h1d == io_index ? valid_29 : _GEN_412; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_414 = 6'h1e == io_index ? valid_30 : _GEN_413; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_415 = 6'h1f == io_index ? valid_31 : _GEN_414; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_416 = 6'h20 == io_index ? valid_32 : _GEN_415; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_417 = 6'h21 == io_index ? valid_33 : _GEN_416; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_418 = 6'h22 == io_index ? valid_34 : _GEN_417; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_419 = 6'h23 == io_index ? valid_35 : _GEN_418; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_420 = 6'h24 == io_index ? valid_36 : _GEN_419; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_421 = 6'h25 == io_index ? valid_37 : _GEN_420; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_422 = 6'h26 == io_index ? valid_38 : _GEN_421; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_423 = 6'h27 == io_index ? valid_39 : _GEN_422; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_424 = 6'h28 == io_index ? valid_40 : _GEN_423; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_425 = 6'h29 == io_index ? valid_41 : _GEN_424; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_426 = 6'h2a == io_index ? valid_42 : _GEN_425; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_427 = 6'h2b == io_index ? valid_43 : _GEN_426; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_428 = 6'h2c == io_index ? valid_44 : _GEN_427; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_429 = 6'h2d == io_index ? valid_45 : _GEN_428; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_430 = 6'h2e == io_index ? valid_46 : _GEN_429; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_431 = 6'h2f == io_index ? valid_47 : _GEN_430; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_432 = 6'h30 == io_index ? valid_48 : _GEN_431; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_433 = 6'h31 == io_index ? valid_49 : _GEN_432; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_434 = 6'h32 == io_index ? valid_50 : _GEN_433; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_435 = 6'h33 == io_index ? valid_51 : _GEN_434; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_436 = 6'h34 == io_index ? valid_52 : _GEN_435; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_437 = 6'h35 == io_index ? valid_53 : _GEN_436; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_438 = 6'h36 == io_index ? valid_54 : _GEN_437; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_439 = 6'h37 == io_index ? valid_55 : _GEN_438; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_440 = 6'h38 == io_index ? valid_56 : _GEN_439; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_441 = 6'h39 == io_index ? valid_57 : _GEN_440; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_442 = 6'h3a == io_index ? valid_58 : _GEN_441; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_443 = 6'h3b == io_index ? valid_59 : _GEN_442; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_444 = 6'h3c == io_index ? valid_60 : _GEN_443; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_445 = 6'h3d == io_index ? valid_61 : _GEN_444; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_446 = 6'h3e == io_index ? valid_62 : _GEN_445; // @[META.scala 32:24 META.scala 32:24]
+  wire  _GEN_447 = 6'h3f == io_index ? valid_63 : _GEN_446; // @[META.scala 32:24 META.scala 32:24]
+  assign io_tag_r = io_tag_r_REG; // @[META.scala 29:12]
   assign io_dirty_r = io_dirty_r_REG; // @[META.scala 31:14]
   assign io_valid_r = io_valid_r_REG; // @[META.scala 32:14]
-  assign io_fence_dirty = _GEN_196 & _GEN_260; // @[META.scala 33:34]
+  assign io_fence_dirty = _GEN_383 & _GEN_447; // @[META.scala 33:34]
   always @(posedge clock) begin
-    if(tag_MPORT_en & tag_MPORT_mask) begin
-      tag[tag_MPORT_addr] <= tag_MPORT_data; // @[META.scala 20:24]
+    if (reset) begin // @[META.scala 20:20]
+      tag_0 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_0 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h0 == io_index) begin // @[META.scala 26:16]
+        tag_0 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_1 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_1 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h1 == io_index) begin // @[META.scala 26:16]
+        tag_1 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_2 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_2 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h2 == io_index) begin // @[META.scala 26:16]
+        tag_2 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_3 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_3 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h3 == io_index) begin // @[META.scala 26:16]
+        tag_3 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_4 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_4 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h4 == io_index) begin // @[META.scala 26:16]
+        tag_4 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_5 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_5 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h5 == io_index) begin // @[META.scala 26:16]
+        tag_5 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_6 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_6 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h6 == io_index) begin // @[META.scala 26:16]
+        tag_6 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_7 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_7 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h7 == io_index) begin // @[META.scala 26:16]
+        tag_7 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_8 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_8 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h8 == io_index) begin // @[META.scala 26:16]
+        tag_8 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_9 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_9 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h9 == io_index) begin // @[META.scala 26:16]
+        tag_9 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_10 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_10 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'ha == io_index) begin // @[META.scala 26:16]
+        tag_10 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_11 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_11 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'hb == io_index) begin // @[META.scala 26:16]
+        tag_11 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_12 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_12 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'hc == io_index) begin // @[META.scala 26:16]
+        tag_12 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_13 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_13 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'hd == io_index) begin // @[META.scala 26:16]
+        tag_13 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_14 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_14 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'he == io_index) begin // @[META.scala 26:16]
+        tag_14 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_15 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_15 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'hf == io_index) begin // @[META.scala 26:16]
+        tag_15 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_16 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_16 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h10 == io_index) begin // @[META.scala 26:16]
+        tag_16 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_17 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_17 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h11 == io_index) begin // @[META.scala 26:16]
+        tag_17 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_18 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_18 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h12 == io_index) begin // @[META.scala 26:16]
+        tag_18 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_19 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_19 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h13 == io_index) begin // @[META.scala 26:16]
+        tag_19 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_20 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_20 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h14 == io_index) begin // @[META.scala 26:16]
+        tag_20 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_21 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_21 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h15 == io_index) begin // @[META.scala 26:16]
+        tag_21 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_22 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_22 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h16 == io_index) begin // @[META.scala 26:16]
+        tag_22 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_23 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_23 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h17 == io_index) begin // @[META.scala 26:16]
+        tag_23 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_24 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_24 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h18 == io_index) begin // @[META.scala 26:16]
+        tag_24 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_25 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_25 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h19 == io_index) begin // @[META.scala 26:16]
+        tag_25 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_26 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_26 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h1a == io_index) begin // @[META.scala 26:16]
+        tag_26 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_27 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_27 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h1b == io_index) begin // @[META.scala 26:16]
+        tag_27 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_28 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_28 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h1c == io_index) begin // @[META.scala 26:16]
+        tag_28 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_29 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_29 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h1d == io_index) begin // @[META.scala 26:16]
+        tag_29 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_30 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_30 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h1e == io_index) begin // @[META.scala 26:16]
+        tag_30 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_31 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_31 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h1f == io_index) begin // @[META.scala 26:16]
+        tag_31 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_32 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_32 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h20 == io_index) begin // @[META.scala 26:16]
+        tag_32 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_33 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_33 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h21 == io_index) begin // @[META.scala 26:16]
+        tag_33 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_34 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_34 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h22 == io_index) begin // @[META.scala 26:16]
+        tag_34 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_35 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_35 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h23 == io_index) begin // @[META.scala 26:16]
+        tag_35 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_36 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_36 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h24 == io_index) begin // @[META.scala 26:16]
+        tag_36 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_37 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_37 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h25 == io_index) begin // @[META.scala 26:16]
+        tag_37 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_38 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_38 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h26 == io_index) begin // @[META.scala 26:16]
+        tag_38 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_39 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_39 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h27 == io_index) begin // @[META.scala 26:16]
+        tag_39 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_40 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_40 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h28 == io_index) begin // @[META.scala 26:16]
+        tag_40 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_41 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_41 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h29 == io_index) begin // @[META.scala 26:16]
+        tag_41 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_42 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_42 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h2a == io_index) begin // @[META.scala 26:16]
+        tag_42 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_43 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_43 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h2b == io_index) begin // @[META.scala 26:16]
+        tag_43 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_44 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_44 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h2c == io_index) begin // @[META.scala 26:16]
+        tag_44 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_45 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_45 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h2d == io_index) begin // @[META.scala 26:16]
+        tag_45 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_46 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_46 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h2e == io_index) begin // @[META.scala 26:16]
+        tag_46 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_47 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_47 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h2f == io_index) begin // @[META.scala 26:16]
+        tag_47 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_48 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_48 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h30 == io_index) begin // @[META.scala 26:16]
+        tag_48 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_49 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_49 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h31 == io_index) begin // @[META.scala 26:16]
+        tag_49 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_50 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_50 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h32 == io_index) begin // @[META.scala 26:16]
+        tag_50 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_51 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_51 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h33 == io_index) begin // @[META.scala 26:16]
+        tag_51 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_52 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_52 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h34 == io_index) begin // @[META.scala 26:16]
+        tag_52 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_53 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_53 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h35 == io_index) begin // @[META.scala 26:16]
+        tag_53 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_54 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_54 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h36 == io_index) begin // @[META.scala 26:16]
+        tag_54 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_55 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_55 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h37 == io_index) begin // @[META.scala 26:16]
+        tag_55 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_56 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_56 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h38 == io_index) begin // @[META.scala 26:16]
+        tag_56 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_57 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_57 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h39 == io_index) begin // @[META.scala 26:16]
+        tag_57 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_58 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_58 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h3a == io_index) begin // @[META.scala 26:16]
+        tag_58 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_59 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_59 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h3b == io_index) begin // @[META.scala 26:16]
+        tag_59 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_60 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_60 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h3c == io_index) begin // @[META.scala 26:16]
+        tag_60 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_61 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_61 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h3d == io_index) begin // @[META.scala 26:16]
+        tag_61 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_62 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_62 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h3e == io_index) begin // @[META.scala 26:16]
+        tag_62 <= io_tag_w; // @[META.scala 26:16]
+      end
+    end
+    if (reset) begin // @[META.scala 20:20]
+      tag_63 <= 22'h0; // @[META.scala 20:20]
+    end else if (reset) begin // @[META.scala 39:23]
+      tag_63 <= 22'h0; // @[META.scala 41:14]
+    end else if (io_tag_wen) begin // @[META.scala 25:21]
+      if (6'h3f == io_index) begin // @[META.scala 26:16]
+        tag_63 <= io_tag_w; // @[META.scala 26:16]
+      end
     end
-    if(tag_MPORT_1_en & tag_MPORT_1_mask) begin
-      tag[tag_MPORT_1_addr] <= tag_MPORT_1_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_2_en & tag_MPORT_2_mask) begin
-      tag[tag_MPORT_2_addr] <= tag_MPORT_2_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_3_en & tag_MPORT_3_mask) begin
-      tag[tag_MPORT_3_addr] <= tag_MPORT_3_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_4_en & tag_MPORT_4_mask) begin
-      tag[tag_MPORT_4_addr] <= tag_MPORT_4_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_5_en & tag_MPORT_5_mask) begin
-      tag[tag_MPORT_5_addr] <= tag_MPORT_5_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_6_en & tag_MPORT_6_mask) begin
-      tag[tag_MPORT_6_addr] <= tag_MPORT_6_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_7_en & tag_MPORT_7_mask) begin
-      tag[tag_MPORT_7_addr] <= tag_MPORT_7_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_8_en & tag_MPORT_8_mask) begin
-      tag[tag_MPORT_8_addr] <= tag_MPORT_8_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_9_en & tag_MPORT_9_mask) begin
-      tag[tag_MPORT_9_addr] <= tag_MPORT_9_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_10_en & tag_MPORT_10_mask) begin
-      tag[tag_MPORT_10_addr] <= tag_MPORT_10_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_11_en & tag_MPORT_11_mask) begin
-      tag[tag_MPORT_11_addr] <= tag_MPORT_11_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_12_en & tag_MPORT_12_mask) begin
-      tag[tag_MPORT_12_addr] <= tag_MPORT_12_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_13_en & tag_MPORT_13_mask) begin
-      tag[tag_MPORT_13_addr] <= tag_MPORT_13_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_14_en & tag_MPORT_14_mask) begin
-      tag[tag_MPORT_14_addr] <= tag_MPORT_14_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_15_en & tag_MPORT_15_mask) begin
-      tag[tag_MPORT_15_addr] <= tag_MPORT_15_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_16_en & tag_MPORT_16_mask) begin
-      tag[tag_MPORT_16_addr] <= tag_MPORT_16_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_17_en & tag_MPORT_17_mask) begin
-      tag[tag_MPORT_17_addr] <= tag_MPORT_17_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_18_en & tag_MPORT_18_mask) begin
-      tag[tag_MPORT_18_addr] <= tag_MPORT_18_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_19_en & tag_MPORT_19_mask) begin
-      tag[tag_MPORT_19_addr] <= tag_MPORT_19_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_20_en & tag_MPORT_20_mask) begin
-      tag[tag_MPORT_20_addr] <= tag_MPORT_20_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_21_en & tag_MPORT_21_mask) begin
-      tag[tag_MPORT_21_addr] <= tag_MPORT_21_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_22_en & tag_MPORT_22_mask) begin
-      tag[tag_MPORT_22_addr] <= tag_MPORT_22_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_23_en & tag_MPORT_23_mask) begin
-      tag[tag_MPORT_23_addr] <= tag_MPORT_23_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_24_en & tag_MPORT_24_mask) begin
-      tag[tag_MPORT_24_addr] <= tag_MPORT_24_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_25_en & tag_MPORT_25_mask) begin
-      tag[tag_MPORT_25_addr] <= tag_MPORT_25_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_26_en & tag_MPORT_26_mask) begin
-      tag[tag_MPORT_26_addr] <= tag_MPORT_26_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_27_en & tag_MPORT_27_mask) begin
-      tag[tag_MPORT_27_addr] <= tag_MPORT_27_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_28_en & tag_MPORT_28_mask) begin
-      tag[tag_MPORT_28_addr] <= tag_MPORT_28_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_29_en & tag_MPORT_29_mask) begin
-      tag[tag_MPORT_29_addr] <= tag_MPORT_29_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_30_en & tag_MPORT_30_mask) begin
-      tag[tag_MPORT_30_addr] <= tag_MPORT_30_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_31_en & tag_MPORT_31_mask) begin
-      tag[tag_MPORT_31_addr] <= tag_MPORT_31_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_32_en & tag_MPORT_32_mask) begin
-      tag[tag_MPORT_32_addr] <= tag_MPORT_32_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_33_en & tag_MPORT_33_mask) begin
-      tag[tag_MPORT_33_addr] <= tag_MPORT_33_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_34_en & tag_MPORT_34_mask) begin
-      tag[tag_MPORT_34_addr] <= tag_MPORT_34_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_35_en & tag_MPORT_35_mask) begin
-      tag[tag_MPORT_35_addr] <= tag_MPORT_35_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_36_en & tag_MPORT_36_mask) begin
-      tag[tag_MPORT_36_addr] <= tag_MPORT_36_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_37_en & tag_MPORT_37_mask) begin
-      tag[tag_MPORT_37_addr] <= tag_MPORT_37_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_38_en & tag_MPORT_38_mask) begin
-      tag[tag_MPORT_38_addr] <= tag_MPORT_38_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_39_en & tag_MPORT_39_mask) begin
-      tag[tag_MPORT_39_addr] <= tag_MPORT_39_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_40_en & tag_MPORT_40_mask) begin
-      tag[tag_MPORT_40_addr] <= tag_MPORT_40_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_41_en & tag_MPORT_41_mask) begin
-      tag[tag_MPORT_41_addr] <= tag_MPORT_41_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_42_en & tag_MPORT_42_mask) begin
-      tag[tag_MPORT_42_addr] <= tag_MPORT_42_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_43_en & tag_MPORT_43_mask) begin
-      tag[tag_MPORT_43_addr] <= tag_MPORT_43_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_44_en & tag_MPORT_44_mask) begin
-      tag[tag_MPORT_44_addr] <= tag_MPORT_44_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_45_en & tag_MPORT_45_mask) begin
-      tag[tag_MPORT_45_addr] <= tag_MPORT_45_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_46_en & tag_MPORT_46_mask) begin
-      tag[tag_MPORT_46_addr] <= tag_MPORT_46_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_47_en & tag_MPORT_47_mask) begin
-      tag[tag_MPORT_47_addr] <= tag_MPORT_47_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_48_en & tag_MPORT_48_mask) begin
-      tag[tag_MPORT_48_addr] <= tag_MPORT_48_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_49_en & tag_MPORT_49_mask) begin
-      tag[tag_MPORT_49_addr] <= tag_MPORT_49_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_50_en & tag_MPORT_50_mask) begin
-      tag[tag_MPORT_50_addr] <= tag_MPORT_50_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_51_en & tag_MPORT_51_mask) begin
-      tag[tag_MPORT_51_addr] <= tag_MPORT_51_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_52_en & tag_MPORT_52_mask) begin
-      tag[tag_MPORT_52_addr] <= tag_MPORT_52_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_53_en & tag_MPORT_53_mask) begin
-      tag[tag_MPORT_53_addr] <= tag_MPORT_53_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_54_en & tag_MPORT_54_mask) begin
-      tag[tag_MPORT_54_addr] <= tag_MPORT_54_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_55_en & tag_MPORT_55_mask) begin
-      tag[tag_MPORT_55_addr] <= tag_MPORT_55_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_56_en & tag_MPORT_56_mask) begin
-      tag[tag_MPORT_56_addr] <= tag_MPORT_56_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_57_en & tag_MPORT_57_mask) begin
-      tag[tag_MPORT_57_addr] <= tag_MPORT_57_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_58_en & tag_MPORT_58_mask) begin
-      tag[tag_MPORT_58_addr] <= tag_MPORT_58_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_59_en & tag_MPORT_59_mask) begin
-      tag[tag_MPORT_59_addr] <= tag_MPORT_59_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_60_en & tag_MPORT_60_mask) begin
-      tag[tag_MPORT_60_addr] <= tag_MPORT_60_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_61_en & tag_MPORT_61_mask) begin
-      tag[tag_MPORT_61_addr] <= tag_MPORT_61_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_62_en & tag_MPORT_62_mask) begin
-      tag[tag_MPORT_62_addr] <= tag_MPORT_62_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_63_en & tag_MPORT_63_mask) begin
-      tag[tag_MPORT_63_addr] <= tag_MPORT_63_data; // @[META.scala 20:24]
-    end
-    if(tag_MPORT_64_en & tag_MPORT_64_mask) begin
-      tag[tag_MPORT_64_addr] <= tag_MPORT_64_data; // @[META.scala 20:24]
-    end
-    tag_io_tag_r_MPORT_addr_pipe_0 <= io_index;
     if (reset) begin // @[META.scala 22:22]
       valid_0 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_0 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_0 <= _GEN_0;
+      valid_0 <= _GEN_64;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_1 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_1 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_1 <= _GEN_1;
+      valid_1 <= _GEN_65;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_2 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_2 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_2 <= _GEN_2;
+      valid_2 <= _GEN_66;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_3 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_3 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_3 <= _GEN_3;
+      valid_3 <= _GEN_67;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_4 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_4 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_4 <= _GEN_4;
+      valid_4 <= _GEN_68;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_5 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_5 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_5 <= _GEN_5;
+      valid_5 <= _GEN_69;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_6 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_6 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_6 <= _GEN_6;
+      valid_6 <= _GEN_70;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_7 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_7 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_7 <= _GEN_7;
+      valid_7 <= _GEN_71;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_8 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_8 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_8 <= _GEN_8;
+      valid_8 <= _GEN_72;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_9 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_9 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_9 <= _GEN_9;
+      valid_9 <= _GEN_73;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_10 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_10 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_10 <= _GEN_10;
+      valid_10 <= _GEN_74;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_11 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_11 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_11 <= _GEN_11;
+      valid_11 <= _GEN_75;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_12 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_12 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_12 <= _GEN_12;
+      valid_12 <= _GEN_76;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_13 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_13 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_13 <= _GEN_13;
+      valid_13 <= _GEN_77;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_14 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_14 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_14 <= _GEN_14;
+      valid_14 <= _GEN_78;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_15 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_15 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_15 <= _GEN_15;
+      valid_15 <= _GEN_79;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_16 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_16 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_16 <= _GEN_16;
+      valid_16 <= _GEN_80;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_17 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_17 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_17 <= _GEN_17;
+      valid_17 <= _GEN_81;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_18 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_18 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_18 <= _GEN_18;
+      valid_18 <= _GEN_82;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_19 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_19 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_19 <= _GEN_19;
+      valid_19 <= _GEN_83;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_20 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_20 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_20 <= _GEN_20;
+      valid_20 <= _GEN_84;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_21 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_21 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_21 <= _GEN_21;
+      valid_21 <= _GEN_85;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_22 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_22 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_22 <= _GEN_22;
+      valid_22 <= _GEN_86;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_23 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_23 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_23 <= _GEN_23;
+      valid_23 <= _GEN_87;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_24 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_24 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_24 <= _GEN_24;
+      valid_24 <= _GEN_88;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_25 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_25 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_25 <= _GEN_25;
+      valid_25 <= _GEN_89;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_26 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_26 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_26 <= _GEN_26;
+      valid_26 <= _GEN_90;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_27 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_27 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_27 <= _GEN_27;
+      valid_27 <= _GEN_91;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_28 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_28 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_28 <= _GEN_28;
+      valid_28 <= _GEN_92;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_29 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_29 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_29 <= _GEN_29;
+      valid_29 <= _GEN_93;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_30 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_30 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_30 <= _GEN_30;
+      valid_30 <= _GEN_94;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_31 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_31 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_31 <= _GEN_31;
+      valid_31 <= _GEN_95;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_32 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_32 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_32 <= _GEN_32;
+      valid_32 <= _GEN_96;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_33 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_33 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_33 <= _GEN_33;
+      valid_33 <= _GEN_97;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_34 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_34 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_34 <= _GEN_34;
+      valid_34 <= _GEN_98;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_35 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_35 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_35 <= _GEN_35;
+      valid_35 <= _GEN_99;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_36 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_36 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_36 <= _GEN_36;
+      valid_36 <= _GEN_100;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_37 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_37 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_37 <= _GEN_37;
+      valid_37 <= _GEN_101;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_38 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_38 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_38 <= _GEN_38;
+      valid_38 <= _GEN_102;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_39 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_39 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_39 <= _GEN_39;
+      valid_39 <= _GEN_103;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_40 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_40 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_40 <= _GEN_40;
+      valid_40 <= _GEN_104;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_41 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_41 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_41 <= _GEN_41;
+      valid_41 <= _GEN_105;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_42 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_42 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_42 <= _GEN_42;
+      valid_42 <= _GEN_106;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_43 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_43 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_43 <= _GEN_43;
+      valid_43 <= _GEN_107;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_44 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_44 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_44 <= _GEN_44;
+      valid_44 <= _GEN_108;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_45 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_45 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_45 <= _GEN_45;
+      valid_45 <= _GEN_109;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_46 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_46 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_46 <= _GEN_46;
+      valid_46 <= _GEN_110;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_47 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_47 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_47 <= _GEN_47;
+      valid_47 <= _GEN_111;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_48 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_48 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_48 <= _GEN_48;
+      valid_48 <= _GEN_112;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_49 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_49 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_49 <= _GEN_49;
+      valid_49 <= _GEN_113;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_50 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_50 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_50 <= _GEN_50;
+      valid_50 <= _GEN_114;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_51 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_51 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_51 <= _GEN_51;
+      valid_51 <= _GEN_115;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_52 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_52 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_52 <= _GEN_52;
+      valid_52 <= _GEN_116;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_53 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_53 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_53 <= _GEN_53;
+      valid_53 <= _GEN_117;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_54 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_54 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_54 <= _GEN_54;
+      valid_54 <= _GEN_118;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_55 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_55 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_55 <= _GEN_55;
+      valid_55 <= _GEN_119;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_56 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_56 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_56 <= _GEN_56;
+      valid_56 <= _GEN_120;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_57 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_57 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_57 <= _GEN_57;
+      valid_57 <= _GEN_121;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_58 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_58 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_58 <= _GEN_58;
+      valid_58 <= _GEN_122;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_59 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_59 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_59 <= _GEN_59;
+      valid_59 <= _GEN_123;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_60 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_60 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_60 <= _GEN_60;
+      valid_60 <= _GEN_124;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_61 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_61 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_61 <= _GEN_61;
+      valid_61 <= _GEN_125;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_62 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_62 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_62 <= _GEN_62;
+      valid_62 <= _GEN_126;
     end
     if (reset) begin // @[META.scala 22:22]
       valid_63 <= 1'h0; // @[META.scala 22:22]
     end else if (io_fence) begin // @[META.scala 45:19]
       valid_63 <= 1'h0; // @[META.scala 48:16]
     end else if (io_tag_wen) begin // @[META.scala 25:21]
-      valid_63 <= _GEN_63;
+      valid_63 <= _GEN_127;
     end
     if (reset) begin // @[META.scala 23:22]
       dirty_0 <= 1'h0; // @[META.scala 23:22]
@@ -12141,6 +12180,17 @@ module META(
         dirty_63 <= io_dirty_w; // @[META.scala 36:18]
       end
     end
+    if (6'h3f == io_index) begin // @[META.scala 29:22]
+      io_tag_r_REG <= tag_63; // @[META.scala 29:22]
+    end else if (6'h3e == io_index) begin // @[META.scala 29:22]
+      io_tag_r_REG <= tag_62; // @[META.scala 29:22]
+    end else if (6'h3d == io_index) begin // @[META.scala 29:22]
+      io_tag_r_REG <= tag_61; // @[META.scala 29:22]
+    end else if (6'h3c == io_index) begin // @[META.scala 29:22]
+      io_tag_r_REG <= tag_60; // @[META.scala 29:22]
+    end else begin
+      io_tag_r_REG <= _GEN_315;
+    end
     if (reset) begin // @[META.scala 31:24]
       io_dirty_r_REG <= 1'h0; // @[META.scala 31:24]
     end else if (6'h3f == io_index) begin // @[META.scala 31:24]
@@ -12150,7 +12200,7 @@ module META(
     end else if (6'h3d == io_index) begin // @[META.scala 31:24]
       io_dirty_r_REG <= dirty_61; // @[META.scala 31:24]
     end else begin
-      io_dirty_r_REG <= _GEN_193;
+      io_dirty_r_REG <= _GEN_380;
     end
     if (reset) begin // @[META.scala 32:24]
       io_valid_r_REG <= 1'h0; // @[META.scala 32:24]
@@ -12161,7 +12211,7 @@ module META(
     end else if (6'h3d == io_index) begin // @[META.scala 32:24]
       io_valid_r_REG <= valid_61; // @[META.scala 32:24]
     end else begin
-      io_valid_r_REG <= _GEN_257;
+      io_valid_r_REG <= _GEN_444;
     end
   end
 // Register and memory initialization
@@ -12199,274 +12249,397 @@ initial begin
         #0.002 begin end
       `endif
     `endif
-`ifdef RANDOMIZE_MEM_INIT
-  _RAND_0 = {1{`RANDOM}};
-  for (initvar = 0; initvar < 64; initvar = initvar+1)
-    tag[initvar] = _RAND_0[21:0];
-`endif // RANDOMIZE_MEM_INIT
 `ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {1{`RANDOM}};
+  tag_0 = _RAND_0[21:0];
   _RAND_1 = {1{`RANDOM}};
-  tag_io_tag_r_MPORT_addr_pipe_0 = _RAND_1[5:0];
+  tag_1 = _RAND_1[21:0];
   _RAND_2 = {1{`RANDOM}};
-  valid_0 = _RAND_2[0:0];
+  tag_2 = _RAND_2[21:0];
   _RAND_3 = {1{`RANDOM}};
-  valid_1 = _RAND_3[0:0];
+  tag_3 = _RAND_3[21:0];
   _RAND_4 = {1{`RANDOM}};
-  valid_2 = _RAND_4[0:0];
+  tag_4 = _RAND_4[21:0];
   _RAND_5 = {1{`RANDOM}};
-  valid_3 = _RAND_5[0:0];
+  tag_5 = _RAND_5[21:0];
   _RAND_6 = {1{`RANDOM}};
-  valid_4 = _RAND_6[0:0];
+  tag_6 = _RAND_6[21:0];
   _RAND_7 = {1{`RANDOM}};
-  valid_5 = _RAND_7[0:0];
+  tag_7 = _RAND_7[21:0];
   _RAND_8 = {1{`RANDOM}};
-  valid_6 = _RAND_8[0:0];
+  tag_8 = _RAND_8[21:0];
   _RAND_9 = {1{`RANDOM}};
-  valid_7 = _RAND_9[0:0];
+  tag_9 = _RAND_9[21:0];
   _RAND_10 = {1{`RANDOM}};
-  valid_8 = _RAND_10[0:0];
+  tag_10 = _RAND_10[21:0];
   _RAND_11 = {1{`RANDOM}};
-  valid_9 = _RAND_11[0:0];
+  tag_11 = _RAND_11[21:0];
   _RAND_12 = {1{`RANDOM}};
-  valid_10 = _RAND_12[0:0];
+  tag_12 = _RAND_12[21:0];
   _RAND_13 = {1{`RANDOM}};
-  valid_11 = _RAND_13[0:0];
+  tag_13 = _RAND_13[21:0];
   _RAND_14 = {1{`RANDOM}};
-  valid_12 = _RAND_14[0:0];
+  tag_14 = _RAND_14[21:0];
   _RAND_15 = {1{`RANDOM}};
-  valid_13 = _RAND_15[0:0];
+  tag_15 = _RAND_15[21:0];
   _RAND_16 = {1{`RANDOM}};
-  valid_14 = _RAND_16[0:0];
+  tag_16 = _RAND_16[21:0];
   _RAND_17 = {1{`RANDOM}};
-  valid_15 = _RAND_17[0:0];
+  tag_17 = _RAND_17[21:0];
   _RAND_18 = {1{`RANDOM}};
-  valid_16 = _RAND_18[0:0];
+  tag_18 = _RAND_18[21:0];
   _RAND_19 = {1{`RANDOM}};
-  valid_17 = _RAND_19[0:0];
+  tag_19 = _RAND_19[21:0];
   _RAND_20 = {1{`RANDOM}};
-  valid_18 = _RAND_20[0:0];
+  tag_20 = _RAND_20[21:0];
   _RAND_21 = {1{`RANDOM}};
-  valid_19 = _RAND_21[0:0];
+  tag_21 = _RAND_21[21:0];
   _RAND_22 = {1{`RANDOM}};
-  valid_20 = _RAND_22[0:0];
+  tag_22 = _RAND_22[21:0];
   _RAND_23 = {1{`RANDOM}};
-  valid_21 = _RAND_23[0:0];
+  tag_23 = _RAND_23[21:0];
   _RAND_24 = {1{`RANDOM}};
-  valid_22 = _RAND_24[0:0];
+  tag_24 = _RAND_24[21:0];
   _RAND_25 = {1{`RANDOM}};
-  valid_23 = _RAND_25[0:0];
+  tag_25 = _RAND_25[21:0];
   _RAND_26 = {1{`RANDOM}};
-  valid_24 = _RAND_26[0:0];
+  tag_26 = _RAND_26[21:0];
   _RAND_27 = {1{`RANDOM}};
-  valid_25 = _RAND_27[0:0];
+  tag_27 = _RAND_27[21:0];
   _RAND_28 = {1{`RANDOM}};
-  valid_26 = _RAND_28[0:0];
+  tag_28 = _RAND_28[21:0];
   _RAND_29 = {1{`RANDOM}};
-  valid_27 = _RAND_29[0:0];
+  tag_29 = _RAND_29[21:0];
   _RAND_30 = {1{`RANDOM}};
-  valid_28 = _RAND_30[0:0];
+  tag_30 = _RAND_30[21:0];
   _RAND_31 = {1{`RANDOM}};
-  valid_29 = _RAND_31[0:0];
+  tag_31 = _RAND_31[21:0];
   _RAND_32 = {1{`RANDOM}};
-  valid_30 = _RAND_32[0:0];
+  tag_32 = _RAND_32[21:0];
   _RAND_33 = {1{`RANDOM}};
-  valid_31 = _RAND_33[0:0];
+  tag_33 = _RAND_33[21:0];
   _RAND_34 = {1{`RANDOM}};
-  valid_32 = _RAND_34[0:0];
+  tag_34 = _RAND_34[21:0];
   _RAND_35 = {1{`RANDOM}};
-  valid_33 = _RAND_35[0:0];
+  tag_35 = _RAND_35[21:0];
   _RAND_36 = {1{`RANDOM}};
-  valid_34 = _RAND_36[0:0];
+  tag_36 = _RAND_36[21:0];
   _RAND_37 = {1{`RANDOM}};
-  valid_35 = _RAND_37[0:0];
+  tag_37 = _RAND_37[21:0];
   _RAND_38 = {1{`RANDOM}};
-  valid_36 = _RAND_38[0:0];
+  tag_38 = _RAND_38[21:0];
   _RAND_39 = {1{`RANDOM}};
-  valid_37 = _RAND_39[0:0];
+  tag_39 = _RAND_39[21:0];
   _RAND_40 = {1{`RANDOM}};
-  valid_38 = _RAND_40[0:0];
+  tag_40 = _RAND_40[21:0];
   _RAND_41 = {1{`RANDOM}};
-  valid_39 = _RAND_41[0:0];
+  tag_41 = _RAND_41[21:0];
   _RAND_42 = {1{`RANDOM}};
-  valid_40 = _RAND_42[0:0];
+  tag_42 = _RAND_42[21:0];
   _RAND_43 = {1{`RANDOM}};
-  valid_41 = _RAND_43[0:0];
+  tag_43 = _RAND_43[21:0];
   _RAND_44 = {1{`RANDOM}};
-  valid_42 = _RAND_44[0:0];
+  tag_44 = _RAND_44[21:0];
   _RAND_45 = {1{`RANDOM}};
-  valid_43 = _RAND_45[0:0];
+  tag_45 = _RAND_45[21:0];
   _RAND_46 = {1{`RANDOM}};
-  valid_44 = _RAND_46[0:0];
+  tag_46 = _RAND_46[21:0];
   _RAND_47 = {1{`RANDOM}};
-  valid_45 = _RAND_47[0:0];
+  tag_47 = _RAND_47[21:0];
   _RAND_48 = {1{`RANDOM}};
-  valid_46 = _RAND_48[0:0];
+  tag_48 = _RAND_48[21:0];
   _RAND_49 = {1{`RANDOM}};
-  valid_47 = _RAND_49[0:0];
+  tag_49 = _RAND_49[21:0];
   _RAND_50 = {1{`RANDOM}};
-  valid_48 = _RAND_50[0:0];
+  tag_50 = _RAND_50[21:0];
   _RAND_51 = {1{`RANDOM}};
-  valid_49 = _RAND_51[0:0];
+  tag_51 = _RAND_51[21:0];
   _RAND_52 = {1{`RANDOM}};
-  valid_50 = _RAND_52[0:0];
+  tag_52 = _RAND_52[21:0];
   _RAND_53 = {1{`RANDOM}};
-  valid_51 = _RAND_53[0:0];
+  tag_53 = _RAND_53[21:0];
   _RAND_54 = {1{`RANDOM}};
-  valid_52 = _RAND_54[0:0];
+  tag_54 = _RAND_54[21:0];
   _RAND_55 = {1{`RANDOM}};
-  valid_53 = _RAND_55[0:0];
+  tag_55 = _RAND_55[21:0];
   _RAND_56 = {1{`RANDOM}};
-  valid_54 = _RAND_56[0:0];
+  tag_56 = _RAND_56[21:0];
   _RAND_57 = {1{`RANDOM}};
-  valid_55 = _RAND_57[0:0];
+  tag_57 = _RAND_57[21:0];
   _RAND_58 = {1{`RANDOM}};
-  valid_56 = _RAND_58[0:0];
+  tag_58 = _RAND_58[21:0];
   _RAND_59 = {1{`RANDOM}};
-  valid_57 = _RAND_59[0:0];
+  tag_59 = _RAND_59[21:0];
   _RAND_60 = {1{`RANDOM}};
-  valid_58 = _RAND_60[0:0];
+  tag_60 = _RAND_60[21:0];
   _RAND_61 = {1{`RANDOM}};
-  valid_59 = _RAND_61[0:0];
+  tag_61 = _RAND_61[21:0];
   _RAND_62 = {1{`RANDOM}};
-  valid_60 = _RAND_62[0:0];
+  tag_62 = _RAND_62[21:0];
   _RAND_63 = {1{`RANDOM}};
-  valid_61 = _RAND_63[0:0];
+  tag_63 = _RAND_63[21:0];
   _RAND_64 = {1{`RANDOM}};
-  valid_62 = _RAND_64[0:0];
+  valid_0 = _RAND_64[0:0];
   _RAND_65 = {1{`RANDOM}};
-  valid_63 = _RAND_65[0:0];
+  valid_1 = _RAND_65[0:0];
   _RAND_66 = {1{`RANDOM}};
-  dirty_0 = _RAND_66[0:0];
+  valid_2 = _RAND_66[0:0];
   _RAND_67 = {1{`RANDOM}};
-  dirty_1 = _RAND_67[0:0];
+  valid_3 = _RAND_67[0:0];
   _RAND_68 = {1{`RANDOM}};
-  dirty_2 = _RAND_68[0:0];
+  valid_4 = _RAND_68[0:0];
   _RAND_69 = {1{`RANDOM}};
-  dirty_3 = _RAND_69[0:0];
+  valid_5 = _RAND_69[0:0];
   _RAND_70 = {1{`RANDOM}};
-  dirty_4 = _RAND_70[0:0];
+  valid_6 = _RAND_70[0:0];
   _RAND_71 = {1{`RANDOM}};
-  dirty_5 = _RAND_71[0:0];
+  valid_7 = _RAND_71[0:0];
   _RAND_72 = {1{`RANDOM}};
-  dirty_6 = _RAND_72[0:0];
+  valid_8 = _RAND_72[0:0];
   _RAND_73 = {1{`RANDOM}};
-  dirty_7 = _RAND_73[0:0];
+  valid_9 = _RAND_73[0:0];
   _RAND_74 = {1{`RANDOM}};
-  dirty_8 = _RAND_74[0:0];
+  valid_10 = _RAND_74[0:0];
   _RAND_75 = {1{`RANDOM}};
-  dirty_9 = _RAND_75[0:0];
+  valid_11 = _RAND_75[0:0];
   _RAND_76 = {1{`RANDOM}};
-  dirty_10 = _RAND_76[0:0];
+  valid_12 = _RAND_76[0:0];
   _RAND_77 = {1{`RANDOM}};
-  dirty_11 = _RAND_77[0:0];
+  valid_13 = _RAND_77[0:0];
   _RAND_78 = {1{`RANDOM}};
-  dirty_12 = _RAND_78[0:0];
+  valid_14 = _RAND_78[0:0];
   _RAND_79 = {1{`RANDOM}};
-  dirty_13 = _RAND_79[0:0];
+  valid_15 = _RAND_79[0:0];
   _RAND_80 = {1{`RANDOM}};
-  dirty_14 = _RAND_80[0:0];
+  valid_16 = _RAND_80[0:0];
   _RAND_81 = {1{`RANDOM}};
-  dirty_15 = _RAND_81[0:0];
+  valid_17 = _RAND_81[0:0];
   _RAND_82 = {1{`RANDOM}};
-  dirty_16 = _RAND_82[0:0];
+  valid_18 = _RAND_82[0:0];
   _RAND_83 = {1{`RANDOM}};
-  dirty_17 = _RAND_83[0:0];
+  valid_19 = _RAND_83[0:0];
   _RAND_84 = {1{`RANDOM}};
-  dirty_18 = _RAND_84[0:0];
+  valid_20 = _RAND_84[0:0];
   _RAND_85 = {1{`RANDOM}};
-  dirty_19 = _RAND_85[0:0];
+  valid_21 = _RAND_85[0:0];
   _RAND_86 = {1{`RANDOM}};
-  dirty_20 = _RAND_86[0:0];
+  valid_22 = _RAND_86[0:0];
   _RAND_87 = {1{`RANDOM}};
-  dirty_21 = _RAND_87[0:0];
+  valid_23 = _RAND_87[0:0];
   _RAND_88 = {1{`RANDOM}};
-  dirty_22 = _RAND_88[0:0];
+  valid_24 = _RAND_88[0:0];
   _RAND_89 = {1{`RANDOM}};
-  dirty_23 = _RAND_89[0:0];
+  valid_25 = _RAND_89[0:0];
   _RAND_90 = {1{`RANDOM}};
-  dirty_24 = _RAND_90[0:0];
+  valid_26 = _RAND_90[0:0];
   _RAND_91 = {1{`RANDOM}};
-  dirty_25 = _RAND_91[0:0];
+  valid_27 = _RAND_91[0:0];
   _RAND_92 = {1{`RANDOM}};
-  dirty_26 = _RAND_92[0:0];
+  valid_28 = _RAND_92[0:0];
   _RAND_93 = {1{`RANDOM}};
-  dirty_27 = _RAND_93[0:0];
+  valid_29 = _RAND_93[0:0];
   _RAND_94 = {1{`RANDOM}};
-  dirty_28 = _RAND_94[0:0];
+  valid_30 = _RAND_94[0:0];
   _RAND_95 = {1{`RANDOM}};
-  dirty_29 = _RAND_95[0:0];
+  valid_31 = _RAND_95[0:0];
   _RAND_96 = {1{`RANDOM}};
-  dirty_30 = _RAND_96[0:0];
+  valid_32 = _RAND_96[0:0];
   _RAND_97 = {1{`RANDOM}};
-  dirty_31 = _RAND_97[0:0];
+  valid_33 = _RAND_97[0:0];
   _RAND_98 = {1{`RANDOM}};
-  dirty_32 = _RAND_98[0:0];
+  valid_34 = _RAND_98[0:0];
   _RAND_99 = {1{`RANDOM}};
-  dirty_33 = _RAND_99[0:0];
+  valid_35 = _RAND_99[0:0];
   _RAND_100 = {1{`RANDOM}};
-  dirty_34 = _RAND_100[0:0];
+  valid_36 = _RAND_100[0:0];
   _RAND_101 = {1{`RANDOM}};
-  dirty_35 = _RAND_101[0:0];
+  valid_37 = _RAND_101[0:0];
   _RAND_102 = {1{`RANDOM}};
-  dirty_36 = _RAND_102[0:0];
+  valid_38 = _RAND_102[0:0];
   _RAND_103 = {1{`RANDOM}};
-  dirty_37 = _RAND_103[0:0];
+  valid_39 = _RAND_103[0:0];
   _RAND_104 = {1{`RANDOM}};
-  dirty_38 = _RAND_104[0:0];
+  valid_40 = _RAND_104[0:0];
   _RAND_105 = {1{`RANDOM}};
-  dirty_39 = _RAND_105[0:0];
+  valid_41 = _RAND_105[0:0];
   _RAND_106 = {1{`RANDOM}};
-  dirty_40 = _RAND_106[0:0];
+  valid_42 = _RAND_106[0:0];
   _RAND_107 = {1{`RANDOM}};
-  dirty_41 = _RAND_107[0:0];
+  valid_43 = _RAND_107[0:0];
   _RAND_108 = {1{`RANDOM}};
-  dirty_42 = _RAND_108[0:0];
+  valid_44 = _RAND_108[0:0];
   _RAND_109 = {1{`RANDOM}};
-  dirty_43 = _RAND_109[0:0];
+  valid_45 = _RAND_109[0:0];
   _RAND_110 = {1{`RANDOM}};
-  dirty_44 = _RAND_110[0:0];
+  valid_46 = _RAND_110[0:0];
   _RAND_111 = {1{`RANDOM}};
-  dirty_45 = _RAND_111[0:0];
+  valid_47 = _RAND_111[0:0];
   _RAND_112 = {1{`RANDOM}};
-  dirty_46 = _RAND_112[0:0];
+  valid_48 = _RAND_112[0:0];
   _RAND_113 = {1{`RANDOM}};
-  dirty_47 = _RAND_113[0:0];
+  valid_49 = _RAND_113[0:0];
   _RAND_114 = {1{`RANDOM}};
-  dirty_48 = _RAND_114[0:0];
+  valid_50 = _RAND_114[0:0];
   _RAND_115 = {1{`RANDOM}};
-  dirty_49 = _RAND_115[0:0];
+  valid_51 = _RAND_115[0:0];
   _RAND_116 = {1{`RANDOM}};
-  dirty_50 = _RAND_116[0:0];
+  valid_52 = _RAND_116[0:0];
   _RAND_117 = {1{`RANDOM}};
-  dirty_51 = _RAND_117[0:0];
+  valid_53 = _RAND_117[0:0];
   _RAND_118 = {1{`RANDOM}};
-  dirty_52 = _RAND_118[0:0];
+  valid_54 = _RAND_118[0:0];
   _RAND_119 = {1{`RANDOM}};
-  dirty_53 = _RAND_119[0:0];
+  valid_55 = _RAND_119[0:0];
   _RAND_120 = {1{`RANDOM}};
-  dirty_54 = _RAND_120[0:0];
+  valid_56 = _RAND_120[0:0];
   _RAND_121 = {1{`RANDOM}};
-  dirty_55 = _RAND_121[0:0];
+  valid_57 = _RAND_121[0:0];
   _RAND_122 = {1{`RANDOM}};
-  dirty_56 = _RAND_122[0:0];
+  valid_58 = _RAND_122[0:0];
   _RAND_123 = {1{`RANDOM}};
-  dirty_57 = _RAND_123[0:0];
+  valid_59 = _RAND_123[0:0];
   _RAND_124 = {1{`RANDOM}};
-  dirty_58 = _RAND_124[0:0];
+  valid_60 = _RAND_124[0:0];
   _RAND_125 = {1{`RANDOM}};
-  dirty_59 = _RAND_125[0:0];
+  valid_61 = _RAND_125[0:0];
   _RAND_126 = {1{`RANDOM}};
-  dirty_60 = _RAND_126[0:0];
+  valid_62 = _RAND_126[0:0];
   _RAND_127 = {1{`RANDOM}};
-  dirty_61 = _RAND_127[0:0];
+  valid_63 = _RAND_127[0:0];
   _RAND_128 = {1{`RANDOM}};
-  dirty_62 = _RAND_128[0:0];
+  dirty_0 = _RAND_128[0:0];
   _RAND_129 = {1{`RANDOM}};
-  dirty_63 = _RAND_129[0:0];
+  dirty_1 = _RAND_129[0:0];
   _RAND_130 = {1{`RANDOM}};
-  io_dirty_r_REG = _RAND_130[0:0];
+  dirty_2 = _RAND_130[0:0];
   _RAND_131 = {1{`RANDOM}};
-  io_valid_r_REG = _RAND_131[0:0];
+  dirty_3 = _RAND_131[0:0];
+  _RAND_132 = {1{`RANDOM}};
+  dirty_4 = _RAND_132[0:0];
+  _RAND_133 = {1{`RANDOM}};
+  dirty_5 = _RAND_133[0:0];
+  _RAND_134 = {1{`RANDOM}};
+  dirty_6 = _RAND_134[0:0];
+  _RAND_135 = {1{`RANDOM}};
+  dirty_7 = _RAND_135[0:0];
+  _RAND_136 = {1{`RANDOM}};
+  dirty_8 = _RAND_136[0:0];
+  _RAND_137 = {1{`RANDOM}};
+  dirty_9 = _RAND_137[0:0];
+  _RAND_138 = {1{`RANDOM}};
+  dirty_10 = _RAND_138[0:0];
+  _RAND_139 = {1{`RANDOM}};
+  dirty_11 = _RAND_139[0:0];
+  _RAND_140 = {1{`RANDOM}};
+  dirty_12 = _RAND_140[0:0];
+  _RAND_141 = {1{`RANDOM}};
+  dirty_13 = _RAND_141[0:0];
+  _RAND_142 = {1{`RANDOM}};
+  dirty_14 = _RAND_142[0:0];
+  _RAND_143 = {1{`RANDOM}};
+  dirty_15 = _RAND_143[0:0];
+  _RAND_144 = {1{`RANDOM}};
+  dirty_16 = _RAND_144[0:0];
+  _RAND_145 = {1{`RANDOM}};
+  dirty_17 = _RAND_145[0:0];
+  _RAND_146 = {1{`RANDOM}};
+  dirty_18 = _RAND_146[0:0];
+  _RAND_147 = {1{`RANDOM}};
+  dirty_19 = _RAND_147[0:0];
+  _RAND_148 = {1{`RANDOM}};
+  dirty_20 = _RAND_148[0:0];
+  _RAND_149 = {1{`RANDOM}};
+  dirty_21 = _RAND_149[0:0];
+  _RAND_150 = {1{`RANDOM}};
+  dirty_22 = _RAND_150[0:0];
+  _RAND_151 = {1{`RANDOM}};
+  dirty_23 = _RAND_151[0:0];
+  _RAND_152 = {1{`RANDOM}};
+  dirty_24 = _RAND_152[0:0];
+  _RAND_153 = {1{`RANDOM}};
+  dirty_25 = _RAND_153[0:0];
+  _RAND_154 = {1{`RANDOM}};
+  dirty_26 = _RAND_154[0:0];
+  _RAND_155 = {1{`RANDOM}};
+  dirty_27 = _RAND_155[0:0];
+  _RAND_156 = {1{`RANDOM}};
+  dirty_28 = _RAND_156[0:0];
+  _RAND_157 = {1{`RANDOM}};
+  dirty_29 = _RAND_157[0:0];
+  _RAND_158 = {1{`RANDOM}};
+  dirty_30 = _RAND_158[0:0];
+  _RAND_159 = {1{`RANDOM}};
+  dirty_31 = _RAND_159[0:0];
+  _RAND_160 = {1{`RANDOM}};
+  dirty_32 = _RAND_160[0:0];
+  _RAND_161 = {1{`RANDOM}};
+  dirty_33 = _RAND_161[0:0];
+  _RAND_162 = {1{`RANDOM}};
+  dirty_34 = _RAND_162[0:0];
+  _RAND_163 = {1{`RANDOM}};
+  dirty_35 = _RAND_163[0:0];
+  _RAND_164 = {1{`RANDOM}};
+  dirty_36 = _RAND_164[0:0];
+  _RAND_165 = {1{`RANDOM}};
+  dirty_37 = _RAND_165[0:0];
+  _RAND_166 = {1{`RANDOM}};
+  dirty_38 = _RAND_166[0:0];
+  _RAND_167 = {1{`RANDOM}};
+  dirty_39 = _RAND_167[0:0];
+  _RAND_168 = {1{`RANDOM}};
+  dirty_40 = _RAND_168[0:0];
+  _RAND_169 = {1{`RANDOM}};
+  dirty_41 = _RAND_169[0:0];
+  _RAND_170 = {1{`RANDOM}};
+  dirty_42 = _RAND_170[0:0];
+  _RAND_171 = {1{`RANDOM}};
+  dirty_43 = _RAND_171[0:0];
+  _RAND_172 = {1{`RANDOM}};
+  dirty_44 = _RAND_172[0:0];
+  _RAND_173 = {1{`RANDOM}};
+  dirty_45 = _RAND_173[0:0];
+  _RAND_174 = {1{`RANDOM}};
+  dirty_46 = _RAND_174[0:0];
+  _RAND_175 = {1{`RANDOM}};
+  dirty_47 = _RAND_175[0:0];
+  _RAND_176 = {1{`RANDOM}};
+  dirty_48 = _RAND_176[0:0];
+  _RAND_177 = {1{`RANDOM}};
+  dirty_49 = _RAND_177[0:0];
+  _RAND_178 = {1{`RANDOM}};
+  dirty_50 = _RAND_178[0:0];
+  _RAND_179 = {1{`RANDOM}};
+  dirty_51 = _RAND_179[0:0];
+  _RAND_180 = {1{`RANDOM}};
+  dirty_52 = _RAND_180[0:0];
+  _RAND_181 = {1{`RANDOM}};
+  dirty_53 = _RAND_181[0:0];
+  _RAND_182 = {1{`RANDOM}};
+  dirty_54 = _RAND_182[0:0];
+  _RAND_183 = {1{`RANDOM}};
+  dirty_55 = _RAND_183[0:0];
+  _RAND_184 = {1{`RANDOM}};
+  dirty_56 = _RAND_184[0:0];
+  _RAND_185 = {1{`RANDOM}};
+  dirty_57 = _RAND_185[0:0];
+  _RAND_186 = {1{`RANDOM}};
+  dirty_58 = _RAND_186[0:0];
+  _RAND_187 = {1{`RANDOM}};
+  dirty_59 = _RAND_187[0:0];
+  _RAND_188 = {1{`RANDOM}};
+  dirty_60 = _RAND_188[0:0];
+  _RAND_189 = {1{`RANDOM}};
+  dirty_61 = _RAND_189[0:0];
+  _RAND_190 = {1{`RANDOM}};
+  dirty_62 = _RAND_190[0:0];
+  _RAND_191 = {1{`RANDOM}};
+  dirty_63 = _RAND_191[0:0];
+  _RAND_192 = {1{`RANDOM}};
+  io_tag_r_REG = _RAND_192[21:0];
+  _RAND_193 = {1{`RANDOM}};
+  io_dirty_r_REG = _RAND_193[0:0];
+  _RAND_194 = {1{`RANDOM}};
+  io_valid_r_REG = _RAND_194[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
