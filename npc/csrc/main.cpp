@@ -145,7 +145,7 @@ void reset_npc(uint n)
 bool first_commit = true;
 void npc_exec(unsigned int n)
 {
-    n = 28000;
+    n = 28500;
     axi4_ref <32,64,4> mem_ref(mem_ptr);
     axi4     <32,64,4> mem_sigs;
     axi4_ref <32,64,4> mem_sigs_ref(mem_sigs);
