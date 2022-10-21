@@ -204,7 +204,7 @@ void npc_exec(unsigned int n)
             inst_num += 1;
         }
 
-        is_finish = (top->io_commit_0_inst === 0x00100073) || (top->io_commit_1_inst === 0x00100073);
+        is_finish = (top->io_commit_0_inst == 0x00100073) || (top->io_commit_1_inst == 0x00100073);
 
 
         if (commit_0)
