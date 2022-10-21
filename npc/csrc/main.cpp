@@ -48,9 +48,6 @@ extern void init_device();
 
 axi4_mem <32,64,4> mem(4294967296);
 axi4_ptr <32,64,4> mem_ptr;
-axi4_ref <32,64,4> mem_ref(mem_ptr);
-axi4     <32,64,4> mem_sigs;
-axi4_ref <32,64,4> mem_sigs_ref(mem_sigs);
 
 void connect_wire(axi4_ptr <32,64,4> &mem_ptr, VMySimTop *top) {
     // aw
@@ -148,6 +145,9 @@ void reset_npc(uint n)
 bool first_commit = true;
 void npc_exec(unsigned int n)
 {
+    axi4_ref <32,64,4> mem_ref(mem_ptr);
+    axi4     <32,64,4> mem_sigs;
+    axi4_ref <32,64,4> mem_sigs_ref(mem_sigs);
     struct timeval begin;
     struct timeval end;
     gettimeofday(&begin, NULL);
