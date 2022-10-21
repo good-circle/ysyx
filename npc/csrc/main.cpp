@@ -145,6 +145,7 @@ void reset_npc(uint n)
 bool first_commit = true;
 void npc_exec(unsigned int n)
 {
+    assert(0);
     struct timeval begin;
     struct timeval end;
     gettimeofday(&begin, NULL);
