@@ -188,7 +188,7 @@ void npc_exec(unsigned int n)
         top->clock = !top->clock;
         top->eval();
 
-        svSetScope(svGetScopeFromName("TOP.SimTop.core.commit"));
+        //svSetScope(svGetScopeFromName("TOP.SimTop.core.commit"));
 
         //is_commit = export_commit();
         is_commit = 0;
