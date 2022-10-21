@@ -46,7 +46,7 @@ extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int
 extern "C" void init_disasm(const char *triple);
 extern void init_device();
 
-axi4_mem <32,64,4> mem(1073741824);
+axi4_mem <32,64,4> mem(4096l * 1024 * 1024);
 axi4_ptr <32,64,4> mem_ptr;
 
 void connect_wire(axi4_ptr <32,64,4> &mem_ptr, VMySimTop *top) {
