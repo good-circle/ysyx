@@ -13,6 +13,7 @@ VerilatedFstC* m_trace = new VerilatedFstC;
 //VerilatedVcdC *m_trace = new VerilatedVcdC;
 #endif
 
+bool is_finish = false;
 int npc_cycle = 0;
 
 u_int8_t pmem[0x8000000];
@@ -202,6 +203,8 @@ void npc_exec(unsigned int n)
         if (top->io_commit_1_valid) {
             inst_num += 1;
         }
+
+        is_finish = (top->io_commit_0_inst === 0x00100073) || (top->io_commit_1_inst === 0x00100073);
 
 
         if (commit_0)
