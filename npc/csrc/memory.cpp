@@ -15,7 +15,7 @@ extern int inst_num;
 extern int vga_size();
 extern uint64_t cpu_pc;
 
-extern axi4_mem <32,64,4> mem(1073741824);
+extern axi4_mem <32,64,4> mem;
 long init_pmem()
 {
     if (img_file == NULL)
