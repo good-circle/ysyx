@@ -6,12 +6,12 @@ test:
 verilog:
 	$(call git_commit, "generate verilog")
 	mkdir -p $(BUILD_DIR)
-	mill -i __.test.runMain TopMain -td $(BUILD_DIR)
+	mill -i __.test.runMain MyElaborate -td $(BUILD_DIR)
 	rm $(NPC_HOME)/vsrc/*.v
 	cp ~/Desktop/ysyx-workbench/chisel-playground/build/*.v $(NPC_HOME)/vsrc/
 
 help:
-	mill -i __.test.runMain TopMain --help
+	mill -i __.test.runMain Elaborate --help
 
 compile:
 	mill -i __.compile

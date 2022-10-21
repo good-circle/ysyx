@@ -1,47 +1,31 @@
 import chisel3._
-import chisel3.util._
 import chisel3.util.experimental._
 
-class RegFile extends BlackBox with HasBlackBoxInline {
+class RegFile extends Module with Config {
   val io = IO(new Bundle {
-    val clock = Input(Clock())
-    val raddr1 = Input(UInt(5.W))
-    val raddr2 = Input(UInt(5.W))
-    val rdata1 = Output(UInt(64.W))
-    val rdata2 = Output(UInt(64.W))
-    val waddr = Input(UInt(5.W))
-    val wdata = Input(UInt(64.W))
-    val wen = Input(Bool())
+    val rf_bus = Vec(2, new RF_BUS)
   })
 
-  setInline("RegFile.v",
-    """module RegFile(
-      |    input         clock ,
-      |
-      |    input  [ 4:0] raddr1,
-      |    output [63:0] rdata1,
-      |
-      |    input  [ 4:0] raddr2,
-      |    output [63:0] rdata2,
-      |
-      |    input         wen   ,
-      |    input  [ 4:0] waddr ,
-      |    input  [63:0] wdata
-      |);
-      |
-      |reg [63:0] rf [31:0];
-      |
-      |always @(posedge clock) begin
-      |    if (wen) rf[waddr] <= wdata;
-      |end
-      |
-      |assign rdata1 = (raddr1 == 5'b0) ? 64'b0 : rf[raddr1];
-      |assign rdata2 = (raddr2 == 5'b0) ? 64'b0 : rf[raddr2];
-      |
-      |import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
-      |initial set_gpr_ptr(rf);
-      |
-      |endmodule
-      |""".stripMargin)
+  val rf_bus = io.rf_bus
 
+  val rf = RegInit(VecInit(Seq.fill(32)(0.U(64.W))))
+
+  for (i <- 0 until 2) {
+    when (rf_bus(i).wen && (rf_bus(i).waddr =/= 0.U)) {
+      rf(rf_bus(i).waddr) := rf_bus(i).wdata;
+    }
+    rf_bus(i).rdata1 := Mux((rf_bus(i).raddr1 =/= 0.U), rf(rf_bus(i).raddr1), 0.U)
+    rf_bus(i).rdata2 := Mux((rf_bus(i).raddr2 =/= 0.U), rf(rf_bus(i).raddr2), 0.U)
+  }
+
+  if (Difftest) {
+    import difftest._
+
+    BoringUtils.addSource(rf(10), "rf_a0")
+    
+    val dt_ar = Module(new DifftestArchIntRegState)
+    dt_ar.io.clock  := clock
+    dt_ar.io.coreid := 0.U
+    dt_ar.io.gpr    := rf
+  }
 }

@@ -5,17 +5,29 @@
 #include <stdint.h>
 #include <sys/time.h>
 #include <time.h>
+#include "common.h"
 
 #define CONFIG_MBASE 0x80000000
-#define CONFIG_MSIZE 0x8000000
-extern u_int8_t pmem[CONFIG_MSIZE];
+#define DEVICE_BASE 0xa0000000
+#define MMIO_BASE 0xa0000000
+
+#define SERIAL_PORT     (DEVICE_BASE + 0x00003f8)
+#define KBD_ADDR        (DEVICE_BASE + 0x0000060)
+#define RTC_ADDR        (DEVICE_BASE + 0x0000048)
+#define VGACTL_ADDR     (DEVICE_BASE + 0x0000100)
+#define AUDIO_ADDR      (DEVICE_BASE + 0x0000200)
+#define DISK_ADDR       (DEVICE_BASE + 0x0000300)
+#define FB_ADDR         (MMIO_BASE   + 0x1000000)
+#define AUDIO_SBUF_ADDR (MMIO_BASE   + 0x1200000)
+
 extern const char *img_file;
 extern int inst_num;
 extern int vga_size();
+extern uint64_t cpu_pc;
 
+extern axi4_mem <32,64,4> mem;
 long init_pmem()
 {
-    memset(pmem, 0, CONFIG_MSIZE);
     if (img_file == NULL)
     {
         printf("No image is given. Use the default build-in image.");
@@ -29,8 +41,8 @@ long init_pmem()
     printf("The image is %s, size = %ld\n", img_file, size);
 
     fseek(fp, 0, SEEK_SET);
-    int ret = fread(pmem, size, 1, fp);
-    assert(ret == 1);
+
+    mem.load_binary(img_file, 0x80000000);
 
     fclose(fp);
 
@@ -39,18 +51,17 @@ long init_pmem()
 
 u_int32_t inst_fetch(unsigned long long pc)
 {
-    assert(pc >= CONFIG_MBASE);
-    return *(u_int32_t *)(pmem + pc - CONFIG_MBASE);
+    assert(0);
 }
 
 u_int32_t memory_read(unsigned long long addr)
 {
-    return *(u_int32_t *)(pmem + addr - CONFIG_MBASE);
+    assert(0);
 }
 
 static inline bool in_pmem(uint64_t addr)
 {
-    return (addr >= CONFIG_MBASE) && (addr < (uint64_t)CONFIG_MBASE + CONFIG_MSIZE);
+    return (addr >= CONFIG_MBASE) && (addr < DEVICE_BASE);
 }
 
 static uint64_t boot_time = 0;
@@ -76,32 +87,26 @@ uint64_t get_time()
 
 uint32_t lo = 0;
 uint32_t hi = 0;
-extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
+uint32_t pmem_read(uint32_t mem_raddr, bool mem_read)
 {
-    if (mem_read)
-    {
-        //printf("mem_raddr: %llx\n", mem_raddr);
-    }
-
-    // assert(mem_raddr >= CONFIG_MBASE || !mem_read);
     if (mem_read)
     {
         if (in_pmem(mem_raddr))
         {
-            long long pmem_data = *(long long *)(pmem + (mem_raddr & ~0x7ull) - CONFIG_MBASE);
-            // printf("%llx\n", pmem_data);
-            return pmem_data;
+            assert(0);
         }
 
+        //printf("in_pmem_read\n");
 
         if (mem_raddr == 0xa0000048)
         {
             uint64_t us = get_time();
             lo = (uint32_t)us;
             hi = us >> 32;
+            //printf("lo = %lx\n", lo);
             return lo;
         }
-        
+
         if (mem_raddr == 0xa000004c)
         {
             return hi;
@@ -116,57 +121,50 @@ extern "C" uint64_t pmem_read(long long mem_raddr, bool mem_read)
         {
             return vga_size();
         }
-
-        printf("mem_raddr: %llx\n", mem_raddr);
-
-        assert(mem_raddr != 0xa0000100);
     }
     return 0;
 }
 
-extern "C" void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wmask, bool mem_write)
+void pmem_write(uint32_t mem_waddr, uint32_t mem_wdata, bool mem_write)
 {
-    if (mem_write)
-    {
-        //printf("mem_waddr: %llx mem_wdata: %llx mem_wmask: %llx\n", mem_waddr, mem_wdata, mem_wmask);
-    }
-
     // assert(mem_waddr >= CONFIG_MBASE || !mem_write);
     if (mem_write)
     {
         if (in_pmem(mem_waddr))
         {
-            unsigned long long real_mask = 0;
-            u_int8_t mask_mask = 0b10000000;
+            assert(0);
+            // unsigned long long real_mask = 0;
+            // u_int8_t mask_mask = 0b10000000;
 
-            for (int i = 0; i < 7; i++)
-            {
-                if (mem_wmask & mask_mask)
-                {
-                    real_mask |= 0b11111111;
-                }
-                real_mask <<= 8;
-                mask_mask >>= 1;
-            }
-            if (mem_wmask & mask_mask)
-            {
-                real_mask |= 0b11111111;
-            }
-            long long clear_wdata = ~real_mask;
-            long long real_wdata = mem_wdata & real_mask;
-            *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE) = (*(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE) & clear_wdata) | real_wdata;
-            // printf("after: %llx\n", *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE));
-            return;
+            // for (int i = 0; i < 7; i++)
+            // {
+            //     if (mem_wmask & mask_mask)
+            //     {
+            //         real_mask |= 0b11111111;
+            //     }
+            //     real_mask <<= 8;
+            //     mask_mask >>= 1;
+            // }
+            // if (mem_wmask & mask_mask)
+            // {
+            //     real_mask |= 0b11111111;
+            // }
+            // long long clear_wdata = ~real_mask;
+            // long long real_wdata = mem_wdata & real_mask;
+            // *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE) = (*(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE) & clear_wdata) | real_wdata;
+            // // printf("after: %llx\n", *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE));
+            // return;
         }
+        //printf("in_pmem_write\n");
 
         if (mem_waddr == 0xa00003F8)
         {
             putchar((char)mem_wdata);
         }
 
-        if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000000 + 300*400*32)
+        if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000000 + 300 * 400 * 32)
         {
-            printf("vga = %lx\n", mem_waddr);
+            assert(0);
         }
     }
 }

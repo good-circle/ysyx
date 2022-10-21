@@ -6,7 +6,7 @@
 
 typedef uint64_t paddr_t;
 typedef uint64_t vaddr_t;
-extern VSimTop *top;
+extern VMySimTop *top;
 extern void isa_reg_display();
 extern uint8_t pmem[0x8000000];
 extern const char *regs[];

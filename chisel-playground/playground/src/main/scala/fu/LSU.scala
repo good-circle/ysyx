@@ -1,27 +1,32 @@
 import chisel3._
 import chisel3.util._
 import Define._
+import chisel3.util.experimental.BoringUtils
 
 class LSU extends Module{
   val io = IO(new Bundle() {
-    val dmem = new RamIO
+    val dmem = new Cpu_Cache_IO
     val src1 = Input(UInt(64.W))
     val src2 = Input(UInt(64.W))
     val wdata = Input(UInt(64.W))
+    val addr = Output(UInt(32.W))
     val is_lsu = Input(Bool())
     val wen = Input(Bool())
     val lsu_op = Input(UInt(LSUOP_WIDTH.W))
     val rdata = Output(UInt(64.W))
+    val is_mdu = Input(Bool())
+    val mdu_ok = Input(Bool())
   })
 
   val is_lsu = io.is_lsu
   val lsu_op = io.lsu_op
+  val is_mdu = io.is_mdu
+  val mdu_ok = io.mdu_ok
   val wdata = io.wdata
   val wen = io.wen
-  val dmem_addr = Wire(UInt(64.W))
   val addr_low = Wire(UInt(3.W))
-  dmem_addr := io.src1 + io.src2
-  addr_low := dmem_addr(2, 0)
+  io.addr := (io.src1 + io.src2)(31, 0)
+  addr_low := io.addr(2, 0)
 
   val dmem_wdata = Wire(UInt(64.W))
   val dmem_wmask = Wire(UInt(8.W))
@@ -136,12 +141,93 @@ class LSU extends Module{
     lsu_ld -> ld_rdata
   ))
 
-  io.dmem.en := is_lsu
-  io.dmem.addr := dmem_addr
-  io.dmem.wen := is_lsu && (wen === n)
+  val fence = WireInit(false.B)
+  BoringUtils.addSink(fence, "fence_i")
+
+  val icache_fence_finish = WireInit(false.B)
+  BoringUtils.addSink(icache_fence_finish, "icache_fence_finish")
+
+  val dcache_fence_finish = Wire(Bool())
+  dcache_fence_finish := io.dmem.fence_finish
+  BoringUtils.addSource(dcache_fence_finish, "dcache_fence_finish")
+
+  val idle :: wait_2 :: wait_mdu :: wait_lsu :: dcache_fence :: wait_ifence :: wait_dfence :: Nil = Enum(7)
+  val state = RegInit(idle)
+
+  io.dmem.valid := false.B
+  io.dmem.fence := false.B
+
+  switch (state) {
+    is (idle) {
+      when (fence) {
+        state := dcache_fence
+        io.dmem.valid := false.B
+      } .elsewhen (is_lsu && is_mdu) {
+        state := wait_2
+        io.dmem.valid := true.B
+      } .elsewhen (is_lsu) {
+        state := wait_lsu
+        io.dmem.valid := true.B
+      }.otherwise {
+        state := idle
+        io.dmem.valid := false.B
+      }
+    }
+    is (wait_2) {
+      io.dmem.valid := true.B
+      when (io.dmem.data_ok && mdu_ok) {
+        state := idle
+        io.dmem.valid := false.B
+      } .elsewhen (mdu_ok) {
+        state := wait_lsu
+        io.dmem.valid := true.B
+      } .elsewhen (io.dmem.data_ok) {
+        state := wait_mdu
+        io.dmem.valid := false.B
+      }
+    }
+    is (wait_lsu) {
+      io.dmem.valid := true.B
+      when (io.dmem.data_ok) {
+        state := idle
+        io.dmem.valid := false.B
+      }
+    }
+    is (wait_mdu) {
+      io.dmem.valid := false.B
+      when (mdu_ok) {
+        state := idle
+      }
+    }
+    is (dcache_fence) {
+      io.dmem.fence := true.B
+      when (dcache_fence_finish && icache_fence_finish) {
+        io.dmem.fence := false.B
+        state := idle
+      } .elsewhen (dcache_fence_finish) {
+        io.dmem.fence := false.B
+        state := wait_ifence
+      } .elsewhen (icache_fence_finish) {
+        state := wait_dfence
+      }
+    }
+    is (wait_ifence) {
+      when (icache_fence_finish) {
+        state := idle
+      }
+    }
+    is (wait_dfence) {
+      io.dmem.fence := false.B
+      state := idle
+    }
+  }
+
+  io.dmem.op := Mux(wen === y, READ, WRITE)
+  io.dmem.addr := io.addr
+  io.dmem.wstrb := dmem_wmask
   io.dmem.wdata := dmem_wdata
-  io.dmem.wmask := dmem_wmask
   dmem_rdata := io.dmem.rdata
 
   io.rdata := load_rdata
 }
+

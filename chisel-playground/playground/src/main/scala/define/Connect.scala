@@ -10,7 +10,7 @@ object Connect {
     when (is_reflush) {valid := false.B}
 
     left.ready := right.ready
-    right.bits := RegEnable(left.bits, fire)
+    right.bits := RegEnable(left.bits, init = 0.U.asTypeOf(left.bits), fire)
     right.valid := valid
   }
 }
