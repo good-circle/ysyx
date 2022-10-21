@@ -270,9 +270,9 @@ int main(int argc, char **argv, char **env)
     reset_npc(10);
 
     difftest_read_regs(difftest_regs);
-
-    init_difftest(diff_so_file, img_size, difftest_regs);
     assert(0);
+    init_difftest(diff_so_file, img_size, difftest_regs);
+
     init_device();
 
     connect_wire(mem_ptr, top);
