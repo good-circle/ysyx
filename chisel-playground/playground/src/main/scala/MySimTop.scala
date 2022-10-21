@@ -57,6 +57,6 @@ class MySimTop extends Module {
   soctop.io.slave.arburst := 0.U
   soctop.io.slave.rready := 0.U
 
-  io.pc := 0.U
+  io.pc := 80000000.U
   BoringUtils.addSink(io.pc, "commit_pc")
 }
