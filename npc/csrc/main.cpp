@@ -13,9 +13,6 @@ VerilatedFstC* m_trace = new VerilatedFstC;
 //VerilatedVcdC *m_trace = new VerilatedVcdC;
 #endif
 
-svBit is_finish = 0;
-svBit is_commit = 0;
-svBit is_mmio = 0;
 int npc_cycle = 0;
 
 u_int8_t pmem[0x8000000];
@@ -145,7 +142,6 @@ void reset_npc(uint n)
 bool first_commit = true;
 void npc_exec(unsigned int n)
 {
-    n = 29000;
     axi4_ref <32,64,4> mem_ref(mem_ptr);
     axi4     <32,64,4> mem_sigs;
     axi4_ref <32,64,4> mem_sigs_ref(mem_sigs);
@@ -197,13 +193,18 @@ void npc_exec(unsigned int n)
         top->clock = !top->clock;
         top->eval();
 
-        //svSetScope(svGetScopeFromName("TOP.SimTop.core.commit"));
+        bool commit_0 = false;
+        bool commit_1 = false;
 
-        //is_commit = export_commit();
-        is_commit = 0;
-        // printf("%d\n", is_commit);
+        if (top->io_commit_0_valid) {
+            inst_num += 1;
+        }
+        if (top->io_commit_1_valid) {
+            inst_num += 1;
+        }
 
-        if (is_commit)
+
+        if (commit_0)
         {
             if (first_commit)
             {
@@ -216,8 +217,7 @@ void npc_exec(unsigned int n)
                 //difftest_read_regs(difftest_regs);
                 //is_finish = export_finish();
                 //is_mmio = export_mmio();
-                is_finish = 0;
-                is_mmio = 0;
+
                 //printf("is_mmio : %d\n", is_mmio);
                 //printf("cpu_pc : %lx\n", cpu_pc);
                 //assert(is_mmio == 0);
