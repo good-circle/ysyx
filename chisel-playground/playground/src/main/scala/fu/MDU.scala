@@ -126,7 +126,7 @@ class MDU extends Module with Config {
   ))
   io.result := Mux(io.rv64, Cat(Fill(32, tmp_result(31)), tmp_result(31, 0)), tmp_result)
 
-  if (SocDebug) {
+  if (SocDebug || MyEnv) {
     val golden_result = WireInit(0.U(64.W))
     golden_result := MuxLookup(mdu_op, 0.U, Array(
       mdu_mul -> (src1 * src2).asUInt,
