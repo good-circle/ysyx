@@ -204,8 +204,9 @@ void npc_exec(unsigned int n)
             inst_num += 1;
         }
 
-        is_finish = (top->io_commit_0_inst == 0x00100073) || (top->io_commit_1_inst == 0x00100073);
-        printf("%d %x %x\n", is_finish, io_commit_0_inst, io_commit_1_inst);
+        is_finish = (top->io_commit_0_inst == 0x00100073 && top->io_commit_0_valid) ||
+        (top->io_commit_1_inst == 0x00100073  && top->io_commit_1_valid);
+        printf("%d %x %x\n", is_finish, top->io_commit_0_inst, top->io_commit_1_inst);
 
 
         if (commit_0)
