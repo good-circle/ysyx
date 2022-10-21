@@ -46,7 +46,8 @@ class Cache_Soc extends Module with Config{
   val conflict = Wire(Bool())
   val addr_ok = Wire(Bool())
 
-  val in_uncache = !in.addr(31)
+  val in_uncache = Wire(Bool())
+  in_uncache := !in.addr(31)
   if (MyEnv) in_uncache := !in.addr(31) || in.addr(31) && in.addr(29)
   val in_index = in.addr(9, 4)
   val in_tag = in.addr(31, 10)
