@@ -17,16 +17,16 @@ class META extends Module {
   })
   val index = io.index
 
-  val tag = SyncReadMem(64, UInt(TAG_WIDTH.W))
+  val tag = RegInit(VecInit(Seq.fill(64)(UInt(TAG_WIDTH.W))))
 
   val valid = RegInit(VecInit(Seq.fill(64)(false.B)))
   val dirty = RegInit(VecInit(Seq.fill(64)(false.B)))
 
   when (io.tag_wen) {
-    tag.write(index, io.tag_w)
+    tag(index) := io.tag_w
     valid(index) := true.B
   }
-  io.tag_r := tag.read(index)
+  io.tag_r := RegNext(tag(index))
 
   io.dirty_r := RegNext(dirty(index), init = false.B)
   io.valid_r := RegNext(valid(index), init = false.B)
@@ -38,7 +38,7 @@ class META extends Module {
 
   when (reset.asBool) {
     for (i <- 0 until 64) {
-      tag.write(i.U, 0.U)
+      tag(i) := 0.U
     }
   }
 
