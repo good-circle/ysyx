@@ -49,6 +49,15 @@ long init_pmem()
     return size;
 }
 
+u_int32_t inst_fetch(unsigned long long pc)
+{
+    assert(0);
+}
+
+u_int32_t memory_read(unsigned long long addr)
+{
+    assert(0);
+}
 
 static inline bool in_pmem(uint64_t addr)
 {
