@@ -73,7 +73,7 @@ class IFU extends Module with Config {
         state := data_ok
         io.imem.valid := true.B
         io.imem.addr := pc
-      }.otherwise {
+      } .elsewhen (!reset.asBool) {
         state := data_ok
         io.imem.valid := true.B
         io.imem.addr := reflush_target
