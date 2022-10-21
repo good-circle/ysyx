@@ -2,7 +2,7 @@ import chisel3._
 import chisel3.util._
 import Define._
 
-class Cache_Sim extends Module {
+class Cache_Sim extends Module with Config{
   val io = IO(new Bundle() {
     val in = Flipped(new Cpu_Cache_IO)
     val out = new Cache_Bridge_IO
@@ -50,6 +50,7 @@ class Cache_Sim extends Module {
   val addr_ok = Wire(Bool())
 
   val in_uncache = !in.addr(31)
+  if (MyEnv) in_uncache := !in.addr(31) || in.addr(31) && in.addr(29)
   val in_index = in.addr(9, 4)
   val in_tag = in.addr(31, 10)
   val in_offset = in.addr(3, 0)
