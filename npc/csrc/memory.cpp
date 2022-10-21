@@ -125,9 +125,8 @@ uint32_t pmem_read(uint32_t mem_raddr, bool mem_read)
     return 0;
 }
 
-void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wmask, bool mem_write)
+void pmem_write(uint32_t mem_waddr, uint32_t mem_wdata, bool mem_write)
 {
-
     // assert(mem_waddr >= CONFIG_MBASE || !mem_write);
     if (mem_write)
     {
