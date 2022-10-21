@@ -204,7 +204,7 @@ void npc_exec(unsigned int n)
             else
             {
                 inst_num++;
-                difftest_read_regs(difftest_regs);
+                //difftest_read_regs(difftest_regs);
                 //is_finish = export_finish();
                 //is_mmio = export_mmio();
                 is_finish = 0;
@@ -215,15 +215,15 @@ void npc_exec(unsigned int n)
 
                 // printf("\n is_finish = %d\n", is_finish);
 
-                if(is_mmio)
-                {
-                    difftest_skip_ref();
-                }
-                else if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
-                {
-                    is_finish = 1;
-                    break;
-                }
+                //if(is_mmio)
+                //{
+                //    difftest_skip_ref();
+                //}
+                //else if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
+                //{
+                //    is_finish = 1;
+                //    break;
+                //}
             }
         }
 
@@ -268,10 +268,10 @@ int main(int argc, char **argv, char **env)
     init_regex();
 
     reset_npc(10);
-    assert(0);
-    difftest_read_regs(difftest_regs);
 
-    init_difftest(diff_so_file, img_size, difftest_regs);
+    //difftest_read_regs(difftest_regs);
+
+    //init_difftest(diff_so_file, img_size, difftest_regs);
 
     init_device();
 
