@@ -65,6 +65,7 @@ class IFU extends Module with Config {
 
   switch (state) {
     is (idle) {
+      io.imem.valid := false.B
       when (fence) {
         state := icache_fence
         io.imem.valid := false.B
