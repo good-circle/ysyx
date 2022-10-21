@@ -48,6 +48,9 @@ extern void init_device();
 
 axi4_mem <32,64,4> mem(4294967296);
 axi4_ptr <32,64,4> mem_ptr;
+axi4_ref <32,64,4> mem_ref(mem_ptr);
+axi4     <32,64,4> mem_sigs;
+axi4_ref <32,64,4> mem_sigs_ref(mem_sigs);
 
 void connect_wire(axi4_ptr <32,64,4> &mem_ptr, VMySimTop *top) {
     // aw
@@ -183,7 +186,10 @@ void npc_exec(unsigned int n)
         m_trace->dump(2 * npc_cycle);
 #endif
         top->clock = !top->clock;
+        mem_sigs.update_input(mem_ref)
         top->eval();
+        mem.beat(mem_sigs_ref);
+        mem_sigs.update_output(mem_ref);
 #ifdef WAVE_ON
         m_trace->dump(2 * npc_cycle + 1);
 #endif
