@@ -17,7 +17,7 @@ class META extends Module {
   })
   val index = io.index
 
-  val tag = RegInit(VecInit(Seq.fill(64)(UInt(TAG_WIDTH.W))))
+  val tag = RegInit(VecInit(Seq.fill(64)(0.U(TAG_WIDTH.W))))
 
   val valid = RegInit(VecInit(Seq.fill(64)(false.B)))
   val dirty = RegInit(VecInit(Seq.fill(64)(false.B)))
