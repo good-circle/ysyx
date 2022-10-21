@@ -6,7 +6,6 @@ import difftest._
 class MySimTop extends Module with Config{
   val io = IO(new Bundle {
     val axi = new AXIIO_Soc
-    val pc = Output(UInt(32.W))
     val commit = Vec(2, new Commit_Bus)
   })
 
