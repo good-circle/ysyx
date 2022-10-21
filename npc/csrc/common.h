@@ -8,8 +8,8 @@
 #include "verilated_dpi.h"
 
 #include "soc-simulator/axi4.hpp"
-#include "axi4_mem.hpp"
-#include "axi4_xbar.hpp"
+#include "soc-simulator/axi4_mem.hpp"
+#include "soc-simulator/axi4_xbar.hpp"
 
 #include <iostream>
 #include <termios.h>
