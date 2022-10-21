@@ -7,7 +7,7 @@
 //#include "VMySimTop__Dpi.h"
 #include "verilated_dpi.h"
 
-#include "axi4.hpp"
+#include "soc-simulator/axi4.hpp"
 #include "axi4_mem.hpp"
 #include "axi4_xbar.hpp"
 
