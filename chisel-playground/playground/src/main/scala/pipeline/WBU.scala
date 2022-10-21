@@ -1,5 +1,6 @@
 import chisel3._
 import chisel3.util._
+import chisel3.util.experimental._
 import Define._
 
 class WBU extends Module with Config {
@@ -28,7 +29,7 @@ class WBU extends Module with Config {
     io.commit(i).is_clint := false.B
   }
 
-
+  BoringUtils.addSource(io.commit(0).pc, "commit_pc")
 
   if (Difftest) {
     for (i <- 0 until 2) {

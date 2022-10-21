@@ -1,10 +1,12 @@
 import chisel3._
 import chisel3.util._
+import chisel3.util.experimental._
 import difftest._
 
 class MySimTop extends Module {
   val io = IO(new Bundle {
     val axi = new AXIIO_Soc
+    val pc = Output(UInt(32.W))
   })
 
   val soctop = Module(new SocTop)
@@ -54,4 +56,6 @@ class MySimTop extends Module {
   soctop.io.slave.arsize := 0.U
   soctop.io.slave.arburst := 0.U
   soctop.io.slave.rready := 0.U
+
+  BoringUtils.addSink(io.pc, "commit_pc")
 }
