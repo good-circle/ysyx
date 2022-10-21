@@ -155,7 +155,7 @@ void pmem_write(long long mem_waddr, long long mem_wdata, char mem_wmask, bool m
             // // printf("after: %llx\n", *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE));
             // return;
         }
-        printf("in_pmem_write\n");
+        //printf("in_pmem_write\n");
 
         if (mem_waddr == 0xa00003F8)
         {
