@@ -255,7 +255,6 @@ void npc_exec(unsigned int n)
 
 int main(int argc, char **argv, char **env)
 {
-    assert(0);
     contextp->commandArgs(argc, argv);
 
 #ifdef WAVE_ON
@@ -267,7 +266,7 @@ int main(int argc, char **argv, char **env)
     parse_args(argc, argv);
     int img_size = init_pmem();
     init_regex();
-
+    assert(0);
     reset_npc(10);
 
     difftest_read_regs(difftest_regs);
