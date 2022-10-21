@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <sys/time.h>
 #include <time.h>
+#include "common.h"
 
 #define CONFIG_MBASE 0x80000000
 #define CONFIG_MSIZE 0x8000000
@@ -14,9 +15,9 @@ extern int inst_num;
 extern int vga_size();
 extern uint64_t cpu_pc;
 
+extern axi4_mem <32,64,4> mem(1073741824);
 long init_pmem()
 {
-    memset(pmem, 0, CONFIG_MSIZE);
     if (img_file == NULL)
     {
         printf("No image is given. Use the default build-in image.");
@@ -30,8 +31,8 @@ long init_pmem()
     printf("The image is %s, size = %ld\n", img_file, size);
 
     fseek(fp, 0, SEEK_SET);
-    int ret = fread(pmem, size, 1, fp);
-    assert(ret == 1);
+
+    mem.load_binary(img_file, 0x80000000);
 
     fclose(fp);
 

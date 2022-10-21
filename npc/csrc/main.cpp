@@ -6,7 +6,7 @@
 
 VerilatedContext *contextp = new VerilatedContext;
 VMySimTop *top = new VMySimTop{contextp};
-#define WAVE_ON 1;
+//#define WAVE_ON 1;
 #ifdef WAVE_ON
 #include "verilated_fst_c.h"
 VerilatedFstC* m_trace = new VerilatedFstC;
@@ -45,6 +45,46 @@ extern void (*ref_difftest_regcpy)(void *dut, bool direction);
 extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 extern "C" void init_disasm(const char *triple);
 extern void init_device();
+
+axi4_mem <32,64,4> mem(1073741824);
+axi4_ptr <32,64,4> mem_ptr;
+
+void connect_wire(axi4_ptr <32,32,4> &mem_ptr, VMySimTop *top) {
+    // aw
+    mem_ptr.awaddr     = &(top->io_axi_awaddr);
+    mem_ptr.awburst    = &(top->io_axi_awburst);
+    mem_ptr.awid       = &(top->io_axi_awid);
+    mem_ptr.awlen      = &(top->io_axi_awlen);
+    mem_ptr.awready    = &(top->io_axi_awready);
+    mem_ptr.awsize     = &(top->io_axi_awsize);
+    mem_ptr.awvalid    = &(top->io_axi_awvalid);
+    // w
+    mem_ptr.wdata      = &(top->io_axi_wdata);
+    mem_ptr.wlast      = &(top->io_axi_wlast);
+    mem_ptr.wready     = &(top->io_axi_wready);
+    mem_ptr.wstrb      = &(top->io_axi_wstrb);
+    mem_ptr.wvalid     = &(top->io_axi_wvalid);
+    // b
+    mem_ptr.bid        = &(top->io_axi_bid);
+    mem_ptr.bready     = &(top->io_axi_bready);
+    mem_ptr.bresp      = &(top->io_axi_bresp);
+    mem_ptr.bvalid     = &(top->io_axi_bvalid);
+    // ar
+    mem_ptr.araddr     = &(top->io_axi_araddr);
+    mem_ptr.arburst    = &(top->io_axi_arburst);
+    mem_ptr.arid       = &(top->io_axi_arid);
+    mem_ptr.arlen      = &(top->io_axi_arlen);
+    mem_ptr.arready    = &(top->io_axi_arready);
+    mem_ptr.arsize     = &(top->io_axi_arsize);
+    mem_ptr.arvalid    = &(top->io_axi_arvalid);
+    // r
+    mem_ptr.rdata      = &(top->io_axi_rdata);
+    mem_ptr.rid        = &(top->io_axi_rid);
+    mem_ptr.rlast      = &(top->io_axi_rlast);
+    mem_ptr.rready     = &(top->io_axi_rready);
+    mem_ptr.rresp      = &(top->io_axi_rresp);
+    mem_ptr.rvalid     = &(top->io_axi_rvalid);
+}
 
 void set_batch_mode()
 {
@@ -231,6 +271,9 @@ int main(int argc, char **argv, char **env)
     init_difftest(diff_so_file, img_size, difftest_regs);
 
     init_device();
+
+    connect_wire(top, &mem_ptr);
+    assert(mem_ptr.check());
     /*
     #ifdef ITRACE
         init_disasm("riscv64-pc-linux-gnu");

@@ -7,6 +7,17 @@
 //#include "VMySimTop__Dpi.h"
 #include "verilated_dpi.h"
 
+#include "axi4.hpp"
+#include "axi4_mem.hpp"
+#include "axi4_xbar.hpp"
+
+#include <iostream>
+#include <termios.h>
+#include <unistd.h>
+#include <thread>
+#include <csignal>
+#include <sstream>
+
 #define COLOR_NONE "\033[0m"
 #define COLOR_GREEN "\033[1;32m"
 #define COLOR_RED "\033[1;31m"
