@@ -49,7 +49,7 @@ extern void init_device();
 axi4_mem <32,64,4> mem(1073741824);
 axi4_ptr <32,64,4> mem_ptr;
 
-void connect_wire(axi4_ptr <32,32,4> &mem_ptr, VMySimTop *top) {
+void connect_wire(axi4_ptr <32,64,4> &mem_ptr, VMySimTop *top) {
     // aw
     mem_ptr.awaddr     = &(top->io_axi_awaddr);
     mem_ptr.awburst    = &(top->io_axi_awburst);
