@@ -205,6 +205,7 @@ void npc_exec(unsigned int n)
         }
 
         is_finish = (top->io_commit_0_inst == 0x00100073) || (top->io_commit_1_inst == 0x00100073);
+        printf("%d\n", is_finish);
 
 
         if (commit_0)
