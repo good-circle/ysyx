@@ -164,7 +164,7 @@ void pmem_write(uint32_t mem_waddr, uint32_t mem_wdata, bool mem_write)
 
         if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000000 + 300 * 400 * 32)
         {
-            printf("vga: mem_waddr: %llx mem_wdata: %llx mem_wmask: %x\n", mem_waddr, mem_wdata, mem_wmask);
+            assert(0);
         }
     }
 }
