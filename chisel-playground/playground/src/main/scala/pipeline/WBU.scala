@@ -25,17 +25,9 @@ class WBU extends Module with Config {
     io.commit(i).wdata := in.bits(i).final_result
     io.commit(i).valid := io.in.valid && in.bits(i).valid
 
-    io.commit(i).mcycle := false.B
-    io.commit(i).is_clint := false.B
+    io.commit(i).mcycle := io.in.bits(i).mcycle
+    io.commit(i).is_clint := io.in.bits(i).is_clint
   }
 
   BoringUtils.addSource(io.commit(0).pc, "commit_pc")
-
-  if (Difftest) {
-    for (i <- 0 until 2) {
-      io.commit(i).mcycle := io.in.bits(i).mcycle
-      io.commit(i).is_clint := io.in.bits(i).is_clint
-    }
-
-  }
 }

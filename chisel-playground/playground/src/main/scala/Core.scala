@@ -42,6 +42,51 @@ class Core_Soc extends Module with Config {
   Connect(exu.io.out, wbu.io.in, true.B, false.B)
 }
 
+class Core_SimSoc extends Module with Config {
+  val io = IO(new Bundle {
+    val icache_bridge = new Cache_Bridge_IO
+    val dcache_bridge = new Cache_Bridge_IO
+    val sram = Vec(8, new SRAMIO_Cache)
+    val commit = Vec(2, new Commit_Bus)
+  })
+
+  val ifu = Module(new IFU)
+  val iqueue = Module(new IQueue)
+  val idu = Module(new IDU)
+  val issue = Module(new Issue)
+  val exu = Module(new EXU)
+  val wbu = Module(new WBU)
+  val bpu = Module(new BPU)
+  val icache = Module(new Cache_Soc)
+  val dcache = Module(new Cache_Soc)
+  io.sram <> icache.sram ++ dcache.sram
+
+  val frontend_reflush = WireInit(false.B)
+  BoringUtils.addSink(frontend_reflush, "frontend_reflush")
+
+  icache.io.out <> io.icache_bridge
+  ifu.io.imem <> icache.io.in
+  ifu.io.reflush_bus <> exu.io.reflush_bus
+  ifu.io.bpu <> bpu.io.ifu
+
+  Connect(ifu.io.out, iqueue.io.in, iqueue.io.out.fire, frontend_reflush)
+  Connect(iqueue.io.out, idu.io.in, idu.io.out.fire, frontend_reflush)
+  Connect(idu.io.out, issue.io.in, issue.io.out.fire, frontend_reflush)
+  issue.io.wb_bus <> wbu.io.wb_bus
+  issue.io.ex_fwd <> exu.io.forward
+
+  Connect(issue.io.out, exu.io.in, exu.io.out.fire, frontend_reflush)
+
+  dcache.io.out <> io.dcache_bridge
+  exu.io.dmem <> dcache.io.in
+  exu.io.bpu <> bpu.io.exu
+  Connect(exu.io.out, wbu.io.in, true.B, false.B)
+
+  for (i <- 0 until 2) {
+    io.commit(i) := wbu.io.commit(i)
+  }
+}
+
 class Core_Sim extends Module with Config {
   val io = IO(new Bundle {
     val icache_bridge = new Cache_Bridge_IO

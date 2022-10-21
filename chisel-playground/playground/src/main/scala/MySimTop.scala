@@ -3,13 +3,14 @@ import chisel3.util._
 import chisel3.util.experimental._
 import difftest._
 
-class MySimTop extends Module {
+class MySimTop extends Module with Config{
   val io = IO(new Bundle {
     val axi = new AXIIO_Soc
     val pc = Output(UInt(32.W))
+    val commit = Vec(2, new Commit_Bus)
   })
 
-  val soctop = Module(new SocTop)
+  val soctop = Module(new SimSocTop)
   io.axi <> soctop.io.master
 
   val sram_from_soctop = Wire(Vec(8, new SRAMIO_Soc))
@@ -57,6 +58,7 @@ class MySimTop extends Module {
   soctop.io.slave.arburst := 0.U
   soctop.io.slave.rready := 0.U
 
-  io.pc := 0.U
-  BoringUtils.addSink(io.pc, "commit_pc")
+  for (i <- 0 until 2) {
+    io.commit(i) := soctop.io.commit(i)
+  }
 }
