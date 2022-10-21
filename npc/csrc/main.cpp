@@ -186,7 +186,6 @@ void npc_exec(unsigned int n)
         m_trace->dump(2 * npc_cycle);
 #endif
         top->clock = !top->clock;
-
         mem_sigs.update_input(mem_ref);
         top->eval();
         mem.beat(mem_sigs_ref);
