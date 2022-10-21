@@ -100,10 +100,10 @@ uint64_t pmem_read(long long mem_raddr, bool mem_read)
 
         if (mem_raddr == 0xa0000048)
         {
-            printf("111\n");
             uint64_t us = get_time();
             lo = (uint32_t)us;
             hi = us >> 32;
+            printf("lo = %lx\n", lo);
             return lo;
         }
 
