@@ -211,12 +211,10 @@ void npc_exec(unsigned int n)
         {
             if (first_commit)
             {
-                inst_num++;
                 first_commit = false;
             }
             else
             {
-                inst_num++;
                 //difftest_read_regs(difftest_regs);
                 //is_finish = export_finish();
                 //is_mmio = export_mmio();
