@@ -19,8 +19,8 @@ int npc_cycle = 0;
 u_int8_t pmem[0x8000000];
 const char *img_file = NULL;
 char *log_file = NULL;
-int cycle_num = 0;
-int inst_num = 0;
+long long cycle_num = 0;
+long long inst_num = 0;
 bool is_batch_mode = false;
 static char *diff_so_file = NULL;
 u_int64_t difftest_regs[33] = {0};
@@ -43,6 +43,7 @@ extern void (*ref_difftest_regcpy)(void *dut, bool direction);
 extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 extern "C" void init_disasm(const char *triple);
 extern void init_device();
+extern void device_update();
 
 axi4_mem <32,64,4> mem(4294967296);
 axi4_ptr <32,64,4> mem_ptr;
@@ -152,7 +153,14 @@ void npc_exec(unsigned int n)
     while (!is_finish && n > 0)
     {
         cycle_num++;
-        //printf("%d", cycle_num);
+        if (cycle_num % 1000000 == 0)
+        {
+            gettimeofday(&end, NULL);
+            printf("sim_time: %lds, cycles: %lld, ", end.tv_sec - begin.tv_sec, cycle_num);
+            printf("insts: %lld, ", inst_num);
+            printf("current_pc: %x\n", top->io_commit_0_pc);
+        }
+        //printf("%lld\n", cycle_num);
         //printf("%x\n", top->io_commit_0_pc);
         // printf("%08lx \n", top->io_pc);
         // top->inst = inst_fetch(top->io_pc);
@@ -198,9 +206,11 @@ void npc_exec(unsigned int n)
         bool commit_1 = false;
 
         if (top->io_commit_0_valid) {
+            //printf("%x\n", top->io_commit_0_pc);
             inst_num += 1;
         }
         if (top->io_commit_1_valid) {
+            //printf("%x\n", top->io_commit_1_pc);
             inst_num += 1;
         }
 
@@ -211,12 +221,10 @@ void npc_exec(unsigned int n)
         {
             if (first_commit)
             {
-                inst_num++;
                 first_commit = false;
             }
             else
             {
-                inst_num++;
                 //difftest_read_regs(difftest_regs);
                 //is_finish = export_finish();
                 //is_mmio = export_mmio();
@@ -241,14 +249,15 @@ void npc_exec(unsigned int n)
 
         n--;
         npc_cycle++;
+        device_update();
     }
 
     if (is_finish || n <= 0)
     {
         gettimeofday(&end, NULL);
         double npc_time = (end.tv_sec - begin.tv_sec) * 1000000 + (end.tv_usec - begin.tv_usec);
-        printf("number of cycles is %d, ", cycle_num);
-        printf("number of instructions is %d\n", inst_num);
+        printf("number of cycles is %lld, ", cycle_num);
+        printf("number of instructions is %lld\n", inst_num);
         printf("total spend time %lfs\n", npc_time / 1000000);
         double frequency = (double)cycle_num / (npc_time / 1000000);
         printf("simulation frequency = %d inst/s\n", (int)frequency);

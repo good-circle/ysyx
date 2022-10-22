@@ -24,6 +24,8 @@ extern const char *img_file;
 extern int inst_num;
 extern int vga_size();
 extern uint64_t cpu_pc;
+extern void *vmem;
+extern uint32_t vgactl_port_base[2];
 
 extern axi4_mem <32,64,4> mem;
 long init_pmem()
@@ -114,12 +116,24 @@ uint32_t pmem_read(uint32_t mem_raddr, bool mem_read)
 
         if (mem_raddr == 0xa00003f8)
         {
-            return 0;
+            assert(0);
         }
 
         if (mem_raddr == 0xa0000100)
         {
-            return vga_size();
+            //printf("mem_raddr := %lx\n", mem_raddr);
+            return vgactl_port_base[0];
+        }
+
+        if (mem_raddr == 0xa0000104)
+        {
+            //printf("mem_raddr := %lx\n", mem_raddr);
+            return vgactl_port_base[1];
+        }
+
+        if (mem_raddr >= 0xa0000100)
+        {
+            assert(0);
         }
     }
     return 0;
@@ -162,9 +176,17 @@ void pmem_write(uint32_t mem_waddr, uint32_t mem_wdata, bool mem_write)
             putchar((char)mem_wdata);
         }
 
+        if (mem_waddr == 0xa0000104)
+        {
+            vgactl_port_base[1] = mem_wdata;
+        }
+
         if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000000 + 300 * 400 * 32)
         {
-            assert(0);
+            *(uint8_t *)((uint8_t *)vmem + mem_waddr - 0xa1000000) = mem_wdata;
+            //assert(0);
+            //if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000008)
+            //printf("mem_waddr is %x, mem_wdata is %x\n", mem_waddr, mem_wdata);
         }
     }
 }
