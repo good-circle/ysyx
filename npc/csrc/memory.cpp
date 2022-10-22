@@ -164,6 +164,7 @@ void pmem_write(uint32_t mem_waddr, uint32_t mem_wdata, bool mem_write)
 
         if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000000 + 300 * 400 * 32)
         {
+            if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000008)
             printf("mem_waddr is %lx\n", mem_waddr);
         }
     }
