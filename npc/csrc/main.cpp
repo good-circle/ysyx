@@ -210,6 +210,7 @@ void npc_exec(unsigned int n)
 
         if (commit_0)
         {
+            printf("%x\n", top->io_commit_0_pc);
             if (first_commit)
             {
                 first_commit = false;
