@@ -40,6 +40,10 @@ static void init_screen()
     SDL_SetWindowTitle(window, title);
     texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888,
                                 SDL_TEXTUREACCESS_STATIC, SCREEN_W, SCREEN_H);
+
+    vgactl_port_base = (uint32_t *)new_space(8);
+    vgactl_port_base[0] = (screen_width() << 16) | screen_height();
+    vgactl_port_base[1] = 0;
 }
 
 void init_device()
