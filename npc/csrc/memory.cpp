@@ -120,6 +120,7 @@ uint32_t pmem_read(uint32_t mem_raddr, bool mem_read)
 
         if (mem_raddr == 0xa0000100)
         {
+            printf("mem_raddr := %lx\n", mem_raddr);
             return vga_size();
         }
 
