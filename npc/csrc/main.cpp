@@ -204,6 +204,7 @@ void npc_exec(unsigned int n)
             inst_num += 1;
         }
         if (top->io_commit_1_valid) {
+            printf("%x\n", top->io_commit_1_pc);
             inst_num += 1;
         }
 
