@@ -159,6 +159,7 @@ void pmem_write(uint32_t mem_waddr, uint32_t mem_wdata, bool mem_write)
 
         if (mem_waddr == 0xa00003F8)
         {
+            printf("mem_waddr is %x, mem_wdata is %x\n", mem_waddr, mem_wdata);
             putchar((char)mem_wdata);
         }
 
