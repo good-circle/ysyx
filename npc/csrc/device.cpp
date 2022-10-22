@@ -7,7 +7,7 @@
 static SDL_Renderer *renderer = NULL;
 static SDL_Texture *texture = NULL;
 
-static void *vmem = NULL;
+void *vmem = NULL;
 uint32_t vgactl_port_base[2];
 
 static uint32_t screen_width()
