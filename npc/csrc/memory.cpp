@@ -119,6 +119,7 @@ uint32_t pmem_read(uint32_t mem_raddr, bool mem_read)
 
         if (mem_raddr == 0xa0000100)
         {
+            printf("111\n");
             return vga_size();
         }
     }
@@ -159,7 +160,6 @@ void pmem_write(uint32_t mem_waddr, uint32_t mem_wdata, bool mem_write)
 
         if (mem_waddr == 0xa00003F8)
         {
-            printf("mem_waddr is %x, mem_wdata is %x\n", mem_waddr, mem_wdata);
             putchar((char)mem_wdata);
         }
 
