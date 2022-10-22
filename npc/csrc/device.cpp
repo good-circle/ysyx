@@ -57,7 +57,7 @@ int vga_size()
 
 static inline void update_screen()
 { // this
-    SDL_UpdateTexture(texture, NULL, vmem, screen_width * sizeof(uint32_t));
+    SDL_UpdateTexture(texture, NULL, vmem, screen_width() * sizeof(uint32_t));
     SDL_RenderClear(renderer);
     SDL_RenderCopy(renderer, texture, NULL, NULL);
     SDL_RenderPresent(renderer);
