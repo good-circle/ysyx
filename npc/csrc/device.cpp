@@ -1,8 +1,8 @@
 #include "common.h"
 #include <SDL2/SDL.h>
 
-#define SCREEN_W 400 * 2
-#define SCREEN_H 300 * 2
+#define SCREEN_W 400
+#define SCREEN_H 300
 
 static SDL_Renderer *renderer = NULL;
 static SDL_Texture *texture = NULL;
