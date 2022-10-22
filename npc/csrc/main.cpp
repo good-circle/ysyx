@@ -152,7 +152,7 @@ void npc_exec(unsigned int n)
     while (!is_finish && n > 0)
     {
         cycle_num++;
-        printf("%d\n", cycle_num);
+        //printf("%lld\n", cycle_num);
         //printf("%x\n", top->io_commit_0_pc);
         // printf("%08lx \n", top->io_pc);
         // top->inst = inst_fetch(top->io_pc);
