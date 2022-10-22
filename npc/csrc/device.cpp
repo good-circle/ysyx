@@ -54,3 +54,37 @@ int vga_size()
 {
     return (screen_width() << 16) | screen_height();
 }
+
+static inline void update_screen()
+{ // this
+    SDL_UpdateTexture(texture, NULL, vmem, screen_width * sizeof(uint32_t));
+    SDL_RenderClear(renderer);
+    SDL_RenderCopy(renderer, texture, NULL, NULL);
+    SDL_RenderPresent(renderer);
+}
+
+void vga_update_screen()
+{
+    // TODO: call `update_screen()` when the sync register is non-zero,
+    // then zero out the sync register
+    if (vgactl_port_base[1])
+    {
+        update_screen();
+        vgactl_port_base[1] = 0;
+    }
+}
+
+void device_update()
+{
+    static uint64_t last = 0;
+    struct timespec now;
+    clock_gettime(CLOCK_MONOTONIC_COARSE, &now);
+    uint64_t cur = now.tv_sec * 1000000 + now.tv_nsec / 1000;
+    if (cur - last < 1000000)
+    {
+        return;
+    }
+    printf("update screen\n");
+    last = cur;
+    vga_update_screen();
+}

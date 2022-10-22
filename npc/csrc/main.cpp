@@ -43,6 +43,7 @@ extern void (*ref_difftest_regcpy)(void *dut, bool direction);
 extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 extern "C" void init_disasm(const char *triple);
 extern void init_device();
+extern void device_update();
 
 axi4_mem <32,64,4> mem(4294967296);
 axi4_ptr <32,64,4> mem_ptr;
@@ -239,6 +240,7 @@ void npc_exec(unsigned int n)
 
         n--;
         npc_cycle++;
+        device_update();
     }
 
     if (is_finish || n <= 0)
