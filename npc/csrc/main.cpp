@@ -150,6 +150,7 @@ void npc_exec(unsigned int n)
     struct timeval begin;
     struct timeval end;
     gettimeofday(&begin, NULL);
+    n = 50000;
     while (!is_finish && n > 0)
     {
         cycle_num++;
