@@ -153,7 +153,7 @@ void npc_exec(unsigned int n)
     while (!is_finish && n > 0)
     {
         cycle_num++;
-        if (cycle_num & 10000 == 0)
+        if (cycle_num % 10000 == 0)
         {
             printf("%lld, ", inst_num);
             printf("%x\n", top->io_commit_0_pc);
