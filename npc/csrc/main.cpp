@@ -199,6 +199,7 @@ void npc_exec(unsigned int n)
         bool commit_1 = false;
 
         if (top->io_commit_0_valid) {
+            printf("%x\n", top->io_commit_0_pc);
             inst_num += 1;
         }
         if (top->io_commit_1_valid) {
@@ -210,7 +211,6 @@ void npc_exec(unsigned int n)
 
         if (commit_0)
         {
-            printf("%x\n", top->io_commit_0_pc);
             if (first_commit)
             {
                 first_commit = false;
