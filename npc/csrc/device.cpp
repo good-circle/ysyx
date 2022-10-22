@@ -8,7 +8,7 @@ static SDL_Renderer *renderer = NULL;
 static SDL_Texture *texture = NULL;
 
 static void *vmem = NULL;
-static uint32_t *vgactl_port_base = NULL;
+uint32_t vgactl_port_base[2];
 
 static uint32_t screen_width()
 {
@@ -41,7 +41,6 @@ static void init_screen()
     texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888,
                                 SDL_TEXTUREACCESS_STATIC, SCREEN_W, SCREEN_H);
 
-    vgactl_port_base = (uint32_t *)new_space(8);
     vgactl_port_base[0] = (screen_width() << 16) | screen_height();
     vgactl_port_base[1] = 0;
 }
