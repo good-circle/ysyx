@@ -55,7 +55,6 @@ y+h ***********&&&&&&&&&&&&&&&******
 
     if (ctl->sync)
     {
-        outb(SERIAL_PORT, 36);
         outl(SYNC_ADDR, 1);
     }
 }
