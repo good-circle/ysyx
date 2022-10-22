@@ -155,6 +155,7 @@ void npc_exec(unsigned int n)
         cycle_num++;
         if (cycle_num % 500000 == 0)
         {
+            gettimeofday(&end, NULL);
             printf("time: %ld, cycles: %lld, ", end.tv_sec - begin.tv_sec, cycle_num);
             printf("%lld, ", inst_num);
             printf("%x\n", top->io_commit_0_pc);
