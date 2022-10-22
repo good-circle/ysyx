@@ -199,11 +199,11 @@ void npc_exec(unsigned int n)
         bool commit_1 = false;
 
         if (top->io_commit_0_valid) {
-            //printf("%x\n", top->io_commit_0_pc);
+            printf("%x\n", top->io_commit_0_pc);
             inst_num += 1;
         }
         if (top->io_commit_1_valid) {
-            //printf("%x\n", top->io_commit_1_pc);
+            printf("%x\n", top->io_commit_1_pc);
             inst_num += 1;
         }
 
