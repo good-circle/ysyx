@@ -153,8 +153,9 @@ void npc_exec(unsigned int n)
     while (!is_finish && n > 0)
     {
         cycle_num++;
-        if (cycle_num % 10000 == 0)
+        if (cycle_num % 500000 == 0)
         {
+            printf("time: %d, cycles: %llx, "(end.tv_sec - begin.tv_sec) * 1000000 + (end.tv_usec - begin.tv_usec) / 1000000, cycle_num);
             printf("%lld, ", inst_num);
             printf("%x\n", top->io_commit_0_pc);
         }
