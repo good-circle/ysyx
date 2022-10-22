@@ -24,6 +24,7 @@ extern const char *img_file;
 extern int inst_num;
 extern int vga_size();
 extern uint64_t cpu_pc;
+extern void *vmem;
 
 extern axi4_mem <32,64,4> mem;
 long init_pmem()
@@ -169,7 +170,8 @@ void pmem_write(uint32_t mem_waddr, uint32_t mem_wdata, bool mem_write)
 
         if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000000 + 300 * 400 * 32)
         {
-            assert(0);
+            *(uint8_t *)((uint8_t *)vmem + mem_waddr - 0xa1000000) = mem_wdata;
+            //assert(0);
             //if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000008)
             //printf("mem_waddr is %x, mem_wdata is %x\n", mem_waddr, mem_wdata);
         }
