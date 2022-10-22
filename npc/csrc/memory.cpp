@@ -114,12 +114,16 @@ uint32_t pmem_read(uint32_t mem_raddr, bool mem_read)
 
         if (mem_raddr == 0xa00003f8)
         {
-            return 0;
+            assert(0);
         }
 
         if (mem_raddr == 0xa0000100)
         {
-            printf("111\n");
+            return vga_size();
+        }
+
+        if (mem_raddr >= 0xa0000100)
+        {
             return vga_size();
         }
     }
@@ -165,8 +169,9 @@ void pmem_write(uint32_t mem_waddr, uint32_t mem_wdata, bool mem_write)
 
         if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000000 + 300 * 400 * 32)
         {
-            if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000008)
-            printf("mem_waddr is %x, mem_wdata is %x\n", mem_waddr, mem_wdata);
+            assert(0);
+            //if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000008)
+            //printf("mem_waddr is %x, mem_wdata is %x\n", mem_waddr, mem_wdata);
         }
     }
 }
