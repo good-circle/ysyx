@@ -173,6 +173,8 @@ void npc_exec(unsigned int n)
 
     gettimeofday(&begin, NULL);
 
+    n = 13;
+
     while (!is_finish && n > 0)
     {
         cycle_num++;
