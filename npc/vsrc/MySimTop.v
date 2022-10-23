@@ -5360,9 +5360,9 @@ module MDU(
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        //if (io_result_ok & ~(golden_result == tmp_result | reset)) begin
-        //  $fwrite(32'h80000002,"Assertion failed\n    at MDU.scala:154 assert(golden_result === tmp_result)\n"); // @[MDU.scala 154:13]
-        //end
+        if (io_result_ok & ~(golden_result == tmp_result | reset)) begin
+          $fwrite(32'h80000002,"Assertion failed\n    at MDU.scala:154 assert(golden_result === tmp_result)\n"); // @[MDU.scala 154:13]
+        end
     `ifdef PRINTF_COND
       end
     `endif
@@ -5371,9 +5371,9 @@ module MDU(
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        //if (io_result_ok & ~(golden_result == tmp_result | reset)) begin
-        //  $fatal; // @[MDU.scala 154:13]
-        //end
+        if (io_result_ok & ~(golden_result == tmp_result | reset)) begin
+          $fatal; // @[MDU.scala 154:13]
+        end
     `ifdef STOP_COND
       end
     `endif
