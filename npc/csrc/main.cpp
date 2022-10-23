@@ -24,8 +24,6 @@ long long inst_num = 0;
 bool is_batch_mode = false;
 static char *diff_so_file = NULL;
 u_int64_t difftest_regs[33] = {0};
-extern uint64_t cpu_pc;
-extern u_int64_t mmio_pc;
 
 static int parse_args(int argc, char *argv[]);
 long init_pmem();
@@ -174,7 +172,7 @@ void npc_exec(unsigned int n)
     axi4_ref<32, 64, 4> mem_sigs_ref(mem_sigs);
 
     gettimeofday(&begin, NULL);
-    n = 13;
+
     while (!is_finish && n > 0)
     {
         cycle_num++;
@@ -253,8 +251,9 @@ void npc_exec(unsigned int n)
             else
             {
                 difftest_read_regs(difftest_regs);
+                difftest_step(difftest_regs, top->io_commit_0_pc);
 
-                //if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
+                //if (!is_finish && difftest_step(difftest_regs, top->io_commit_0_pc) != 0)
                 //{
                 //    is_finish = 1;
                 //    break;
@@ -289,9 +288,9 @@ int main(int argc, char **argv, char **env)
 
     reset_npc(10);
 
-    // difftest_read_regs(difftest_regs);
+    difftest_read_regs(difftest_regs);
 
-    // init_difftest(diff_so_file, img_size, difftest_regs);
+    init_difftest(diff_so_file, img_size, difftest_regs);
 
     init_device();
 

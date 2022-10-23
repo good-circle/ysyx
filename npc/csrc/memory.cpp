@@ -23,7 +23,6 @@
 extern const char *img_file;
 extern int inst_num;
 extern int vga_size();
-extern uint64_t cpu_pc;
 extern void *vmem;
 extern uint32_t vgactl_port_base[2];
 
