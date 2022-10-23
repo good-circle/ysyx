@@ -5220,57 +5220,56 @@ module MDU(
   reg [127:0] divisor_reg; // @[MDU.scala 64:28]
   reg [63:0] div_result_reg; // @[MDU.scala 65:31]
   reg  wait_lsu; // @[MDU.scala 68:25]
-  wire  _T_1 = io_is_lsu & state != 2'h0; // @[MDU.scala 70:19]
-  wire  _GEN_0 = io_is_lsu & state == 2'h0 | wait_lsu; // @[MDU.scala 75:38 MDU.scala 76:14 MDU.scala 68:25]
-  wire  _T_7 = 2'h0 == state; // @[Conditional.scala 37:30]
+  wire  _GEN_0 = io_is_lsu & state == 2'h0 | wait_lsu; // @[MDU.scala 70:38 MDU.scala 71:14 MDU.scala 68:25]
+  wire  _T_2 = 2'h0 == state; // @[Conditional.scala 37:30]
   wire [127:0] _result_reg_T = {64'h0,src1_final}; // @[Cat.scala 30:58]
-  wire [128:0] _result_reg_T_1 = {_result_reg_T, 1'h0}; // @[MDU.scala 89:54]
+  wire [128:0] _result_reg_T_1 = {_result_reg_T, 1'h0}; // @[MDU.scala 84:54]
   wire [127:0] _divisor_reg_T = {src2_final,64'h0}; // @[Cat.scala 30:58]
-  wire [128:0] _GEN_3 = is_div ? _result_reg_T_1 : {{1'd0}, result_reg}; // @[MDU.scala 87:28 MDU.scala 89:20 MDU.scala 63:27]
-  wire [63:0] _GEN_5 = is_div ? 64'h0 : div_result_reg; // @[MDU.scala 87:28 MDU.scala 91:24 MDU.scala 65:31]
-  wire [128:0] _GEN_7 = is_mul ? 129'h0 : _GEN_3; // @[MDU.scala 84:21 MDU.scala 86:20]
-  wire [63:0] _GEN_9 = is_mul ? div_result_reg : _GEN_5; // @[MDU.scala 84:21 MDU.scala 65:31]
-  wire  _T_8 = 2'h1 == state; // @[Conditional.scala 37:30]
-  wire [63:0] _T_9 = src2_final >> count_reverse; // @[MDU.scala 95:23]
-  wire [128:0] _result_reg_T_2 = {result_reg, 1'h0}; // @[MDU.scala 96:35]
-  wire [128:0] _GEN_38 = {{65'd0}, src1_final}; // @[MDU.scala 96:50]
-  wire [128:0] _result_reg_T_4 = _result_reg_T_2 + _GEN_38; // @[MDU.scala 96:50]
-  wire [128:0] _GEN_10 = _T_9[0] ? _result_reg_T_4 : _result_reg_T_2; // @[MDU.scala 95:48 MDU.scala 96:20 MDU.scala 98:20]
-  wire  _T_12 = count == 6'h3f; // @[MDU.scala 100:19]
-  wire [5:0] _count_T_1 = count + 6'h1; // @[MDU.scala 103:24]
-  wire [1:0] _GEN_11 = count == 6'h3f ? 2'h3 : state; // @[MDU.scala 100:29 MDU.scala 101:15 MDU.scala 60:22]
-  wire [5:0] _GEN_12 = count == 6'h3f ? count : _count_T_1; // @[MDU.scala 100:29 MDU.scala 61:22 MDU.scala 103:15]
-  wire  _T_13 = 2'h2 == state; // @[Conditional.scala 37:30]
-  wire  _T_17 = result_reg[127:64] >= divisor_reg[127:64]; // @[MDU.scala 109:34]
-  wire [127:0] _result_reg_T_7 = result_reg - divisor_reg; // @[MDU.scala 110:36]
-  wire [64:0] _div_result_reg_T = {div_result_reg, 1'h0}; // @[MDU.scala 111:45]
-  wire [64:0] _div_result_reg_T_2 = _div_result_reg_T + 65'h1; // @[MDU.scala 111:60]
-  wire [127:0] _GEN_13 = result_reg[127:64] >= divisor_reg[127:64] ? _result_reg_T_7 : result_reg; // @[MDU.scala 109:59 MDU.scala 110:22 MDU.scala 63:27]
-  wire [64:0] _GEN_14 = result_reg[127:64] >= divisor_reg[127:64] ? _div_result_reg_T_2 : _div_result_reg_T; // @[MDU.scala 109:59 MDU.scala 111:26 MDU.scala 113:26]
-  wire [128:0] _result_reg_T_10 = {_result_reg_T_7, 1'h0}; // @[MDU.scala 118:52]
-  wire [128:0] _GEN_15 = _T_17 ? _result_reg_T_10 : _result_reg_T_2; // @[MDU.scala 117:59 MDU.scala 118:22 MDU.scala 121:22]
-  wire [128:0] _GEN_18 = _T_12 ? {{1'd0}, _GEN_13} : _GEN_15; // @[MDU.scala 107:29]
-  wire [64:0] _GEN_19 = _T_12 ? _GEN_14 : _GEN_14; // @[MDU.scala 107:29]
-  wire  _T_21 = 2'h3 == state; // @[Conditional.scala 37:30]
-  wire [1:0] _GEN_21 = ~wait_lsu | wait_lsu & io_lsu_ok ? 2'h0 : state; // @[MDU.scala 127:51 MDU.scala 128:15 MDU.scala 60:22]
-  wire [5:0] _GEN_22 = ~wait_lsu | wait_lsu & io_lsu_ok ? 6'h0 : count; // @[MDU.scala 127:51 MDU.scala 129:15 MDU.scala 61:22]
-  wire [1:0] _GEN_23 = _T_21 ? _GEN_21 : state; // @[Conditional.scala 39:67 MDU.scala 60:22]
-  wire [5:0] _GEN_24 = _T_21 ? _GEN_22 : count; // @[Conditional.scala 39:67 MDU.scala 61:22]
-  wire [128:0] _GEN_26 = _T_13 ? _GEN_18 : {{1'd0}, result_reg}; // @[Conditional.scala 39:67 MDU.scala 63:27]
-  wire [64:0] _GEN_27 = _T_13 ? _GEN_19 : {{1'd0}, div_result_reg}; // @[Conditional.scala 39:67 MDU.scala 65:31]
-  wire [128:0] _GEN_29 = _T_8 ? _GEN_10 : _GEN_26; // @[Conditional.scala 39:67]
-  wire [64:0] _GEN_32 = _T_8 ? {{1'd0}, div_result_reg} : _GEN_27; // @[Conditional.scala 39:67 MDU.scala 65:31]
-  wire [128:0] _GEN_34 = _T_7 ? _GEN_7 : _GEN_29; // @[Conditional.scala 40:58]
-  wire [64:0] _GEN_36 = _T_7 ? {{1'd0}, _GEN_9} : _GEN_32; // @[Conditional.scala 40:58]
-  wire [63:0] _tmp_result_T_1 = ~result_reg[63:0]; // @[MDU.scala 136:36]
-  wire [63:0] _tmp_result_T_3 = _tmp_result_T_1 + 64'h1; // @[MDU.scala 136:63]
-  wire [63:0] _tmp_result_T_5 = result_is_neg ? _tmp_result_T_3 : result_reg[63:0]; // @[MDU.scala 136:19]
-  wire [63:0] _tmp_result_T_7 = ~result_reg[127:64]; // @[MDU.scala 137:37]
-  wire [63:0] _tmp_result_T_9 = _tmp_result_T_7 + 64'h1; // @[MDU.scala 137:66]
-  wire [63:0] _tmp_result_T_11 = result_is_neg ? _tmp_result_T_9 : result_reg[127:64]; // @[MDU.scala 137:20]
-  wire [63:0] _tmp_result_T_24 = ~div_result_reg; // @[MDU.scala 140:36]
-  wire [63:0] _tmp_result_T_26 = _tmp_result_T_24 + 64'h1; // @[MDU.scala 140:60]
-  wire [63:0] _tmp_result_T_27 = result_is_neg ? _tmp_result_T_26 : div_result_reg; // @[MDU.scala 140:19]
+  wire [128:0] _GEN_3 = is_div ? _result_reg_T_1 : {{1'd0}, result_reg}; // @[MDU.scala 82:28 MDU.scala 84:20 MDU.scala 63:27]
+  wire [63:0] _GEN_5 = is_div ? 64'h0 : div_result_reg; // @[MDU.scala 82:28 MDU.scala 86:24 MDU.scala 65:31]
+  wire [128:0] _GEN_7 = is_mul ? 129'h0 : _GEN_3; // @[MDU.scala 79:21 MDU.scala 81:20]
+  wire [63:0] _GEN_9 = is_mul ? div_result_reg : _GEN_5; // @[MDU.scala 79:21 MDU.scala 65:31]
+  wire  _T_3 = 2'h1 == state; // @[Conditional.scala 37:30]
+  wire [63:0] _T_4 = src2_final >> count_reverse; // @[MDU.scala 90:23]
+  wire [128:0] _result_reg_T_2 = {result_reg, 1'h0}; // @[MDU.scala 91:35]
+  wire [128:0] _GEN_38 = {{65'd0}, src1_final}; // @[MDU.scala 91:50]
+  wire [128:0] _result_reg_T_4 = _result_reg_T_2 + _GEN_38; // @[MDU.scala 91:50]
+  wire [128:0] _GEN_10 = _T_4[0] ? _result_reg_T_4 : _result_reg_T_2; // @[MDU.scala 90:48 MDU.scala 91:20 MDU.scala 93:20]
+  wire  _T_7 = count == 6'h3f; // @[MDU.scala 95:19]
+  wire [5:0] _count_T_1 = count + 6'h1; // @[MDU.scala 98:24]
+  wire [1:0] _GEN_11 = count == 6'h3f ? 2'h3 : state; // @[MDU.scala 95:29 MDU.scala 96:15 MDU.scala 60:22]
+  wire [5:0] _GEN_12 = count == 6'h3f ? count : _count_T_1; // @[MDU.scala 95:29 MDU.scala 61:22 MDU.scala 98:15]
+  wire  _T_8 = 2'h2 == state; // @[Conditional.scala 37:30]
+  wire  _T_12 = result_reg[127:64] >= divisor_reg[127:64]; // @[MDU.scala 104:34]
+  wire [127:0] _result_reg_T_7 = result_reg - divisor_reg; // @[MDU.scala 105:36]
+  wire [64:0] _div_result_reg_T = {div_result_reg, 1'h0}; // @[MDU.scala 106:45]
+  wire [64:0] _div_result_reg_T_2 = _div_result_reg_T + 65'h1; // @[MDU.scala 106:60]
+  wire [127:0] _GEN_13 = result_reg[127:64] >= divisor_reg[127:64] ? _result_reg_T_7 : result_reg; // @[MDU.scala 104:59 MDU.scala 105:22 MDU.scala 63:27]
+  wire [64:0] _GEN_14 = result_reg[127:64] >= divisor_reg[127:64] ? _div_result_reg_T_2 : _div_result_reg_T; // @[MDU.scala 104:59 MDU.scala 106:26 MDU.scala 108:26]
+  wire [128:0] _result_reg_T_10 = {_result_reg_T_7, 1'h0}; // @[MDU.scala 113:52]
+  wire [128:0] _GEN_15 = _T_12 ? _result_reg_T_10 : _result_reg_T_2; // @[MDU.scala 112:59 MDU.scala 113:22 MDU.scala 116:22]
+  wire [128:0] _GEN_18 = _T_7 ? {{1'd0}, _GEN_13} : _GEN_15; // @[MDU.scala 102:29]
+  wire [64:0] _GEN_19 = _T_7 ? _GEN_14 : _GEN_14; // @[MDU.scala 102:29]
+  wire  _T_16 = 2'h3 == state; // @[Conditional.scala 37:30]
+  wire [1:0] _GEN_21 = ~wait_lsu | wait_lsu & io_lsu_ok ? 2'h0 : state; // @[MDU.scala 122:51 MDU.scala 123:15 MDU.scala 60:22]
+  wire [5:0] _GEN_22 = ~wait_lsu | wait_lsu & io_lsu_ok ? 6'h0 : count; // @[MDU.scala 122:51 MDU.scala 124:15 MDU.scala 61:22]
+  wire [1:0] _GEN_23 = _T_16 ? _GEN_21 : state; // @[Conditional.scala 39:67 MDU.scala 60:22]
+  wire [5:0] _GEN_24 = _T_16 ? _GEN_22 : count; // @[Conditional.scala 39:67 MDU.scala 61:22]
+  wire [128:0] _GEN_26 = _T_8 ? _GEN_18 : {{1'd0}, result_reg}; // @[Conditional.scala 39:67 MDU.scala 63:27]
+  wire [64:0] _GEN_27 = _T_8 ? _GEN_19 : {{1'd0}, div_result_reg}; // @[Conditional.scala 39:67 MDU.scala 65:31]
+  wire [128:0] _GEN_29 = _T_3 ? _GEN_10 : _GEN_26; // @[Conditional.scala 39:67]
+  wire [64:0] _GEN_32 = _T_3 ? {{1'd0}, div_result_reg} : _GEN_27; // @[Conditional.scala 39:67 MDU.scala 65:31]
+  wire [128:0] _GEN_34 = _T_2 ? _GEN_7 : _GEN_29; // @[Conditional.scala 40:58]
+  wire [64:0] _GEN_36 = _T_2 ? {{1'd0}, _GEN_9} : _GEN_32; // @[Conditional.scala 40:58]
+  wire [63:0] _tmp_result_T_1 = ~result_reg[63:0]; // @[MDU.scala 131:36]
+  wire [63:0] _tmp_result_T_3 = _tmp_result_T_1 + 64'h1; // @[MDU.scala 131:63]
+  wire [63:0] _tmp_result_T_5 = result_is_neg ? _tmp_result_T_3 : result_reg[63:0]; // @[MDU.scala 131:19]
+  wire [63:0] _tmp_result_T_7 = ~result_reg[127:64]; // @[MDU.scala 132:37]
+  wire [63:0] _tmp_result_T_9 = _tmp_result_T_7 + 64'h1; // @[MDU.scala 132:66]
+  wire [63:0] _tmp_result_T_11 = result_is_neg ? _tmp_result_T_9 : result_reg[127:64]; // @[MDU.scala 132:20]
+  wire [63:0] _tmp_result_T_24 = ~div_result_reg; // @[MDU.scala 135:36]
+  wire [63:0] _tmp_result_T_26 = _tmp_result_T_24 + 64'h1; // @[MDU.scala 135:60]
+  wire [63:0] _tmp_result_T_27 = result_is_neg ? _tmp_result_T_26 : div_result_reg; // @[MDU.scala 135:19]
   wire [63:0] _tmp_result_T_45 = 4'h1 == io_mdu_op ? _tmp_result_T_5 : 64'h0; // @[Mux.scala 80:57]
   wire [63:0] _tmp_result_T_47 = 4'h2 == io_mdu_op ? _tmp_result_T_11 : _tmp_result_T_45; // @[Mux.scala 80:57]
   wire [63:0] _tmp_result_T_49 = 4'h3 == io_mdu_op ? _tmp_result_T_11 : _tmp_result_T_47; // @[Mux.scala 80:57]
@@ -5280,20 +5279,21 @@ module MDU(
   wire [63:0] _tmp_result_T_57 = 4'h7 == io_mdu_op ? _tmp_result_T_11 : _tmp_result_T_55; // @[Mux.scala 80:57]
   wire [63:0] tmp_result = 4'h8 == io_mdu_op ? _tmp_result_T_11 : _tmp_result_T_57; // @[Mux.scala 80:57]
   wire [31:0] io_result_hi = tmp_result[31] ? 32'hffffffff : 32'h0; // @[Bitwise.scala 72:12]
-  wire [31:0] io_result_lo = tmp_result[31:0]; // @[MDU.scala 145:69]
+  wire [31:0] io_result_lo = tmp_result[31:0]; // @[MDU.scala 140:69]
   wire [63:0] _io_result_T_2 = {io_result_hi,io_result_lo}; // @[Cat.scala 30:58]
-  wire [127:0] _golden_result_T = io_src1 * io_src2; // @[MDU.scala 150:24]
-  wire [127:0] _golden_result_T_3 = $signed(io_src1) * $signed(io_src2); // @[MDU.scala 151:32]
-  wire [63:0] _golden_result_T_5 = _golden_result_T_3[127:64]; // @[MDU.scala 151:53]
-  wire [64:0] _golden_result_T_7 = {1'b0,$signed(io_src2)}; // @[MDU.scala 152:34]
-  wire [128:0] _golden_result_T_8 = $signed(io_src1) * $signed(_golden_result_T_7); // @[MDU.scala 152:34]
-  wire [127:0] _golden_result_T_10 = _golden_result_T_8[127:0]; // @[MDU.scala 152:34]
-  wire [63:0] _golden_result_T_12 = _golden_result_T_10[127:64]; // @[MDU.scala 152:55]
-  wire [64:0] _golden_result_T_18 = $signed(io_src1) / $signed(io_src2); // @[MDU.scala 154:46]
-  wire [63:0] _golden_result_T_19 = io_src1 / io_src2; // @[MDU.scala 155:32]
-  wire [63:0] _golden_result_T_23 = $signed(io_src1) % $signed(io_src2); // @[MDU.scala 156:46]
-  wire [63:0] _GEN_1 = io_src1 % io_src2; // @[MDU.scala 157:32]
-  wire [63:0] _golden_result_T_24 = _GEN_1[63:0]; // @[MDU.scala 157:32]
+  wire  _T_21 = io_is_lsu & state != 2'h0; // @[MDU.scala 143:21]
+  wire [127:0] _golden_result_T = io_src1 * io_src2; // @[MDU.scala 149:24]
+  wire [127:0] _golden_result_T_3 = $signed(io_src1) * $signed(io_src2); // @[MDU.scala 150:32]
+  wire [63:0] _golden_result_T_5 = _golden_result_T_3[127:64]; // @[MDU.scala 150:53]
+  wire [64:0] _golden_result_T_7 = {1'b0,$signed(io_src2)}; // @[MDU.scala 151:34]
+  wire [128:0] _golden_result_T_8 = $signed(io_src1) * $signed(_golden_result_T_7); // @[MDU.scala 151:34]
+  wire [127:0] _golden_result_T_10 = _golden_result_T_8[127:0]; // @[MDU.scala 151:34]
+  wire [63:0] _golden_result_T_12 = _golden_result_T_10[127:64]; // @[MDU.scala 151:55]
+  wire [64:0] _golden_result_T_18 = $signed(io_src1) / $signed(io_src2); // @[MDU.scala 153:46]
+  wire [63:0] _golden_result_T_19 = io_src1 / io_src2; // @[MDU.scala 154:32]
+  wire [63:0] _golden_result_T_23 = $signed(io_src1) % $signed(io_src2); // @[MDU.scala 155:46]
+  wire [63:0] _GEN_1 = io_src1 % io_src2; // @[MDU.scala 156:32]
+  wire [63:0] _golden_result_T_24 = _GEN_1[63:0]; // @[MDU.scala 156:32]
   wire [127:0] _golden_result_T_26 = 4'h1 == io_mdu_op ? _golden_result_T : 128'h0; // @[Mux.scala 80:57]
   wire [127:0] _golden_result_T_28 = 4'h2 == io_mdu_op ? {{64'd0}, _golden_result_T_5} : _golden_result_T_26; // @[Mux.scala 80:57]
   wire [127:0] _golden_result_T_30 = 4'h3 == io_mdu_op ? {{64'd0}, _golden_result_T_12} : _golden_result_T_28; // @[Mux.scala 80:57]
@@ -5303,30 +5303,30 @@ module MDU(
   wire [127:0] _golden_result_T_38 = 4'h7 == io_mdu_op ? {{64'd0}, _golden_result_T_23} : _golden_result_T_36; // @[Mux.scala 80:57]
   wire [127:0] _golden_result_T_40 = 4'h8 == io_mdu_op ? {{64'd0}, _golden_result_T_24} : _golden_result_T_38; // @[Mux.scala 80:57]
   wire [63:0] golden_result = _golden_result_T_40[63:0];
-  assign io_result_ok = state == 2'h3; // @[MDU.scala 134:25]
-  assign io_result = io_rv64 ? _io_result_T_2 : tmp_result; // @[MDU.scala 145:19]
+  assign io_result_ok = state == 2'h3; // @[MDU.scala 129:25]
+  assign io_result = io_rv64 ? _io_result_T_2 : tmp_result; // @[MDU.scala 140:19]
   always @(posedge clock) begin
     if (reset) begin // @[MDU.scala 60:22]
       state <= 2'h0; // @[MDU.scala 60:22]
-    end else if (_T_7) begin // @[Conditional.scala 40:58]
-      if (is_mul) begin // @[MDU.scala 84:21]
-        state <= 2'h1; // @[MDU.scala 85:15]
-      end else if (is_div) begin // @[MDU.scala 87:28]
-        state <= 2'h2; // @[MDU.scala 88:15]
+    end else if (_T_2) begin // @[Conditional.scala 40:58]
+      if (is_mul) begin // @[MDU.scala 79:21]
+        state <= 2'h1; // @[MDU.scala 80:15]
+      end else if (is_div) begin // @[MDU.scala 82:28]
+        state <= 2'h2; // @[MDU.scala 83:15]
       end
-    end else if (_T_8) begin // @[Conditional.scala 39:67]
+    end else if (_T_3) begin // @[Conditional.scala 39:67]
       state <= _GEN_11;
-    end else if (_T_13) begin // @[Conditional.scala 39:67]
+    end else if (_T_8) begin // @[Conditional.scala 39:67]
       state <= _GEN_11;
     end else begin
       state <= _GEN_23;
     end
     if (reset) begin // @[MDU.scala 61:22]
       count <= 6'h0; // @[MDU.scala 61:22]
-    end else if (!(_T_7)) begin // @[Conditional.scala 40:58]
-      if (_T_8) begin // @[Conditional.scala 39:67]
+    end else if (!(_T_2)) begin // @[Conditional.scala 40:58]
+      if (_T_3) begin // @[Conditional.scala 39:67]
         count <= _GEN_12;
-      end else if (_T_13) begin // @[Conditional.scala 39:67]
+      end else if (_T_8) begin // @[Conditional.scala 39:67]
         count <= _GEN_12;
       end else begin
         count <= _GEN_24;
@@ -5339,10 +5339,10 @@ module MDU(
     end
     if (reset) begin // @[MDU.scala 64:28]
       divisor_reg <= 128'h0; // @[MDU.scala 64:28]
-    end else if (_T_7) begin // @[Conditional.scala 40:58]
-      if (!(is_mul)) begin // @[MDU.scala 84:21]
-        if (is_div) begin // @[MDU.scala 87:28]
-          divisor_reg <= _divisor_reg_T; // @[MDU.scala 90:21]
+    end else if (_T_2) begin // @[Conditional.scala 40:58]
+      if (!(is_mul)) begin // @[MDU.scala 79:21]
+        if (is_div) begin // @[MDU.scala 82:28]
+          divisor_reg <= _divisor_reg_T; // @[MDU.scala 85:21]
         end
       end
     end
@@ -5353,8 +5353,8 @@ module MDU(
     end
     if (reset) begin // @[MDU.scala 68:25]
       wait_lsu <= 1'h0; // @[MDU.scala 68:25]
-    end else if (io_lsu_ok) begin // @[MDU.scala 78:20]
-      wait_lsu <= 1'h0; // @[MDU.scala 79:14]
+    end else if (io_lsu_ok) begin // @[MDU.scala 73:20]
+      wait_lsu <= 1'h0; // @[MDU.scala 74:14]
     end else begin
       wait_lsu <= _GEN_0;
     end
@@ -5362,8 +5362,8 @@ module MDU(
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_1 & ~reset) begin
-          $fwrite(32'h80000002,"Assertion failed\n    at MDU.scala:72 assert(false.B)\n"); // @[MDU.scala 72:11]
+        if (_T_21 & ~reset) begin
+          $fwrite(32'h80000002,"Assertion failed\n    at MDU.scala:144 assert(false.B)\n"); // @[MDU.scala 144:13]
         end
     `ifdef PRINTF_COND
       end
@@ -5373,8 +5373,8 @@ module MDU(
     `ifdef STOP_COND
       if (`STOP_COND) begin
     `endif
-        if (_T_1 & ~reset) begin
-          $fatal; // @[MDU.scala 72:11]
+        if (_T_21 & ~reset) begin
+          $fatal; // @[MDU.scala 144:13]
         end
     `ifdef STOP_COND
       end
@@ -5385,7 +5385,7 @@ module MDU(
       if (`PRINTF_COND) begin
     `endif
         if (io_result_ok & ~(golden_result == tmp_result | reset)) begin
-          $fwrite(32'h80000002,"Assertion failed\n    at MDU.scala:160 assert(golden_result === tmp_result)\n"); // @[MDU.scala 160:13]
+          $fwrite(32'h80000002,"Assertion failed\n    at MDU.scala:159 assert(golden_result === tmp_result)\n"); // @[MDU.scala 159:13]
         end
     `ifdef PRINTF_COND
       end
@@ -5396,7 +5396,7 @@ module MDU(
       if (`STOP_COND) begin
     `endif
         if (io_result_ok & ~(golden_result == tmp_result | reset)) begin
-          $fatal; // @[MDU.scala 160:13]
+          $fatal; // @[MDU.scala 159:13]
         end
     `ifdef STOP_COND
       end
