@@ -266,13 +266,13 @@ void npc_exec(unsigned int n)
             {
                 //printf("commit_1: %lx %d\n", top->io_commit_1_pc, commit_num);
                 difftest_read_regs(difftest_regs, top->io_commit_1_pc);
-                difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, true);
+                is_finish = difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, true);
             }
             else
             {
                 //printf("commit_0: %lx %d\n", top->io_commit_0_pc, commit_num);
                 difftest_read_regs(difftest_regs, top->io_commit_0_pc);
-                difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, true);
+                is_finish = difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, true);
             }
         }
         else if (commit_0)
@@ -284,7 +284,7 @@ void npc_exec(unsigned int n)
                 if (commit_1)
                 {
                     difftest_read_regs(difftest_regs, top->io_commit_1_pc);
-                    difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, false);
+                    is_finish = difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, false);
                 }
                 else
                 {
@@ -294,23 +294,13 @@ void npc_exec(unsigned int n)
             else if (commit_1)
             {
                 difftest_read_regs(difftest_regs, top->io_commit_1_pc);
-                difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, false);
+                is_finish = difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, false);
             }
             else
             {
                 difftest_read_regs(difftest_regs, top->io_commit_0_pc);
-                difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, false);
+                is_finish = difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, false);
             }
-        }
-
-        if (commit_0)
-        {
-
-            // if (!is_finish && difftest_step(difftest_regs, top->io_commit_0_pc) != 0)
-            //{
-            //     is_finish = 1;
-            //     break;
-            // }
         }
 
         n--;

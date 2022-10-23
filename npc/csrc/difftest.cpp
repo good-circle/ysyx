@@ -127,8 +127,6 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num, bool skip)
     if (is_different)
     {
         isa_reg_display();
-        finish_sim();
-        assert(0);
     }
 
     return 0;
