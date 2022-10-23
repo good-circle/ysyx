@@ -307,6 +307,7 @@ void npc_exec(unsigned int n)
         npc_cycle++;
         device_update();
     }
+    printf("finish ? %d\n", is_finish);
 
     if (is_finish || n <= 0)
     {
