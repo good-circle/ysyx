@@ -24,6 +24,7 @@ class Commit_Bus extends Bundle {
   /* For difftest */
   val mcycle = Output(Bool())
   val is_clint = Output(Bool())
+  val is_mmio = Output(Bool())
 }
 
 class Forward_Bus extends Bundle {
@@ -110,6 +111,7 @@ class EX_IO extends Bundle {
   /* For difftest */
   val mcycle = Output(Bool())
   val is_clint = Output(Bool())
+  val is_mmio = Output(Bool())
 }
 
 class IF_BPU_Bus extends Bundle {

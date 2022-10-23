@@ -27,5 +27,6 @@ class WBU extends Module with Config {
 
     io.commit(i).mcycle := io.in.bits(i).mcycle
     io.commit(i).is_clint := io.in.bits(i).is_clint
+    io.commit(i).is_mmio := io.in.bits(i).is_mmio
   }
 }
