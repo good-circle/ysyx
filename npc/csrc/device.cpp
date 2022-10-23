@@ -9,6 +9,7 @@ static SDL_Texture *texture = NULL;
 
 void *vmem = NULL;
 uint32_t vgactl_port_base[2];
+extern void finish_sim();
 
 static uint32_t screen_width()
 {
@@ -92,6 +93,7 @@ void device_update()
     {
         if (event.type == SDL_QUIT)
         {
+            finish_sim();
             exit(0);
         }
     }
