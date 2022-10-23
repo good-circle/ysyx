@@ -183,7 +183,7 @@ void npc_exec(unsigned int n)
     int commit_num = 0;
     int last_commit_num = 0;
 
-    n = 13;
+    n = 15;
     while (!is_finish && n > 0)
     {
         cycle_num++;
