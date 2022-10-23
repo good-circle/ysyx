@@ -18,6 +18,8 @@ void (*ref_difftest_raise_intr)(uint64_t NO) = NULL;
 static bool is_skip_ref = false;
 static int skip_dut_nr_inst = 0;
 
+extern void finish_sim();
+
 // this is used to let ref skip instructions which
 // can not produce consistent behavior with NEMU
 void difftest_skip_ref()
@@ -77,21 +79,34 @@ void init_difftest(char *ref_so_file, long img_size, uint64_t *difftest_regs)
     ref_difftest_regcpy(difftest_regs, 1);
 }
 
-int difftest_step(uint64_t *difftest_regs, uint64_t pc)
+bool need_skip = false;
+int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num, bool skip)
 {
-    if (is_skip_ref)
+    if (skip)
     {
         ref_difftest_regcpy(difftest_regs, 1);
-        is_skip_ref = false;
+        need_skip = true;
+        return 0;
+    }
+    
+    if (need_skip)
+    {
+        need_skip = false;
+        ref_difftest_regcpy(difftest_regs, 1);
         return 0;
     }
 
     uint64_t ref_r[33];
-
-    ref_difftest_exec(1);
+    // printf("num=%d\n", num);
+    //printf("pc = %lx\n", difftest_regs[32]);
+    ref_difftest_exec(num);
     ref_difftest_regcpy(&ref_r, 0);
 
-    // printf("right_pc = %lx\n", ref_r[32]);
+    //printf("right_pc = %lx\n", ref_r[32]);
+    //for (int i = 0; i < 32; i++)
+    //{
+    //    printf("0x%lx\t\t\n", ref_r[i]);
+    //}
 
     bool is_different = false;
 

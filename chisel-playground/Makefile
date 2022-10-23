@@ -7,7 +7,7 @@ verilog:
 	$(call git_commit, "generate verilog")
 	mkdir -p $(BUILD_DIR)
 	mill -i __.test.runMain MyElaborate -td $(BUILD_DIR)
-	rm $(NPC_HOME)/vsrc/*.v
+	-rm $(NPC_HOME)/vsrc/*.v
 	cp ~/Desktop/ysyx-workbench/chisel-playground/build/*.v $(NPC_HOME)/vsrc/
 
 help:

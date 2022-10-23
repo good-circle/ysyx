@@ -68,6 +68,8 @@ class EXU extends Module with Config {
   mdu.io.rv64 := false.B
   mdu_result := mdu.io.result
   mdu_ok := mdu.io.result_ok
+  mdu.io.is_lsu := is_lsu && !is_clint
+  mdu.io.lsu_ok := io.dmem.data_ok
   for (i <- 0 until 2) {
     when(in.bits(i).fu_type === fu_mdu && in.bits(i).valid) {
       is_mdu := io.in.valid
@@ -291,12 +293,22 @@ class EXU extends Module with Config {
   for (i <- 0 until 2) {
     io.out.bits(i).mcycle := false.B
     io.out.bits(i).is_clint := false.B
+    io.out.bits(i).is_mmio := false.B
   }
 
-  if (Difftest) {
+  if (MyEnv) {
     for (i <- 0 until 2) {
       io.out.bits(i).mcycle := (csr.io.addr === mcycle_addr) && (io.in.bits(i).fu_type === fu_csr)
-      io.out.bits(i).is_clint := is_clint
+      io.out.bits(i).is_clint := in.bits(i).fu_type === fu_lsu && in.bits(i).valid && is_clint
+      io.out.bits(i).is_mmio := in.bits(i).fu_type === fu_lsu && in.bits(i).valid && lsu_addr(31) && lsu_addr(29)
+    }
+  }
+
+  if (Difftest && !MyEnv) {
+    for (i <- 0 until 2) {
+      io.out.bits(i).mcycle := (csr.io.addr === mcycle_addr) && (io.in.bits(i).fu_type === fu_csr)
+      io.out.bits(i).is_clint := in.bits(i).fu_type === fu_lsu && in.bits(i).valid && is_clint
+      io.out.bits(i).is_mmio := in.bits(i).fu_type === fu_lsu && in.bits(i).valid && lsu_addr(31) && lsu_addr(29)
     }
 
     val call_ret_count = RegInit(0.U(64.W))

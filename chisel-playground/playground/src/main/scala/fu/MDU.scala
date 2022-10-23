@@ -11,6 +11,8 @@ class MDU extends Module with Config {
     val src2 = Input(UInt(64.W))
     val result_ok = Output(Bool())
     val result = Output(UInt(64.W))
+    val is_lsu = Input(Bool())
+    val lsu_ok = Input(Bool())
   })
 
   val src1 = io.src1
@@ -63,6 +65,15 @@ class MDU extends Module with Config {
   val div_result_reg = RegInit(0.U(64.W))
   val tmp_result = WireInit(0.U(64.W))
 
+  val wait_lsu = RegInit(false.B)
+
+  when (io.is_lsu && state === idle) {
+    wait_lsu := true.B
+  }
+  when (io.lsu_ok) {
+    wait_lsu := false.B
+  }
+
   switch (state) {
     is (idle) {
       when (is_mul) {
@@ -108,8 +119,10 @@ class MDU extends Module with Config {
       }
     }
     is (finish) {
-      state := idle
-      count := 0.U
+      when (!wait_lsu || (wait_lsu && io.lsu_ok)) {
+        state := idle
+        count := 0.U
+      }
     }
   }
 
