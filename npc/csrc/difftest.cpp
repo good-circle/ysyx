@@ -77,19 +77,25 @@ void init_difftest(char *ref_so_file, long img_size, uint64_t *difftest_regs)
     ref_difftest_regcpy(difftest_regs, 1);
 }
 
+bool need_skip = false;
 int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num, bool skip)
 {
     if (skip)
     {
-        
         ref_difftest_regcpy(difftest_regs, 1);
-        //printf("pc = %lx\n", difftest_regs[32]);
+        need_skip = true;
         return 0;
+    }
+    
+    if (need_skip)
+    {
+        need_skip = false;
+        ref_difftest_regcpy(difftest_regs, 1);
     }
 
     uint64_t ref_r[33];
     // printf("num=%d\n", num);
-    printf("pc = %lx\n", difftest_regs[32]);
+    //printf("pc = %lx\n", difftest_regs[32]);
     ref_difftest_exec(num);
     ref_difftest_regcpy(&ref_r, 0);
 
