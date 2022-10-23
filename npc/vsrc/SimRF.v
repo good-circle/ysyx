@@ -1,6 +1,5 @@
 module SimRF(
   input         clock,
-  input         reset,
   input  [4:0]  rf_bus_0_raddr1,
   input  [4:0]  rf_bus_0_raddr2,
   output [63:0] rf_bus_0_rdata1,
