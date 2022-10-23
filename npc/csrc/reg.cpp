@@ -62,5 +62,5 @@ void difftest_read_regs(uint64_t *difftest_regs, uint64_t pc)
     //{
     //    printf("%s\t\t0x%lx\t\t\n", regs[i], tmp_difftest_regs[i]);
     //}
-    printf("32:%lx %lx %lx\n", pc, tmp_difftest_regs[32], difftest_regs[32]);
+    printf("32:%lx %lx %lx\n", pc, tmp_pc, difftest_regs[32]);
 }
