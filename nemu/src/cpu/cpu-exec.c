@@ -154,7 +154,7 @@ static void execute(uint64_t n)
         //printf("nemu cpu-exec.c execute cpu.pc = %lx\n", cpu.pc);
         exec_once(&s, cpu.pc);
         //printf("%d\n", i++);
-        printf("%lx\n", cpu.pc);
+        //printf("%lx\n", cpu.pc);
         g_nr_guest_inst++;
         trace_and_difftest(&s, cpu.pc);
         if (nemu_state.state != NEMU_RUNNING)
