@@ -18,6 +18,8 @@ void (*ref_difftest_raise_intr)(uint64_t NO) = NULL;
 static bool is_skip_ref = false;
 static int skip_dut_nr_inst = 0;
 
+extern void finish_sim();
+
 // this is used to let ref skip instructions which
 // can not produce consistent behavior with NEMU
 void difftest_skip_ref()
@@ -125,6 +127,7 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num, bool skip)
     if (is_different)
     {
         isa_reg_display();
+        finish_sim();
         return 1;
     }
 
