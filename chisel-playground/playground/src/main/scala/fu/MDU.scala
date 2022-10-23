@@ -69,7 +69,7 @@ class MDU extends Module with Config {
 
   when (io.is_lsu && state =/= idle)
   {
-    assert(false)
+    assert(false.B)
   }
   
   when (io.is_lsu && state === idle) {
