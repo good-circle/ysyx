@@ -242,23 +242,19 @@ void npc_exec(unsigned int n)
         is_finish = (top->io_commit_0_inst == 0x00100073 && top->io_commit_0_valid) ||
                     (top->io_commit_1_inst == 0x00100073 && top->io_commit_1_valid);
 
+        
+
         if (commit_0)
         {
-            if (first_commit)
-            {
-                first_commit = false;
-            }
-            else
-            {
-                difftest_read_regs(difftest_regs);
-                difftest_step(difftest_regs, top->io_commit_0_pc);
 
-                //if (!is_finish && difftest_step(difftest_regs, top->io_commit_0_pc) != 0)
-                //{
-                //    is_finish = 1;
-                //    break;
-                //}
-            }
+            difftest_step(difftest_regs, top->io_commit_0_pc);
+            difftest_read_regs(difftest_regs);
+
+            // if (!is_finish && difftest_step(difftest_regs, top->io_commit_0_pc) != 0)
+            //{
+            //     is_finish = 1;
+            //     break;
+            // }
         }
 
         n--;
