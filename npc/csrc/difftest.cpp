@@ -82,7 +82,7 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num, bool skip)
     if (skip)
     {
         ref_difftest_regcpy(difftest_regs, 1);
-        printf("pc = %lx\n", difftest_regs[32]);
+        //printf("pc = %lx\n", difftest_regs[32]);
         return 0;
     }
 
