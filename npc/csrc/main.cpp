@@ -247,16 +247,20 @@ void npc_exec(unsigned int n)
         {
             assert(0);
         }
+
         commit_num = commit_0 + commit_1;
+
+        if (commit_0 && !first_commit)
+        {
+            first_commit = false;
+            commit_num -= 1;
+        }
 
         difftest_read_regs(difftest_regs);
         difftest_step(difftest_regs, top->io_commit_0_pc, commit_num);
 
-
         if (commit_0)
         {
-
-
 
             // if (!is_finish && difftest_step(difftest_regs, top->io_commit_0_pc) != 0)
             //{

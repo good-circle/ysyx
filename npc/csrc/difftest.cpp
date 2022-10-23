@@ -88,7 +88,7 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num)
 
     uint64_t ref_r[33];
 
-    ref_difftest_exec(1);
+    ref_difftest_exec(num);
     ref_difftest_regcpy(&ref_r, 0);
 
     // printf("right_pc = %lx\n", ref_r[32]);
