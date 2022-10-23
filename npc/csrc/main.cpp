@@ -310,16 +310,14 @@ void npc_exec(unsigned int n)
                 difftest_read_regs(difftest_regs, top->io_commit_0_pc);
                 difftest_step(difftest_regs, last_commit_num, false);
             }
-        }}
-
+        }
         n--;
         npc_cycle++;
         device_update();
-    }
-
-    if (is_finish || n <= 0)
-    {
-        finish_sim();
+        if (is_finish || n <= 0)
+        {
+            finish_sim();
+        }
     }
 }
 
