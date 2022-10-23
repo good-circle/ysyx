@@ -34,7 +34,7 @@ void init_regex();
 extern void sdb_mainloop();
 extern void init_difftest(char *ref_so_file, long img_size, u_int64_t *difftest_regs);
 void reset_npc(uint n);
-extern void difftest_read_regs(u_int64_t *difftest_regs);
+extern void difftest_read_regs(uint64_t *difftest_regs, uint64_t pc);
 extern int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num, bool skip);
 extern void difftest_skip_ref();
 extern void (*ref_difftest_regcpy)(void *dut, bool direction);
@@ -262,15 +262,29 @@ void npc_exec(unsigned int n)
 
         if (skip_0 || skip_1)
         {
-            assert(0);
-            difftest_read_regs(difftest_regs);
+            if (commit_1)
+            {
+                difftest_read_regs(difftest_regs, top->io_commit_1_pc);
+            }
+            else
+            {
+                difftest_read_regs(difftest_regs, top->io_commit_0_pc);
+            }
+
             difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, true);
         }
         else if (commit_0 && !first_commit)
         {
             first_commit = false;
             commit_num -= 1;
-            difftest_read_regs(difftest_regs);
+            if (commit_1)
+            {
+                difftest_read_regs(difftest_regs, top->io_commit_1_pc);
+            }
+            else
+            {
+                difftest_read_regs(difftest_regs, top->io_commit_0_pc);
+            }
             difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, false);
         }
 
@@ -311,7 +325,7 @@ int main(int argc, char **argv, char **env)
 
     reset_npc(10);
 
-    difftest_read_regs(difftest_regs);
+    difftest_read_regs(difftest_regs, 0x80000000);
 
     init_difftest(diff_so_file, img_size, difftest_regs);
 
