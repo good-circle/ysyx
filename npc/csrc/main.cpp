@@ -262,7 +262,6 @@ void npc_exec(unsigned int n)
 
         if (skip_0 || skip_1)
         {
-            assert(0);
             if (commit_1)
             {
                 difftest_read_regs(difftest_regs, top->io_commit_1_pc);

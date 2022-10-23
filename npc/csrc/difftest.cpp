@@ -81,6 +81,7 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num, bool skip)
 {
     if (skip)
     {
+        assert(0);
         ref_difftest_regcpy(difftest_regs, 1);
         return 0;
     }
