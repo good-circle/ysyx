@@ -4610,6 +4610,7 @@ module Issue_Entry(
   assign io_out_bp_br_type = io_in_bp_br_type; // @[Issue.scala 61:18]
 endmodule
 module RegFile(
+  input         clock,
   input  [4:0]  io_rf_bus_0_raddr1,
   input  [4:0]  io_rf_bus_0_raddr2,
   output [63:0] io_rf_bus_0_rdata1,
@@ -4657,23 +4658,24 @@ module RegFile(
     .rf_bus_1_wdata(rf_rf_bus_1_wdata),
     .rf_bus_1_wen(rf_rf_bus_1_wen)
   );
-  assign io_rf_bus_0_rdata1 = rf_rf_bus_0_rdata1; // @[RegFile.scala 16:25]
-  assign io_rf_bus_0_rdata2 = rf_rf_bus_0_rdata2; // @[RegFile.scala 17:25]
-  assign io_rf_bus_1_rdata1 = rf_rf_bus_1_rdata1; // @[RegFile.scala 23:25]
-  assign io_rf_bus_1_rdata2 = rf_rf_bus_1_rdata2; // @[RegFile.scala 24:25]
-  assign rf_clock = 1'h0;
-  assign rf_rf_bus_0_raddr1 = io_rf_bus_0_raddr1; // @[RegFile.scala 14:27]
-  assign rf_rf_bus_0_raddr2 = io_rf_bus_0_raddr2; // @[RegFile.scala 15:27]
-  assign rf_rf_bus_0_waddr = io_rf_bus_0_waddr; // @[RegFile.scala 18:26]
-  assign rf_rf_bus_0_wdata = io_rf_bus_0_wdata; // @[RegFile.scala 19:26]
-  assign rf_rf_bus_0_wen = io_rf_bus_0_wen; // @[RegFile.scala 20:24]
-  assign rf_rf_bus_1_raddr1 = io_rf_bus_1_raddr1; // @[RegFile.scala 21:27]
-  assign rf_rf_bus_1_raddr2 = io_rf_bus_1_raddr2; // @[RegFile.scala 22:27]
-  assign rf_rf_bus_1_waddr = io_rf_bus_1_waddr; // @[RegFile.scala 25:26]
-  assign rf_rf_bus_1_wdata = io_rf_bus_1_wdata; // @[RegFile.scala 26:26]
-  assign rf_rf_bus_1_wen = io_rf_bus_1_wen; // @[RegFile.scala 27:24]
+  assign io_rf_bus_0_rdata1 = rf_rf_bus_0_rdata1; // @[RegFile.scala 17:25]
+  assign io_rf_bus_0_rdata2 = rf_rf_bus_0_rdata2; // @[RegFile.scala 18:25]
+  assign io_rf_bus_1_rdata1 = rf_rf_bus_1_rdata1; // @[RegFile.scala 24:25]
+  assign io_rf_bus_1_rdata2 = rf_rf_bus_1_rdata2; // @[RegFile.scala 25:25]
+  assign rf_clock = clock; // @[RegFile.scala 14:17]
+  assign rf_rf_bus_0_raddr1 = io_rf_bus_0_raddr1; // @[RegFile.scala 15:27]
+  assign rf_rf_bus_0_raddr2 = io_rf_bus_0_raddr2; // @[RegFile.scala 16:27]
+  assign rf_rf_bus_0_waddr = io_rf_bus_0_waddr; // @[RegFile.scala 19:26]
+  assign rf_rf_bus_0_wdata = io_rf_bus_0_wdata; // @[RegFile.scala 20:26]
+  assign rf_rf_bus_0_wen = io_rf_bus_0_wen; // @[RegFile.scala 21:24]
+  assign rf_rf_bus_1_raddr1 = io_rf_bus_1_raddr1; // @[RegFile.scala 22:27]
+  assign rf_rf_bus_1_raddr2 = io_rf_bus_1_raddr2; // @[RegFile.scala 23:27]
+  assign rf_rf_bus_1_waddr = io_rf_bus_1_waddr; // @[RegFile.scala 26:26]
+  assign rf_rf_bus_1_wdata = io_rf_bus_1_wdata; // @[RegFile.scala 27:26]
+  assign rf_rf_bus_1_wen = io_rf_bus_1_wen; // @[RegFile.scala 28:24]
 endmodule
 module Issue(
+  input         clock,
   output        io_in_ready,
   input         io_in_valid,
   input         io_in_bits_0_valid,
@@ -4856,6 +4858,7 @@ module Issue(
   wire [1:0] issue_entry_1_io_out_bp_br_type; // @[Issue.scala 83:29]
   wire [63:0] issue_entry_1_io_rs1_value; // @[Issue.scala 83:29]
   wire [63:0] issue_entry_1_io_rs2_value; // @[Issue.scala 83:29]
+  wire  rf_clock; // @[Issue.scala 94:18]
   wire [4:0] rf_io_rf_bus_0_raddr1; // @[Issue.scala 94:18]
   wire [4:0] rf_io_rf_bus_0_raddr2; // @[Issue.scala 94:18]
   wire [63:0] rf_io_rf_bus_0_rdata1; // @[Issue.scala 94:18]
@@ -5005,6 +5008,7 @@ module Issue(
     .io_rs2_value(issue_entry_1_io_rs2_value)
   );
   RegFile rf ( // @[Issue.scala 94:18]
+    .clock(rf_clock),
     .io_rf_bus_0_raddr1(rf_io_rf_bus_0_raddr1),
     .io_rf_bus_0_raddr2(rf_io_rf_bus_0_raddr2),
     .io_rf_bus_0_rdata1(rf_io_rf_bus_0_rdata1),
@@ -5108,6 +5112,7 @@ module Issue(
     io_ex_fwd_1_rf_wdata : _rs1_value_1_T_10; // @[Issue.scala 112:24]
   assign issue_entry_1_io_rs2_value = io_ex_fwd_1_fwd_valid & io_ex_fwd_1_rf_waddr == io_in_bits_1_rs2 ?
     io_ex_fwd_1_rf_wdata : _rs2_value_1_T_10; // @[Issue.scala 117:24]
+  assign rf_clock = clock;
   assign rf_io_rf_bus_0_raddr1 = io_in_bits_0_rs1; // @[Issue.scala 96:25]
   assign rf_io_rf_bus_0_raddr2 = io_in_bits_0_rs2; // @[Issue.scala 97:25]
   assign rf_io_rf_bus_0_waddr = io_wb_bus_0_rf_waddr; // @[Issue.scala 98:24]
@@ -5738,22 +5743,22 @@ module CSR(
   reg [63:0] mie; // @[CSR.scala 34:20]
   reg [63:0] mscratch; // @[CSR.scala 35:25]
   wire  wen = io_csr_op == 3'h1 | io_csr_op == 3'h2 | io_csr_op == 3'h3; // @[CSR.scala 43:59]
-  wire  _T_36 = io_addr == 12'h344; // @[MAP.scala 23:18]
-  wire  _T_33 = io_addr == 12'h341; // @[MAP.scala 23:18]
-  wire  _T_30 = io_addr == 12'h304; // @[MAP.scala 23:18]
-  wire  _T_27 = io_addr == 12'h300; // @[MAP.scala 23:18]
-  wire  _T_24 = io_addr == 12'hb00; // @[MAP.scala 23:18]
-  wire  _T_21 = io_addr == 12'h340; // @[MAP.scala 23:18]
-  wire  _T_18 = io_addr == 12'h342; // @[MAP.scala 23:18]
-  wire  _T_15 = io_addr == 12'h305; // @[MAP.scala 23:18]
-  wire [63:0] _GEN_14 = io_addr == 12'h305 ? mtvec : 64'h0; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_16 = io_addr == 12'h342 ? mcause : _GEN_14; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_18 = io_addr == 12'h340 ? mscratch : _GEN_16; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_20 = io_addr == 12'hb00 ? mcycle : _GEN_18; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_22 = io_addr == 12'h300 ? mstatus : _GEN_20; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_24 = io_addr == 12'h304 ? mie : _GEN_22; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_26 = io_addr == 12'h341 ? mepc : _GEN_24; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] rdata = io_addr == 12'h344 ? mip : _GEN_26; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire  _T_36 = io_addr == 12'h305; // @[MAP.scala 23:18]
+  wire  _T_33 = io_addr == 12'hb00; // @[MAP.scala 23:18]
+  wire  _T_30 = io_addr == 12'h344; // @[MAP.scala 23:18]
+  wire  _T_27 = io_addr == 12'h342; // @[MAP.scala 23:18]
+  wire  _T_24 = io_addr == 12'h340; // @[MAP.scala 23:18]
+  wire  _T_21 = io_addr == 12'h304; // @[MAP.scala 23:18]
+  wire  _T_18 = io_addr == 12'h341; // @[MAP.scala 23:18]
+  wire  _T_15 = io_addr == 12'h300; // @[MAP.scala 23:18]
+  wire [63:0] _GEN_14 = io_addr == 12'h300 ? mstatus : 64'h0; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_16 = io_addr == 12'h341 ? mepc : _GEN_14; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_18 = io_addr == 12'h304 ? mie : _GEN_16; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_20 = io_addr == 12'h340 ? mscratch : _GEN_18; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_22 = io_addr == 12'h342 ? mcause : _GEN_20; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_24 = io_addr == 12'h344 ? mip : _GEN_22; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_26 = io_addr == 12'hb00 ? mcycle : _GEN_24; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] rdata = io_addr == 12'h305 ? mtvec : _GEN_26; // @[MAP.scala 23:25 MAP.scala 24:15]
   wire [63:0] _wdata_T = rdata | io_src; // @[CSR.scala 63:25]
   wire [63:0] _wdata_T_1 = ~io_src; // @[CSR.scala 64:28]
   wire [63:0] _wdata_T_2 = rdata & _wdata_T_1; // @[CSR.scala 64:25]
@@ -5786,14 +5791,14 @@ module CSR(
   wire [55:0] mip_hi_hi = mip[63:8]; // @[CSR.scala 101:19]
   wire [6:0] mip_lo = mip[6:0]; // @[CSR.scala 101:36]
   wire [63:0] _mip_T_4 = {mip_hi_hi,1'h1,mip_lo}; // @[Cat.scala 30:58]
-  assign io_rdata = io_addr == 12'h344 ? mip : _GEN_26; // @[MAP.scala 23:25 MAP.scala 24:15]
+  assign io_rdata = io_addr == 12'h305 ? mtvec : _GEN_26; // @[MAP.scala 23:25 MAP.scala 24:15]
   assign io_is_reflush = io_csr_op == 3'h5 | _GEN_9; // @[CSR.scala 84:30 CSR.scala 86:15]
   assign io_csr_target = io_csr_op == 3'h5 ? mepc[31:0] : _GEN_10; // @[CSR.scala 84:30 CSR.scala 87:16]
   assign io_handle_int = clint_has_int & mstatus_hi_hi_lo & mie[7] & io_valid; // @[CSR.scala 96:40]
   always @(posedge clock) begin
     if (reset) begin // @[CSR.scala 28:23]
       mcycle <= 64'h0; // @[CSR.scala 28:23]
-    end else if (_T_24 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_33 & wen) begin // @[MAP.scala 27:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mcycle <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -5806,7 +5811,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 29:21]
       mepc <= 64'h0; // @[CSR.scala 29:21]
-    end else if (_T_33 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_18 & wen) begin // @[MAP.scala 27:34]
       mepc <= _mepc_T_3; // @[MAP.scala 28:13]
     end else if (handle_int) begin // @[CSR.scala 75:20]
       mepc <= {{32'd0}, io_pc}; // @[CSR.scala 77:10]
@@ -5815,7 +5820,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 30:23]
       mcause <= 64'h0; // @[CSR.scala 30:23]
-    end else if (_T_18 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_27 & wen) begin // @[MAP.scala 27:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mcause <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -5830,7 +5835,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 31:24]
       mstatus <= 64'h1800; // @[CSR.scala 31:24]
-    end else if (_T_27 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_15 & wen) begin // @[MAP.scala 27:34]
       mstatus <= mstatus_mstatus_new; // @[MAP.scala 28:13]
     end else if (io_csr_op == 3'h5) begin // @[CSR.scala 84:30]
       mstatus <= _mstatus_T_2; // @[CSR.scala 85:13]
@@ -5841,7 +5846,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 32:22]
       mtvec <= 64'h0; // @[CSR.scala 32:22]
-    end else if (_T_15 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_36 & wen) begin // @[MAP.scala 27:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mtvec <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -5854,14 +5859,14 @@ module CSR(
       mip <= 64'h0; // @[CSR.scala 33:20]
     end else if (clint_has_int) begin // @[CSR.scala 100:17]
       mip <= _mip_T_4; // @[CSR.scala 101:9]
-    end else if (_T_36 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_30 & wen) begin // @[MAP.scala 27:34]
       mip <= _mip_T_2; // @[MAP.scala 28:13]
     end else if (handle_int) begin // @[CSR.scala 75:20]
       mip <= 64'h0; // @[CSR.scala 76:9]
     end
     if (reset) begin // @[CSR.scala 34:20]
       mie <= 64'h0; // @[CSR.scala 34:20]
-    end else if (_T_30 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_21 & wen) begin // @[MAP.scala 27:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mie <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -5872,7 +5877,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 35:25]
       mscratch <= 64'h0; // @[CSR.scala 35:25]
-    end else if (_T_21 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_24 & wen) begin // @[MAP.scala 27:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mscratch <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -17858,6 +17863,7 @@ module Core_SimSoc(
   wire [31:0] idu_io_out_bits_1_bp_br_target; // @[Core.scala 55:19]
   wire [1:0] idu_io_out_bits_1_bp_br_type; // @[Core.scala 55:19]
   wire  idu_frontend_reflush; // @[Core.scala 55:19]
+  wire  issue_clock; // @[Core.scala 56:21]
   wire  issue_io_in_ready; // @[Core.scala 56:21]
   wire  issue_io_in_valid; // @[Core.scala 56:21]
   wire  issue_io_in_bits_0_valid; // @[Core.scala 56:21]
@@ -18452,6 +18458,7 @@ module Core_SimSoc(
     .frontend_reflush(idu_frontend_reflush)
   );
   Issue issue ( // @[Core.scala 56:21]
+    .clock(issue_clock),
     .io_in_ready(issue_io_in_ready),
     .io_in_valid(issue_io_in_valid),
     .io_in_bits_0_valid(issue_io_in_bits_0_valid),
@@ -18893,6 +18900,7 @@ module Core_SimSoc(
   assign idu_io_in_bits_1_bp_br_type = idu_io_in_bits_r_1_bp_br_type; // @[Connect.scala 13:16]
   assign idu_io_out_ready = issue_io_in_ready; // @[Connect.scala 12:16]
   assign idu_frontend_reflush = exu_frontend_reflush_0;
+  assign issue_clock = clock;
   assign issue_io_in_valid = valid_2; // @[Connect.scala 14:17]
   assign issue_io_in_bits_0_valid = issue_io_in_bits_r_0_valid; // @[Connect.scala 13:16]
   assign issue_io_in_bits_0_pc = issue_io_in_bits_r_0_pc; // @[Connect.scala 13:16]
