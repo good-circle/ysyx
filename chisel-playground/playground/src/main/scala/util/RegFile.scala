@@ -52,6 +52,7 @@ class RegFile extends Module with Config {
 
 class SimRF extends BlackBox with HasBlackBoxInline {
   val io = IO(new Bundle {
+    val clock = Input(Clock())
     val rf_bus_0_raddr1 = Input(UInt(5.W))
     val rf_bus_0_raddr2 = Input(UInt(5.W))
     val rf_bus_0_rdata1 = Output(UInt(64.W))
@@ -71,7 +72,6 @@ class SimRF extends BlackBox with HasBlackBoxInline {
     setInline("SimRF.v",
       """module SimRF(
         |  input         clock,
-        |  input         reset,
         |  input  [4:0]  rf_bus_0_raddr1,
         |  input  [4:0]  rf_bus_0_raddr2,
         |  output [63:0] rf_bus_0_rdata1,
@@ -107,5 +107,3 @@ class SimRF extends BlackBox with HasBlackBoxInline {
         |""".stripMargin)
 
 }
-
-
