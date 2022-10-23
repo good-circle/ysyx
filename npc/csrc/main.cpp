@@ -14,6 +14,7 @@ VerilatedFstC *m_trace = new VerilatedFstC;
 #endif
 
 bool is_finish = false;
+bool is_wrong = false;
 int npc_cycle = 0;
 
 u_int8_t pmem[0x8000000];
@@ -173,7 +174,7 @@ void npc_exec(unsigned int n)
 
     gettimeofday(&begin, NULL);
     n = 100;
-    while (!is_finish && n > 0)
+    while (!is_finish && !is_wrong && n > 0)
     {
         cycle_num++;
         if (cycle_num % 1000000 == 0)
@@ -184,7 +185,7 @@ void npc_exec(unsigned int n)
             printf("current_pc: %x\n", top->io_commit_0_pc);
         }
         // printf("%lld\n", cycle_num);
-        printf("%x\n", top->io_commit_0_pc);
+        // printf("%x\n", top->io_commit_0_pc);
         //  printf("%08lx \n", top->io_pc);
         //  top->inst = inst_fetch(top->io_pc);
         //  printf("%08x\n", top->inst);
@@ -266,13 +267,13 @@ void npc_exec(unsigned int n)
             {
                 //printf("commit_1: %lx %d\n", top->io_commit_1_pc, commit_num);
                 difftest_read_regs(difftest_regs, top->io_commit_1_pc);
-                is_finish = difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, true);
+                is_wrong = difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, true);
             }
             else
             {
                 //printf("commit_0: %lx %d\n", top->io_commit_0_pc, commit_num);
                 difftest_read_regs(difftest_regs, top->io_commit_0_pc);
-                is_finish = difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, true);
+                is_wrong = difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, true);
             }
         }
         else if (commit_0)
@@ -284,7 +285,7 @@ void npc_exec(unsigned int n)
                 if (commit_1)
                 {
                     difftest_read_regs(difftest_regs, top->io_commit_1_pc);
-                    is_finish = difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, false);
+                    is_wrong = difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, false);
                 }
                 else
                 {
@@ -294,12 +295,12 @@ void npc_exec(unsigned int n)
             else if (commit_1)
             {
                 difftest_read_regs(difftest_regs, top->io_commit_1_pc);
-                is_finish = difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, false);
+                is_wrong = difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, false);
             }
             else
             {
                 difftest_read_regs(difftest_regs, top->io_commit_0_pc);
-                is_finish = difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, false);
+                is_wrong = difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, false);
             }
         }
 
@@ -307,9 +308,8 @@ void npc_exec(unsigned int n)
         npc_cycle++;
         device_update();
     }
-    printf("finish ? %d\n", is_finish);
 
-    if (is_finish || n <= 0)
+    if (is_finish || is_wrong || n <= 0)
     {
         finish_sim();
     }
