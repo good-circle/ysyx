@@ -186,7 +186,7 @@ void npc_exec(unsigned int n)
             printf("current_pc: %x\n", top->io_commit_0_pc);
         }
         // printf("%lld\n", cycle_num);
-        // printf("%x\n", top->io_commit_0_pc);
+        printf("%x\n", top->io_commit_0_pc);
         //  printf("%08lx \n", top->io_pc);
         //  top->inst = inst_fetch(top->io_pc);
         //  printf("%08x\n", top->inst);
