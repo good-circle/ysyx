@@ -45,9 +45,9 @@ void difftest_read_regs(uint64_t *difftest_regs)
         difftest_regs[i] = cpu_gpr[i];
     }
 
-    for (int i = 0; i < 32; i++)
-    {
-        printf("%s\t\t0x%lx\t\t\n", regs[i], cpu_gpr[i]);
-    }
+    //for (int i = 0; i < 32; i++)
+    //{
+    //    printf("%s\t\t0x%lx\t\t\n", regs[i], cpu_gpr[i]);
+    //}
 }
 
