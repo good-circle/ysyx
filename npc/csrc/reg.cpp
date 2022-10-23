@@ -51,7 +51,7 @@ void difftest_read_regs(uint64_t *difftest_regs, uint64_t pc)
 
     if (top->io_commit_1_valid)
     {
-        if (io_commit_0_wen && io_commit_0_waddr != 0)
+        if (top->io_commit_0_wen && top->io_commit_0_waddr != 0)
         {
             difftest_regs[top->io_commit_0_waddr] = top->io_commit_0_wdata;
         }
