@@ -254,11 +254,11 @@ void npc_exec(unsigned int n)
             {
                 difftest_read_regs(difftest_regs);
 
-                if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
-                {
-                    is_finish = 1;
-                    break;
-                }
+                //if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
+                //{
+                //    is_finish = 1;
+                //    break;
+                //}
             }
         }
 
