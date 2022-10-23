@@ -88,13 +88,13 @@ void device_update()
     last = cur;
     vga_update_screen();
 
-    SDL_Event event;
-    while (SDL_PollEvent(&event))
-    {
-        if (event.type == SDL_QUIT)
-        {
-            //finish_sim();
-            //exit(0);
-        }
-    }
+    // SDL_Event event;
+    // while (SDL_PollEvent(&event))
+    // {
+    //     if (event.type == SDL_QUIT)
+    //     {
+    //         finish_sim();
+    //         exit(0);
+    //     }
+    // }
 }
