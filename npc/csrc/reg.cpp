@@ -49,8 +49,9 @@ void difftest_read_regs(uint64_t *difftest_regs, uint64_t pc)
         }
         tmp_init = true;
     }
+
     difftest_regs[0] = 0;
-    tmp_difftest_regs[0] = 0;
+
     for (int i = 1; i < 32; i++)
     {
         difftest_regs[i] = tmp_difftest_regs[i];
@@ -64,5 +65,5 @@ void difftest_read_regs(uint64_t *difftest_regs, uint64_t pc)
     //{
     //    printf("%s\t\t0x%lx\t\t\n", regs[i], tmp_difftest_regs[i]);
     //}
-    printf("2:%lx\n", tmp_difftest_regs[2]);
+    printf("2:%lx %lx %lx\n", cpu_gpr[2], tmp_difftest_regs[2], difftest_regs[2]);
 }
