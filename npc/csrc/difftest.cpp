@@ -86,11 +86,18 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num, bool skip)
     }
 
     uint64_t ref_r[33];
-    //printf("num=%d\n", num);
+    // printf("num=%d\n", num);
     ref_difftest_exec(num);
     ref_difftest_regcpy(&ref_r, 0);
 
     printf("right_pc = %lx\n", ref_r[32]);
+    for (int i = 0; i < 32; i++)
+    {
+        for (int i = 0; i < 32; i++)
+        {
+            printf("0x%lx\t\t\n", ref_r[i]);
+        }
+    }
 
     bool is_different = false;
 
