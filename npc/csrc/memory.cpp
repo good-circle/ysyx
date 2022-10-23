@@ -8,17 +8,18 @@
 #include "common.h"
 
 #define CONFIG_MBASE 0x80000000
+#define CONFIG_MSIZE 0x8000000
 #define DEVICE_BASE 0xa0000000
 #define MMIO_BASE 0xa0000000
 
-#define SERIAL_PORT     (DEVICE_BASE + 0x00003f8)
-#define KBD_ADDR        (DEVICE_BASE + 0x0000060)
-#define RTC_ADDR        (DEVICE_BASE + 0x0000048)
-#define VGACTL_ADDR     (DEVICE_BASE + 0x0000100)
-#define AUDIO_ADDR      (DEVICE_BASE + 0x0000200)
-#define DISK_ADDR       (DEVICE_BASE + 0x0000300)
-#define FB_ADDR         (MMIO_BASE   + 0x1000000)
-#define AUDIO_SBUF_ADDR (MMIO_BASE   + 0x1200000)
+#define SERIAL_PORT (DEVICE_BASE + 0x00003f8)
+#define KBD_ADDR (DEVICE_BASE + 0x0000060)
+#define RTC_ADDR (DEVICE_BASE + 0x0000048)
+#define VGACTL_ADDR (DEVICE_BASE + 0x0000100)
+#define AUDIO_ADDR (DEVICE_BASE + 0x0000200)
+#define DISK_ADDR (DEVICE_BASE + 0x0000300)
+#define FB_ADDR (MMIO_BASE + 0x1000000)
+#define AUDIO_SBUF_ADDR (MMIO_BASE + 0x1200000)
 
 extern const char *img_file;
 extern int inst_num;
@@ -26,7 +27,8 @@ extern int vga_size();
 extern void *vmem;
 extern uint32_t vgactl_port_base[2];
 
-extern axi4_mem <32,64,4> mem;
+extern axi4_mem<32, 64, 4> mem;
+extern u_int8_t pmem[CONFIG_MSIZE];
 long init_pmem()
 {
     if (img_file == NULL)
@@ -43,7 +45,14 @@ long init_pmem()
 
     fseek(fp, 0, SEEK_SET);
 
+    // for simulator
     mem.load_binary(img_file, 0x80000000);
+
+    // for difftest
+    memset(pmem, 0, CONFIG_MSIZE);
+    fseek(fp, 0, SEEK_SET);
+    int ret = fread(pmem, size, 1, fp);
+    assert(ret == 1);
 
     fclose(fp);
 
@@ -97,14 +106,14 @@ uint32_t pmem_read(uint32_t mem_raddr, bool mem_read)
             assert(0);
         }
 
-        //printf("in_pmem_read\n");
+        // printf("in_pmem_read\n");
 
         if (mem_raddr == 0xa0000048)
         {
             uint64_t us = get_time();
             lo = (uint32_t)us;
             hi = us >> 32;
-            //printf("lo = %lx\n", lo);
+            // printf("lo = %lx\n", lo);
             return lo;
         }
 
@@ -120,13 +129,13 @@ uint32_t pmem_read(uint32_t mem_raddr, bool mem_read)
 
         if (mem_raddr == 0xa0000100)
         {
-            //printf("mem_raddr := %lx\n", mem_raddr);
+            // printf("mem_raddr := %lx\n", mem_raddr);
             return vgactl_port_base[0];
         }
 
         if (mem_raddr == 0xa0000104)
         {
-            //printf("mem_raddr := %lx\n", mem_raddr);
+            // printf("mem_raddr := %lx\n", mem_raddr);
             return vgactl_port_base[1];
         }
 
@@ -168,7 +177,7 @@ void pmem_write(uint32_t mem_waddr, uint32_t mem_wdata, bool mem_write)
             // // printf("after: %llx\n", *(long long *)(pmem + (mem_waddr & ~0x7ull) - CONFIG_MBASE));
             // return;
         }
-        //printf("in_pmem_write\n");
+        // printf("in_pmem_write\n");
 
         if (mem_waddr == 0xa00003F8)
         {
@@ -183,9 +192,9 @@ void pmem_write(uint32_t mem_waddr, uint32_t mem_wdata, bool mem_write)
         if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000000 + 300 * 400 * 32)
         {
             *(uint8_t *)((uint8_t *)vmem + mem_waddr - 0xa1000000) = mem_wdata;
-            //assert(0);
-            //if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000008)
-            //printf("mem_waddr is %x, mem_wdata is %x\n", mem_waddr, mem_wdata);
+            // assert(0);
+            // if (mem_waddr >= 0xa1000000 && mem_waddr <= 0xa1000008)
+            // printf("mem_waddr is %x, mem_wdata is %x\n", mem_waddr, mem_wdata);
         }
     }
 }
