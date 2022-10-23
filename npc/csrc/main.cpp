@@ -270,17 +270,25 @@ void npc_exec(unsigned int n)
 
         last_commit_num = last_commit_0 + last_commit_1;
         commit_num = commit_0 + commit_1;
+        if (commit_1)
+        {
+            difftest_read_regs(difftest_regs, top->io_commit_1_pc);
+        }
+        else if (commit_0)
+        {
+            difftest_read_regs(difftest_regs, top->io_commit_0_pc);
+        }
 
         if ((last_commit_0 || last_commit_1) && (last_skip_0 || last_skip_1))
         {
             if (last_commit_1)
             {
-                difftest_read_regs(difftest_regs, top->io_commit_1_pc);
+                //difftest_read_regs(difftest_regs, top->io_commit_1_pc);
                 difftest_step(difftest_regs, last_commit_num, true);
             }
             else
             {
-                difftest_read_regs(difftest_regs, top->io_commit_0_pc);
+                //difftest_read_regs(difftest_regs, top->io_commit_0_pc);
                 difftest_step(difftest_regs, last_commit_num, true);
             }
         }
@@ -292,22 +300,22 @@ void npc_exec(unsigned int n)
                 last_commit_num -= 1;
                 if (last_commit_1)
                 {
-                    difftest_read_regs(difftest_regs, top->io_commit_1_pc);
+                    //difftest_read_regs(difftest_regs, top->io_commit_1_pc);
                     difftest_step(difftest_regs, last_commit_num, true);
                 }
                 else
                 {
-                    difftest_read_regs(difftest_regs, top->io_commit_0_pc);
+                    //difftest_read_regs(difftest_regs, top->io_commit_0_pc);
                 }
             }
             else if (last_commit_1)
             {
-                difftest_read_regs(difftest_regs, top->io_commit_1_pc);
+                //difftest_read_regs(difftest_regs, top->io_commit_1_pc);
                 difftest_step(difftest_regs, last_commit_num, false);
             }
             else
             {
-                difftest_read_regs(difftest_regs, top->io_commit_0_pc);
+               // difftest_read_regs(difftest_regs, top->io_commit_0_pc);
                 difftest_step(difftest_regs, last_commit_num, false);
             }
         }
