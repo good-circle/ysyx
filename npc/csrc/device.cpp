@@ -93,8 +93,8 @@ void device_update()
     {
         if (event.type == SDL_QUIT)
         {
-            finish_sim();
-            exit(0);
+            //finish_sim();
+            //exit(0);
         }
     }
 }
