@@ -67,11 +67,6 @@ class MDU extends Module with Config {
 
   val wait_lsu = RegInit(false.B)
 
-  when (io.is_lsu && state =/= idle)
-  {
-    assert(false.B)
-  }
-  
   when (io.is_lsu && state === idle) {
     wait_lsu := true.B
   }
@@ -145,6 +140,10 @@ class MDU extends Module with Config {
   io.result := Mux(io.rv64, Cat(Fill(32, tmp_result(31)), tmp_result(31, 0)), tmp_result)
 
   if (SocDebug || MyEnv) {
+    when (io.is_lsu && state =/= idle) {
+      assert(false.B)
+    }
+    
     val golden_result = WireInit(0.U(64.W))
     golden_result := MuxLookup(mdu_op, 0.U, Array(
       mdu_mul -> (src1 * src2).asUInt,
