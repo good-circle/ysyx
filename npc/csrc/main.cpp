@@ -172,7 +172,7 @@ void npc_exec(unsigned int n)
     axi4_ref<32, 64, 4> mem_sigs_ref(mem_sigs);
 
     gettimeofday(&begin, NULL);
-
+    n = 20;
     while (!is_finish && n > 0)
     {
         cycle_num++;
@@ -237,6 +237,7 @@ void npc_exec(unsigned int n)
             commit_0 = true;
             if (top->io_commit_0_mcycle || top->io_commit_0_is_clint || top->io_commit_0_is_mmio)
             {
+                printf("111\n");
                 skip_0 = true;
             }
         }
@@ -246,6 +247,7 @@ void npc_exec(unsigned int n)
             commit_1 = true;
             if (top->io_commit_1_mcycle || top->io_commit_1_is_clint || top->io_commit_1_is_mmio)
             {
+                printf("111\n");
                 skip_1 = true;
             }
         }
@@ -275,7 +277,6 @@ void npc_exec(unsigned int n)
         }
         else if (commit_0 && !first_commit)
         {
-            assert(0);
             first_commit = false;
             commit_num -= 1;
             if (commit_1)
