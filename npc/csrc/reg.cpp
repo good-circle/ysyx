@@ -48,10 +48,18 @@ void difftest_read_regs(uint64_t *difftest_regs, uint64_t pc)
     }
 
     difftest_regs[32] = pc;
-    //tmp_difftest_regs[32] = pc;
 
-    //for (int i = 0; i < 32; i++)
+    if (top->io_commit_1_valid)
+    {
+        if (io_commit_0_wen && io_commit_0_waddr != 0)
+        {
+            difftest_regs[top->io_commit_0_waddr] = top->io_commit_0_wdata;
+        }
+    }
+    // tmp_difftest_regs[32] = pc;
+
+    // for (int i = 0; i < 32; i++)
     //{
-    //    printf("%s\t\t0x%lx\t\t\n", regs[i], difftest_regs[i]);
-    //}
+    //     printf("%s\t\t0x%lx\t\t\n", regs[i], difftest_regs[i]);
+    // }
 }
