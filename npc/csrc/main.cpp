@@ -264,13 +264,13 @@ void npc_exec(unsigned int n)
         {
             if (commit_1)
             {
-                printf("commit_1: %lx %d\n", top->io_commit_1_pc, commit_num);
+                //printf("commit_1: %lx %d\n", top->io_commit_1_pc, commit_num);
                 difftest_read_regs(difftest_regs, top->io_commit_1_pc);
                 difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, true);
             }
             else
             {
-                printf("commit_0: %lx %d\n", top->io_commit_0_pc, commit_num);
+                //printf("commit_0: %lx %d\n", top->io_commit_0_pc, commit_num);
                 difftest_read_regs(difftest_regs, top->io_commit_0_pc);
                 difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, true);
             }
