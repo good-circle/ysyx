@@ -180,6 +180,7 @@ void npc_exec(unsigned int n)
         cycle_num++;
         if (cycle_num % 1000000 == 0)
         {
+            printf("111\n");
             gettimeofday(&end, NULL);
             printf("sim_time: %lds, cycles: %lld, ", end.tv_sec - begin.tv_sec, cycle_num);
             printf("insts: %lld, ", inst_num);
