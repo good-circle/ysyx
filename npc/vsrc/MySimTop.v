@@ -5870,7 +5870,7 @@ module CSR(
       mcause <= 64'hb; // @[CSR.scala 69:12]
     end
     if (reset) begin // @[CSR.scala 31:24]
-      mstatus <= 64'h1800; // @[CSR.scala 31:24]
+      mstatus <= 64'ha00001800; // @[CSR.scala 31:24]
     end else if (_T_33 & wen) begin // @[MAP.scala 27:34]
       mstatus <= mstatus_mstatus_new; // @[MAP.scala 28:13]
     end else if (io_csr_op == 3'h5) begin // @[CSR.scala 84:30]
