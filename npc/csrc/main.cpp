@@ -158,11 +158,11 @@ void finish_sim()
     printf("IPC = %lf\n", IPC);
     if (difftest_regs[10] == 0)
     {
-        printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%08lx\n", top->io_commit_0_pc);
+        printf(COLOR_BLUE "NPC: " COLOR_GREEN "HIT GOOD TRAP " COLOR_NONE "at pc 0x%08x\n", top->io_commit_0_pc);
     }
     else
     {
-        printf(COLOR_BLUE "NPC: " COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc 0x%08lx\n", top->io_commit_0_pc);
+        printf(COLOR_BLUE "NPC: " COLOR_RED "HIT BAD TRAP " COLOR_NONE "at pc 0x%08x\n", top->io_commit_0_pc);
     }
 }
 
