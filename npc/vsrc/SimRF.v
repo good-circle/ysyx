@@ -23,7 +23,7 @@ always @(posedge clock) begin
     if (rf_bus_1_wen) rf[rf_bus_1_waddr] <= rf_bus_1_wdata;
 end
 
-assign rf_bus_0_rdata1 = (rf_bus_0_raddr1 == 5'b1) ? 64'b0 : rf[rf_bus_0_raddr1];
+assign rf_bus_0_rdata1 = (rf_bus_0_raddr1 == 5'b0) ? 64'b0 : rf[rf_bus_0_raddr1];
 assign rf_bus_0_rdata2 = (rf_bus_0_raddr2 == 5'b0) ? 64'b0 : rf[rf_bus_0_raddr2];
 assign rf_bus_1_rdata1 = (rf_bus_1_raddr1 == 5'b0) ? 64'b0 : rf[rf_bus_1_raddr1];
 assign rf_bus_1_rdata2 = (rf_bus_1_raddr2 == 5'b0) ? 64'b0 : rf[rf_bus_1_raddr2];
