@@ -56,12 +56,12 @@ void difftest_read_regs(uint64_t *difftest_regs, uint64_t pc)
         difftest_regs[i] = tmp_difftest_regs[i];
         tmp_difftest_regs[i] = cpu_gpr[i];
     }
-    
+
     difftest_regs[32] = pc;
     tmp_difftest_regs[32] = pc;
 
-    // for (int i = 0; i < 32; i++)
-    //{
-    //     printf("%s\t\t0x%lx\t\t\n", regs[i], cpu_gpr[i]);
-    // }
+     for (int i = 0; i < 32; i++)
+    {
+         printf("%s\t\t0x%lx\t\t\n", regs[i], tmp_difftest_regs[i]);
+     }
 }
