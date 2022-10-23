@@ -275,10 +275,14 @@ void npc_exec(unsigned int n)
 
             difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, true);
         }
-        else if (commit_0 && !first_commit)
+        else if (commit_0)
         {
-            first_commit = false;
-            commit_num -= 1;
+            if (first_commit)
+            {
+                first_commit = false;
+                commit_num -= 1;
+            }
+
             if (commit_1)
             {
                 difftest_read_regs(difftest_regs, top->io_commit_1_pc);
