@@ -294,7 +294,15 @@ class EXU extends Module with Config {
     io.out.bits(i).is_mmio := false.B
   }
 
-  if (Difftest || MyEnv) {
+  if (MyEnv) {
+    for (i <- 0 until 2) {
+      io.out.bits(i).mcycle := (csr.io.addr === mcycle_addr) && (io.in.bits(i).fu_type === fu_csr)
+      io.out.bits(i).is_clint := in.bits(i).fu_type === fu_lsu && in.bits(i).valid && is_clint
+      io.out.bits(i).is_mmio := in.bits(i).fu_type === fu_lsu && in.bits(i).valid && lsu_addr(31) && lsu_addr(29)
+    }
+  }
+
+  if (Difftest && !MyEnv) {
     for (i <- 0 until 2) {
       io.out.bits(i).mcycle := (csr.io.addr === mcycle_addr) && (io.in.bits(i).fu_type === fu_csr)
       io.out.bits(i).is_clint := in.bits(i).fu_type === fu_lsu && in.bits(i).valid && is_clint
