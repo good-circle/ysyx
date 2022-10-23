@@ -237,7 +237,6 @@ void npc_exec(unsigned int n)
             commit_0 = true;
             if (top->io_commit_0_mcycle || top->io_commit_0_is_clint || top->io_commit_0_is_mmio)
             {
-                printf("111\n");
                 skip_0 = true;
             }
         }
@@ -247,7 +246,6 @@ void npc_exec(unsigned int n)
             commit_1 = true;
             if (top->io_commit_1_mcycle || top->io_commit_1_is_clint || top->io_commit_1_is_mmio)
             {
-                printf("111\n");
                 skip_1 = true;
             }
         }
@@ -261,6 +259,7 @@ void npc_exec(unsigned int n)
         }
 
         commit_num = commit_0 + commit_1;
+        printf("commit_num = %d\n", commit_num);
 
         if (skip_0 || skip_1)
         {
@@ -282,7 +281,6 @@ void npc_exec(unsigned int n)
                 first_commit = false;
                 commit_num -= 1;
             }
-
             if (commit_1)
             {
                 difftest_read_regs(difftest_regs, top->io_commit_1_pc);
