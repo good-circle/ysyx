@@ -236,7 +236,7 @@ void npc_exec(unsigned int n)
 
         if (top->io_commit_0_valid)
         {
-            inst_num += 1;
+            //inst_num += 1;
 #ifdef DIFF_ON
             commit_0 = true;
             if (top->io_commit_0_mcycle || top->io_commit_0_is_clint || top->io_commit_0_is_mmio)
@@ -247,7 +247,7 @@ void npc_exec(unsigned int n)
         }
         if (top->io_commit_1_valid)
         {
-            inst_num += 1;
+            //inst_num += 1;
 #ifdef DIFF_ON
             commit_1 = true;
             if (top->io_commit_1_mcycle || top->io_commit_1_is_clint || top->io_commit_1_is_mmio)
@@ -260,10 +260,10 @@ void npc_exec(unsigned int n)
         is_finish = (top->io_commit_0_inst == 0x00100073 && top->io_commit_0_valid) ||
                     (top->io_commit_1_inst == 0x00100073 && top->io_commit_1_valid);
 
-        if (commit_1 && !commit_0)
-        {
-            assert(0);
-        }
+        //if (commit_1 && !commit_0)
+        //{
+        //    assert(0);
+        //}
         
 #ifdef DIFF_ON
         commit_num = commit_0 + commit_1;
