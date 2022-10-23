@@ -232,13 +232,13 @@ void npc_exec(unsigned int n)
 
         if (top->io_commit_0_valid)
         {
-            // printf("%x\n", top->io_commit_0_pc);
             inst_num += 1;
+            commit_0 = true;
         }
         if (top->io_commit_1_valid)
         {
-            // printf("%x\n", top->io_commit_1_pc);
             inst_num += 1;
+            commit_1 = true;
         }
 
         is_finish = (top->io_commit_0_inst == 0x00100073 && top->io_commit_0_valid) ||
