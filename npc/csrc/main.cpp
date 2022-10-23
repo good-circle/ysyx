@@ -153,6 +153,13 @@ void npc_exec(unsigned int n)
     while (!is_finish && n > 0)
     {
         cycle_num++;
+        if (cycle_num % 1000000 == 0)
+        {
+            gettimeofday(&end, NULL);
+            printf("sim_time: %lds, cycles: %lld, ", end.tv_sec - begin.tv_sec, cycle_num);
+            printf("insts: %lld, ", inst_num);
+            printf("current_pc: %x\n", top->io_commit_0_pc);
+        }
         //printf("%lld\n", cycle_num);
         //printf("%x\n", top->io_commit_0_pc);
         // printf("%08lx \n", top->io_pc);
@@ -199,9 +206,11 @@ void npc_exec(unsigned int n)
         bool commit_1 = false;
 
         if (top->io_commit_0_valid) {
+            //printf("%x\n", top->io_commit_0_pc);
             inst_num += 1;
         }
         if (top->io_commit_1_valid) {
+            //printf("%x\n", top->io_commit_1_pc);
             inst_num += 1;
         }
 
