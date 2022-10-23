@@ -77,7 +77,7 @@ void init_difftest(char *ref_so_file, long img_size, uint64_t *difftest_regs)
     ref_difftest_regcpy(difftest_regs, 1);
 }
 
-int difftest_step(uint64_t *difftest_regs, uint64_t pc)
+int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num)
 {
     if (is_skip_ref)
     {
