@@ -275,6 +275,7 @@ void npc_exec(unsigned int n)
         }
         else if (commit_0 && !first_commit)
         {
+            assert(0);
             first_commit = false;
             commit_num -= 1;
             if (commit_1)
