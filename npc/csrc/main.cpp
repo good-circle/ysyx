@@ -7,6 +7,7 @@
 VerilatedContext *contextp = new VerilatedContext;
 VMySimTop *top = new VMySimTop{contextp};
 //#define WAVE_ON 1;
+//#define DIFF_ON 1;
 #ifdef WAVE_ON
 #include "verilated_fst_c.h"
 VerilatedFstC *m_trace = new VerilatedFstC;
@@ -227,27 +228,33 @@ void npc_exec(unsigned int n)
 
         bool commit_0 = false;
         bool commit_1 = false;
+#ifdef DIFF_ON
         bool skip_0 = false;
         bool skip_1 = false;
         int commit_num = 0;
+#endif
 
         if (top->io_commit_0_valid)
         {
             inst_num += 1;
+#ifdef DIFF_ON
             commit_0 = true;
             if (top->io_commit_0_mcycle || top->io_commit_0_is_clint || top->io_commit_0_is_mmio)
             {
                 skip_0 = true;
             }
+#endif
         }
         if (top->io_commit_1_valid)
         {
             inst_num += 1;
+#ifdef DIFF_ON
             commit_1 = true;
             if (top->io_commit_1_mcycle || top->io_commit_1_is_clint || top->io_commit_1_is_mmio)
             {
                 skip_1 = true;
             }
+#endif
         }
 
         is_finish = (top->io_commit_0_inst == 0x00100073 && top->io_commit_0_valid) ||
@@ -257,20 +264,21 @@ void npc_exec(unsigned int n)
         {
             assert(0);
         }
-
+        
+#ifdef DIFF_ON
         commit_num = commit_0 + commit_1;
 
         if (skip_0 || skip_1)
         {
             if (commit_1)
             {
-                //printf("commit_1: %lx %d\n", top->io_commit_1_pc, commit_num);
+                // printf("commit_1: %lx %d\n", top->io_commit_1_pc, commit_num);
                 difftest_read_regs(difftest_regs, top->io_commit_1_pc);
                 is_wrong = difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, true);
             }
             else
             {
-                //printf("commit_0: %lx %d\n", top->io_commit_0_pc, commit_num);
+                // printf("commit_0: %lx %d\n", top->io_commit_0_pc, commit_num);
                 difftest_read_regs(difftest_regs, top->io_commit_0_pc);
                 is_wrong = difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, true);
             }
@@ -302,7 +310,7 @@ void npc_exec(unsigned int n)
                 is_wrong = difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, false);
             }
         }
-
+#endif
         n--;
         npc_cycle++;
         device_update();
@@ -330,10 +338,11 @@ int main(int argc, char **argv, char **env)
 
     reset_npc(10);
 
+#ifdef DIFF_ON
     difftest_read_regs(difftest_regs, 0x80000000);
 
     init_difftest(diff_so_file, img_size, difftest_regs);
-
+#endif
     init_device();
 
     connect_wire(mem_ptr, top);
