@@ -2,7 +2,7 @@
 
 extern VMySimTop *top;
 uint64_t *cpu_gpr = NULL;
-u_int64_t tmp_difftest_regs[33] = {0};
+u_int64_t tmp_pc = 0;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
 {
     cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar *)r)->datap());
@@ -41,30 +41,26 @@ uint64_t isa_reg_str2val(const char *s, bool *success)
 bool tmp_init = false;
 void difftest_read_regs(uint64_t *difftest_regs, uint64_t pc)
 {
-    //if (!tmp_init)
-    //{
-    //    for (int i = 0; i < 33; i++)
-    //    {
-    //        tmp_difftest_regs[i] = 0;
-    //    }
-    //    tmp_init = true;
-    //}
+    if (!tmp_init)
+    {
+        tmp_pc = 0;
+    }
 
     difftest_regs[0] = 0;
 
     for (int i = 1; i < 32; i++)
     {
-        //difftest_regs[i] = tmp_difftest_regs[i];
-        //tmp_difftest_regs[i] = cpu_gpr[i];
+
         difftest_regs[i] = cpu_gpr[i];
     }
 
-    difftest_regs[32] = pc;
-    //tmp_difftest_regs[32] = pc;
+    difftest_regs[32] = tmp_pc;
+    tmp_pc = pc;
+
 
     //for (int i = 0; i < 32; i++)
     //{
     //    printf("%s\t\t0x%lx\t\t\n", regs[i], tmp_difftest_regs[i]);
     //}
-    printf("2:%lx %lx %lx\n", cpu_gpr[2], tmp_difftest_regs[2], difftest_regs[2]);
+    //printf("2:%lx %lx %lx\n", cpu_gpr[2], tmp_difftest_regs[2], difftest_regs[2]);
 }

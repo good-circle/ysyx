@@ -77,7 +77,7 @@ void init_difftest(char *ref_so_file, long img_size, uint64_t *difftest_regs)
     ref_difftest_regcpy(difftest_regs, 1);
 }
 
-int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num, bool skip)
+int difftest_step(uint64_t *difftest_regs, int num, bool skip)
 {
     if (skip)
     {
@@ -100,14 +100,14 @@ int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num, bool skip)
 
     if (difftest_regs[32] != ref_r[32])
     {
-        printf("pc is different after executing instruction at pc 0x%08lx, right= 0x%lx, wrong = 0x%lx\n", pc, ref_r[32], difftest_regs[32]);
+        printf("pc is different after executing instruction at pc 0x%08lx, right= 0x%lx, wrong = 0x%lx\n", difftest_regs[32], ref_r[32], difftest_regs[32]);
         is_different = true;
     }
     for (int i = 0; i < 32; i++)
     {
         if (difftest_regs[i] != ref_r[i])
         {
-            printf("reg %s(%d) is different after executing instruction at pc 0x%08lx, right= 0x%lx, wrong = 0x%lx\n", regs[i], i, pc, ref_r[i], difftest_regs[i]);
+            printf("reg %s(%d) is different after executing instruction at pc 0x%08lx, right= 0x%lx, wrong = 0x%lx\n", regs[i], i, difftest_regs[32], ref_r[i], difftest_regs[i]);
             is_different = true;
         }
     }

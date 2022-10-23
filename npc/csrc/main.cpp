@@ -35,7 +35,7 @@ extern void sdb_mainloop();
 extern void init_difftest(char *ref_so_file, long img_size, u_int64_t *difftest_regs);
 void reset_npc(uint n);
 extern void difftest_read_regs(uint64_t *difftest_regs, uint64_t pc);
-extern int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num, bool skip);
+extern int difftest_step(uint64_t *difftest_regs, int num, bool skip);
 extern void difftest_skip_ref();
 extern void (*ref_difftest_regcpy)(void *dut, bool direction);
 extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
@@ -227,9 +227,19 @@ void npc_exec(unsigned int n)
 
         bool commit_0 = false;
         bool commit_1 = false;
+        bool last_commit_0 = false;
+        bool last_commit_1 = false;
         bool skip_0 = false;
         bool skip_1 = false;
+        bool last_skip_0 = false;
+        bool last_skip_1 = false;
         int commit_num = 0;
+        int last_commit_num = 0;
+
+        last_commit_0 = commit_0;
+        last_commit_1 = commit_1;
+        last_skip_0 = skip_0;
+        last_skip_1 = skip_1;
 
         if (top->io_commit_0_valid)
         {
@@ -258,50 +268,49 @@ void npc_exec(unsigned int n)
             assert(0);
         }
 
+        last_commit_num = last_commit_0 + last_commit_1;
         commit_num = commit_0 + commit_1;
 
-        if (skip_0 || skip_1)
+        if ((last_commit_0 || last_commit_1) && (last_skip_0 || last_skip_1))
         {
-            if (commit_1)
+            if (last_commit_1)
             {
                 difftest_read_regs(difftest_regs, top->io_commit_1_pc);
-                difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, true);
+                difftest_step(difftest_regs, last_commit_num, true);
             }
             else
             {
                 difftest_read_regs(difftest_regs, top->io_commit_0_pc);
-                difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, true);
+                difftest_step(difftest_regs, last_commit_num, true);
             }
         }
-        else if (commit_0)
+        else if (last_commit_0)
         {
             if (first_commit)
             {
                 first_commit = false;
-                commit_num -= 1;
+                last_commit_num -= 1;
+                if (last_commit_1)
+                {
+                    difftest_read_regs(difftest_regs, top->io_commit_1_pc);
+                    difftest_step(difftest_regs, last_commit_num, true);
+                }
+                else
+                {
+                    difftest_read_regs(difftest_regs, top->io_commit_0_pc);
+                }
             }
-            if (commit_1)
+            else if (last_commit_1)
             {
                 difftest_read_regs(difftest_regs, top->io_commit_1_pc);
-                difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, false);
+                difftest_step(difftest_regs, last_commit_num, false);
             }
             else
             {
                 difftest_read_regs(difftest_regs, top->io_commit_0_pc);
-                difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, false);
+                difftest_step(difftest_regs, last_commit_num, false);
             }
-            
-        }
-
-        if (commit_0)
-        {
-
-            // if (!is_finish && difftest_step(difftest_regs, top->io_commit_0_pc) != 0)
-            //{
-            //     is_finish = 1;
-            //     break;
-            // }
-        }
+        }}
 
         n--;
         npc_cycle++;
