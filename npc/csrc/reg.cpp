@@ -44,6 +44,7 @@ void difftest_read_regs(uint64_t *difftest_regs, uint64_t pc)
     if (!tmp_init)
     {
         tmp_pc = 0;
+        tmp_init = true;
     }
 
     difftest_regs[0] = 0;
