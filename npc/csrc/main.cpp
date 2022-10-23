@@ -282,7 +282,7 @@ void npc_exec(unsigned int n)
                 if (commit_1)
                 {
                     difftest_read_regs(difftest_regs, top->io_commit_1_pc);
-                    difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, true);
+                    difftest_step(difftest_regs, top->io_commit_1_pc, commit_num, false);
                 }
                 else
                 {
