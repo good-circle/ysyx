@@ -95,6 +95,9 @@ class CSR extends Module with Config {
 
   when(has_int && mstatus(3) && mie(7) && io.valid) {
     handle_int := true.B
+  }
+
+  when(has_int) {
     mip := Cat(mip(63, 8), 1.U, mip(6, 0))
   }
 

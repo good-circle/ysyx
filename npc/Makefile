@@ -27,7 +27,7 @@ wave:
 	gtkwave waveform.fst
 
 clean:
-	rm -rf ./obj_dir
-	rm waveform.fst
+	-rm -rf ./obj_dir
+	-rm waveform.fst
 
 include ../Makefile

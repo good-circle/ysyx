@@ -252,25 +252,13 @@ void npc_exec(unsigned int n)
             }
             else
             {
-                // difftest_read_regs(difftest_regs);
-                // is_finish = export_finish();
-                // is_mmio = export_mmio();
+                difftest_read_regs(difftest_regs);
 
-                // printf("is_mmio : %d\n", is_mmio);
-                // printf("cpu_pc : %lx\n", cpu_pc);
-                // assert(is_mmio == 0);
-
-                // printf("\n is_finish = %d\n", is_finish);
-
-                // if(is_mmio)
-                //{
-                //     difftest_skip_ref();
-                // }
-                // else if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
-                //{
-                //     is_finish = 1;
-                //     break;
-                // }
+                if (!is_finish && difftest_step(difftest_regs, cpu_pc) != 0)
+                {
+                    is_finish = 1;
+                    break;
+                }
             }
         }
 

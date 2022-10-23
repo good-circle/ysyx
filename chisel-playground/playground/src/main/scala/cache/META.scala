@@ -36,12 +36,6 @@ class META extends Module {
     dirty(index) := io.dirty_w
   }
 
-  when (reset.asBool) {
-    for (i <- 0 until 64) {
-      tag(i) := 0.U
-    }
-  }
-
   when (io.fence) {
     for (i <- 0 until 64) {
       dirty(i) := false.B
