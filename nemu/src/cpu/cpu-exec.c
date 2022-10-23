@@ -148,7 +148,7 @@ static void execute(uint64_t n)
 {
     Decode s;
     //int i = 0;
-    printf("111\n");
+    printf("n = %d\n", n);
     for (; n > 0; n--)
     {
         //printf("nemu cpu-exec.c execute cpu.pc = %lx\n", cpu.pc);
