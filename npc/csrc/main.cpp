@@ -151,7 +151,7 @@ void finish_sim()
     printf("number of instructions is %lld\n", inst_num);
     printf("total spend time %lfs\n", npc_time / 1000000);
     double frequency = (double)cycle_num / (npc_time / 1000000);
-    printf("simulation frequency = %d inst/s\n", (int)frequency);
+    printf("simulation frequency = %d cycles/s\n", (int)frequency);
     double IPC = (double)inst_num / (double)cycle_num;
     printf("IPC = %lf\n", IPC);
     if (difftest_regs[10] == 0)
