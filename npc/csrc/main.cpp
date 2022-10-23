@@ -173,7 +173,6 @@ void npc_exec(unsigned int n)
     axi4_ref<32, 64, 4> mem_sigs_ref(mem_sigs);
 
     gettimeofday(&begin, NULL);
-    n = 100;
     while (!is_finish && !is_wrong && n > 0)
     {
         cycle_num++;
