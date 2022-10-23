@@ -259,7 +259,6 @@ void npc_exec(unsigned int n)
         }
 
         commit_num = commit_0 + commit_1;
-        printf("commit_num = %d\n", commit_num);
 
         if (skip_0 || skip_1)
         {
