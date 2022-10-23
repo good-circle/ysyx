@@ -67,9 +67,14 @@ class MDU extends Module with Config {
 
   val wait_lsu = RegInit(false.B)
 
-  when (io.is_lsu) {
+  when (io.is_lsu && state =/= idle)
+  {
+    assert(false)
+  }
+  
+  when (io.is_lsu && state === idle) {
     wait_lsu := true.B
-  } 
+  }
   when (io.lsu_ok) {
     wait_lsu := false.B
   }
