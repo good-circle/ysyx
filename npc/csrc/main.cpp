@@ -172,6 +172,16 @@ void npc_exec(unsigned int n)
     axi4_ref<32, 64, 4> mem_sigs_ref(mem_sigs);
 
     gettimeofday(&begin, NULL);
+    bool commit_0 = false;
+    bool commit_1 = false;
+    bool last_commit_0 = false;
+    bool last_commit_1 = false;
+    bool skip_0 = false;
+    bool skip_1 = false;
+    bool last_skip_0 = false;
+    bool last_skip_1 = false;
+    int commit_num = 0;
+    int last_commit_num = 0;
     while (!is_finish && n > 0)
     {
         cycle_num++;
@@ -224,17 +234,6 @@ void npc_exec(unsigned int n)
         top->clock = !top->clock;
         top->eval();
 
-        bool commit_0 = false;
-        bool commit_1 = false;
-        bool last_commit_0 = false;
-        bool last_commit_1 = false;
-        bool skip_0 = false;
-        bool skip_1 = false;
-        bool last_skip_0 = false;
-        bool last_skip_1 = false;
-        int commit_num = 0;
-        int last_commit_num = 0;
-
         last_commit_0 = commit_0;
         last_commit_1 = commit_1;
         last_skip_0 = skip_0;
@@ -285,7 +284,6 @@ void npc_exec(unsigned int n)
         }
         else if (last_commit_0)
         {
-            assert(0);
             if (first_commit)
             {
                 first_commit = false;
