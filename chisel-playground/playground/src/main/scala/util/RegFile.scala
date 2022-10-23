@@ -11,6 +11,7 @@ class RegFile extends Module with Config {
 
   if (MyEnv) {
     val rf = Module (new SimRF)
+    rf.io.clock := Clock()
     rf.io.rf_bus_0_raddr1 := io.rf_bus(0).raddr1
     rf.io.rf_bus_0_raddr2 := io.rf_bus(0).raddr2
     io.rf_bus(0).rdata1 := rf.io.rf_bus_0_rdata1
