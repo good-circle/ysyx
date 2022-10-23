@@ -36,7 +36,7 @@ bool reset = false;
 void difftest_exec(uint64_t n)
 {
     //printf("222\n");
-    printf("n = %ld\n", n);
+    //printf("n = %ld\n", n);
     if (!reset)
     {
         // I do not know why cpu.pc = 0
