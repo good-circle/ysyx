@@ -57,8 +57,7 @@ void difftest_read_regs(uint64_t *difftest_regs, uint64_t pc)
         tmp_difftest_regs[i] = cpu_gpr[i];
     }
 
-    difftest_regs[32] = tmp_difftest_regs[32];
-    tmp_difftest_regs[32] = pc;
+    difftest_regs[32] = pc;
 
     // for (int i = 0; i < 32; i++)
     //{
