@@ -68,6 +68,8 @@ class EXU extends Module with Config {
   mdu.io.rv64 := false.B
   mdu_result := mdu.io.result
   mdu_ok := mdu.io.result_ok
+  mdu.io.is_lsu := is_lsu && !is_clint
+  mdu.io.lsu_ok := io.dmem.data_ok
   for (i <- 0 until 2) {
     when(in.bits(i).fu_type === fu_mdu && in.bits(i).valid) {
       is_mdu := io.in.valid

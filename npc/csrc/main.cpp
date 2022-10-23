@@ -6,7 +6,7 @@
 
 VerilatedContext *contextp = new VerilatedContext;
 VMySimTop *top = new VMySimTop{contextp};
-#define WAVE_ON 1;
+//#define WAVE_ON 1;
 #ifdef WAVE_ON
 #include "verilated_fst_c.h"
 VerilatedFstC *m_trace = new VerilatedFstC;

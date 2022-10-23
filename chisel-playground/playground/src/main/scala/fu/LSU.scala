@@ -157,6 +157,8 @@ class LSU extends Module{
   io.dmem.valid := false.B
   io.dmem.fence := false.B
 
+  val load_rdata_reg = RegInit(0.U(64.W))
+
   switch (state) {
     is (idle) {
       when (fence) {
@@ -177,12 +179,14 @@ class LSU extends Module{
       io.dmem.valid := true.B
       when (io.dmem.data_ok && mdu_ok) {
         state := idle
+        load_rdata_reg := load_rdata
         io.dmem.valid := false.B
       } .elsewhen (mdu_ok) {
         state := wait_lsu
         io.dmem.valid := true.B
       } .elsewhen (io.dmem.data_ok) {
         state := wait_mdu
+        load_rdata_reg := load_rdata
         io.dmem.valid := false.B
       }
     }
@@ -190,6 +194,7 @@ class LSU extends Module{
       io.dmem.valid := true.B
       when (io.dmem.data_ok) {
         state := idle
+        load_rdata_reg := load_rdata
         io.dmem.valid := false.B
       }
     }
@@ -228,6 +233,6 @@ class LSU extends Module{
   io.dmem.wdata := dmem_wdata
   dmem_rdata := io.dmem.rdata
 
-  io.rdata := load_rdata
+  io.rdata := Mux(io.dmem.data_ok, load_rdata, load_rdata_reg)
 }
 
