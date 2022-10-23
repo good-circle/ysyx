@@ -303,7 +303,7 @@ void npc_exec(unsigned int n)
                 if (last_commit_1)
                 {
                     //difftest_read_regs(difftest_regs, top->io_commit_1_pc);
-                    difftest_step(difftest_regs, last_commit_num, true);
+                    difftest_step(difftest_regs, last_commit_num, false);
                 }
                 else
                 {
