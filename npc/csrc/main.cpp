@@ -273,10 +273,12 @@ void npc_exec(unsigned int n)
         if (commit_1)
         {
             difftest_read_regs(difftest_regs, top->io_commit_1_pc);
+            printf("111\n");
         }
         else if (commit_0)
         {
             difftest_read_regs(difftest_regs, top->io_commit_0_pc);
+            printf("222\n");
         }
 
         if ((last_commit_0 || last_commit_1) && (last_skip_0 || last_skip_1))
