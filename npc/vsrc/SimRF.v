@@ -1,4 +1,4 @@
-module RegFile(
+module SimRF(
   input         clock,
   input         reset,
   input  [4:0]  rf_bus_0_raddr1,
