@@ -69,7 +69,8 @@ class MDU extends Module with Config {
 
   when (io.is_lsu) {
     wait_lsu := true.B
-  } .elsewhen (io.lsu_ok) {
+  } 
+  when (io.lsu_ok) {
     wait_lsu := false.B
   }
 
