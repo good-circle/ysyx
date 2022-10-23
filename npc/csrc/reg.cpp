@@ -2,16 +2,11 @@
 
 extern VMySimTop *top;
 uint64_t *cpu_gpr = NULL;
-uint64_t cpu_pc = 0;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r)
 {
     cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar *)r)->datap());
 }
 
-extern "C" void set_pc(long long pc)
-{
-    cpu_pc = pc;
-}
 
 const char *regs[] = {
     "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
@@ -21,7 +16,6 @@ const char *regs[] = {
 
 void isa_reg_display()
 {
-    printf("%s\t\t0x%lx\t\t\n", "pc", cpu_pc);
     for (int i = 0; i < 32; i++)
     {
         printf("%s\t\t0x%lx\t\t\n", regs[i], cpu_gpr[i]);
@@ -31,10 +25,6 @@ void isa_reg_display()
 uint64_t isa_reg_str2val(const char *s, bool *success)
 {
     *success = true;
-    if (strcmp(s, "pc") == 0)
-    {
-        return cpu_pc;
-    }
     for (int i = 0; i < 32; i++)
     {
         if (strcmp(s, regs[i]) == 0)
@@ -50,10 +40,10 @@ uint64_t isa_reg_str2val(const char *s, bool *success)
 
 void difftest_read_regs(uint64_t *difftest_regs)
 {
+    printf("111\n");
     difftest_regs[0] = 0;
     for (int i = 1; i < 32; i++)
     {
         difftest_regs[i] = cpu_gpr[i];
     }
-    difftest_regs[32] = cpu_pc;
 }
