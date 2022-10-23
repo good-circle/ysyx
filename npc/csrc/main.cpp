@@ -35,7 +35,7 @@ extern void sdb_mainloop();
 extern void init_difftest(char *ref_so_file, long img_size, u_int64_t *difftest_regs);
 void reset_npc(uint n);
 extern void difftest_read_regs(u_int64_t *difftest_regs);
-int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num);
+extern int difftest_step(uint64_t *difftest_regs, uint64_t pc, int num, bool skip);
 extern void difftest_skip_ref();
 extern void (*ref_difftest_regcpy)(void *dut, bool direction);
 extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
@@ -229,17 +229,27 @@ void npc_exec(unsigned int n)
 
         bool commit_0 = false;
         bool commit_1 = false;
+        bool skip_0 = false;
+        bool skip_1 = false;
         int commit_num = 0;
 
         if (top->io_commit_0_valid)
         {
             inst_num += 1;
             commit_0 = true;
+            if (top->io_commit_0_mcycle || top->io_commit_0_is_clint || top->io_commit_0_is_mmio)
+            {
+                skip_0 = true;
+            }
         }
         if (top->io_commit_1_valid)
         {
             inst_num += 1;
             commit_1 = true;
+            if (top->io_commit_1_mcycle || top->io_commit_1_is_clint || top->io_commit_1_is_mmio)
+            {
+                skip_1 = true;
+            }
         }
 
         is_finish = (top->io_commit_0_inst == 0x00100073 && top->io_commit_0_valid) ||
@@ -252,14 +262,18 @@ void npc_exec(unsigned int n)
 
         commit_num = commit_0 + commit_1;
 
-        if (commit_0 && !first_commit)
+        if (skip_0 || skip_1)
+        {
+            difftest_read_regs(difftest_regs);
+            difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, true);
+        }
+        else if (commit_0 && !first_commit)
         {
             first_commit = false;
             commit_num -= 1;
+            difftest_read_regs(difftest_regs);
+            difftest_step(difftest_regs, top->io_commit_0_pc, commit_num, false);
         }
-
-        difftest_read_regs(difftest_regs);
-        difftest_step(difftest_regs, top->io_commit_0_pc, commit_num);
 
         if (commit_0)
         {

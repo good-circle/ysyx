@@ -5743,22 +5743,22 @@ module CSR(
   reg [63:0] mie; // @[CSR.scala 34:20]
   reg [63:0] mscratch; // @[CSR.scala 35:25]
   wire  wen = io_csr_op == 3'h1 | io_csr_op == 3'h2 | io_csr_op == 3'h3; // @[CSR.scala 43:59]
-  wire  _T_36 = io_addr == 12'h305; // @[MAP.scala 23:18]
-  wire  _T_33 = io_addr == 12'hb00; // @[MAP.scala 23:18]
-  wire  _T_30 = io_addr == 12'h344; // @[MAP.scala 23:18]
-  wire  _T_27 = io_addr == 12'h342; // @[MAP.scala 23:18]
-  wire  _T_24 = io_addr == 12'h340; // @[MAP.scala 23:18]
-  wire  _T_21 = io_addr == 12'h304; // @[MAP.scala 23:18]
-  wire  _T_18 = io_addr == 12'h341; // @[MAP.scala 23:18]
-  wire  _T_15 = io_addr == 12'h300; // @[MAP.scala 23:18]
-  wire [63:0] _GEN_14 = io_addr == 12'h300 ? mstatus : 64'h0; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_16 = io_addr == 12'h341 ? mepc : _GEN_14; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_18 = io_addr == 12'h304 ? mie : _GEN_16; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_20 = io_addr == 12'h340 ? mscratch : _GEN_18; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_22 = io_addr == 12'h342 ? mcause : _GEN_20; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_24 = io_addr == 12'h344 ? mip : _GEN_22; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] _GEN_26 = io_addr == 12'hb00 ? mcycle : _GEN_24; // @[MAP.scala 23:25 MAP.scala 24:15]
-  wire [63:0] rdata = io_addr == 12'h305 ? mtvec : _GEN_26; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire  _T_36 = io_addr == 12'h342; // @[MAP.scala 23:18]
+  wire  _T_33 = io_addr == 12'h341; // @[MAP.scala 23:18]
+  wire  _T_30 = io_addr == 12'hb00; // @[MAP.scala 23:18]
+  wire  _T_27 = io_addr == 12'h305; // @[MAP.scala 23:18]
+  wire  _T_24 = io_addr == 12'h300; // @[MAP.scala 23:18]
+  wire  _T_21 = io_addr == 12'h340; // @[MAP.scala 23:18]
+  wire  _T_18 = io_addr == 12'h344; // @[MAP.scala 23:18]
+  wire  _T_15 = io_addr == 12'h304; // @[MAP.scala 23:18]
+  wire [63:0] _GEN_14 = io_addr == 12'h304 ? mie : 64'h0; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_16 = io_addr == 12'h344 ? mip : _GEN_14; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_18 = io_addr == 12'h340 ? mscratch : _GEN_16; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_20 = io_addr == 12'h300 ? mstatus : _GEN_18; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_22 = io_addr == 12'h305 ? mtvec : _GEN_20; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_24 = io_addr == 12'hb00 ? mcycle : _GEN_22; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] _GEN_26 = io_addr == 12'h341 ? mepc : _GEN_24; // @[MAP.scala 23:25 MAP.scala 24:15]
+  wire [63:0] rdata = io_addr == 12'h342 ? mcause : _GEN_26; // @[MAP.scala 23:25 MAP.scala 24:15]
   wire [63:0] _wdata_T = rdata | io_src; // @[CSR.scala 63:25]
   wire [63:0] _wdata_T_1 = ~io_src; // @[CSR.scala 64:28]
   wire [63:0] _wdata_T_2 = rdata & _wdata_T_1; // @[CSR.scala 64:25]
@@ -5781,24 +5781,24 @@ module CSR(
   wire  mstatus_lo_hi = mstatus[7]; // @[CSR.scala 85:63]
   wire [63:0] _mstatus_T_2 = {mstatus_hi_hi_hi,1'h1,mstatus_hi_lo,mstatus_lo_hi,mstatus_lo_lo}; // @[Cat.scala 30:58]
   wire [63:0] _mcycle_T_1 = mcycle + 64'h1; // @[CSR.scala 90:20]
+  wire [63:0] _mip_T_2 = mip & 64'h1; // @[MAP.scala 10:33]
   wire  mstatus_mstatus_new_hi = wdata[16:15] == 2'h3 | wdata[14:13] == 2'h3; // @[CSR.scala 46:57]
   wire [62:0] mstatus_mstatus_new_lo = wdata[62:0]; // @[CSR.scala 46:98]
   wire [63:0] mstatus_mstatus_new = {mstatus_mstatus_new_hi,mstatus_mstatus_new_lo}; // @[Cat.scala 30:58]
   wire [63:0] _mepc_T = wdata & 64'hfffffffffffffffc; // @[MAP.scala 10:14]
   wire [63:0] _mepc_T_2 = mepc & 64'h3; // @[MAP.scala 10:33]
   wire [63:0] _mepc_T_3 = _mepc_T | _mepc_T_2; // @[MAP.scala 10:22]
-  wire [63:0] _mip_T_2 = mip & 64'h1; // @[MAP.scala 10:33]
   wire [55:0] mip_hi_hi = mip[63:8]; // @[CSR.scala 101:19]
   wire [6:0] mip_lo = mip[6:0]; // @[CSR.scala 101:36]
   wire [63:0] _mip_T_4 = {mip_hi_hi,1'h1,mip_lo}; // @[Cat.scala 30:58]
-  assign io_rdata = io_addr == 12'h305 ? mtvec : _GEN_26; // @[MAP.scala 23:25 MAP.scala 24:15]
+  assign io_rdata = io_addr == 12'h342 ? mcause : _GEN_26; // @[MAP.scala 23:25 MAP.scala 24:15]
   assign io_is_reflush = io_csr_op == 3'h5 | _GEN_9; // @[CSR.scala 84:30 CSR.scala 86:15]
   assign io_csr_target = io_csr_op == 3'h5 ? mepc[31:0] : _GEN_10; // @[CSR.scala 84:30 CSR.scala 87:16]
   assign io_handle_int = clint_has_int & mstatus_hi_hi_lo & mie[7] & io_valid; // @[CSR.scala 96:40]
   always @(posedge clock) begin
     if (reset) begin // @[CSR.scala 28:23]
       mcycle <= 64'h0; // @[CSR.scala 28:23]
-    end else if (_T_33 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_30 & wen) begin // @[MAP.scala 27:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mcycle <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -5811,7 +5811,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 29:21]
       mepc <= 64'h0; // @[CSR.scala 29:21]
-    end else if (_T_18 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_33 & wen) begin // @[MAP.scala 27:34]
       mepc <= _mepc_T_3; // @[MAP.scala 28:13]
     end else if (handle_int) begin // @[CSR.scala 75:20]
       mepc <= {{32'd0}, io_pc}; // @[CSR.scala 77:10]
@@ -5820,7 +5820,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 30:23]
       mcause <= 64'h0; // @[CSR.scala 30:23]
-    end else if (_T_27 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_36 & wen) begin // @[MAP.scala 27:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mcause <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -5835,7 +5835,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 31:24]
       mstatus <= 64'h1800; // @[CSR.scala 31:24]
-    end else if (_T_15 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_24 & wen) begin // @[MAP.scala 27:34]
       mstatus <= mstatus_mstatus_new; // @[MAP.scala 28:13]
     end else if (io_csr_op == 3'h5) begin // @[CSR.scala 84:30]
       mstatus <= _mstatus_T_2; // @[CSR.scala 85:13]
@@ -5846,7 +5846,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 32:22]
       mtvec <= 64'h0; // @[CSR.scala 32:22]
-    end else if (_T_36 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_27 & wen) begin // @[MAP.scala 27:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mtvec <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -5859,14 +5859,14 @@ module CSR(
       mip <= 64'h0; // @[CSR.scala 33:20]
     end else if (clint_has_int) begin // @[CSR.scala 100:17]
       mip <= _mip_T_4; // @[CSR.scala 101:9]
-    end else if (_T_30 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_18 & wen) begin // @[MAP.scala 27:34]
       mip <= _mip_T_2; // @[MAP.scala 28:13]
     end else if (handle_int) begin // @[CSR.scala 75:20]
       mip <= 64'h0; // @[CSR.scala 76:9]
     end
     if (reset) begin // @[CSR.scala 34:20]
       mie <= 64'h0; // @[CSR.scala 34:20]
-    end else if (_T_21 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_15 & wen) begin // @[MAP.scala 27:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mie <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -5877,7 +5877,7 @@ module CSR(
     end
     if (reset) begin // @[CSR.scala 35:25]
       mscratch <= 64'h0; // @[CSR.scala 35:25]
-    end else if (_T_24 & wen) begin // @[MAP.scala 27:34]
+    end else if (_T_21 & wen) begin // @[MAP.scala 27:34]
       if (3'h3 == io_csr_op) begin // @[Mux.scala 80:57]
         mscratch <= _wdata_T_2;
       end else if (3'h2 == io_csr_op) begin // @[Mux.scala 80:57]
@@ -6116,12 +6116,18 @@ module EXU(
   output [63:0] io_out_bits_0_final_result,
   output [4:0]  io_out_bits_0_dest,
   output        io_out_bits_0_wen,
+  output        io_out_bits_0_mcycle,
+  output        io_out_bits_0_is_clint,
+  output        io_out_bits_0_is_mmio,
   output        io_out_bits_1_valid,
   output [31:0] io_out_bits_1_pc,
   output [31:0] io_out_bits_1_inst,
   output [63:0] io_out_bits_1_final_result,
   output [4:0]  io_out_bits_1_dest,
   output        io_out_bits_1_wen,
+  output        io_out_bits_1_mcycle,
+  output        io_out_bits_1_is_clint,
+  output        io_out_bits_1_is_mmio,
   output        io_forward_0_blk_valid,
   output        io_forward_0_fwd_valid,
   output [4:0]  io_forward_0_rf_waddr,
@@ -6284,6 +6290,7 @@ module EXU(
   wire [2:0] _GEN_36 = _T_5 ? ret_count : 3'h0; // @[EXU.scala 121:62 EXU.scala 130:24 EXU.scala 117:10]
   wire  is_clint = (clint_io_is_mtime | clint_io_is_mtimecmp) & io_in_valid; // @[EXU.scala 192:59]
   wire [63:0] lsu_rdata = is_clint ? clint_io_rdata : lsu_io_rdata; // @[EXU.scala 149:19]
+  wire  _T_15 = io_in_bits_0_fu_type == 3'h2 & io_in_bits_0_valid; // @[EXU.scala 151:41]
   wire  _T_17 = io_in_bits_1_fu_type == 3'h2 & io_in_bits_1_valid; // @[EXU.scala 151:41]
   wire  _GEN_48 = io_in_bits_0_fu_type == 3'h2 & io_in_bits_0_valid & io_in_valid; // @[EXU.scala 151:62 EXU.scala 152:14 EXU.scala 138:10]
   wire  is_lsu = io_in_bits_1_fu_type == 3'h2 & io_in_bits_1_valid ? io_in_valid : _GEN_48; // @[EXU.scala 151:62 EXU.scala 152:14]
@@ -6297,6 +6304,7 @@ module EXU(
   wire  _GEN_55 = io_in_bits_0_fu_type == 3'h2 & io_in_bits_0_valid & is_mdu; // @[EXU.scala 151:62 EXU.scala 159:21 EXU.scala 145:17]
   wire  mdu_ok = mdu_io_result_ok;
   wire  _GEN_56 = io_in_bits_0_fu_type == 3'h2 & io_in_bits_0_valid & mdu_ok; // @[EXU.scala 151:62 EXU.scala 160:21 EXU.scala 146:17]
+  wire  _T_18 = io_in_bits_0_fu_type == 3'h3; // @[EXU.scala 177:30]
   wire [2:0] _csr_io_csr_op_T_1 = io_in_valid ? 3'h7 : 3'h0; // @[Bitwise.scala 72:12]
   wire [2:0] _csr_io_csr_op_T_2 = io_in_bits_0_csr_op & _csr_io_csr_op_T_1; // @[EXU.scala 179:42]
   wire [31:0] _GEN_66 = io_in_bits_0_fu_type == 3'h3 & io_in_bits_0_valid ? io_in_bits_0_pc : 32'h0; // @[EXU.scala 177:62 EXU.scala 178:17 EXU.scala 165:13]
@@ -6304,6 +6312,7 @@ module EXU(
   wire [11:0] _GEN_68 = io_in_bits_0_fu_type == 3'h3 & io_in_bits_0_valid ? io_in_bits_0_inst[31:20] : 12'h0; // @[EXU.scala 177:62 EXU.scala 180:19 EXU.scala 167:15]
   wire [63:0] _GEN_69 = io_in_bits_0_fu_type == 3'h3 & io_in_bits_0_valid ? io_in_bits_0_src1_value : 64'h0; // @[EXU.scala 177:62 EXU.scala 181:18 EXU.scala 168:14]
   wire  _GEN_70 = io_in_bits_0_fu_type == 3'h3 & io_in_bits_0_valid & io_in_valid; // @[EXU.scala 177:62 EXU.scala 182:20 EXU.scala 169:16]
+  wire  _T_20 = io_in_bits_1_fu_type == 3'h3; // @[EXU.scala 177:30]
   wire [2:0] _csr_io_csr_op_T_5 = io_in_bits_1_csr_op & _csr_io_csr_op_T_1; // @[EXU.scala 179:42]
   wire [31:0] lsu_addr = lsu_io_addr; // @[EXU.scala 34:22 EXU.scala 148:12]
   wire [63:0] _GEN_108 = {{32'd0}, lsu_addr}; // @[EXU.scala 189:34]
@@ -6446,12 +6455,18 @@ module EXU(
   assign io_out_bits_0_final_result = 3'h3 == io_in_bits_0_fu_type ? csr_rdata : _final_result_0_T_9; // @[Mux.scala 80:57]
   assign io_out_bits_0_dest = io_in_bits_0_dest; // @[EXU.scala 215:25]
   assign io_out_bits_0_wen = io_in_bits_0_wen; // @[EXU.scala 216:24]
+  assign io_out_bits_0_mcycle = csr_io_addr == 12'hb00 & _T_18; // @[EXU.scala 299:62]
+  assign io_out_bits_0_is_clint = _T_15 & is_clint; // @[EXU.scala 300:84]
+  assign io_out_bits_0_is_mmio = _T_15 & lsu_addr[31] & lsu_addr[29]; // @[EXU.scala 301:99]
   assign io_out_bits_1_valid = io_in_bits_1_valid; // @[EXU.scala 211:26]
   assign io_out_bits_1_pc = io_in_bits_1_pc; // @[EXU.scala 212:23]
   assign io_out_bits_1_inst = io_in_bits_1_inst; // @[EXU.scala 213:25]
   assign io_out_bits_1_final_result = 3'h3 == io_in_bits_1_fu_type ? csr_rdata : _final_result_1_T_9; // @[Mux.scala 80:57]
   assign io_out_bits_1_dest = io_in_bits_1_dest; // @[EXU.scala 215:25]
   assign io_out_bits_1_wen = io_in_bits_1_wen; // @[EXU.scala 216:24]
+  assign io_out_bits_1_mcycle = csr_io_addr == 12'hb00 & _T_20; // @[EXU.scala 299:62]
+  assign io_out_bits_1_is_clint = _T_17 & is_clint; // @[EXU.scala 300:84]
+  assign io_out_bits_1_is_mmio = _T_17 & lsu_addr[31] & lsu_addr[29]; // @[EXU.scala 301:99]
   assign io_forward_0_blk_valid = io_forward_0_fwd_valid & ~blk_ready; // @[EXU.scala 272:56]
   assign io_forward_0_fwd_valid = io_in_bits_0_wen & io_in_bits_0_dest != 5'h0 & io_in_valid & io_in_bits_0_valid; // @[EXU.scala 273:89]
   assign io_forward_0_rf_waddr = io_in_bits_0_dest; // @[EXU.scala 274:28]
@@ -6627,12 +6642,18 @@ module WBU(
   input  [63:0] io_in_bits_0_final_result,
   input  [4:0]  io_in_bits_0_dest,
   input         io_in_bits_0_wen,
+  input         io_in_bits_0_mcycle,
+  input         io_in_bits_0_is_clint,
+  input         io_in_bits_0_is_mmio,
   input         io_in_bits_1_valid,
   input  [31:0] io_in_bits_1_pc,
   input  [31:0] io_in_bits_1_inst,
   input  [63:0] io_in_bits_1_final_result,
   input  [4:0]  io_in_bits_1_dest,
   input         io_in_bits_1_wen,
+  input         io_in_bits_1_mcycle,
+  input         io_in_bits_1_is_clint,
+  input         io_in_bits_1_is_mmio,
   output        io_wb_bus_0_rf_wen,
   output [4:0]  io_wb_bus_0_rf_waddr,
   output [63:0] io_wb_bus_0_rf_wdata,
@@ -6645,12 +6666,18 @@ module WBU(
   output        io_commit_0_wen,
   output [4:0]  io_commit_0_waddr,
   output [63:0] io_commit_0_wdata,
+  output        io_commit_0_mcycle,
+  output        io_commit_0_is_clint,
+  output        io_commit_0_is_mmio,
   output        io_commit_1_valid,
   output [31:0] io_commit_1_pc,
   output [31:0] io_commit_1_inst,
   output        io_commit_1_wen,
   output [4:0]  io_commit_1_waddr,
-  output [63:0] io_commit_1_wdata
+  output [63:0] io_commit_1_wdata,
+  output        io_commit_1_mcycle,
+  output        io_commit_1_is_clint,
+  output        io_commit_1_is_mmio
 );
   assign io_wb_bus_0_rf_wen = io_in_bits_0_wen & io_in_bits_0_dest != 5'h0 & io_in_valid & io_in_bits_0_valid; // @[WBU.scala 17:85]
   assign io_wb_bus_0_rf_waddr = io_in_bits_0_dest; // @[WBU.scala 18:27]
@@ -6664,12 +6691,18 @@ module WBU(
   assign io_commit_0_wen = io_in_bits_0_wen; // @[WBU.scala 23:22]
   assign io_commit_0_waddr = io_in_bits_0_dest; // @[WBU.scala 24:24]
   assign io_commit_0_wdata = io_in_bits_0_final_result; // @[WBU.scala 25:24]
+  assign io_commit_0_mcycle = io_in_bits_0_mcycle; // @[WBU.scala 28:25]
+  assign io_commit_0_is_clint = io_in_bits_0_is_clint; // @[WBU.scala 29:27]
+  assign io_commit_0_is_mmio = io_in_bits_0_is_mmio; // @[WBU.scala 30:26]
   assign io_commit_1_valid = io_in_valid & io_in_bits_1_valid; // @[WBU.scala 26:39]
   assign io_commit_1_pc = io_in_bits_1_pc; // @[WBU.scala 21:21]
   assign io_commit_1_inst = io_in_bits_1_inst; // @[WBU.scala 22:23]
   assign io_commit_1_wen = io_in_bits_1_wen; // @[WBU.scala 23:22]
   assign io_commit_1_waddr = io_in_bits_1_dest; // @[WBU.scala 24:24]
   assign io_commit_1_wdata = io_in_bits_1_final_result; // @[WBU.scala 25:24]
+  assign io_commit_1_mcycle = io_in_bits_1_mcycle; // @[WBU.scala 28:25]
+  assign io_commit_1_is_clint = io_in_bits_1_is_clint; // @[WBU.scala 29:27]
+  assign io_commit_1_is_mmio = io_in_bits_1_is_mmio; // @[WBU.scala 30:26]
 endmodule
 module BTB(
   input         clock,
@@ -17618,12 +17651,18 @@ module Core_SimSoc(
   output         io_commit_0_wen,
   output [4:0]   io_commit_0_waddr,
   output [63:0]  io_commit_0_wdata,
+  output         io_commit_0_mcycle,
+  output         io_commit_0_is_clint,
+  output         io_commit_0_is_mmio,
   output         io_commit_1_valid,
   output [31:0]  io_commit_1_pc,
   output [31:0]  io_commit_1_inst,
   output         io_commit_1_wen,
   output [4:0]   io_commit_1_waddr,
-  output [63:0]  io_commit_1_wdata
+  output [63:0]  io_commit_1_wdata,
+  output         io_commit_1_mcycle,
+  output         io_commit_1_is_clint,
+  output         io_commit_1_is_mmio
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
@@ -17740,9 +17779,15 @@ module Core_SimSoc(
   reg [31:0] _RAND_111;
   reg [31:0] _RAND_112;
   reg [31:0] _RAND_113;
-  reg [63:0] _RAND_114;
+  reg [31:0] _RAND_114;
   reg [31:0] _RAND_115;
   reg [31:0] _RAND_116;
+  reg [63:0] _RAND_117;
+  reg [31:0] _RAND_118;
+  reg [31:0] _RAND_119;
+  reg [31:0] _RAND_120;
+  reg [31:0] _RAND_121;
+  reg [31:0] _RAND_122;
 `endif // RANDOMIZE_REG_INIT
   wire  ifu_clock; // @[Core.scala 53:19]
   wire  ifu_reset; // @[Core.scala 53:19]
@@ -18023,12 +18068,18 @@ module Core_SimSoc(
   wire [63:0] exu_io_out_bits_0_final_result; // @[Core.scala 57:19]
   wire [4:0] exu_io_out_bits_0_dest; // @[Core.scala 57:19]
   wire  exu_io_out_bits_0_wen; // @[Core.scala 57:19]
+  wire  exu_io_out_bits_0_mcycle; // @[Core.scala 57:19]
+  wire  exu_io_out_bits_0_is_clint; // @[Core.scala 57:19]
+  wire  exu_io_out_bits_0_is_mmio; // @[Core.scala 57:19]
   wire  exu_io_out_bits_1_valid; // @[Core.scala 57:19]
   wire [31:0] exu_io_out_bits_1_pc; // @[Core.scala 57:19]
   wire [31:0] exu_io_out_bits_1_inst; // @[Core.scala 57:19]
   wire [63:0] exu_io_out_bits_1_final_result; // @[Core.scala 57:19]
   wire [4:0] exu_io_out_bits_1_dest; // @[Core.scala 57:19]
   wire  exu_io_out_bits_1_wen; // @[Core.scala 57:19]
+  wire  exu_io_out_bits_1_mcycle; // @[Core.scala 57:19]
+  wire  exu_io_out_bits_1_is_clint; // @[Core.scala 57:19]
+  wire  exu_io_out_bits_1_is_mmio; // @[Core.scala 57:19]
   wire  exu_io_forward_0_blk_valid; // @[Core.scala 57:19]
   wire  exu_io_forward_0_fwd_valid; // @[Core.scala 57:19]
   wire [4:0] exu_io_forward_0_rf_waddr; // @[Core.scala 57:19]
@@ -18059,12 +18110,18 @@ module Core_SimSoc(
   wire [63:0] wbu_io_in_bits_0_final_result; // @[Core.scala 58:19]
   wire [4:0] wbu_io_in_bits_0_dest; // @[Core.scala 58:19]
   wire  wbu_io_in_bits_0_wen; // @[Core.scala 58:19]
+  wire  wbu_io_in_bits_0_mcycle; // @[Core.scala 58:19]
+  wire  wbu_io_in_bits_0_is_clint; // @[Core.scala 58:19]
+  wire  wbu_io_in_bits_0_is_mmio; // @[Core.scala 58:19]
   wire  wbu_io_in_bits_1_valid; // @[Core.scala 58:19]
   wire [31:0] wbu_io_in_bits_1_pc; // @[Core.scala 58:19]
   wire [31:0] wbu_io_in_bits_1_inst; // @[Core.scala 58:19]
   wire [63:0] wbu_io_in_bits_1_final_result; // @[Core.scala 58:19]
   wire [4:0] wbu_io_in_bits_1_dest; // @[Core.scala 58:19]
   wire  wbu_io_in_bits_1_wen; // @[Core.scala 58:19]
+  wire  wbu_io_in_bits_1_mcycle; // @[Core.scala 58:19]
+  wire  wbu_io_in_bits_1_is_clint; // @[Core.scala 58:19]
+  wire  wbu_io_in_bits_1_is_mmio; // @[Core.scala 58:19]
   wire  wbu_io_wb_bus_0_rf_wen; // @[Core.scala 58:19]
   wire [4:0] wbu_io_wb_bus_0_rf_waddr; // @[Core.scala 58:19]
   wire [63:0] wbu_io_wb_bus_0_rf_wdata; // @[Core.scala 58:19]
@@ -18077,12 +18134,18 @@ module Core_SimSoc(
   wire  wbu_io_commit_0_wen; // @[Core.scala 58:19]
   wire [4:0] wbu_io_commit_0_waddr; // @[Core.scala 58:19]
   wire [63:0] wbu_io_commit_0_wdata; // @[Core.scala 58:19]
+  wire  wbu_io_commit_0_mcycle; // @[Core.scala 58:19]
+  wire  wbu_io_commit_0_is_clint; // @[Core.scala 58:19]
+  wire  wbu_io_commit_0_is_mmio; // @[Core.scala 58:19]
   wire  wbu_io_commit_1_valid; // @[Core.scala 58:19]
   wire [31:0] wbu_io_commit_1_pc; // @[Core.scala 58:19]
   wire [31:0] wbu_io_commit_1_inst; // @[Core.scala 58:19]
   wire  wbu_io_commit_1_wen; // @[Core.scala 58:19]
   wire [4:0] wbu_io_commit_1_waddr; // @[Core.scala 58:19]
   wire [63:0] wbu_io_commit_1_wdata; // @[Core.scala 58:19]
+  wire  wbu_io_commit_1_mcycle; // @[Core.scala 58:19]
+  wire  wbu_io_commit_1_is_clint; // @[Core.scala 58:19]
+  wire  wbu_io_commit_1_is_mmio; // @[Core.scala 58:19]
   wire  bpu_clock; // @[Core.scala 59:19]
   wire  bpu_reset; // @[Core.scala 59:19]
   wire  bpu_io_ifu_valid; // @[Core.scala 59:19]
@@ -18326,12 +18389,18 @@ module Core_SimSoc(
   reg [63:0] wbu_io_in_bits_r_0_final_result; // @[Reg.scala 27:20]
   reg [4:0] wbu_io_in_bits_r_0_dest; // @[Reg.scala 27:20]
   reg  wbu_io_in_bits_r_0_wen; // @[Reg.scala 27:20]
+  reg  wbu_io_in_bits_r_0_mcycle; // @[Reg.scala 27:20]
+  reg  wbu_io_in_bits_r_0_is_clint; // @[Reg.scala 27:20]
+  reg  wbu_io_in_bits_r_0_is_mmio; // @[Reg.scala 27:20]
   reg  wbu_io_in_bits_r_1_valid; // @[Reg.scala 27:20]
   reg [31:0] wbu_io_in_bits_r_1_pc; // @[Reg.scala 27:20]
   reg [31:0] wbu_io_in_bits_r_1_inst; // @[Reg.scala 27:20]
   reg [63:0] wbu_io_in_bits_r_1_final_result; // @[Reg.scala 27:20]
   reg [4:0] wbu_io_in_bits_r_1_dest; // @[Reg.scala 27:20]
   reg  wbu_io_in_bits_r_1_wen; // @[Reg.scala 27:20]
+  reg  wbu_io_in_bits_r_1_mcycle; // @[Reg.scala 27:20]
+  reg  wbu_io_in_bits_r_1_is_clint; // @[Reg.scala 27:20]
+  reg  wbu_io_in_bits_r_1_is_mmio; // @[Reg.scala 27:20]
   IFU ifu ( // @[Core.scala 53:19]
     .clock(ifu_clock),
     .reset(ifu_reset),
@@ -18620,12 +18689,18 @@ module Core_SimSoc(
     .io_out_bits_0_final_result(exu_io_out_bits_0_final_result),
     .io_out_bits_0_dest(exu_io_out_bits_0_dest),
     .io_out_bits_0_wen(exu_io_out_bits_0_wen),
+    .io_out_bits_0_mcycle(exu_io_out_bits_0_mcycle),
+    .io_out_bits_0_is_clint(exu_io_out_bits_0_is_clint),
+    .io_out_bits_0_is_mmio(exu_io_out_bits_0_is_mmio),
     .io_out_bits_1_valid(exu_io_out_bits_1_valid),
     .io_out_bits_1_pc(exu_io_out_bits_1_pc),
     .io_out_bits_1_inst(exu_io_out_bits_1_inst),
     .io_out_bits_1_final_result(exu_io_out_bits_1_final_result),
     .io_out_bits_1_dest(exu_io_out_bits_1_dest),
     .io_out_bits_1_wen(exu_io_out_bits_1_wen),
+    .io_out_bits_1_mcycle(exu_io_out_bits_1_mcycle),
+    .io_out_bits_1_is_clint(exu_io_out_bits_1_is_clint),
+    .io_out_bits_1_is_mmio(exu_io_out_bits_1_is_mmio),
     .io_forward_0_blk_valid(exu_io_forward_0_blk_valid),
     .io_forward_0_fwd_valid(exu_io_forward_0_fwd_valid),
     .io_forward_0_rf_waddr(exu_io_forward_0_rf_waddr),
@@ -18658,12 +18733,18 @@ module Core_SimSoc(
     .io_in_bits_0_final_result(wbu_io_in_bits_0_final_result),
     .io_in_bits_0_dest(wbu_io_in_bits_0_dest),
     .io_in_bits_0_wen(wbu_io_in_bits_0_wen),
+    .io_in_bits_0_mcycle(wbu_io_in_bits_0_mcycle),
+    .io_in_bits_0_is_clint(wbu_io_in_bits_0_is_clint),
+    .io_in_bits_0_is_mmio(wbu_io_in_bits_0_is_mmio),
     .io_in_bits_1_valid(wbu_io_in_bits_1_valid),
     .io_in_bits_1_pc(wbu_io_in_bits_1_pc),
     .io_in_bits_1_inst(wbu_io_in_bits_1_inst),
     .io_in_bits_1_final_result(wbu_io_in_bits_1_final_result),
     .io_in_bits_1_dest(wbu_io_in_bits_1_dest),
     .io_in_bits_1_wen(wbu_io_in_bits_1_wen),
+    .io_in_bits_1_mcycle(wbu_io_in_bits_1_mcycle),
+    .io_in_bits_1_is_clint(wbu_io_in_bits_1_is_clint),
+    .io_in_bits_1_is_mmio(wbu_io_in_bits_1_is_mmio),
     .io_wb_bus_0_rf_wen(wbu_io_wb_bus_0_rf_wen),
     .io_wb_bus_0_rf_waddr(wbu_io_wb_bus_0_rf_waddr),
     .io_wb_bus_0_rf_wdata(wbu_io_wb_bus_0_rf_wdata),
@@ -18676,12 +18757,18 @@ module Core_SimSoc(
     .io_commit_0_wen(wbu_io_commit_0_wen),
     .io_commit_0_waddr(wbu_io_commit_0_waddr),
     .io_commit_0_wdata(wbu_io_commit_0_wdata),
+    .io_commit_0_mcycle(wbu_io_commit_0_mcycle),
+    .io_commit_0_is_clint(wbu_io_commit_0_is_clint),
+    .io_commit_0_is_mmio(wbu_io_commit_0_is_mmio),
     .io_commit_1_valid(wbu_io_commit_1_valid),
     .io_commit_1_pc(wbu_io_commit_1_pc),
     .io_commit_1_inst(wbu_io_commit_1_inst),
     .io_commit_1_wen(wbu_io_commit_1_wen),
     .io_commit_1_waddr(wbu_io_commit_1_waddr),
-    .io_commit_1_wdata(wbu_io_commit_1_wdata)
+    .io_commit_1_wdata(wbu_io_commit_1_wdata),
+    .io_commit_1_mcycle(wbu_io_commit_1_mcycle),
+    .io_commit_1_is_clint(wbu_io_commit_1_is_clint),
+    .io_commit_1_is_mmio(wbu_io_commit_1_is_mmio)
   );
   BPU bpu ( // @[Core.scala 59:19]
     .clock(bpu_clock),
@@ -18849,12 +18936,18 @@ module Core_SimSoc(
   assign io_commit_0_wen = wbu_io_commit_0_wen; // @[Core.scala 86:18]
   assign io_commit_0_waddr = wbu_io_commit_0_waddr; // @[Core.scala 86:18]
   assign io_commit_0_wdata = wbu_io_commit_0_wdata; // @[Core.scala 86:18]
+  assign io_commit_0_mcycle = wbu_io_commit_0_mcycle; // @[Core.scala 86:18]
+  assign io_commit_0_is_clint = wbu_io_commit_0_is_clint; // @[Core.scala 86:18]
+  assign io_commit_0_is_mmio = wbu_io_commit_0_is_mmio; // @[Core.scala 86:18]
   assign io_commit_1_valid = wbu_io_commit_1_valid; // @[Core.scala 86:18]
   assign io_commit_1_pc = wbu_io_commit_1_pc; // @[Core.scala 86:18]
   assign io_commit_1_inst = wbu_io_commit_1_inst; // @[Core.scala 86:18]
   assign io_commit_1_wen = wbu_io_commit_1_wen; // @[Core.scala 86:18]
   assign io_commit_1_waddr = wbu_io_commit_1_waddr; // @[Core.scala 86:18]
   assign io_commit_1_wdata = wbu_io_commit_1_wdata; // @[Core.scala 86:18]
+  assign io_commit_1_mcycle = wbu_io_commit_1_mcycle; // @[Core.scala 86:18]
+  assign io_commit_1_is_clint = wbu_io_commit_1_is_clint; // @[Core.scala 86:18]
+  assign io_commit_1_is_mmio = wbu_io_commit_1_is_mmio; // @[Core.scala 86:18]
   assign ifu_clock = clock;
   assign ifu_reset = reset;
   assign ifu_io_imem_fence_finish = icache_io_in_fence_finish; // @[Core.scala 68:15]
@@ -19012,12 +19105,18 @@ module Core_SimSoc(
   assign wbu_io_in_bits_0_final_result = wbu_io_in_bits_r_0_final_result; // @[Connect.scala 13:16]
   assign wbu_io_in_bits_0_dest = wbu_io_in_bits_r_0_dest; // @[Connect.scala 13:16]
   assign wbu_io_in_bits_0_wen = wbu_io_in_bits_r_0_wen; // @[Connect.scala 13:16]
+  assign wbu_io_in_bits_0_mcycle = wbu_io_in_bits_r_0_mcycle; // @[Connect.scala 13:16]
+  assign wbu_io_in_bits_0_is_clint = wbu_io_in_bits_r_0_is_clint; // @[Connect.scala 13:16]
+  assign wbu_io_in_bits_0_is_mmio = wbu_io_in_bits_r_0_is_mmio; // @[Connect.scala 13:16]
   assign wbu_io_in_bits_1_valid = wbu_io_in_bits_r_1_valid; // @[Connect.scala 13:16]
   assign wbu_io_in_bits_1_pc = wbu_io_in_bits_r_1_pc; // @[Connect.scala 13:16]
   assign wbu_io_in_bits_1_inst = wbu_io_in_bits_r_1_inst; // @[Connect.scala 13:16]
   assign wbu_io_in_bits_1_final_result = wbu_io_in_bits_r_1_final_result; // @[Connect.scala 13:16]
   assign wbu_io_in_bits_1_dest = wbu_io_in_bits_r_1_dest; // @[Connect.scala 13:16]
   assign wbu_io_in_bits_1_wen = wbu_io_in_bits_r_1_wen; // @[Connect.scala 13:16]
+  assign wbu_io_in_bits_1_mcycle = wbu_io_in_bits_r_1_mcycle; // @[Connect.scala 13:16]
+  assign wbu_io_in_bits_1_is_clint = wbu_io_in_bits_r_1_is_clint; // @[Connect.scala 13:16]
+  assign wbu_io_in_bits_1_is_mmio = wbu_io_in_bits_r_1_is_mmio; // @[Connect.scala 13:16]
   assign bpu_clock = clock;
   assign bpu_reset = reset;
   assign bpu_io_ifu_valid = ifu_io_bpu_valid; // @[Core.scala 70:14]
@@ -19633,6 +19732,21 @@ module Core_SimSoc(
       wbu_io_in_bits_r_0_wen <= exu_io_out_bits_0_wen; // @[Reg.scala 28:23]
     end
     if (reset) begin // @[Reg.scala 27:20]
+      wbu_io_in_bits_r_0_mcycle <= 1'h0; // @[Reg.scala 27:20]
+    end else if (fire_4) begin // @[Reg.scala 28:19]
+      wbu_io_in_bits_r_0_mcycle <= exu_io_out_bits_0_mcycle; // @[Reg.scala 28:23]
+    end
+    if (reset) begin // @[Reg.scala 27:20]
+      wbu_io_in_bits_r_0_is_clint <= 1'h0; // @[Reg.scala 27:20]
+    end else if (fire_4) begin // @[Reg.scala 28:19]
+      wbu_io_in_bits_r_0_is_clint <= exu_io_out_bits_0_is_clint; // @[Reg.scala 28:23]
+    end
+    if (reset) begin // @[Reg.scala 27:20]
+      wbu_io_in_bits_r_0_is_mmio <= 1'h0; // @[Reg.scala 27:20]
+    end else if (fire_4) begin // @[Reg.scala 28:19]
+      wbu_io_in_bits_r_0_is_mmio <= exu_io_out_bits_0_is_mmio; // @[Reg.scala 28:23]
+    end
+    if (reset) begin // @[Reg.scala 27:20]
       wbu_io_in_bits_r_1_valid <= 1'h0; // @[Reg.scala 27:20]
     end else if (fire_4) begin // @[Reg.scala 28:19]
       wbu_io_in_bits_r_1_valid <= exu_io_out_bits_1_valid; // @[Reg.scala 28:23]
@@ -19661,6 +19775,21 @@ module Core_SimSoc(
       wbu_io_in_bits_r_1_wen <= 1'h0; // @[Reg.scala 27:20]
     end else if (fire_4) begin // @[Reg.scala 28:19]
       wbu_io_in_bits_r_1_wen <= exu_io_out_bits_1_wen; // @[Reg.scala 28:23]
+    end
+    if (reset) begin // @[Reg.scala 27:20]
+      wbu_io_in_bits_r_1_mcycle <= 1'h0; // @[Reg.scala 27:20]
+    end else if (fire_4) begin // @[Reg.scala 28:19]
+      wbu_io_in_bits_r_1_mcycle <= exu_io_out_bits_1_mcycle; // @[Reg.scala 28:23]
+    end
+    if (reset) begin // @[Reg.scala 27:20]
+      wbu_io_in_bits_r_1_is_clint <= 1'h0; // @[Reg.scala 27:20]
+    end else if (fire_4) begin // @[Reg.scala 28:19]
+      wbu_io_in_bits_r_1_is_clint <= exu_io_out_bits_1_is_clint; // @[Reg.scala 28:23]
+    end
+    if (reset) begin // @[Reg.scala 27:20]
+      wbu_io_in_bits_r_1_is_mmio <= 1'h0; // @[Reg.scala 27:20]
+    end else if (fire_4) begin // @[Reg.scala 28:19]
+      wbu_io_in_bits_r_1_is_mmio <= exu_io_out_bits_1_is_mmio; // @[Reg.scala 28:23]
     end
   end
 // Register and memory initialization
@@ -19922,17 +20051,29 @@ initial begin
   _RAND_110 = {1{`RANDOM}};
   wbu_io_in_bits_r_0_wen = _RAND_110[0:0];
   _RAND_111 = {1{`RANDOM}};
-  wbu_io_in_bits_r_1_valid = _RAND_111[0:0];
+  wbu_io_in_bits_r_0_mcycle = _RAND_111[0:0];
   _RAND_112 = {1{`RANDOM}};
-  wbu_io_in_bits_r_1_pc = _RAND_112[31:0];
+  wbu_io_in_bits_r_0_is_clint = _RAND_112[0:0];
   _RAND_113 = {1{`RANDOM}};
-  wbu_io_in_bits_r_1_inst = _RAND_113[31:0];
-  _RAND_114 = {2{`RANDOM}};
-  wbu_io_in_bits_r_1_final_result = _RAND_114[63:0];
+  wbu_io_in_bits_r_0_is_mmio = _RAND_113[0:0];
+  _RAND_114 = {1{`RANDOM}};
+  wbu_io_in_bits_r_1_valid = _RAND_114[0:0];
   _RAND_115 = {1{`RANDOM}};
-  wbu_io_in_bits_r_1_dest = _RAND_115[4:0];
+  wbu_io_in_bits_r_1_pc = _RAND_115[31:0];
   _RAND_116 = {1{`RANDOM}};
-  wbu_io_in_bits_r_1_wen = _RAND_116[0:0];
+  wbu_io_in_bits_r_1_inst = _RAND_116[31:0];
+  _RAND_117 = {2{`RANDOM}};
+  wbu_io_in_bits_r_1_final_result = _RAND_117[63:0];
+  _RAND_118 = {1{`RANDOM}};
+  wbu_io_in_bits_r_1_dest = _RAND_118[4:0];
+  _RAND_119 = {1{`RANDOM}};
+  wbu_io_in_bits_r_1_wen = _RAND_119[0:0];
+  _RAND_120 = {1{`RANDOM}};
+  wbu_io_in_bits_r_1_mcycle = _RAND_120[0:0];
+  _RAND_121 = {1{`RANDOM}};
+  wbu_io_in_bits_r_1_is_clint = _RAND_121[0:0];
+  _RAND_122 = {1{`RANDOM}};
+  wbu_io_in_bits_r_1_is_mmio = _RAND_122[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -20457,12 +20598,18 @@ module SimSocTop(
   output         io_commit_0_wen,
   output [4:0]   io_commit_0_waddr,
   output [63:0]  io_commit_0_wdata,
+  output         io_commit_0_mcycle,
+  output         io_commit_0_is_clint,
+  output         io_commit_0_is_mmio,
   output         io_commit_1_valid,
   output [31:0]  io_commit_1_pc,
   output [31:0]  io_commit_1_inst,
   output         io_commit_1_wen,
   output [4:0]   io_commit_1_waddr,
   output [63:0]  io_commit_1_wdata,
+  output         io_commit_1_mcycle,
+  output         io_commit_1_is_clint,
+  output         io_commit_1_is_mmio,
   output [5:0]   io_sram0_addr,
   output         io_sram0_cen,
   output         io_sram0_wen,
@@ -20571,12 +20718,18 @@ module SimSocTop(
   wire  core_io_commit_0_wen; // @[SocTop.scala 65:20]
   wire [4:0] core_io_commit_0_waddr; // @[SocTop.scala 65:20]
   wire [63:0] core_io_commit_0_wdata; // @[SocTop.scala 65:20]
+  wire  core_io_commit_0_mcycle; // @[SocTop.scala 65:20]
+  wire  core_io_commit_0_is_clint; // @[SocTop.scala 65:20]
+  wire  core_io_commit_0_is_mmio; // @[SocTop.scala 65:20]
   wire  core_io_commit_1_valid; // @[SocTop.scala 65:20]
   wire [31:0] core_io_commit_1_pc; // @[SocTop.scala 65:20]
   wire [31:0] core_io_commit_1_inst; // @[SocTop.scala 65:20]
   wire  core_io_commit_1_wen; // @[SocTop.scala 65:20]
   wire [4:0] core_io_commit_1_waddr; // @[SocTop.scala 65:20]
   wire [63:0] core_io_commit_1_wdata; // @[SocTop.scala 65:20]
+  wire  core_io_commit_1_mcycle; // @[SocTop.scala 65:20]
+  wire  core_io_commit_1_is_clint; // @[SocTop.scala 65:20]
+  wire  core_io_commit_1_is_mmio; // @[SocTop.scala 65:20]
   wire  sram_bridge_io_sram_cache_0_en; // @[SocTop.scala 66:27]
   wire  sram_bridge_io_sram_cache_0_wen; // @[SocTop.scala 66:27]
   wire [5:0] sram_bridge_io_sram_cache_0_addr; // @[SocTop.scala 66:27]
@@ -20769,12 +20922,18 @@ module SimSocTop(
     .io_commit_0_wen(core_io_commit_0_wen),
     .io_commit_0_waddr(core_io_commit_0_waddr),
     .io_commit_0_wdata(core_io_commit_0_wdata),
+    .io_commit_0_mcycle(core_io_commit_0_mcycle),
+    .io_commit_0_is_clint(core_io_commit_0_is_clint),
+    .io_commit_0_is_mmio(core_io_commit_0_is_mmio),
     .io_commit_1_valid(core_io_commit_1_valid),
     .io_commit_1_pc(core_io_commit_1_pc),
     .io_commit_1_inst(core_io_commit_1_inst),
     .io_commit_1_wen(core_io_commit_1_wen),
     .io_commit_1_waddr(core_io_commit_1_waddr),
-    .io_commit_1_wdata(core_io_commit_1_wdata)
+    .io_commit_1_wdata(core_io_commit_1_wdata),
+    .io_commit_1_mcycle(core_io_commit_1_mcycle),
+    .io_commit_1_is_clint(core_io_commit_1_is_clint),
+    .io_commit_1_is_mmio(core_io_commit_1_is_mmio)
   );
   SramBridge sram_bridge ( // @[SocTop.scala 66:27]
     .io_sram_cache_0_en(sram_bridge_io_sram_cache_0_en),
@@ -20924,12 +21083,18 @@ module SimSocTop(
   assign io_commit_0_wen = core_io_commit_0_wen; // @[SocTop.scala 95:18]
   assign io_commit_0_waddr = core_io_commit_0_waddr; // @[SocTop.scala 95:18]
   assign io_commit_0_wdata = core_io_commit_0_wdata; // @[SocTop.scala 95:18]
+  assign io_commit_0_mcycle = core_io_commit_0_mcycle; // @[SocTop.scala 95:18]
+  assign io_commit_0_is_clint = core_io_commit_0_is_clint; // @[SocTop.scala 95:18]
+  assign io_commit_0_is_mmio = core_io_commit_0_is_mmio; // @[SocTop.scala 95:18]
   assign io_commit_1_valid = core_io_commit_1_valid; // @[SocTop.scala 95:18]
   assign io_commit_1_pc = core_io_commit_1_pc; // @[SocTop.scala 95:18]
   assign io_commit_1_inst = core_io_commit_1_inst; // @[SocTop.scala 95:18]
   assign io_commit_1_wen = core_io_commit_1_wen; // @[SocTop.scala 95:18]
   assign io_commit_1_waddr = core_io_commit_1_waddr; // @[SocTop.scala 95:18]
   assign io_commit_1_wdata = core_io_commit_1_wdata; // @[SocTop.scala 95:18]
+  assign io_commit_1_mcycle = core_io_commit_1_mcycle; // @[SocTop.scala 95:18]
+  assign io_commit_1_is_clint = core_io_commit_1_is_clint; // @[SocTop.scala 95:18]
+  assign io_commit_1_is_mmio = core_io_commit_1_is_mmio; // @[SocTop.scala 95:18]
   assign io_sram0_addr = sram_bridge_io_sram_share_0_addr; // @[SocTop.scala 68:32]
   assign io_sram0_cen = sram_bridge_io_sram_share_0_cen; // @[SocTop.scala 68:32]
   assign io_sram0_wen = sram_bridge_io_sram_share_0_wen; // @[SocTop.scala 68:32]
@@ -21111,6 +21276,7 @@ module MySimTop(
   output [63:0] io_commit_0_wdata,
   output        io_commit_0_mcycle,
   output        io_commit_0_is_clint,
+  output        io_commit_0_is_mmio,
   output        io_commit_1_valid,
   output [31:0] io_commit_1_pc,
   output [31:0] io_commit_1_inst,
@@ -21118,7 +21284,8 @@ module MySimTop(
   output [4:0]  io_commit_1_waddr,
   output [63:0] io_commit_1_wdata,
   output        io_commit_1_mcycle,
-  output        io_commit_1_is_clint
+  output        io_commit_1_is_clint,
+  output        io_commit_1_is_mmio
 );
   wire  soctop_clock; // @[MySimTop.scala 12:22]
   wire  soctop_reset; // @[MySimTop.scala 12:22]
@@ -21150,12 +21317,18 @@ module MySimTop(
   wire  soctop_io_commit_0_wen; // @[MySimTop.scala 12:22]
   wire [4:0] soctop_io_commit_0_waddr; // @[MySimTop.scala 12:22]
   wire [63:0] soctop_io_commit_0_wdata; // @[MySimTop.scala 12:22]
+  wire  soctop_io_commit_0_mcycle; // @[MySimTop.scala 12:22]
+  wire  soctop_io_commit_0_is_clint; // @[MySimTop.scala 12:22]
+  wire  soctop_io_commit_0_is_mmio; // @[MySimTop.scala 12:22]
   wire  soctop_io_commit_1_valid; // @[MySimTop.scala 12:22]
   wire [31:0] soctop_io_commit_1_pc; // @[MySimTop.scala 12:22]
   wire [31:0] soctop_io_commit_1_inst; // @[MySimTop.scala 12:22]
   wire  soctop_io_commit_1_wen; // @[MySimTop.scala 12:22]
   wire [4:0] soctop_io_commit_1_waddr; // @[MySimTop.scala 12:22]
   wire [63:0] soctop_io_commit_1_wdata; // @[MySimTop.scala 12:22]
+  wire  soctop_io_commit_1_mcycle; // @[MySimTop.scala 12:22]
+  wire  soctop_io_commit_1_is_clint; // @[MySimTop.scala 12:22]
+  wire  soctop_io_commit_1_is_mmio; // @[MySimTop.scala 12:22]
   wire [5:0] soctop_io_sram0_addr; // @[MySimTop.scala 12:22]
   wire  soctop_io_sram0_cen; // @[MySimTop.scala 12:22]
   wire  soctop_io_sram0_wen; // @[MySimTop.scala 12:22]
@@ -21291,12 +21464,18 @@ module MySimTop(
     .io_commit_0_wen(soctop_io_commit_0_wen),
     .io_commit_0_waddr(soctop_io_commit_0_waddr),
     .io_commit_0_wdata(soctop_io_commit_0_wdata),
+    .io_commit_0_mcycle(soctop_io_commit_0_mcycle),
+    .io_commit_0_is_clint(soctop_io_commit_0_is_clint),
+    .io_commit_0_is_mmio(soctop_io_commit_0_is_mmio),
     .io_commit_1_valid(soctop_io_commit_1_valid),
     .io_commit_1_pc(soctop_io_commit_1_pc),
     .io_commit_1_inst(soctop_io_commit_1_inst),
     .io_commit_1_wen(soctop_io_commit_1_wen),
     .io_commit_1_waddr(soctop_io_commit_1_waddr),
     .io_commit_1_wdata(soctop_io_commit_1_wdata),
+    .io_commit_1_mcycle(soctop_io_commit_1_mcycle),
+    .io_commit_1_is_clint(soctop_io_commit_1_is_clint),
+    .io_commit_1_is_mmio(soctop_io_commit_1_is_mmio),
     .io_sram0_addr(soctop_io_sram0_addr),
     .io_sram0_cen(soctop_io_sram0_cen),
     .io_sram0_wen(soctop_io_sram0_wen),
@@ -21426,16 +21605,18 @@ module MySimTop(
   assign io_commit_0_wen = soctop_io_commit_0_wen; // @[MySimTop.scala 61:18]
   assign io_commit_0_waddr = soctop_io_commit_0_waddr; // @[MySimTop.scala 61:18]
   assign io_commit_0_wdata = soctop_io_commit_0_wdata; // @[MySimTop.scala 61:18]
-  assign io_commit_0_mcycle = 1'h0; // @[MySimTop.scala 61:18]
-  assign io_commit_0_is_clint = 1'h0; // @[MySimTop.scala 61:18]
+  assign io_commit_0_mcycle = soctop_io_commit_0_mcycle; // @[MySimTop.scala 61:18]
+  assign io_commit_0_is_clint = soctop_io_commit_0_is_clint; // @[MySimTop.scala 61:18]
+  assign io_commit_0_is_mmio = soctop_io_commit_0_is_mmio; // @[MySimTop.scala 61:18]
   assign io_commit_1_valid = soctop_io_commit_1_valid; // @[MySimTop.scala 61:18]
   assign io_commit_1_pc = soctop_io_commit_1_pc; // @[MySimTop.scala 61:18]
   assign io_commit_1_inst = soctop_io_commit_1_inst; // @[MySimTop.scala 61:18]
   assign io_commit_1_wen = soctop_io_commit_1_wen; // @[MySimTop.scala 61:18]
   assign io_commit_1_waddr = soctop_io_commit_1_waddr; // @[MySimTop.scala 61:18]
   assign io_commit_1_wdata = soctop_io_commit_1_wdata; // @[MySimTop.scala 61:18]
-  assign io_commit_1_mcycle = 1'h0; // @[MySimTop.scala 61:18]
-  assign io_commit_1_is_clint = 1'h0; // @[MySimTop.scala 61:18]
+  assign io_commit_1_mcycle = soctop_io_commit_1_mcycle; // @[MySimTop.scala 61:18]
+  assign io_commit_1_is_clint = soctop_io_commit_1_is_clint; // @[MySimTop.scala 61:18]
+  assign io_commit_1_is_mmio = soctop_io_commit_1_is_mmio; // @[MySimTop.scala 61:18]
   assign soctop_clock = clock;
   assign soctop_reset = reset;
   assign soctop_io_master_awready = io_axi_awready; // @[MySimTop.scala 13:10]
