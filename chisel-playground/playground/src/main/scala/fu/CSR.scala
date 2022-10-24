@@ -28,7 +28,7 @@ class CSR extends Module with Config {
   val mcycle = RegInit(0.U(64.W))
   val mepc = RegInit(0.U(64.W))
   val mcause = RegInit(0.U(64.W))
-  val mstatus = RegInit("h00001800".U(64.W))
+  val mstatus = RegInit("ha00001800".U(64.W))
   val mtvec = RegInit(0.U(64.W))
   val mip = RegInit(0.U(64.W))
   val mie = RegInit(0.U(64.W))
@@ -95,6 +95,9 @@ class CSR extends Module with Config {
 
   when(has_int && mstatus(3) && mie(7) && io.valid) {
     handle_int := true.B
+  }
+
+  when(has_int) {
     mip := Cat(mip(63, 8), 1.U, mip(6, 0))
   }
 

@@ -5,6 +5,7 @@
 
 void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction)
 {
+    //printf("addr = %x, n = %ld\n", addr, n);
     if (direction == DIFFTEST_TO_DUT)
     {
         memcpy(buf, guest_to_host(addr), n);
@@ -35,6 +36,7 @@ bool reset = false;
 void difftest_exec(uint64_t n)
 {
     //printf("222\n");
+    //printf("n = %ld\n", n);
     if (!reset)
     {
         // I do not know why cpu.pc = 0
