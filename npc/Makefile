@@ -19,7 +19,7 @@ all: sim wave
 
 sim:
 	$(call git_commit, "sim RTL")
-	verilator -O2 -Wno-lint --cc --exe --build --top-module MySimTop --trace-fst -LDFLAGS "-lreadline -ldl -lSDL2 $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(SIMULATOR_FILE) $(VERILOG_FILE)
+	verilator -Wno-lint --cc --exe --build --top-module MySimTop --trace-fst -LDFLAGS "-lreadline -ldl -lSDL2 $(LIBS)" -CFLAGS "$(CXXFLAGS)" $(SIMULATOR_FILE) $(VERILOG_FILE)
 	./obj_dir/VMySimTop $(ARGS) $(IMG)
 
 wave:
