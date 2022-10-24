@@ -1,9 +1,3 @@
-# "一生一芯"工程项目
+# "一生一芯" 考核
 
-这是"一生一芯"的工程项目. 通过运行
-```bash
-bash init.sh subproject-name
-```
-进行初始化, 具体请参考[实验讲义][lecture note].
-
-[lecture note]: https://docs.ysyx.org/schedule.html
+对于 RTL 部分，请在 chisel-playground 文件夹下 `make verilog`，会通过 mill 编译 verilog 文件，之后会自动 copy 到 npc 的 vsrc 文件夹下。
