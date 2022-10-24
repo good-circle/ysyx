@@ -7,7 +7,7 @@
 VerilatedContext *contextp = new VerilatedContext;
 VMySimTop *top = new VMySimTop{contextp};
 //#define WAVE_ON 1;
-//#define DIFF_ON 1;
+#define DIFF_ON 1;
 #ifdef WAVE_ON
 #include "verilated_fst_c.h"
 VerilatedFstC *m_trace = new VerilatedFstC;
@@ -264,7 +264,7 @@ void npc_exec(unsigned int n)
         {
             assert(0);
         }
-        
+
 #ifdef DIFF_ON
         commit_num = commit_0 + commit_1;
 
