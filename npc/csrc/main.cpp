@@ -313,7 +313,7 @@ void npc_exec(unsigned int n)
 #endif
         n--;
         npc_cycle++;
-        device_update();
+        //device_update();
     }
 
     if (is_finish || is_wrong || n <= 0)
