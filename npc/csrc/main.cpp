@@ -179,10 +179,10 @@ void npc_exec(unsigned int n)
         cycle_num++;
         if (cycle_num % 1000000 == 0)
         {
-            //gettimeofday(&end, NULL);
-            //printf("sim_time: %lds, cycles: %lld, ", end.tv_sec - begin.tv_sec, cycle_num);
-            //printf("insts: %lld, ", inst_num);
-            //printf("current_pc: %x\n", top->io_commit_0_pc);
+            gettimeofday(&end, NULL);
+            printf("sim_time: %lds, cycles: %lld, ", end.tv_sec - begin.tv_sec, cycle_num);
+            printf("insts: %lld, ", inst_num);
+            printf("current_pc: %x\n", top->io_commit_0_pc);
         }
         // printf("%lld\n", cycle_num);
         // printf("%x\n", top->io_commit_0_pc);
